@@ -1,0 +1,1246 @@
+\documentclass[12pt, twoside]{book}\usepackage[]{graphicx}\usepackage[]{color}
+
+\usepackage{alltt}\usepackage[]{graphicx}\usepackage[]{color}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{lscape} %Para seleccionar páginas horizontales 
+\usepackage[cc]{titlepic} 
+\usepackage[hidelinks]{hyperref}  %Para links ocultos
+\usepackage{url} %Para direcciones web
+\usepackage[makeroom]{cancel}
+\pagestyle{fancy}
+\usepackage{multicol} % muchas columnas
+\usepackage{booktabs} % midrule, bottomrule
+\usepackage{titlesec} % cambiar secuencias de TOC 
+\let\bold\boldsymbol
+\let\bf\mathbf
+
+
+\fancyhf{}
+ \setcounter{page}{1}
+%\rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
+\setcounter{section}{0}
+
+\usepackage[caption=false]{subfig}
+\usepackage{blindtext}  %Texo sin sentido
+\usepackage{amsmath} \newenvironment{smatrix}{\left(\begin{smallmatrix}}{\end{smallmatrix}\right)} %SMALL
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\DeclareMathOperator{\sgn}{sgn} %Para formalizar la función signo 
+\usepackage{enumerate}
+\usepackage{dsfont} %Para usar una indicadora
+\numberwithin{equation}{section}
+\usepackage{xcolor}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{biblio.bib}
+\usepackage{booktabs,caption}
+\usepackage[flushleft]{threeparttable}
+
+\usepackage{mdframed} %Para usar recuadros
+
+    \usepackage{framed}
+
+    \colorlet{shadecolor}{blue!15}
+
+    \newtheorem{theorem}{Observación}
+    \newenvironment{theo}
+      {\begin{shaded}\begin{theorem}}
+      {\end{theorem}\end{shaded}}
+      \numberwithin{theorem}{section}
+
+\colorlet{shadecolor}{red!15}
+
+    \newtheorem{teorema}{Proposición}
+    \newenvironment{teo}
+      {\begin{shaded}\begin{teorema}}
+      {\end{teorema}\end{shaded}}
+      \numberwithin{teorema}{section}
+
+\colorlet{shadecolor}{gray!15}
+    \newtheorem{defi}{Definición}
+    \newenvironment{defin}
+      {\begin{shaded}\begin{defi}}
+      {\end{defi}\end{shaded}}
+      \numberwithin{defi}{section}
+%\newtheorem{rexample}{Código R}[subsection]
+\newtheorem{prop}{Proposición}
+%\newtheorem{defi}{Definición}
+\numberwithin{prop}{section}
+\numberwithin{defi}{section}
+\theoremstyle{plain}
+\setlength{\textfloatsep}{10pt}
+\usepackage{multicol}
+\usepackage{float}
+
+\usepackage[affil-it]{authblk}
+\usepackage{setspace}
+\usepackage{listings}
+
+\usepackage{geometry}
+\geometry{a4paper, left=3cm, right=3cm, top=3cm, bottom=3cm}
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\title{Análisis de datos: Transmisión de precios}
+\author{H\'ector Garrido Henr\'iquez\thanks{Ingeniero Comercial. Contacto: \texttt{hectorgarridohenriquez@gmail.com}} \\ 
+Profesor: Sergio Contreras Espinoza}
+
+\affil{Mag\'ister en Matem\'atica Menci\'on Estad\'istica \\ Universidad del B\'io-B\'io}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+\allowdisplaybreaks
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+\begin{titlepage}
+\begin{center}
+\includegraphics[scale=0.07]{./figure/logo.png}\\
+\textsc{\Large Universidad del Bío-Bío \\[0.5cm] Facultad de Ciencias}\\[1cm] % University name
+\textsc{\Large}\\[0.3cm] % Thesis type
+
+\noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}} 
+{\huge Transmisi\'on Asim\'etrica de Precios en el sector de la palta en Chile:\\[0.3cm] Evidencia desde un modelo TVECM}\\[0.4cm] % Thesis title
+\noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}} 
+
+\textsc{\Large}\\[0.5cm] % Thesis type
+
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft} \large
+\emph{Autor:}\\
+Héctor Garrido Henríquez % Author name - remove the \href bracket to remove the link
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft} \large
+\emph{Profesor(es) Guía(s):} \\
+Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia 
+\end{flushleft}
+\end{minipage}\\[2cm]
+ 
+\large \textit{Tesis para optar al grado de Magíster en Matemática con mención en Estadística}\\[0.3cm] % University requirement text
+\textit{}\\[0.4cm]
+\ Departamento de Estadística \\
+[0.4cm]\ Departamento de Matemática
+\\[1cm] % Research group name and department name
+ 
+{\large \today}\\[2cm] % Date
+%\includegraphics{Logo} % University/department logo - uncomment to place it
+ 
+%\vfill
+\end{center}
+
+\end{titlepage}
+\newpage
+
+
+
+\tableofcontents
+
+\listoffigures
+\listoftables
+\onehalfspacing
+\chapter*{Agradecimientos}
+\chapter*{Abstract}
+\chapter{Introducción}
+\section{introducción}
+\section{justificación del trabajo}
+
+
+
+\chapter{Análisis univariante de las series de precios}
+\section{Fuentes de información}
+
+\subsection{Imputación de valores perdidos}
+
+<<include=FALSE>>=
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, out.width='4.5in', out.height='3.5in', fig.align='center', message=FALSE, fig.pos='H')
+@
+
+
+<<echo=FALSE, results='hide', message=FALSE, warning=FALSE>>=
+setwd( "/home/hector/GoogleDrivePersonal/Master/Tesis")
+#source("importa_semanales.R")
+source("weekly_palta.R")
+@
+
+
+<<results='hide', echo=FALSE, message=FALSE>>=
+if (!require(forecast)) install.packages("forecast")
+
+fit1 = auto.arima(precio_mayorista, seasonal=FALSE)
+# Filtro de Kalman 
+kr1 = KalmanRun(precio_mayorista, fit1$model)
+id.na1 = which(is.na(precio_mayorista))
+y1 = precio_mayorista
+for (i in id.na1){
+  y1[i] = fit1$model$Z %*% kr1$states[i,]
+}
+y1[id.na1]  
+
+
+fit2 = auto.arima(precio_supermercado, seasonal=FALSE)
+# Filtro de Kalman 
+kr2 = KalmanRun(precio_supermercado, fit2$model)
+id.na2 = which(is.na(precio_supermercado))
+y2 = precio_supermercado
+for (i in id.na2){
+  y2[i] = fit2$model$Z %*% kr2$states[i,]
+}
+y2[id.na2]  
+
+@
+
+<<fig-1,echo=F,fig.cap='Evolución de precios del tomate de larga vida de primera calidad,2008-2016', out.width='6.5in', out.height='3.5in', fig.align='center', fig.pos='H'>>=
+
+par(family="serif", bty="l", bg="white", cex.lab=1) # opciones gráficas
+ts.plot(exp(precio_mayorista), exp(precio_supermercado), lty=1:2,
+        lwd=1, ylab="$/kilo", xlab="Tiempo")
+legend("topleft", legend = c("Mayorista", "Supermercado"),lty=1:2, lwd=2, cex=0.8)
+
+@
+
+
+<<fig-2,echo=F,fig.cap='Imputación de valores perdidos a través del filtro de Kalman', out.width='6.5in', out.height='4.5in', fig.align='center', fig.pos='H'>>=
+layout(matrix(c(1,1,1,1,1,
+                2,2,2,2,2),2,5, byrow=TRUE))
+
+par(family="serif", bty="l", par(family="serif", bty="l")) # opciones gráficas
+plot(precio_mayorista, lty=2 ,ylab="Precio tomate mayorista ($/kilo)", 
+     xlab="Tiempo")
+lines(y1, lwd=1, lty=1)
+points(time(y1)[id.na1], y1[id.na1], col = "red", pch = 18, cex=2)
+legend("topleft", legend = c("Valores imputados"), 
+  col = c("red"), pch = c(18), cex=1.5)
+
+plot(precio_supermercado, lty=2 ,ylab="Precio tomate supermercado ($/kilo)", 
+     xlab="Tiempo")
+lines(y2, lwd=1, lty=1)
+points(time(y2)[id.na2], y2[id.na2], col = "blue", pch = 18, cex=2)
+legend("topleft", legend = c("Valores imputados"), 
+  col = c("blue"), pch = c(18), cex=1.5)
+
+@
+
+
+\section{Análisis del orden de integración de las series}
+\subsection{Análisis gráfico}
+
+<<fig-2.1,echo=F,fig.cap='Evolución del logaritmo del precio mayorista de la palta ,2008-2016', out.width='6in', out.height='6.5in', fig.align='center', fig.pos='H'>>=
+par(family="serif", bty="l")
+layout(matrix(c(1,1,1,1,1,
+                2,2,0,3,3,
+                4,4,4,4,4),3,5, byrow=TRUE))
+plot(y1, main="a) Evolución log(precios) mayoristas, 2008-2016", 
+     ylab="$/kilo")
+Acf(y1, main="b) Función de autocorrelación", lag.max = 200)
+Pacf(y1, main="c) Función de autocorrelación parcial", lag.max = 200)
+boxplot(y1~cycle(y1), main="Diagrama de caja y bigote")
+@
+
+
+<<fig-2.2,echo=F,fig.cap='Evolución del logaritmo del precio en supermercado de la palta ,2008-2016', out.width='6in', out.height='6.5in', fig.align='center', fig.pos='H'>>=
+par(family="serif", bty="l")
+layout(matrix(c(1,1,1,1,1,
+                2,2,0,3,3,
+                4,4,4,4,4),3,5, byrow=TRUE))
+plot(y2, main="a) Evolución log(precios) supermercado, 2008-2016", 
+     ylab="$/kilo")
+Acf(y2, main="b) Función de autocorrelación", lag.max = 200)
+Pacf(y2, main="c) Función de autocorrelación parcial", lag.max = 200)
+boxplot(y2~cycle(y2), main="Diagrama de caja y bigote")
+@
+
+\section{Contrastes de raíz unitaria}
+\subsection{Contraste de Dickey-Fuller Aumentado}
+
+El contraste más utilizado en la investigación aplicada, dada su simplicidad, es el contraste propuesto por \cite{fuller1976} y \cite{dickey1981}. Para aplicar este contraste existen dos posibles modelos 
+
+Si $y_{t}$ satisface la siguiente ecuación
+
+\begin{equation}
+y_{t} = \alpha+\rho y_{t-1}+\epsilon_{t}\qquad (t=1,...,n)
+\end{equation}
+Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$. 
+
+Si $y_{t}$ satisface la siguiente ecuación 
+
+Como puede observarse en el cuadro \ref{tab-1}, existen 3 estadísticos, $\Phi_{1},\quad \Phi_{2}$ y $\Phi_{3}$, y sus respectivas hipótesis que pueden ser utilizados. Mientras $\Phi_{1}$
+\begin{equation}
+y_{t} = \alpha+\beta\left(t-1-\frac{1}{2}n\right)+\rho y_{t-1}+\epsilon_{t}\qquad (t=1,...,n)
+\end{equation}
+Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$. 
+
+\begin{table}[h]
+\centering
+\begin{threeparttable}
+\caption{Hipótesis del contraste de Dickey-Fuller}
+\begin{tabular}{@{}llrllll@{}}
+\toprule
+\multicolumn{2}{l}{Estadístico} & \multicolumn{2}{c}{$\mathcal{H}_{0}$} &
+\multicolumn{2}{c}{$\mathcal{H}_{a}$} \\
+\cmidrule(l){3-4} \cmidrule(l){5-6} \\
+\multicolumn{2}{l}{$\Phi_{1}$} &
+\multicolumn{2}{l}{$(\alpha,\rho)=(0,1)$} &
+\multicolumn{2}{l}{$(\alpha,\rho)\neq(0,1)$} \\
+\multicolumn{2}{l}{$\Phi_{2}$} &
+\multicolumn{2}{l}{$(\alpha,\beta, \rho)=(0,0,1)$} &
+\multicolumn{2}{l}{$(\alpha,\beta,\rho)\neq(0,0,1)$} \\
+\multicolumn{2}{l}{$\Phi_{3}$} &
+\multicolumn{2}{l}{$(\alpha,\beta, \rho)=(\alpha,0,1)$} &
+\multicolumn{2}{l}{$(\alpha,\beta,\rho)\neq(\alpha,0,1)$} \\
+\bottomrule
+\end{tabular}
+\label{tab-1}
+\begin{tablenotes}
+\small
+\item Fuente: Elaboración propia basado en Dickey y Fuller (1981)
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsection{Contraste de Phillips Perron (1992)}
+
+De manera similar al contraste anterior \cite{phillips1988} proponen 
+\subsection{Contraste Kiatkowsky, Pesaran, Schmidt \& Shin (1992)}
+\subsection{Contraste de Elliot, Rothenberg \& Stock (1993)} 
+
+\subsection{Contraste de Canova \& Hansen (1995) para estacionalidad estable}
+
+\section{Resultados de los contrastes de raíz unitaria}
+
+<<echo=FALSE>>=
+if (!require(urca)) install.packages("urca")
+
+dickey1 = ur.df(y1, type="trend", selectlags = c("BIC"))
+dickey2 = ur.df(y2, type="trend", selectlags = c("BIC"))
+
+dickey11 = ur.df(y1, type="drift", selectlags = c("BIC"))
+dickey21 = ur.df(y2, type="drift", selectlags = c("BIC"))
+@
+
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Dickey-Fuller aumentado (con tendencia determinista)}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & -3.1822 &  -2.0437 & -3.13 & -3.42 & -3.98 \\
+$\phi_{2} $  & 3.393   &  1.5448 & 4.05 & 4.71 & 6.15 \\
+$\phi_{3}$   & 5.0686  &  2.0907 &    5.36    &   6.30   &  8.34    \\ 
+\bottomrule
+\end{tabular}
+\label{tab-2}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Dickey-Fuller aumentado (con drift)}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{2} $  & -2.7628 &  -1.7114 & -2.57 & -2.87 & -3.44 \\
+$\phi_{1} $  & 3.8373  &  1.6909 & 1.6909 & 4.61 & 3.79 \\
+\bottomrule
+\end{tabular}
+\label{tab-3}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+<<include=FALSE>>=
+pperron1 =ur.pp(y1, type=c("Z-alpha"), model = c("trend"), lags = c("short")) 
+
+pperron2 =ur.pp(y2, type=c("Z-alpha"), model = c("trend"), lags = c("short")) 
+
+@
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)}
+\begin{tabular}{@{}lrll@{}}
+\toprule
+
+ & \multicolumn{1}{c}{$Z-\alpha$} &
+\multicolumn{1}{l}{$Z-\tau-\mu$}&
+\multicolumn{1}{l}{$Z-\tau-\beta$}
+\\
+\cmidrule(l){2-2} \cmidrule(l){3-4} \\
+Mayorista  & -22.122 &  2.1588 & 1.7097\\
+Supermercado & -11.1245 & 1.0301 & 1.4522 \\
+\bottomrule
+\end{tabular}
+\label{tab-4}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+<<include=FALSE>>=
+pperron11 =ur.pp(y1, type=c("Z-alpha"), model = c("constant"), lags = c("short")) 
+
+pperron21 =ur.pp(y2, type=c("Z-alpha"), model = c("constant"), lags = c("short")) 
+
+@
+
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)}
+\begin{tabular}{@{}lrl@{}}
+\toprule
+
+ & \multicolumn{1}{c}{$Z-\alpha$} &
+\multicolumn{1}{l}{$Z-\tau-\mu$}
+\\
+\cmidrule(l){2-2} \cmidrule(l){3-3} \\
+Mayorista  & -16.0952 &  2.8635 \\
+Supermercado & -7.2938 & 1.9177 \\
+\bottomrule
+\end{tabular}
+\label{tab-5}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+<<include=FALSE>>=
+kpss1 = ur.kpss(y1, type=c("tau"), lags=c("short"))
+
+kpss2 = ur.kpss(y2, type=c("tau"), lags=c("short"))
+
+kpss11 = ur.kpss(y1, type=c("mu"), lags=c("short"))
+
+kpss21 = ur.kpss(y2, type=c("mu"), lags=c("short"))
+@
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste KPSS (con tendencia determinista)}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & 0.2657 &  0.3246 & 0.119 & 0.146 & 0.216 \\
+\bottomrule
+\end{tabular}
+\label{tab-6}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\item $^{b}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste KPSS (sin tendencia determinista)}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & 2.5592 &  2.9497 & 0.347 & 0.463 & 0.739 \\
+\bottomrule
+\end{tabular}
+\label{tab-7}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\item $^{b}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+<<include=FALSE>>=
+
+ers1 = ur.ers(y1, type = c("DF-GLS"), model="trend", lag.max = 5)
+
+ers2 = ur.ers(y2, type = c("DF-GLS"), model="trend", lag.max = 5)
+
+ers11 = ur.ers(y1, type = c("DF-GLS"), model="constant", lag.max = 5)
+
+ers21 = ur.ers(y2, type = c("DF-GLS"), model="constant", lag.max = 5)
+@
+
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+  & -3.1558 &  -2.0504 & -2.57 & -2.89 & -3.48 \\
+\bottomrule
+\end{tabular}
+\label{tab-8}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con constante)}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+  & -2.3519 &  -0.8837 & -1.62 & -1.94 & -2.57 \\
+\bottomrule
+\end{tabular}
+\label{tab-9}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+<<include=FALSE>>=
+if (!require(uroot)) install.packages("uroot")
+canova1 = ch.test(y1, type="trigonometric")
+
+@
+
+\begin{table}[H]
+\centering
+\caption{Contraste de Canova \& Hansen$^{a}$}
+\begin{threeparttable}
+\begin{tabular}{@{}lll@{}}
+\toprule 
+	&	Estadístico	&	valor-p	\\
+\cmidrule(l){2-2} \cmidrule(l){3-3} \\	
+$	2\pi/52.14	$	& 	0.227	& 	0.6999	\\
+$	4\pi/52.14	$	&	0.2603	&	0.6133	\\
+$	6\pi/52.14	$	& 	0.32	& 	0.4755	\\
+$	8\pi/52.14	$	&	0.2532	&	0.6312	\\
+$	10\pi/52.14	$	& 	0.3436	& 	0.4287	\\
+$	12\pi/52.14	$	&	0.2876	&	0.547	\\
+$	14\pi/52.14	$	& 	0.2109	& 	0.7432	\\
+$	16\pi/52.14	$	&	0.2976	&	0.5239	\\
+$	18\pi/52.14	$	& 	0.2948	& 	0.5304	\\
+$	20\pi/52.14	$	&	0.383	&	0.3595	\\
+$	22\pi/52.14	$	& 	0.306	& 	0.5052	\\
+$	24\pi/52.14	$	&	0.3091	&	0.4985	\\
+$	26\pi/52.14	$	& 	0.2195	& 	0.7199	\\
+$	28\pi/52.14	$	&	0.4032	&	0.3282	\\
+$	30\pi/52.14	$	& 	0.3891	& 	0.3498	\\
+$	32\pi/52.14	$	&	0.1906	&	0.7979	\\
+$	34\pi/52.14	$	& 	0.2511	& 	0.6367	\\
+$	36\pi/52.14	$	&	0.2742	&	0.5789	\\
+$	38\pi/52.14	$	& 	0.6599	& 	0.0982	\\
+$	40\pi/52.14	$	&	0.2673	&	0.5959	\\
+$	42\pi/52.14	$	& 	0.2401	& 	0.6652	\\
+$	44\pi/52.14	$	&	0.1919	&	0.7945	\\
+$	46\pi/52.14	$	& 	0.5093	& 	0.2012	\\
+$	48\pi/52.14	$	&	0.303	&	0.5119	\\
+$	50\pi/52.14	$	& 	0.2531	& 	0.6314	\\
+$	52\pi/52.14	$	&	0.476	&	0.235	\\
+$	joint	$	& 	5.1191	& 	1	\\
+\bottomrule 
+\end{tabular}
+\begin{tablenotes}
+\small
+\item $^{a}$: El contraste utiliza términos trigonométricos
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\chapter{Análisis de cointegración}
+\section{Cointegración y análisis de las relaciones de largo plazo}
+
+{\color{red} \textbf{Apuntes de Juselius}
+
+\begin{itemize}
+\item The time series describing cumulated trend-adjusted shocks is usually called a stochas-
+tic trend. It is a cumulation of random shocks with zero mean and constant variance. If
+\item with a linear deterministic trend component. Thus, the difference between a stochastic
+and deterministic trend is that the increments of a stochastic trend change randomly,
+whereas those of a deterministic trend are constant over time.
+\item It is easy to see that if inflation rate is I(1) with a non-zero mean, then prices will contain
+a integrated twice cumulated of order stochastic two, or in trend, shorthand 
+t
+ s=1 notation 
+i=1 s
+ εi . pt We ∼ say I(2).
+ that trend-adjusted prices are
+\item We shall argue below that, unless a unit root is given a structural interpretation, the
+choice of one representation or the other is as such not very important, as long as there is
+consistency between the economic analysis and the choice. However, from an econometric
+point of view the choice between the two representations is usually crucial for the whole
+empirical analysis and should therefore be carefully considered.
+\item variable.
+Because a cointegrating relation does not necessarily correspond to an interpretable
+economic relation, we make a further distinction between the statistical concept of a
+‘cointegration relation’ and the economic concept of a ‘long-run equilibrium relation’.
+\item say second that stochastic the distinction trend,
+ between 
+ u2i , as a long-run a long-run and structural medium-run trend stochastic or not. trend Thus,in one this might
+ case
+is between an I(1) stochastic trend with no linear trend and a near I(1) stochastic trend
+with a linear trend.
+
+
+
+
+
+\end{itemize}
+
+}
+
+
+\subsection{Modelo Vectorial de Corrección del Error (VECM)}
+Suponga que  cada componente de una serie de tiempo $K$-dimensional $y_{t}$ es $I(1)$. Entonces, la ecuación (VAR) no será una formulación adecuada de este modelo debido a que los términos $y_{t},y_{t-1},...,y_{t-p}$ son todos no estacionarios. De todas formas, sustituyendo 
+\begin{align}
+\bf{A}_{1} & = \bf{I}_{k}+\bold{\Gamma}_{1} \\ 
+\bf{A}_{i} & = \bold{\Gamma_{i}}-\bold{\Gamma_{i-1}} \qquad i=1,...,p-1 \\ 
+\bf{A}_{p} & = -\bold{\Gamma}_{p-1}
+\end{align}
+
+En la ecuación (2.8), reagrupando términos y utilizando que $\Delta \bf{y}_{i} = \bf{y}_{i}-\bf{y}_{i-1}\quad \forall i$, podemos reescribir esta ecuación como 
+\begin{equation}\label{vecm1}
+\Delta \bf{y}_{t}=\bold{\mu}+\bold{\Gamma}_{1}\Delta \bf{y}_{t-1}+\bold{\Gamma}_{2}\Delta \bf{y}_{t-2}+...+\bold{\Gamma}_{p-1}\Delta \bf{y}_{t-p+1}+\bf{u}_{t}
+\end{equation} 
+Naturalmente, ambas ecuaciones describen el mismo modelo, pero preferimos usar la ecuación \eqref{vecm1} cuando $\bf{y}_{t}$ es $I(1)$, debido a que cada término es estacionario en este caso. Entonces, cuando $\bf{y}_{t}$ es $I(1)$, podemos encontrar un modelo apropiado para $y_{t}$ diferenciando cada componente de $\bf{y}_{t}$ una vez, y llevando a cabo la regresión basada en la ecuación \eqref{vecm1}. De todas formas, entonces no podremos tomar en cuenta que podría haber dependencias entre algunos de los componentes de $\bf{y}_{t}$. Por ejemplo, dos de los componentes podrían tener una tendencia en común, o podría existir una combinación lineal de los componente de $y_{t}$ la cual fuera estacionaria. Este problema suele resolverse utilizando incluyendo un \textbf{término de corrección del error} $\bold{\Pi}\bf{y}_{t-1}$ en la ecuación \eqref{vecm1}, donde $\bold{\Pi}$ es una matriz $K\times K$ de cuyo rango $rank(\bold{\Pi})<K$, debido a que si $\bold{\Pi}$ tuviera rango completo, entonces $\bold{\Pi}$  es invertible, de manera que la variable no estacionaria $\bf{y}_{t-1}$ puede ser escrita como la suma de términos estacionarios, lo que es una contradicción. Entonces, $rank(\bold{\Pi})=r<K$ lo cual implica que existen $(K\times r)-matrices$ $\boldsymbol{\alpha}$ y $\boldsymbol{\beta}$ de rango $r$ tales que $\bold{\Pi}=\boldsymbol{\alpha}\boldsymbol{\beta}'$. Entonces, cada una de las $r$ filas de $\boldsymbol{\beta}'\bf{y_{t-1}}$ es una combinación lineal estacionaria de los componentes de $y_{t}$ y es llamada una \textbf{relación de cointegración}. El número $r$, el cual es igual al número de relación de cointegración es llamado el \textbf{rango de cointegración}. Como la matriz $\boldsymbol{\beta}$ contiene todos los coeficiente de las relaciones de cointegración, es llamada \textbf{la matriz de cointegración}. La matriz $\boldsymbol{\alpha}$, la cual es la matriz de coeficientes de los términos estacionarios $\boldsymbol{\beta}'\bf{y_{t-1}}$ en la ecuación \eqref{vecm2}, es llamada la matriz de carga. 
+\begin{defin}
+Un modelo \textbf{VECM} de orden $p$ se define como 
+\begin{equation}\label{vecm2}
+\Delta \bf{y}_{t}=\boldsymbol{\mu}+\boldsymbol{\alpha\beta}'
+\bf{y}_{t-1}+\bold{\Gamma}_{1}\Delta \bf{y}_{t-1}+...+\bold{\Gamma}_{p-1}\Delta \bf{y}_{t-p+1}+u_{t} \quad t=1,...,T
+\end{equation}
+Donde $\bf{y}_{t}=\left[y_{1t},...,y_{Kt}\right]'$ es un vector aleatorio de $K\times 1$, $\boldsymbol{\mu}$ es un vector constante de $(K\times 1)$, $\boldsymbol{\alpha}$ y $\boldsymbol{\beta}$ son matrices $(K\times r)$ tales que $rank(\boldsymbol{\alpha})=rank(\boldsymbol{\beta})<K$, 
+\end{defin} 
+
+\subsection{El contraste de cointegración de Johansen}
+
+Considere el siguiente modelo 
+
+\begin{equation}
+\Delta \bf{y}_{t} = \Pi \bf{y}_{t-1}+\Gamma_{1}\Delta\bf{y}_{t-1}+...+\Gamma_{p-1}\Delta\bf{y}_{t-p+1}+u_{t}
+\end{equation}
+
+Donde $\bf{y}_{t}$ es un proceso $K$-dimensional y $rk(\Pi)=r$ con  $0\leq r\leq K$. 
+
+\begin{align}
+\mathcal{H}_{0}: rk(\bold{\Pi})=r_{0} && versus && \mathcal{H}_{1}: r_{0}< rk(\bold{\Pi}) \leq r_{1} \label{hipo_johansen1}
+\end{align} 
+
+Lütkepohl(2005, pp. 294)
+Lütkepohl(2005, pp.340)
+Tso (1981) Para regresión de rango reducido
+\begin{teo}
+Sea $M:=I_{T}-\Delta \bf{X}'(\Delta \bf{X}\Delta \bf{X}')^{-1}\Delta \bf{X}$, $R_{0}:=\Delta \bf{Y}M$ y $R_{1}=\bf{Y}_{-1}M$. Además 
+
+\begin{equation}
+S_{ij}:=R_{i}R'_{j}/T, \qquad i=0,1, 
+\end{equation}
+$\lambda_{1}\geq ... \geq \lambda_{K}$ los autovalores de $S_{11}^{-1/2}S_{10}S_{00}^{-1}S_{01}S_{11}^{-1/2}$, y $\bf{v}_{1},...,\bf{v}_{K}$, los correspondientes autovectores ortonormales 
+
+\begin{align}
+\log l  =  & -\frac{KT}{2}\log 2\pi-\frac{T}{2}\log |\bold{\Sigma}_{u}|  \nonumber \\ 
+  & -\frac{1}{2}\text{tr}\left[(\Delta \bf{Y}-\boldsymbol{\alpha}\boldsymbol{\beta}'Y_{-1}-\bold{\Gamma}\Delta\bf{X})\bold{\Sigma_{u}}(\Delta \bf{Y}-\boldsymbol{\alpha}\boldsymbol{\beta}'Y_{-1}-\bold{\Gamma}\Delta\bf{X})\right] 
+\end{align}
+\end{teo}
+
+Desde el resultado anterior puede plantearse el siguiente estadístico de razón de verosimilitud (LRT) para contrastar \eqref{hipo_johansen1}
+
+\begin{align}
+\lambda_{LR}(r_{0},r_{1}) & = 2[\log l(r_{1})-\log l(r_{0})] \nonumber \\ 
+                          & = T\left[-\sum_{i=1}^{r_{1}}\log(1-\lambda_{i})+\sum_{i=1}^{r_{0}}\log(1-\lambda_{i})\right] \nonumber \\ 
+                          & = -T\sum_{i=r_{0}+1}^{r_{1}}\log (1-\lambda_{i})
+\end{align}
+Cabe destacar que bajo la hipótesis nula, el estadístico no sigue una distribución estándar por lo que lo que sus valores críticos deben obtenerse mediante simulación. En particular, depende del número de relaciones de cointegracón y del tipo de hipótesis alterna a utilizar. Dos especificaciones son las más utilizadas en la literatura: 
+\begin{align}
+\mathcal{H}_{0}: rk(\bold{\Pi})=r_{0} &&  versus && \mathcal{H}_{1}: r_{0}<rk(\bold{\Pi})\leq K \label{hipo_johansen2}
+\end{align}
+y
+\begin{align}
+\mathcal{H}_{0}: rk(\bold{\Pi})=r_{0} &&  versus && \mathcal{H}_{1}: rk(\bold{\Pi})=r_{0}+1 \label{hipo_johansen3}
+\end{align}
+El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} se denomina comunmente como el estadístico \textit{de la traza} para testear el rango de cointegración, mientras que $\lambda_{LR}(r_{0},r_{0}+1)$ es llamado estadístico de \textit{máximo autovalor}.  
+
+\section{Resultados}
+\subsection{Determinación del rango de cointegración}
+
+<<echo=FALSE>>=
+datos = data.frame(y1, y2)
+names(datos) = c("mayorista", "supermercado")
+@
+
+<<echo=FALSE, size = "scriptsize", message=FALSE>>=
+
+dummies = fourier(y1, 4)
+
+if (!require(vars)) install.packages("vars")
+if (!require(tsDyn)) install.packages("tsDyn")
+
+vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=2,
+              spec="longrun", season=NULL)
+
+
+
+
+
+ 
+@
+
+
+<<out.width='5in', out.height='3.5in',fig.cap="Número de Rezagos para el contraste de Independencia">>=
+if (!require(ggplot2)) installed.packages("ggplot2")
+if (!require("reshape2")) install.packages("reshape2")
+if (!require(RColorBrewer)) install.packages("RColorBrewer")
+
+vecm2 = lapply(2:7, function(x) ca.jo(datos, type=c("eigen"), ecdet=c( "const"), K=x,
+              spec="longrun", season=NULL))
+
+
+modelo1 = VECM(datos, r=1, lag = 2, LRinclude=c("const"), estim=c("ML"))
+
+summary(modelo1)
+
+modelo = lapply(1:6, function(x) vec2var(vecm2[[x]], r=1))
+
+
+lags = 3:30
+resultado = sapply(lags, function(x) lapply(1:length(modelo), 
+                        function(y) serial.test( modelo[[y]],
+                       lags.pt = x)$serial$p.value) %>% as.numeric()) %>% t() %>% 
+  data.frame() %>% mutate(rezago = lags)
+
+
+meltresultado = melt(resultado, id = "rezago", na.rm=TRUE) %>% 
+  rename(Modelo = variable, `p-value`=value) 
+
+meltresultado$Modelo = recode(meltresultado$Modelo, 'X1'='1 rezago', 'X2'='2 rezagos', 
+       'X3'='3 rezagos', 'X4'='4 rezagos', 'X5'='5 rezagos', 
+       'X6' = '6 rezagos')
+
+ggplot(meltresultado, aes(x=rezago, y=`p-value`, colour=Modelo, group=Modelo)) + 
+  geom_line(size=1.2)+geom_hline(yintercept = 0.05, color="red")+
+  geom_hline(yintercept = 0.1, col="red2")+
+  theme(panel.background = element_rect(),
+        plot.background = element_rect(colour = "white",size = 0.5), 
+        axis.text.x = element_text(size=10, family="serif"), 
+        axis.title.x = element_text(size=15, family="serif"), 
+        axis.title.y = element_text(size=15, family = "serif"), 
+        legend.background = element_rect(fill="grey95"), 
+        legend.text = element_text(size=10, family="serif"), 
+        legend.title = element_text(face="bold", family="serif"), 
+        legend.title.align = 0.5)+
+  scale_colour_manual(values = brewer.pal(6,"Blues"))+
+  scale_x_continuous(breaks = c(5,10,15,20,25,30))+
+  scale_y_continuous(breaks = seq(0.0,1,0.05))
+@
+
+<<>>=
+modelo = VECM(datos, lag=7, r=1, LRinclude= c("const"), 
+              estim = c("ML"))
+
+summary(modelo)
+@
+
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{2}{c}{$p = 2$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$r \leq 1$  & \multicolumn{2}{c}{  2.66}  & 6.50 & 8.18 & 11.65\\
+$r = 0$     & \multicolumn{2}{c}{ 49.54}  & 15.66 & 17.95 & 23.52\\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{Contraste de la \textit{la traza} de cointegración de Johansen}
+\label{tab-10}
+\end{table}
+
+
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} & \multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{2}{c}{$p = 2$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$r \leq 1$ & \multicolumn{2}{c}{ 2.66} & 6.50 & 8.18 & 11.65\\
+$r = 0$ & \multicolumn{2}{c}{46.88} & 12.91 & 14.90 & 19.19 \\
+\bottomrule
+\end{tabular}
+\end{center}
+\caption{Contraste del \textit{máximo autovalor} de cointegración de Johansen}
+\label{tab-11}
+\end{table}
+
+<<echo=FALSE>>=
+#source("girf_sample.R")
+@
+
+
+\chapter{Procesos de transmisión asimétricos}
+\section{Modelo de vectores de corrección del error por umbrales (TVECM)}
+\begin{defin}
+Una serie de tiempo $K$-dimensional $\bf{y}_{t}$ se dice que sigue un modelo TVECM de $k$-regímenes de orden $p$ si satisface
+\begin{equation}
+\Delta y_{t}=c_{j}+\bold{\Pi}_{j}\bf{y}_{t-1}+\bold{\Gamma}_{1j}\Delta \bf{y}_{t-1}+...+\bold{\Gamma}_{(p-1),j}\Delta \bf{y}_{t-p+1}+u_{tj}, \quad \text{si}\quad \gamma_{j-1}\leq y_{t-d-1}\leq \gamma_{j}
+\end{equation}
+\end{defin}
+\subsection{El contraste de Hansen \& Seo (2002)}
+Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no lineal tiene una performance superior a la que tendría un modelo lineal VECM. Hansen \& Seo (2002) propusieron un contraste  
+
+\subsection{Contrastes de linealidad}
+\subsection{Estimación del modelo}
+\subsection{Relaciones dinámicas a corto plazo}
+\section{Resultados de la aplicación}
+\subsection{Análisis de las relaciones asimétricas}
+\subsection{Especificación del sistema}
+\subsection{Estimación del modelo TVECM}
+\subsection{Funciones de impulso respuesta}
+\subsection{Diagnósticos del modelo}
+
+<<fig-5,echo=F,fig.cap='Modelo de corrección del error por umbrales', out.width='4.5in', out.height='4.5in', fig.align='center', message=FALSE, fig.pos='H'>>=
+
+if (!require(tsDyn)) install.packages("tsDyn")
+
+mono = TVECM(datos, lag=2, nthresh = 1, trim=0.05, ngridBeta = 50, ngridTh = 50, plot=TRUE, include=c("const"))
+
+#Hansen = TVECM.HStest(datos, lag=2, ngridTh = 300, trim=0.05, nboot=100)
+@
+
+<<results='asis'>>=
+toLatex(mono)
+@
+
+
+<<>>=
+plot(Hansen)
+@
+
+
+<<echo=FALSE>>=
+res = residuals(mono)
+if (!require(plot3D)) install.packages("plot3D")
+
+x = res[,c("mayorista")]
+y = res[,c("supermercado")]
+
+x_c = cut(x,20)
+y_c = cut(y,20)
+
+z = table(x_c,y_c)
+
+layout(matrix(c(1,1,1,1,1,
+                2,2,2,2,2),2,5, byrow=TRUE))
+
+hist3D(z=z, border="black", contour=TRUE)
+image2D(z=z, border="black")
+@
+
+<<echo=FALSE>>=
+normalidad = function (x, multivariate.only = TRUE) 
+{
+    if (!((class(x) == "TVECM") || (class(x) == "nlvar"))) {
+        stop("\nPlease provide an object of class 'varest', generated by 'var()', or an object of class 'vec2var' generated by 'vec2var()'.\n")
+    }
+    obj.name <- deparse(substitute(x))
+    K <- x$k
+    # cambio de la forma de recoger el número de observaciones
+    obs <- x$t 
+    resid <- resid(x)
+    resids <- scale(resid, scale = FALSE)
+    # llamo directamente a la función .jb.multi desde el paquete vars
+    jbm.resids <- vars:::.jb.multi(resids, obs = obs, K = K, obj.name = obj.name)
+    if (multivariate.only) {
+        result <- list(resid = resid, jb.mul = jbm.resids)
+    }
+    else {
+        jbu.resids <- apply(resids, 2, function(x) .jb.uni(x, 
+            obs = obs))
+        for (i in 1:K) jbu.resids[[i]][5] <- paste("Residual of", 
+            colnames(resids)[i], "equation")
+        result <- list(resid = resid, jb.uni = jbu.resids, jb.mul = jbm.resids)
+    }
+    class(result) <- "varcheck"
+    return(result)
+}
+
+normalidad(mono)
+
+if (!require(asbio)) install.packages("asbio")
+
+errores = data.frame(residuals(mono))
+DH.test(errores, names(errores))
+@
+
+\nocite{greene2003}
+
+\chapter{Conclusiones}
+\chapter{Bibliografía}
+
+\printbibliography
+
+\chapter{Anexo}
+\begingroup
+\renewcommand\thesection{A}
+\titleformat{\section}[display]
+{\normalfont\huge\bfseries}{}{20pt}{\huge}
+
+\section{Desarrollos adicionales}
+\subsection{Mínimos cuadrados multivariados}
+
+Considere el siguiente modelo lineal multivariado 
+
+\begin{equation}\label{MLS}
+\bf{y}_{k} = \bf{C}\bf{x}_{k}+\boldsymbol{\varepsilon}_{k}, \quad k=1,...,T, 
+\end{equation}
+
+Donde $\bf{y}_{k}= (y_{1k},...,y_{mk})'$ es un vector de variables respuesta de dimensión $m\times 1$, $\bf{x}_{k}=(x_{1k},..,x_{nk})'$ es un vector de $n\times 1$ de predictores\footnote{pudiendo ser éstos tanto valores rezagados de $\bf{y}_{k}$ o variables exógenas}, $\bf{C}$ es una matriz de coeficienes de $m\times n$ y $\boldsymbol{\varepsilon}_{k}$ es un vector de $m\times 1$ errores aleatorios, con media $\mathbb{E}(\boldsymbol{\varepsilon}_{k})=\bf{0}$ y matriz de covarianzas $\text{Cov}(\boldsymbol{\varepsilon_{k}})=\bold{\Sigma}_{\varepsilon\varepsilon}$, una matriz de $m\times n$ definida positiva. Los elementos del vector $\boldsymbol{\varepsilon}_{k}$ son asumidos independientes para diferentes $k$. Asumiendo que se dispone de $T$ observaciones, podemos definir las siguientes matrices 
+\begin{align}
+\bf{Y} = \left[\bf{y}_{1},...,\bf{y}_{T} \right]_{m\times T} = \left[
+\begin{array}{ccc} 
+y_{11} & \hdots & y_{1T} \\ 
+\vdots & \ddots & \vdots \\ 
+y_{m1} & \hdots & y_{mT}
+\end{array}\right] 
+\end{align}
+
+\begin{align}
+\bf{X} = \left[\bf{x}_{1},...,\bf{x}_{T} \right]_{n\times T} = \left[
+\begin{array}{ccc} 
+x_{11} & \hdots & x_{1T} \\ 
+\vdots & \ddots & \vdots \\ 
+x_{m1} & \hdots & x_{mT}
+\end{array}\right] 
+\end{align}
+Si se asume $m+n\leq T$ y que $\bf{X}$ es de rango completo $n=rank(\bf{X})<T$. Se apilan los vectores de errores para formar una matriz $m\times T$ 
+$\boldsymbol{\varepsilon} = [\boldsymbol{\varepsilon}_{1},\boldsymbol{\varepsilon}_{2},...,\boldsymbol{\varepsilon}_{T}]$. De esta forma puede escribirse el modelo de manera compacta como
+
+\begin{equation}
+\underbrace{\bf{Y}}_{m\times T}=\underbrace{\bf{C}}_{m\times n}\underbrace{\bf{X}}_{n\times T}+\underbrace{\boldsymbol{\varepsilon}}_{m\times T}
+\end{equation}
+Otra forma de tratar la matriz de errores es a través del operador \textit{vec}, $T: \mathbb{R}^{m\times T}\rightarrow \mathbb{R}^{mT\times 1}$.
+$e = (\boldsymbol{\varepsilon_{(1)}}, \boldsymbol{\varepsilon_{(2)}}, ..., \boldsymbol{\varepsilon_{(m)}})'$. Se formulan entonces los siguientes supuestos 
+
+\begin{align}
+\mathbb{E}(e) = \bf{0} && && \text{Cov}(e) = \bold{\Sigma}_{\varepsilon\varepsilon} \otimes \bf{I}_{T}
+\end{align}
+
+
+Donde $\otimes$ denota el producto de Kronecker\footnote{Sean $\bf{A}$ una matriz $n\times p$ y $\bf{B}$ una matriz $m\times q$. Entonces la matriz $mn\times pq$
+\begin{equation}
+\bf{A}\otimes \bf{B} = \left[
+\begin{array}{cccc}
+& & & \\
+& & & \\ 
+& & & 
+\end{array}\right]
+\end{equation}
+}
+\subsection{Regresión de Rango Reducido}
+La regresión de rango reducido (RRR) es una técnica. Para el modelo descrito en  \eqref{MLS} se tiene que 
+
+\begin{equation}
+rank(\bf{C}) = r\leq min(n,m)
+\end{equation}
+
+
+\endgroup
+\begingroup
+\renewcommand\thesection{B}
+\titleformat{\section}[display]
+{\normalfont\huge\bfseries}{}{20pt}{\huge}
+\section{Código R}
+\subsection{Información de la sesión}
+<<size="scriptsize", highlight=FALSE, prompt=TRUE, background="#FFFFFF">>=
+sessionInfo()
+@
+
+\subsection{Importación y depurado de los datos}
+
+<<eval=FALSE, size="scriptsize", highlight=FALSE, prompt=TRUE, background="#FFFFFF">>=
+rm(list=ls())
+setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/")
+
+Sys.setenv(TEXINPUTS=getwd(),
+           BIBINPUTS=getwd(),
+           BSTINPUTS=getwd())
+getwd()
+list.files()
+
+if (!require(magrittr)) install.packages("magrittr")
+if (!require(dplyr)) install.packages("dplyr")
+if (!require(tidyr)) install.packages("tidyr")
+if (!require(data.table)) install.packages("data.table")
+if (!require(ggplot2)) install.packages("ggplot2")
+if (!require(RColorBrewer)) install.packages("RColorBrewer")
+
+################################################################################
+# Precios Supermercado
+################################################################################
+
+palta_2008 = read.csv("2008_consumidor.csv", sep=",")
+palta_2009 = read.csv("2009_consumidor.csv", sep=",")
+palta_2010 = read.csv("2010_consumidor.csv", sep=",")
+palta_2011 = read.csv("2011_consumidor.csv", sep=",")
+palta_2012 = read.csv("2012_consumidor.csv", sep=",")
+palta_2013 = read.csv("2013_consumidor.csv", sep=",")
+palta_2014 = read.csv("2014_consumidor.csv", sep=",")
+palta_2015 = read.csv("2015_consumidor.csv", sep=",")
+palta_2016 = read.csv("2016_consumidor.csv", sep=",")
+
+palta_cons = rbind(palta_2008, palta_2009, palta_2010, 
+                    palta_2011, palta_2012, palta_2013, 
+                    palta_2014, palta_2015, palta_2016)
+
+################################################################################
+p_super_palta = filter(palta_cons, Variedad=="Hass " & Calidad=="Primera " & 
+                       Tipo.punto.monitoreo=="Supermercado ") %>% 
+  `colnames<-` (c("week", "start", "end", "place","product",
+                  "variety","quality","unity","min","max","price")) %>% 
+  mutate(price=price/1.19,start =gsub("/","-",start))
+
+## generaré una secuencia que tiene todas las semanas para luego comparar 
+## con mi secuencia incompleta
+
+ts = seq.POSIXt(as.POSIXct("2008-03-17", '%y%m%d'),
+                as.POSIXct("2016-12-26", '%y%m%d'), by="week")
+
+df <- data.frame(start=ts)
+
+p_super_palta = separate(data=p_super_palta,col = "start",
+                       into = c("day", "month", "year"),sep = "\\-",
+                       extra="drop")
+price_sup_palta = mutate(p_super_palta, day = as.numeric(day), 
+                       month=as.numeric(month), year=as.numeric(year), 
+                       start = paste(year, month, day, sep="-"), 
+                       start = as.POSIXct(start, '%y%m%d'), 
+                       price = log(price))
+
+price_sup_palta <- full_join(df,price_sup_palta)
+
+################################################################################
+# Precios Mayoristas
+################################################################################
+
+lo_valledor = read.csv("LoValledor.csv")
+vega_central = read.csv("VegaCentral.csv")
+
+mayor = rbind(lo_valledor)
+
+mayor = filter(mayor, Variedad=="Hass " & Calidad=="Primera ") %>% 
+  mutate(Desde = gsub("/","-",Desde)) %>% 
+  separate(col="Desde", into=c("day", "month", "year"), sep="\\-",
+           extra="drop") %>% 
+  mutate(day = as.numeric(day), mont = as.numeric(month),
+         year = as.numeric(year), 
+         start = paste(year, month, day, sep="-"), 
+         start = as.POSIXct(start, '%y%m%d'))
+
+mayor$Unidad.de.comercialización. = 
+  recode(as.character(mayor$Unidad.de.comercialización.),
+        "$/bandeja 10 kilos "=10, 
+       "$/bandeja 4 kilos embalada " = 4, "$/caja 12 kilos " = 12, 
+       "$/kilo (en bins de 400 kilos) " = 400, 
+       "$/kilo (en bins de 450 kilos) " = 450,
+       "$/kilo (en caja de 15 kilos) " = 15,
+       "$/kilo (en caja de 17 kilos) " = 17)
+
+mayor$precio_definitivo = 
+  ifelse(mayor$Unidad.de.comercialización.==10 | 
+  mayor$Unidad.de.comercialización.==4 |
+  mayor$Unidad.de.comercialización.== 12, 
+  mayor$Precio.promedio./mayor$Unidad.de.comercialización., 
+  mayor$Precio.promedio.)
+
+################################################################################
+mayor = mutate(mayor, Volumen =
+      as.numeric(Volumen), Precio.promedio. = as.numeric(Precio.promedio.),
+      volumen_definitivo = Volumen*Unidad.de.comercialización.) %>%   
+      group_by(start) %>% 
+  summarise(price = weighted.mean(precio_definitivo, volumen_definitivo)) %>% 
+      mutate(price = log(price))
+
+price_may_tom = full_join(df, mayor)
+
+precio_mayorista = ts(price_may_tom$price, start=c(2008,3), frequency=365/7)
+
+precio_supermercado = 
+  ts(price_sup_palta$price, start=c(2008,3), frequency=365/7)
+@
+
+\subsection{Selección modelo VAR}
+
+<<eval=FALSE, size="scriptsize", highlight=FALSE, prompt=TRUE, background="#FFFFFF">>=
+MejorVar <- function(y, lag.max = 10,
+                     type = c("const", "trend", "both", "none"),
+                     fourierTerms = TRUE, season = 365.25/7){
+if (!require(forecast)) install.packages("forecast")  
+y <- as.matrix(y)
+if (any(is.na(y))) 
+        stop("\nNAs in y.\n")
+colnames(y) <- make.names(colnames(y))
+K <- ncol(y)
+lag.max <- abs(as.integer(lag.max))
+type <- match.arg(type)
+lag <- abs(as.integer(lag.max + 1))
+ylagged <- embed(y, lag)[, -c(1:K)]
+yendog <- y[-c(1:lag.max), ]
+sample <- nrow(ylagged)
+k = round((season/2)-1,0)
+rhs <- switch(type, const = rep(1, sample), trend = seq(lag.max + 
+        1, length = sample), both = cbind(rep(1, sample), seq(lag.max + 
+        1, length = sample)), none = NULL)
+idx <- seq(K, K * lag.max, K)
+if (!is.null(rhs)) {
+        detint <- ncol(as.matrix(rhs))
+    }
+    else {
+        detint <- 0
+    }
+criterio = matrix(NA,ncol=k,nrow=lag.max)
+for (j in 1:k){
+for (i in 1:lag.max){
+  fourierTerms = fourier(ts(y[,1], frequency = season),j)[-c(1:lag.max), ]
+  ys.lagged <- cbind(ylagged[, c(1:idx[i])], rhs, fourierTerms)
+  sampletot <- nrow(y)
+  nstar <- ncol(ys.lagged)
+  resids = lm.fit(x = ys.lagged, y = yendog)$residuals
+  sigma.det = det(crossprod(resids)/sample)
+  criterio[i,j] = log(sigma.det)+(2/sample)*(i*K^2+K*detint)
+}
+}
+minimo = which(criterio == min(criterio), arr.ind = TRUE)
+return(list(matriz = criterio, minimo = minimo))
+}
+
+best = MejorVar(datos, lag.max = 12, type=c("const"), fourierTerms = TRUE, season = 52)$minimo
+@
+
+\subsection{Función normalidad}
+
+<<eval=FALSE, size="scriptsize", highlight=FALSE, prompt=TRUE, background="#FFFFFF">>=
+normalidad = function (x, multivariate.only = TRUE) 
+{
+    if (!((class(x) == "TVECM") || (class(x) == "nlvar"))) {
+        stop("\nPlease provide an object of class 'varest', generated by 'var()', or an object of class 'vec2var' generated by 'vec2var()'.\n")
+    }
+    obj.name <- deparse(substitute(x))
+    K <- x$k
+    obs <- x$t # cambio de la forma de recoger el número de observaciones
+    resid <- resid(x)
+    resids <- scale(resid, scale = FALSE)
+    # llamo directamente a la función .jb.multi desde el paquete vars
+    jbm.resids <- vars:::.jb.multi(resids, obs = obs, K = K, obj.name = obj.name)
+    if (multivariate.only) {
+        result <- list(resid = resid, jb.mul = jbm.resids)
+    }
+    else {
+        jbu.resids <- apply(resids, 2, function(x) .jb.uni(x,
+            obs = obs))
+        for (i in 1:K) jbu.resids[[i]][5] <- paste("Residual of", 
+            colnames(resids)[i], "equation")
+        result <- list(resid = resid, jb.uni = jbu.resids, jb.mul = jbm.resids)
+    }
+    class(result) <- "varcheck"
+    return(result)
+}
+@
+
+\endgroup
+
+\end{document}
