@@ -641,9 +641,9 @@ tic trend. It is a cumulation of random shocks with zero mean and constant varia
 and deterministic trend is that the increments of a stochastic trend change randomly,
 whereas those of a deterministic trend are constant over time.
 \item It is easy to see that if inflation rate is I(1) with a non-zero mean, then prices will contain
-a integrated twice cumulated of order stochastic two, or in trend, shorthand 
+a integrated twice cumulated of order stochastic two, or in trend, 
 t
- s=1 notation 
+ s=1 notation
 i=1 s
  εi . pt We ∼ say I(2).
  that trend-adjusted prices are
@@ -663,14 +663,9 @@ economic relation, we make a further distinction between the statistical concept
 is between an I(1) stochastic trend with no linear trend and a near I(1) stochastic trend
 with a linear trend.
 
-
-
-
-
 \end{itemize}
 
 }
-
 
 \subsection{Modelo Vectorial de Corrección del Error (VECM)}
 Suponga que  cada componente de una serie de tiempo $K$-dimensional $y_{t}$ es $I(1)$. Entonces, la ecuación (VAR) no será una formulación adecuada de este modelo debido a que los términos $y_{t},y_{t-1},...,y_{t-p}$ son todos no estacionarios. De todas formas, sustituyendo 
