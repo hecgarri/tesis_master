@@ -159,7 +159,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, out.width='4.5in', out.heig
 
 
 <<echo=FALSE, results='hide', message=FALSE, warning=FALSE>>=
-setwd( "/home/hector/GoogleDrivePersonal/Master/Tesis")
+setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
 #source("importa_semanales.R")
 source("weekly_palta.R")
 @
@@ -1049,7 +1049,7 @@ sessionInfo()
 
 <<eval=FALSE, size="scriptsize", highlight=FALSE, prompt=TRUE, background="#FFFFFF">>=
 rm(list=ls())
-setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/")
+setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
 
 Sys.setenv(TEXINPUTS=getwd(),
            BIBINPUTS=getwd(),
