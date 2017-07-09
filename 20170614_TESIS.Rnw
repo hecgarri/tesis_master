@@ -657,13 +657,28 @@ Because a cointegrating relation does not necessarily correspond to an interpret
 economic relation, we make a further distinction between the statistical concept of a
 ‘cointegration relation’ and the economic concept of a ‘long-run equilibrium relation’.
 \item say second that stochastic the distinction trend,
- between 
+ between 
  u2i , as a long-run a long-run and structural medium-run trend stochastic or not. trend Thus,in one this might
  case
 is between an I(1) stochastic trend with no linear trend and a near I(1) stochastic trend
 with a linear trend.
 
 \end{itemize}
+
+\begin{defin}
+Sea $\{\bold{x}_{t}\}$ un proceso estocástico para $t=..., -1,0,1,2,...$ Si 
+
+\begin{align}
+\mathbb{E}[\bold{x}_{t}] & =-\infty < \bold{\mu} <\infty \\ 
+\mathbb{E}[\bold{x}_{t}-\bold{\mu}]^{2} & = \bold{\Sigma}_{0}<\infty \qquad \forall t\\ 
+\mathbb{E}[(\bold{x}_{t}-\bold{\mu})(\bold{x}_{t+h}-\bold{\mu})] & = \bold{\Sigma}_{h} \qquad \forall \text{t y h}
+\end{align}
+Entonces $\bold{x}_{t}$ es \textit{debilmente estacionario}. La estacionariedad estricta requiere que la distribución de $(x_{t1},...,x_{tk})$ es la misma que $(x_{t1+h},...,x_{tk+h})$ para $h=...,-1,0,1,2,...$
+\end{defin}
+
+for time t based on the available information at time t − 1. For example, a VAR model
+with autocorrelated and or heteroscedastic residuals would describe agents that do not
+use all information in the data as efficiently as possible. This is because by including the
 
 }
 

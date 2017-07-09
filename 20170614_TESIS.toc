@@ -38,11 +38,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.1.1}Modelo Vectorial de Correcci\IeC {\'o}n del Error (VECM)}{26}{subsection.3.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.1.2}El contraste de cointegraci\IeC {\'o}n de Johansen}{27}{subsection.3.1.2}
+\contentsline {subsection}{\numberline {3.1.2}El contraste de cointegraci\IeC {\'o}n de Johansen}{28}{subsection.3.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Resultados}{28}{section.3.2}
+\contentsline {section}{\numberline {3.2}Resultados}{29}{section.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2.1}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n}{28}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.1}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n}{29}{subsection.3.2.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {4}Procesos de transmisi\IeC {\'o}n asim\IeC {\'e}tricos}{33}{chapter.4}
 \defcounter {refsection}{0}\relax 
