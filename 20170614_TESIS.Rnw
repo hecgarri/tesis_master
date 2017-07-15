@@ -684,6 +684,89 @@ use all information in the data as efficiently as possible. This is because by i
 with autocorrelated and or heteroscedastic residuals would describe agents that do not
 use all information in the data as efficiently as possible. 
 
+Simulation studies have shown that valid statistical inference is sensitive to violation
+of some of the assumptions, such as parameter non-constancy, autocorrelated residu-
+als (the higher, the worse) and skewed residuals, while quite robust to others, such as
+excess kurtosis and residual heteroscedasticity. This will be discussed in more detail in
+
+
+• the use of intervention dummies to account for significant political or institutional
+events during the sample;
+• conditioning on weakly or strongly exogenous variables;
+• checking the measurements of the chosen variables;
+• changing the sample period to avoid fundamental regime shift or splitting the sample
+into more homogenous periods.
+
+and the model has been extended to contain Dt , a vector of deterministic components,
+such as a constant, seasonal dummies and intervention dummies. The autoregressive for-
+mulation is useful for expressing hypotheses on economic behaviour, whereas the moving average representation is useful when examining the properties of the proces.
+
+Si asumimos un modelo $VAR(2)$ bi-dimensional
+
+\begin{equation}
+(\bold{I}-\boldsymbol{\Pi}_{1}L-\boldsymbol{\Pi}_{2}L^{2})\bold{x}_{t} = \boldsymbol{\Phi}\bold{D}_{t}+\bold{\varepsilon}_{t}
+\end{equation}
+
+La función características es entonces 
+
+\begin{align}
+\bold{\Pi}(z) & = \bold{I}-\left[\begin{array}{cc} 
+\pi_{1.11} & \pi_{1.12} \\
+\pi_{1.21} & \pi_{1.22}
+\end{array}\right]z- \left[\begin{array}{cc} 
+\pi_{2.11} & \pi_{2.12} \\
+\pi_{2.21} & \pi_{2.22}
+\end{array}\right]z^{2} \\
+              & = \bold{I}-\left[\begin{array}{cc} 
+\pi_{1.11}z & \pi_{1.12}z \\
+\pi_{1.21}z & \pi_{1.22}z
+\end{array}\right]- \left[\begin{array}{cc} 
+\pi_{2.11}z^{2} & \pi_{2.12}z^{2} \\
+\pi_{2.21}z^{2} & \pi_{2.22}z^{2}
+\end{array}\right] \\
+ & = \left[\begin{array}{cc} (1-\pi_{1.11}z-\pi_{2.11}z^{2}) & (-\pi_{1.12}z-\pi_{2.12}z^{2}) \\ 
+ (-\pi_{1.21}z-\pi_{2.21}z^{2}) & (1-\pi_{1.22}z-\pi_{2.22}z^{2})
+ \end{array}\right]
+\end{align}
+y 
+
+\begin{align}
+|\boldsymbol{\Pi}(z)| & = (1-\pi_{1.11}z-\pi_{2.11}z^{2})(1-\pi_{1.22}z-\pi_{2.22}z^{2})-(\pi_{1.12}z+\pi_{2.12}z^{2})(\pi_{1.21}z+\pi_{2.21}z^{2}) \\ 
+& = 1-a_{1}z-a_{2}z^{2}-a_{3}z^{3}-a_{4}z^{4} \\ 
+& = (1-\rho_{1}z)(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)
+\end{align}
+
+El determinante entrega información valiosa sobre el comportamiento dinámico del proceso. 
+
+Luego 
+
+\begin{align}
+\bold{x}_{t} & = \frac{\boldsymbol{\Pi}^{a}(L)(\boldsymbol{\Phi}\bold{D}_{t}+\varepsilon_{t})}{(1-\rho_{1}z)(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}+\tilde{\bold{X}}^{0}, \qquad t=1,...,T \\ 
+& = \left(\frac{\bold{\Pi}_{1}^{a}L+\bold{\Pi}^{a}_{2}L^{2}}{(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}\right)\left(\frac{\varepsilon_{t}+\bold{\Phi}D_{t}}{(1-\rho_{1}L)}\right)+\bold{\tild{X}}^{0}, \qquad t=1,...,T
+\end{align}
+
+\section{Estimación basada en la verosimilitud para el modelo VAR irrestricto}
+
+Cuando el modelo no tiene restricciones sobre sus parámetros (como las que pueden surgir debido a la presencia de raíces unitarias) el modelo puede estimarse por MCO, caso que coincide con el estimador de \textit{Full information maximum likelihood}
+
+Si escribimos el modelo en su versión apilada
+\begin{align}
+& \bold{x}_{t} = \bold{B'Z}_{t}+\varepsilon_{t}, \qquad t=1,..,T \\ 
+& \varepsilon_{t}\sim IN_{p}(\bold{0,\Omega})
+\end{align}
+
+Donde: 
+\begin{itemize}
+\item $\bold{B'}=\left[\boldsymbol{\mu_{0}, \Pi_{1}, \Pi_{2},...,\Pi_{k}}\right]$
+\item $\bold{Z'}_{t} = \left[\bold{1,x'_{t-1}, x'_{t-2},...,x'_{t-k}}\right]$
+\item $\bold{X}^{0}$ = \left[\bold{x'_{0}, x'_{-1},...,x'_{-k+1}}\right]$ 
+\end{itemize}
+
+La función de verosimilitud será la siguiente: 
+
+\begin{equation}
+\log L(\boldsymbol{B,\Omega,X}) = 
+\end{equation}
 }
 
 \subsection{Modelo Vectorial de Corrección del Error (VECM)}
