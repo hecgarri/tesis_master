@@ -745,8 +745,21 @@ Donde:
 La función de verosimilitud será la siguiente: 
 
 \begin{equation}
-\log L(\boldsymbol{B,\Omega,X}) = 
+\log L(\boldsymbol{B,\Omega,X}) = -T\frac{p}{2}\log(2\pi)-T\frac{1}{2}\log|\bold{\Omega}|-\frac{1}{2}\sum_{t=1}^{T}(\bold{x_{t}-B'Z_{t}})'\boldsymbol{\Omega}^{-1}(\bold{x_{t}-B'Z_{t}})
 \end{equation}
+
+Si calculamos $\frac{\partial \log L}{\partial \bold{B}}$, tendremos
+\begin{equation*}
+\sum_{t=1}^{T}\bold{x_{t}Z'_{t}} = \bold{\tilde{B}'}\sum_{t=1}^{T}\bold{Z_{t}Z_{t}'}
+\end{equation*}
+
+Entonces, el estimador de máxima verosimilitud es 
+
+\begin{equation}
+\bold{\tilde{B}}' = \sum_{t=1}^{T}(\bold{x_{t}Z'_{t}})\left(\sum_{t=1}^{T}\bold{Z_{t}Z'_{t}}\right)^{-1} = \bold{M}_{xZ}\bold{M}_{ZZ}^{-1}
+\end{equation}
+
+Luego calculando $\frac{\partial \log L}{\partial \boldsymbol{\Omega}}=\bold{0}$
 }
 
 \subsection{Modelo Vectorial de Corrección del Error (VECM)}
