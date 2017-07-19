@@ -760,6 +760,75 @@ Entonces, el estimador de máxima verosimilitud es
 \end{equation}
 
 Luego calculando $\frac{\partial \log L}{\partial \boldsymbol{\Omega}}=\bold{0}$
+
+\begin{equation}
+\boldsymbol{\hat{\Omega}} = T^{-1}\sum_{t=1}^{T}(\bold{x_{t}-\hat{B}'Z_{t}})(\bold{x_{t}-\hat{B}'Z_{t}})' = T^{-1}\sum_{t=1}^{T}\boldsymbol{\hat{\varepsilon}_{t}\hat{\varepsilon}'_{t}}
+\end{equation}
+
+El valor máximo de la función de Verosimilitud, será el siguiente: 
+
+\begin{equation}
+\log L _{\max} = -\frac{P}{2}T\log (2\pi)-\frac{1}{2}T\log|\boldsymbol{\hat{\Omega}}|-\frac{1}{2}\sum_{t=1}^{T}(\bold{x_{t}-\hat{B}'Z_{t}})'\boldsymbol{\hat{\Omega}}^{-1}(\bold{x_{t}-\hat{B}'Z_{t}}) 
+\end{equation}
+
+Mostraremos que $\log L_{\max} = -\frac{1}{2}T\log |\boldsymbol{\hat{\Omega}}|+K, \qquad K\in \mathbb{R}$
+
+\begin{align}
+(\boldsymbol{x_{t}-\hat{B}'Z_{t}})\boldsymbol{\hat{\Omega}}^{-1}(\bold{x_{t}-\hat{B}'Z_{t}}) 
+& = \boldsymbol{\hat{\varepsilon}'_{t}\boldsymbol{\hat{\Omega}}^{-1}\hat{\varepsilon}_{t}} \nonumber \\
+& = \sum_{ij}\hat{\varepsilon}_{t,i}(\boldsymbol{\hat{\Omega}}^{-1})_{ij}\hat{\varepsilon}_{t,j} \\
+& = \sum_{ij}(\boldsymbol{\hat{\Omega}}^{-1})_{ij}\hat{\varepsilon}_{t,i}\hat{\varepsilon}_{t,j} \nonumber \\ 
+& = \text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\boldsymbol{\hat{\varepsilon_{t}}\hat{\varepsilon}'_{t}}\}
+\end{align}
+
+Luego, se tiene que 
+
+\begin{align}
+\sum_{t=1}^{T}(\bold{x_{t}-\hat{B}'Z_{t}})\boldsymbol{\hat{\Omega}}^{-1}(\bold{x_{t}-\hat{B}'Z_{t}})' & = \sum_{t=1}^{T}\text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\boldsymbol{\hat{\varepsilon_{t}}\hat{\varepsilon}'_{t}}\} \\
+& = T \sum_{t=1}^{T}\text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\boldsymbol{\hat{\varepsilon_{t}}\hat{\varepsilon}'_{t}}/T\} \\ 
+& = T \text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\hat{\Omega}\} \\ 
+& = T \text{traza}\{\bold{I}_{p}\} = Tp
+\end{align}
+
+De donde se desprende que 
+
+\begin{equation}
+\log L_{\max} = -T \frac{1}{2} \log |\boldsymbol{\hat{\Omega}}|\underbrace{-T\frac{p}{2}-T\frac{p}{2}\log(2\pi)}_{+K}
+\end{equation}
+
+\textbf{NOTA PARA RECORDAR: si las variables del modelo están formuladas en logaritmo la desviación estándar de cada una de estas puede ser interpretada como un porcentaje de error }
+
+
+\subsection{Contraste de razón de verosimilitud}
+
+\begin{equation}
+  -2\log Q(\mathcal{H}_{k}/\mathcal{H}_{k+1}) =  T(\log|\boldsymbol{\hat{\Omega}}_{k}|-\log|\boldsymbol{\hat{\Omega}}_{k+1}|) \sim \chi^{2}_{p^{2}}
+\end{equation}
+
+
+Criterios de selección 
+
+\begin{align}
+\text{AIC} & = \log |\boldsymbol{\hat{\Omega}}|+(p^{2}k)\frac{2}{T} \\ 
+\text{SC} & = \log|\boldsymbol{\hat{\Omega}}|+(p^{2}k)\frac{\log T}{T} \\ 
+\text{Hannah-Quinn} & = \log|\boldsymbol{\hat{\Omega}}|+(p^{2}k)\frac{2\log \log T}{T}
+\end{align}
+
+Todos los criterios en común están basados en el máximo valor que alcanza la función de verosimilitud del modelo, más un factor que penaliza por el número de parámetros estimados. 
+
+\textbf{
+Al momento de la determinación del número de rezagos, volver a revisar tabla 4.5 de la página 92}
+
+\begin{equation}
+\text{Trace correlation} = 1-\text{traza}(\boldsymbol{\hat{\Omega}}[\text{Cov}(\bold{\Delta x_{t}})]^{-1})/p 
+\end{equation}
+
+
+\subsubsection{El contraste de Ljung-Box}
+
+\begin{equation}
+\text{Ljung-Box} = T(T+2)\sum_{h=1}^{T/4}(T-h)^{-1}\text{traza}(\boldsymbol{\hat{\Omega}'_{h}\hat{\Omega}^{-1}\hat{\Omega}'_{h}\hat{\Omega}^{-1}})
+\end{equation}
 }
 
 \subsection{Modelo Vectorial de Corrección del Error (VECM)}
@@ -837,7 +906,20 @@ El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} s
 
 
 
-
+\begin{knitrout}\scriptsize
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{verbatim}
+## $L01
+## [1] 8.792146
+## 
+## $df
+## [1] 4
+## 
+## $`p-value`
+## [1] 0.06651009
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
 
 
 \begin{knitrout}
