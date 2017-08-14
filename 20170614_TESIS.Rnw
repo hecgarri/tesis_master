@@ -191,7 +191,7 @@ y2[id.na2]
 
 @
 
-<<fig-1,echo=F,fig.cap='Evolución de precios del tomate de larga vida de primera calidad,2008-2016', out.width='6.5in', out.height='3.5in', fig.align='center', fig.pos='H'>>=
+<<fig-1,echo=F,fig.cap='Evolución de precios del palta de larga vida de primera calidad,2008-2016', out.width='6.5in', out.height='3.5in', fig.align='center', fig.pos='H'>>=
 
 par(family="serif", bty="l", bg="white", cex.lab=1) # opciones gráficas
 ts.plot(exp(precio_mayorista), exp(precio_supermercado), lty=1:2,
@@ -206,14 +206,14 @@ layout(matrix(c(1,1,1,1,1,
                 2,2,2,2,2),2,5, byrow=TRUE))
 
 par(family="serif", bty="l", par(family="serif", bty="l")) # opciones gráficas
-plot(precio_mayorista, lty=2 ,ylab="Precio tomate mayorista ($/kilo)", 
+plot(precio_mayorista, lty=2 ,ylab="Precio palta mayorista ($/kilo)", 
      xlab="Tiempo")
 lines(y1, lwd=1, lty=1)
 points(time(y1)[id.na1], y1[id.na1], col = "red", pch = 18, cex=2)
 legend("topleft", legend = c("Valores imputados"), 
   col = c("red"), pch = c(18), cex=1.5)
 
-plot(precio_supermercado, lty=2 ,ylab="Precio tomate supermercado ($/kilo)", 
+plot(precio_supermercado, lty=2 ,ylab="Precio palta supermercado ($/kilo)", 
      xlab="Tiempo")
 lines(y2, lwd=1, lty=1)
 points(time(y2)[id.na2], y2[id.na2], col = "blue", pch = 18, cex=2)

@@ -219,7 +219,7 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 
 }
 
-\caption[Evolución de precios del tomate de larga vida de primera calidad,2008-2016]{Evolución de precios del tomate de larga vida de primera calidad,2008-2016}\label{fig:fig-1}
+\caption[Evolución de precios del palta de larga vida de primera calidad,2008-2016]{Evolución de precios del palta de larga vida de primera calidad,2008-2016}\label{fig:fig-1}
 \end{figure}
 
 
@@ -832,7 +832,12 @@ Al momento de la determinación del número de rezagos, volver a revisar tabla 4
 
 Donde  $ \boldsymbol{\hat{\Omega}}_{h} = T^{-1}\sum_{t=1}^{T}\boldsymbol{\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-h}'}$. El estadístico se considera distribuido aproximadamente según una $\chi^{2}$ con $p^{2}(T/4-k+1)-p^{2}$ grados de libertad. 
 
-También puede utilizarse un contraste propuesto por Godfrey(1988). El contraste consiste en regresar los residuos del modelo VAR estimado, $\boldsymbol{\hat{\varepsilon}_{t}}$
+También puede utilizarse un contraste propuesto por Godfrey(1988),  el cual consiste en regresar los residuos del modelo VAR estimado, $\boldsymbol{\hat{\varepsilon}_{t}}$, sobre $k$ variables rezagadas, $\bold{x_{t-1}, x_{t-2}, ...,x_{t-k}}$ y el $j$-ésimo residuo rezagado
+
+\begin{equation}
+\boldsymbol{\hat{\varepsilon}_{t}}=\bold{A_{1}x_{t-1}+A_{2}x_{t-2}+...+A_{k}x_{t-k}+A_{\varepsilon}}\boldsymbol{\hat{\varepsilon}}
+\end{equation}
+
 }
 
 \subsection{Modelo Vectorial de Corrección del Error (VECM)}
@@ -1319,7 +1324,7 @@ rank(\bf{C}) = r\leq min(n,m)
 ##  [1] deSolve_1.14         lattice_0.20-35      colorspace_1.3-2    
 ##  [4] mgcv_1.8-17          rlang_0.1.1          glue_1.0.0          
 ##  [7] TTR_0.23-1           foreach_1.4.3        bindr_0.1           
-## [10] plyr_1.8.4           multcompView_0.1-7   quantmod_0.4-9      
+## [10] plyr_1.8.4           multcompView_0.1-7   quantmod_0.4-10     
 ## [13] stringr_1.2.0        timeDate_3012.100    munsell_0.4.3       
 ## [16] tseriesChaos_0.1-13  gtable_0.2.0         mvtnorm_1.0-6       
 ## [19] codetools_0.2-15     evaluate_0.10        misc3d_0.8-4        
