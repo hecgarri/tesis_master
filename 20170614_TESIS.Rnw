@@ -977,7 +977,23 @@ vecm2 = lapply(2:7, function(x) ca.jo(datos, type=c("eigen"), ecdet=c( "const"),
               spec="longrun", season=NULL))
 
 
+beta = cbind(mayorista = 1, supermercado=1, const = 1)
+
 modelo1 = VECM(datos, r=1, lag = 2, LRinclude=c("const"), estim=c("ML"))
+
+
+
+## Recordar que esta secuencia se realiza para imponer restricciones sobre 
+# la estimación del modelo 
+
+vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=2,
+              spec="longrun", season=NULL)
+
+HD0 = c(1,-1.22,2.236067)
+
+modelo11 = blrtest(vecm1, HD0, r=1)
+
+modelo12 = cajorls(vecm1, r=1)
 
 summary(modelo1)
 
