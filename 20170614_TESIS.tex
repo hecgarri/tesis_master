@@ -1106,47 +1106,61 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 \left\{
 \begin{array}{ll}
 \begin{smatrix} %ECT
--0.1588 \\ 0.1091
+-0.0410 \\ 0.0565
 \end{smatrix}ECT_{-1}+
 \begin{smatrix}     %const
--0.0154 \\ 0.0141
+0.0060 \\ 0.0067
 \end{smatrix}
 +\begin{smatrix}      %Lag1
-0.1136 & 0.2507 \\
-0.0077 & -0.0501 
+0.0705 & 0.2378 \\
+0.0448 & -0.0519 
 \end{smatrix}
 \begin{smatrix}
 \Delta X_{t-1}^{1} \\ \Delta X_{t-1}^{2}
 \end{smatrix}
 +\begin{smatrix}      %Lag2
-0.0838 & 0.3167 \\
-0.0539 & -0.0502 
+0.0744 & 0.1690 \\
+0.0563 & -0.0118 
 \end{smatrix}
 \begin{smatrix}
 \Delta X_{t-2}^{1} \\ \Delta X_{t-2}^{2}
 \end{smatrix}
-& \text{if Th}< 0.022133324420519 \\
++\begin{smatrix}      %Lag3
+-0.0246 & 0.0674 \\
+0.0394 & 0.0192 
+\end{smatrix}
+\begin{smatrix}
+\Delta X_{t-3}^{1} \\ \Delta X_{t-3}^{2}
+\end{smatrix}
+& \text{if Th}< 0.233492973644388 \\
 \begin{smatrix} %ECT
--0.3056 \\ -0.0550
+-0.1387 \\ -0.2280
 \end{smatrix}ECT_{-1}+
 \begin{smatrix}     %const
-0.0475 \\ 0.0170
+-0.0521 \\ 0.0748
 \end{smatrix}
 +\begin{smatrix}      %Lag1
-0.0697 & 0.1727 \\
-0.0654 & -0.0102 
+0.0599 & 0.1583 \\
+0.0611 & -0.0948 
 \end{smatrix}
 \begin{smatrix}
 \Delta X_{t-1}^{1} \\ \Delta X_{t-1}^{2}
 \end{smatrix}
 +\begin{smatrix}      %Lag2
-0.1211 & -0.2246 \\
-0.0594 & 0.1182 
+0.2173 & -0.0175 \\
+0.1234 & -0.1118 
 \end{smatrix}
 \begin{smatrix}
 \Delta X_{t-2}^{1} \\ \Delta X_{t-2}^{2}
 \end{smatrix}
-& \text{if Th}> 0.022133324420519 \\
++\begin{smatrix}      %Lag3
+0.3961 & 1.1882 \\
+0.1269 & 0.1380 
+\end{smatrix}
+\begin{smatrix}
+\Delta X_{t-3}^{1} \\ \Delta X_{t-3}^{2}
+\end{smatrix}
+& \text{if Th}> 0.233492973644388 \\
 \end{array}
 \right.
 \end{equation}
@@ -1154,10 +1168,14 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-16-1} 
+
+}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in plot(Hansen): objeto 'Hansen' no encontrado}}\end{kframe}
+
 \end{knitrout}
 
 
@@ -1180,7 +1198,7 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 ## 	JB-Test (multivariate)
 ## 
 ## data:  Residuals of VAR object mono
-## Chi-squared = 578, df = 4, p-value < 2.2e-16
+## Chi-squared = 836.84, df = 4, p-value < 2.2e-16
 ## 
 ## 
 ## $Skewness
@@ -1188,7 +1206,7 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 ## 	Skewness only (multivariate)
 ## 
 ## data:  Residuals of VAR object mono
-## Chi-squared = 31.152, df = 2, p-value = 1.72e-07
+## Chi-squared = 43.908, df = 2, p-value = 2.921e-10
 ## 
 ## 
 ## $Kurtosis
@@ -1196,15 +1214,15 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 ## 	Kurtosis only (multivariate)
 ## 
 ## data:  Residuals of VAR object mono
-## Chi-squared = 546.84, df = 2, p-value < 2.2e-16
+## Chi-squared = 792.93, df = 2, p-value < 2.2e-16
 ## $multi
-##          E df   P(Chi > E)
-## 1 223.4351  4 3.417242e-47
+##         E df   P(Chi > E)
+## 1 249.622  4 7.852179e-53
 ## 
 ## $univ
 ##                      E df   P(Chi > E)
-## mayorista     82.69136  2 1.106113e-18
-## supermercado 140.74374  2 2.740846e-31
+## mayorista     72.66811  2 1.660813e-16
+## supermercado 176.95389  2 3.757949e-39
 \end{verbatim}
 \end{kframe}
 \end{knitrout}

@@ -1113,9 +1113,9 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 
 if (!require(tsDyn)) install.packages("tsDyn")
 
-mono = TVECM(datos, lag=2, nthresh = 1, trim=0.05, ngridBeta = 50, ngridTh = 50, plot=TRUE, include=c("const"))
+mono = TVECM(datos, lag=3, nthresh = 1, trim=0.05, ngridBeta = 50, ngridTh = 50, plot=TRUE, include=c("const"))
 
-#Hansen = TVECM.HStest(datos, lag=2, ngridTh = 300, trim=0.05, nboot=100)
+Hansen = TVECM.HStest(datos, lag=3, ngridTh = 300, trim=0.05, nboot=100)
 @
 
 <<results='asis'>>=
