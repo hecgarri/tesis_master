@@ -829,7 +829,6 @@ De donde se desprende que
 Criterios de selección 
 
 \begin{align}
-<<<<<<< HEAD
 \text{AIC} & = \log |\boldsymbol{\hat{\Omega}}|+(p^{2}k)\frac{2}{T} \\ 
 \text{SC} & = \log|\boldsymbol{\hat{\Omega}}|+(p^{2}k)\frac{\log T}{T} \\ 
 \text{Hannah-Quinn} & = \log|\boldsymbol{\hat{\Omega}}|+(p^{2}k)\frac{2\log \log T}{T}
@@ -851,11 +850,14 @@ Al momento de la determinación del número de rezagos, volver a revisar tabla 4
 \text{Ljung-Box} = T(T+2)\sum_{h=1}^{T/4}(T-h)^{-1}\text{traza}(\boldsymbol{\hat{\Omega}'_{h}\hat{\Omega}^{-1}\hat{\Omega}'_{h}\hat{\Omega}^{-1}})
 \end{equation}
 
-Donde 
-=======
-\text{AIC} & = \log |\boldsymbol{\hat{\Omega}}|+(p^{2}k)\frac{2}{T}
-\end{align}
->>>>>>> f7d0590197030e3cd9df7ff62b5cdd52275f9f88
+Donde  $ \boldsymbol{\hat{\Omega}}_{h} = T^{-1}\sum_{t=1}^{T}\boldsymbol{\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-h}'}$. El estadístico se considera distribuido aproximadamente según una $\chi^{2}$ con $p^{2}(T/4-k+1)-p^{2}$ grados de libertad. 
+
+También puede utilizarse un contraste propuesto por Godfrey(1988),  el cual consiste en regresar los residuos del modelo VAR estimado, $\boldsymbol{\hat{\varepsilon}_{t}}$, sobre $k$ variables rezagadas, $\bold{x_{t-1}, x_{t-2}, ...,x_{t-k}}$ y el $j$-ésimo residuo rezagado
+
+\begin{equation}
+\boldsymbol{\hat{\varepsilon}_{t}}=\bold{A_{1}x_{t-1}+A_{2}x_{t-2}+...+A_{k}x_{t-k}+A_{\varepsilon}}\boldsymbol{\hat{\varepsilon}}
+\end{equation}
+
 }
 
 \subsection{Modelo Vectorial de Corrección del Error (VECM)}
