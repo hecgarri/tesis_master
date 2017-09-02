@@ -981,19 +981,17 @@ beta = cbind(mayorista = 1, supermercado=1, const = 1)
 
 modelo1 = VECM(datos, r=1, lag = 2, LRinclude=c("const"), estim=c("ML"))
 
-
-
 ## Recordar que esta secuencia se realiza para imponer restricciones sobre 
 # la estimación del modelo 
 
-vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=2,
+vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=3,
               spec="longrun", season=NULL)
 
-HD0 = c(1,-1.22,2.236067)
+HD0 = c(1,-1.18,1.932082)
 
 modelo11 = blrtest(vecm1, HD0, r=1)
 
-modelo12 = cajorls(vecm1, r=1)
+modelo12 = cajorls(modelo11, r=1)
 
 summary(modelo1)
 
@@ -1113,7 +1111,7 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 
 if (!require(tsDyn)) install.packages("tsDyn")
 
-mono = TVECM(datos, lag=3, nthresh = 1, trim=0.05, ngridBeta = 50, ngridTh = 50, plot=TRUE, include=c("const"))
+mono = TVECM(datos, lag=2, nthresh = 1, trim=0.05, ngridBeta = 500, ngridTh = 5000, plot=TRUE, include=c("const"))
 
 Hansen = TVECM.HStest(datos, lag=3, ngridTh = 300, trim=0.05, nboot=100)
 @
@@ -1378,6 +1376,24 @@ precio_mayorista = ts(price_may_tom$price, start=c(2008,3), frequency=365/7)
 precio_supermercado = 
   ts(price_sup_palta$price, start=c(2008,3), frequency=365/7)
 @
+
+\subsection{Comparación entre las funciones VECM y cajolrs}
+
+<<eval = FALSE>>=
+#compare results with package vars:
+if(require(vars)) {
+ data(finland)
+ #check long coint values
+   all.equal(VECM(finland, lag=2, estim="ML", r=2)$model.specific$beta,
+             cajorls(ca.jo(finland, K=3, spec="transitory"), r=2)  $beta, check.attributes=FALSE)
+# check OLS parameters
+  all.equal(t(coefficients(VECM(finland, lag=2, estim="ML", r=2))),
+    coefficients(cajorls(ca.jo(finland, K=3, spec="transitory"), r=2)$rlm), check.attributes=FALSE)
+
+}
+
+@
+
 
 \subsection{Selección modelo VAR}
 
