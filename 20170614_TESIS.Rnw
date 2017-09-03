@@ -945,11 +945,11 @@ if (!require(tsDyn)) install.packages("tsDyn")
 
 ### Para seleccionar el número de rezagos del modelo utilizaré un contraste de razón de verosimilitud
 
-vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=2,
+vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=19,
               spec="longrun", season=NULL)
 
 
-vecm1.1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=3,
+vecm1.1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=20,
               spec="longrun", season=NULL)
 
 lrt <- function (obj1, obj2, r) {
@@ -984,12 +984,13 @@ modelo1 = VECM(datos, r=1, lag = 2, LRinclude=c("const"), estim=c("ML"))
 ## Recordar que esta secuencia se realiza para imponer restricciones sobre 
 # la estimación del modelo 
 
-vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=3,
+vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=24,
               spec="longrun", season=NULL)
 
-HD0 = c(1,-1.18,1.932082)
+HD0 = c(1,-1.06,0.98)
 
 modelo11 = blrtest(vecm1, HD0, r=1)
+summary(modelo11)
 
 modelo12 = cajorls(modelo11, r=1)
 
@@ -1111,7 +1112,7 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 
 if (!require(tsDyn)) install.packages("tsDyn")
 
-mono = TVECM(datos, lag=2, nthresh = 1, trim=0.05, ngridBeta = 500, ngridTh = 5000, plot=TRUE, include=c("const"))
+mono = TVECM(datos, lag=2, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 500, plot=TRUE, include=c("const"))
 
 Hansen = TVECM.HStest(datos, lag=3, ngridTh = 300, trim=0.05, nboot=100)
 @

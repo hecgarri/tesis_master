@@ -74,24 +74,26 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.2.5}Diagn\IeC {\'o}sticos del modelo}{38}{subsection.4.2.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Conclusiones}{41}{chapter.5}
+\contentsline {chapter}{\numberline {5}Conclusiones}{43}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Bibliograf\IeC {\'\i }a}{43}{chapter.6}
+\contentsline {chapter}{\numberline {6}Bibliograf\IeC {\'\i }a}{45}{chapter.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Anexo}{45}{chapter.7}
+\contentsline {chapter}{\numberline {7}Anexo}{47}{chapter.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A}Desarrollos adicionales}{45}{section.7.1}
+\contentsline {section}{\numberline {A}Desarrollos adicionales}{47}{section.7.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {A.1}M\IeC {\'\i }nimos cuadrados multivariados}{45}{subsection.7.1.1}
+\contentsline {subsection}{\numberline {A.1}M\IeC {\'\i }nimos cuadrados multivariados}{47}{subsection.7.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {A.2}Regresi\IeC {\'o}n de Rango Reducido}{46}{subsection.7.1.2}
+\contentsline {subsection}{\numberline {A.2}Regresi\IeC {\'o}n de Rango Reducido}{48}{subsection.7.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {B}C\IeC {\'o}digo R}{47}{section.7.2}
+\contentsline {section}{\numberline {B}C\IeC {\'o}digo R}{49}{section.7.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {B.1}Informaci\IeC {\'o}n de la sesi\IeC {\'o}n}{47}{subsection.7.2.1}
+\contentsline {subsection}{\numberline {B.1}Informaci\IeC {\'o}n de la sesi\IeC {\'o}n}{49}{subsection.7.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {B.2}Importaci\IeC {\'o}n y depurado de los datos}{48}{subsection.7.2.2}
+\contentsline {subsection}{\numberline {B.2}Importaci\IeC {\'o}n y depurado de los datos}{50}{subsection.7.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {B.3}Selecci\IeC {\'o}n modelo VAR}{48}{subsection.7.2.3}
+\contentsline {subsection}{\numberline {B.3}Comparaci\IeC {\'o}n entre las funciones VECM y cajolrs}{50}{subsection.7.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {B.4}Funci\IeC {\'o}n normalidad}{48}{subsection.7.2.4}
+\contentsline {subsection}{\numberline {B.4}Selecci\IeC {\'o}n modelo VAR}{50}{subsection.7.2.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {B.5}Funci\IeC {\'o}n normalidad}{50}{subsection.7.2.5}
