@@ -38,11 +38,11 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {3.2}Estimaci\IeC {\'o}n basada en la verosimilitud para el modelo VAR irrestricto}{28}{section.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2.1}Contraste de raz\IeC {\'o}n de verosimilitud}{29}{subsection.3.2.1}
+\contentsline {subsection}{\numberline {3.2.1}Contraste de raz\IeC {\'o}n de verosimilitud}{30}{subsection.3.2.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{El contraste de Ljung-Box}{30}{equation.3.2.18}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.2.2}Modelo Vectorial de Correcci\IeC {\'o}n del Error (VECM)}{30}{subsection.3.2.2}
+\contentsline {subsection}{\numberline {3.2.2}Modelo Vectorial de Correcci\IeC {\'o}n del Error (VECM)}{31}{subsection.3.2.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.2.3}El contraste de cointegraci\IeC {\'o}n de Johansen}{32}{subsection.3.2.3}
 \defcounter {refsection}{0}\relax 
@@ -50,50 +50,30 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.3.1}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n}{33}{subsection.3.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Procesos de transmisi\IeC {\'o}n asim\IeC {\'e}tricos}{37}{chapter.4}
+\contentsline {chapter}{\numberline {4}Procesos de transmisi\IeC {\'o}n asim\IeC {\'e}tricos}{39}{chapter.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.1}Modelo de vectores de correcci\IeC {\'o}n del error por umbrales (TVECM)}{37}{section.4.1}
+\contentsline {section}{\numberline {4.1}Modelo de vectores de correcci\IeC {\'o}n del error por umbrales (TVECM)}{39}{section.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.1}El contraste de Hansen \& Seo (2002)}{37}{subsection.4.1.1}
+\contentsline {subsection}{\numberline {4.1.1}El contraste de Hansen \& Seo (2002)}{39}{subsection.4.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.2}Contrastes de linealidad}{38}{subsection.4.1.2}
+\contentsline {subsection}{\numberline {4.1.2}Contrastes de linealidad}{40}{subsection.4.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.3}Estimaci\IeC {\'o}n del modelo}{38}{subsection.4.1.3}
+\contentsline {subsection}{\numberline {4.1.3}Estimaci\IeC {\'o}n del modelo}{40}{subsection.4.1.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.4}Relaciones din\IeC {\'a}micas a corto plazo}{38}{subsection.4.1.4}
+\contentsline {subsection}{\numberline {4.1.4}Relaciones din\IeC {\'a}micas a corto plazo}{40}{subsection.4.1.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.2}Resultados de la aplicaci\IeC {\'o}n}{38}{section.4.2}
+\contentsline {section}{\numberline {4.2}Resultados de la aplicaci\IeC {\'o}n}{40}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.1}An\IeC {\'a}lisis de las relaciones asim\IeC {\'e}tricas}{38}{subsection.4.2.1}
+\contentsline {subsection}{\numberline {4.2.1}An\IeC {\'a}lisis de las relaciones asim\IeC {\'e}tricas}{40}{subsection.4.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.2}Especificaci\IeC {\'o}n del sistema}{38}{subsection.4.2.2}
+\contentsline {subsection}{\numberline {4.2.2}Especificaci\IeC {\'o}n del sistema}{40}{subsection.4.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.3}Estimaci\IeC {\'o}n del modelo TVECM}{38}{subsection.4.2.3}
+\contentsline {subsection}{\numberline {4.2.3}Estimaci\IeC {\'o}n del modelo TVECM}{40}{subsection.4.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.4}Funciones de impulso respuesta}{38}{subsection.4.2.4}
+\contentsline {subsection}{\numberline {4.2.4}Funciones de impulso respuesta}{40}{subsection.4.2.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.5}Diagn\IeC {\'o}sticos del modelo}{38}{subsection.4.2.5}
+\contentsline {subsection}{\numberline {4.2.5}Diagn\IeC {\'o}sticos del modelo}{40}{subsection.4.2.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Conclusiones}{43}{chapter.5}
+\contentsline {chapter}{\numberline {5}Conclusiones}{45}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Bibliograf\IeC {\'\i }a}{45}{chapter.6}
-\defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Anexo}{47}{chapter.7}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {A}Desarrollos adicionales}{47}{section.7.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {A.1}M\IeC {\'\i }nimos cuadrados multivariados}{47}{subsection.7.1.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {A.2}Regresi\IeC {\'o}n de Rango Reducido}{48}{subsection.7.1.2}
-\defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {B}C\IeC {\'o}digo R}{49}{section.7.2}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {B.1}Informaci\IeC {\'o}n de la sesi\IeC {\'o}n}{49}{subsection.7.2.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {B.2}Importaci\IeC {\'o}n y depurado de los datos}{50}{subsection.7.2.2}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {B.3}Comparaci\IeC {\'o}n entre las funciones VECM y cajolrs}{50}{subsection.7.2.3}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {B.4}Selecci\IeC {\'o}n modelo VAR}{50}{subsection.7.2.4}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {B.5}Funci\IeC {\'o}n normalidad}{50}{subsection.7.2.5}
+\contentsline {chapter}{\numberline {6}Bibliograf\IeC {\'\i }a}{47}{chapter.6}

@@ -280,6 +280,9 @@ Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$.
 \multicolumn{2}{l}{Estadístico} & \multicolumn{2}{c}{$\mathcal{H}_{0}$} &
 \multicolumn{2}{c}{$\mathcal{H}_{a}$} \\
 \cmidrule(l){3-4} \cmidrule(l){5-6} \\
+\multicolumn{2}{l}{$\tau$} & 
+\multicolumn{2}{l}{$\rho =1 $} & 
+\multicolumn{2}{l}{$\rho =0 $} \\
 \multicolumn{2}{l}{$\Phi_{1}$} &
 \multicolumn{2}{l}{$(\alpha,\rho)=(0,1)$} &
 \multicolumn{2}{l}{$(\alpha,\rho)\neq(0,1)$} \\
@@ -301,29 +304,65 @@ Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$.
 
 \subsection{Contraste de Phillips Perron (1992)}
 
-De manera similar al contraste anterior \cite{phillips1988} proponen 
+De manera similar al contraste anterior \cite{phillips1988} proponen un contraste no paramétrico para la hipótesis nula de raíz unitaria. A diferencia del contraste de Dickey Fuller este contraste resiste dependencia débil y heteroscedasticidad del término de error. El contraste está construido sobre la base de las siguientes formas funcionales: 
+
+\begin{align}
+y_{t} & = \mu+\alpha y_{t-1}+\varepsilon_{t}, \\ 
+y_{t} & = \mu+\beta\left(t-\frac{1}{2}T\right)+\alpha y_{t-1}+\varepsilon_{t}
+\end{align}
+
+Luego de esto definen los siguientes estadísticos de prueba: 
+\begin{align}
+Z(\hat{\alpha}) & = T(\hat{\alpha}-1)-\hat{\lambda}/\bar{m}_{yy}, \label{eq:pp1}\\ 
+Z(\tau_{\hat{\alpha}}) & = (\hat{s}/\hat{\sigma}T_{l})t_{\hat{\alpha}}-\hat{\lambda}'\hat{\sigma}T_{l}/\bar{m}^{1/2}_{yy}, \\ 
+Z(\tau_{\hat{\mu}}) & = (\hat{s}/\hat{\sigma}_{Tl})t_{\hat{\mu}}+\hat{\lambda}'\hat{\sigma}_{Tl}m_{y}/\bar{m}^{1/2}_{yy}m^{1/2}_{yy} \label{eq:pp3}
+\end{align}
+
+Donde $\bar{m}_{yy}=T^{-2}\sum (y_{t}-\bar{y})^{2}$, $m_{yy}=T^{-2}\sum y_{t}^{2}$, $m_{y}=T^{-3/2}\sum y_{t}$ y $\hat{\lambda} = \frac{1}{2}(\hat{\sigma}^{2}_{Tl}-\hat{s} ^{2})$, donde $\hat{\sigma}^{2}$ es la varianza muestral de los residuos, $\hat{\lambda}'=\hat{\lambda}/\hat{\sigma}^{2}_{Tl}$. Luego, la varianza de largo plazo es estimada de la siguiente forma: 
+\begin{equation}
+\hat{\sigma}^{2}_{Tl}=T^{-1}\sum_{t=1}^{T}\hat{\varepsilon}_{t}^{2}+2T^{-1}\sum_{s=1}^{l}w_{sl}\sum_{t=s+1}^{T}\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-s}
+\end{equation}
+Donde $w_{sl}=1-s/(l+1)$
+
+De manera similar, el contraste permite la inclusión de una tendencia determinista, modificando los estadísticos de prueba de la siguiente manera: 
+\begin{align}
+Z(\tilde{\alpha})  & = T(\hat{\alpha}-1)-\hat{\lambda}/M, \\ 
+Z(t_{\tilde{\alpha}}) & = (\tilde{s}/\tilde{\sigma}_{Tl})t_{\tilde{\alpha}}-\tilde{\lambda}'\tilde{\sigma}_{Tl}/M^{1/2}, \\ 
+Z(t_{\tilde{\mu}}) & = (\tilde{s}/\tilde{\sigma}_{Tl})t_{\tilde{\mu}}-\tilde{\lambda}'\tilde{\sigma}_{Tl}m_{y}/M^{1/2}(M+m_{y}^{2})^{1/2}, \\
+Z(t_{\tilde{\beta}}) & = (\tilde{s}/\tilde{\sigma}_{Tl})t_{\tilde{\beta}}-\tilde{\lambda}'\tilde{\sigma}_{Tl}\left(\frac{1}{2}m_{y}-m_{ty}\right)/(M/12)^{1/2}\bar{m}_{yy}^{1/2}
+\end{align}
+
+Donde $m_{y}$, $\bar{m}_{yy}$, $\tilde{\lambda}$, $\tilde{\lambda}'$ y $\tilde{\sigma}_{Tl}$ son definidos al igual que en las ecuaciones \ref{eq:pp1} a \ref{eq:pp3} y $m_{ty}=T^{5/2}\sum t_{yt}$, $t_{\tilde{\mu}}$, $t_{\tilde{\beta}}$ y $t_{\tilde{\alpha}}$ son los estadísticos $t$ de $\tilde{\mu}$, $\tilde{\alpha}$ y $\tilde{\beta}$, respectivamente. Por último la constante $M=(1-T^{-2})m_{yy}-12m^{2}_{ty}+12(1+T^{-1})m_{ty}m_{y}-(4+6T^{-1}+2T^{-2})m_{y}^{2}$
+
+
 \subsection{Contraste Kiatkowsky, Pesaran, Schmidt \& Shin (1992)}
 \subsection{Contraste de Elliot, Rothenberg \& Stock (1993)} 
+
 
 \subsection{Contraste de Canova \& Hansen (1995) para estacionalidad estable}
 
 \section{Resultados de los contrastes de raíz unitaria}
 
-<<echo=FALSE>>=
+<<echo=FALSE, include=FALSE>>=
 if (!require(urca)) install.packages("urca")
 
 dickey1 = ur.df(y1, type="trend", selectlags = c("BIC"))
+summary(dickey1)
 dickey2 = ur.df(y2, type="trend", selectlags = c("BIC"))
+summary(dickey2)
 
 dickey11 = ur.df(y1, type="drift", selectlags = c("BIC"))
 dickey21 = ur.df(y2, type="drift", selectlags = c("BIC"))
+summary(dickey11)
+summary(dickey21)
 @
 
+A continuación se aplicará el contraste de Dickey-Fuller aumentado bajo el supuesto de que el proceso subyacente tiene drift y tendencia y bajo el supuesto de que sólo tiene drift. 
 
 \begin{table}[H]
 \centering
 \begin{threeparttable}
-\caption{Contraste de Dickey-Fuller aumentado (con tendencia determinista)}
+\caption{Contraste de Dickey-Fuller aumentado (con drift)\label{tab:dickey1}}
 \begin{tabular}{@{}lrllll@{}}
 \toprule
 \multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
@@ -336,38 +375,8 @@ dickey21 = ur.df(y2, type="drift", selectlags = c("BIC"))
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$\tau_{3} $  & -3.1822 &  -2.0437 & -3.13 & -3.42 & -3.98 \\
-$\phi_{2} $  & 3.393   &  1.5448 & 4.05 & 4.71 & 6.15 \\
-$\phi_{3}$   & 5.0686  &  2.0907 &    5.36    &   6.30   &  8.34    \\ 
-\bottomrule
-\end{tabular}
-\label{tab-2}
-\begin{tablenotes}
-\small 
-\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
-\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
-\end{tablenotes}
-\end{threeparttable}
-\end{table}
-
-\begin{table}[H]
-\centering
-\begin{threeparttable}
-\caption{Contraste de Dickey-Fuller aumentado (con drift)}
-\begin{tabular}{@{}lrllll@{}}
-\toprule
-\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
-\multicolumn{3}{c}{Valores críticos} \\
-\cmidrule(l){2-3} \cmidrule(l){4-6} \\
-\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
- \multicolumn{1}{c}{Supermercado$^{b}$} &
-\multicolumn{1}{l}{90\%}&
-\multicolumn{1}{l}{95\%}&
-\multicolumn{1}{l}{99\%}
-\\
-\midrule
-$\tau_{2} $  & -2.7628 &  -1.7114 & -2.57 & -2.87 & -3.44 \\
-$\phi_{1} $  & 3.8373  &  1.6909 & 1.6909 & 4.61 & 3.79 \\
+$\tau_{2} $  & -2.5725 &  -1.6393 & -2.57 & -2.87 & -3.44 \\
+$\phi_{1} $  & 3.4095  &  1.6354 & 3.79 & 4.61 &  6.47\\
 \bottomrule
 \end{tabular}
 \label{tab-3}
@@ -379,6 +388,49 @@ $\phi_{1} $  & 3.8373  &  1.6909 & 1.6909 & 4.61 & 3.79 \\
 \end{threeparttable}
 \end{table}
 
+El cuadro \ref{tab:dickey1} muestra que la evidencia estadística provista por la realización de la serie es apenas suficiente para rechazar la hipótesis $\mathcal{H}_{0}: \rho = 1$ a un nivel de significancia de 10 \%. Por otro lado, la hipótesis $\mathcal{H}_{0}: (\alpha,\rho) = (0,1) $ no puede ser rechazada.
+
+Con respecto a la serie de precios de supermercados la evidencia va en la misma dirección. 
+
+De acuerdo a lo anterior, la serie no contendría una raíz unitaria. De todas maneras, es necesario formular otras representaciones del proceso, como bien podría ser incluir una tendencia determinista (a continuación) o utilizar otros contrastes. 
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Dickey-Fuller aumentado (con tendencia determinista) \label{tab:dickey2}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & -3.4073 &  -2.1143 & -3.13 & -3.42 & -3.98 \\
+$\phi_{2} $  & 3.9655   &  1.6848 & 4.05 & 4.71 & 6.15 \\
+$\phi_{3}$   & 5.84  &  2.2351 &    5.36    &   6.30   &  8.34    \\ 
+\bottomrule
+\end{tabular}
+\label{tab-2}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+El cuadro \ref{tab:dickey2} muestra que para el caso de la serie de precios mayoristas, la hipótesis $\mathcal{H}_{0}: \rho=1$ se rechaza a un nivel de significancia de $10\%$. Mientras que la hipótesis $\mathcal{H}_{0}: (\alpha, \beta, \rho)=(0,0,1)$  no muestra evidencia estadística suficiente para ser rechaza a los niveles de significancia propuestos. Por último, la hipótesis $\mathcal{H}_{0}: (\alpha, \beta,\rho)=(\alpha,0,1)$ puede ser rechaza sólo a un 10\% de significancia. 
+
+Para el caso de la serie de precios de supermercado, la hipótesis $\mathcal{H}_{0}: \rho=1$ no puede ser rechazada a ninguno de los niveles de significancia propuestos. Mientras que el contraste tampoco provee información suficiente para rechazar $\mathcal{H}_{0}: (\alpha, \beta, \rho)=(0,0,1)$. Por último, la hipótesis $\mathcal{H}_{0}: (\alpha, \beta,\rho)=(\alpha,0,1)$ puede ser rechaza sólo a un 10\% de significancia. 
+
+El resultado de este contraste es más bien contradictorio, pues no permite concluir que ambas series contengan una raíz unitaria, bajo los diferentes escenarios que sus hipótesis configuran. Queda la posibilidad entonces de que las series tengan un comportamiento estacionario en tendencia, situación que será abordada con el contraste KPSS. 
+
+
 <<include=FALSE>>=
 pperron1 =ur.pp(y1, type=c("Z-alpha"), model = c("trend"), lags = c("short")) 
 
@@ -389,17 +441,17 @@ pperron2 =ur.pp(y2, type=c("Z-alpha"), model = c("trend"), lags = c("short"))
 \begin{table}[H]
 \centering
 \begin{threeparttable}
-\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)}
+\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
 \begin{tabular}{@{}lrll@{}}
 \toprule
 
- & \multicolumn{1}{c}{$Z-\alpha$} &
-\multicolumn{1}{l}{$Z-\tau-\mu$}&
-\multicolumn{1}{l}{$Z-\tau-\beta$}
+ & \multicolumn{1}{c}{$Z(t_{\hat{\alpha}})$} &
+\multicolumn{1}{l}{$Z(t_{\hat{\mu}})}&
+\multicolumn{1}{l}{$Z(t_{\hat{\beta}})$}
 \\
 \cmidrule(l){2-2} \cmidrule(l){3-4} \\
-Mayorista  & -22.122 &  2.1588 & 1.7097\\
-Supermercado & -11.1245 & 1.0301 & 1.4522 \\
+Mayorista  & -22.1367 &  1.5224 & 2.2482\\
+Supermercado & -11.958 & 1.0702 & 1.6795 \\
 \bottomrule
 \end{tabular}
 \label{tab-4}
@@ -409,6 +461,8 @@ Supermercado & -11.1245 & 1.0301 & 1.4522 \\
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
+
+Si se observa el cuadro \ref{tab:pperron1} puede observarse que el contraste claramente rechaza la hipótesis de raíz unitaria, aunque no permite identificar con claridad la estructura de los términos deterministas. 
 
 
 <<include=FALSE>>=
@@ -422,16 +476,16 @@ pperron21 =ur.pp(y2, type=c("Z-alpha"), model = c("constant"), lags = c("short")
 \begin{table}[H]
 \centering
 \begin{threeparttable}
-\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)}
+\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \label{tab:pperron2}}
 \begin{tabular}{@{}lrl@{}}
 \toprule
 
- & \multicolumn{1}{c}{$Z-\alpha$} &
-\multicolumn{1}{l}{$Z-\tau-\mu$}
+ & \multicolumn{1}{c}{$Z(t_{\hat{\alpha}})$} &
+\multicolumn{1}{l}{$Z(t_{\hat{\mu}})$}
 \\
 \cmidrule(l){2-2} \cmidrule(l){3-3} \\
-Mayorista  & -16.0952 &  2.8635 \\
-Supermercado & -7.2938 & 1.9177 \\
+Mayorista  & -13.3185 &  2.5034 \\
+Supermercado & -6.8785 & 1.846 \\
 \bottomrule
 \end{tabular}
 \label{tab-5}
@@ -441,6 +495,77 @@ Supermercado & -7.2938 & 1.9177 \\
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
+
+Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hipótesis de raíz unitaria, aunque por cierto no se puede afirmar con exactitud el comportamiento de los términos deterministas. 
+
+<<include=FALSE>>=
+
+ers1 = ur.ers(y1, type = c("P-test"), model="trend", lag.max = 5)
+
+ers2 = ur.ers(y2, type = c("P-test"), model="trend", lag.max = 5)
+
+ers11 = ur.ers(y1, type = c("P-test"), model="constant", lag.max = 5)
+
+ers21 = ur.ers(y2, type = c("P-test"), model="constant", lag.max = 5)
+@
+
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+  & -3.1558 &  -2.0504 & -2.57 & -2.89 & -3.48 \\
+\bottomrule
+\end{tabular}
+\label{tab-8}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\begin{table}[H]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con constante)}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+  & -2.3519 &  -0.8837 & -1.62 & -1.94 & -2.57 \\
+\bottomrule
+\end{tabular}
+\label{tab-9}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
 
 <<include=FALSE>>=
 kpss1 = ur.kpss(y1, type=c("tau"), lags=c("short"))
@@ -510,80 +635,6 @@ $\tau_{3} $  & 2.5592 &  2.9497 & 0.347 & 0.463 & 0.739 \\
 \end{table}
 
 
-<<include=FALSE>>=
-
-ers1 = ur.ers(y1, type = c("DF-GLS"), model="trend", lag.max = 5)
-
-ers2 = ur.ers(y2, type = c("DF-GLS"), model="trend", lag.max = 5)
-
-ers11 = ur.ers(y1, type = c("DF-GLS"), model="constant", lag.max = 5)
-
-ers21 = ur.ers(y2, type = c("DF-GLS"), model="constant", lag.max = 5)
-@
-
-
-\begin{table}[H]
-\centering
-\begin{threeparttable}
-\caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)}
-\begin{tabular}{@{}lrllll@{}}
-\toprule
-\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
-\multicolumn{3}{c}{Valores críticos} \\
-\cmidrule(l){2-3} \cmidrule(l){4-6} \\
-\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
- \multicolumn{1}{c}{Supermercado$^{b}$} &
-\multicolumn{1}{l}{90\%}&
-\multicolumn{1}{l}{95\%}&
-\multicolumn{1}{l}{99\%}
-\\
-\midrule
-  & -3.1558 &  -2.0504 & -2.57 & -2.89 & -3.48 \\
-\bottomrule
-\end{tabular}
-\label{tab-8}
-\begin{tablenotes}
-\small 
-\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
-\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
-\end{tablenotes}
-\end{threeparttable}
-\end{table}
-
-\begin{table}[H]
-\centering
-\begin{threeparttable}
-\caption{Contraste de Elliot, Rothenberg \& Stock (con constante)}
-\begin{tabular}{@{}lrllll@{}}
-\toprule
-\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
-\multicolumn{3}{c}{Valores críticos} \\
-\cmidrule(l){2-3} \cmidrule(l){4-6} \\
-\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
- \multicolumn{1}{c}{Supermercado$^{b}$} &
-\multicolumn{1}{l}{90\%}&
-\multicolumn{1}{l}{95\%}&
-\multicolumn{1}{l}{99\%}
-\\
-\midrule
-  & -2.3519 &  -0.8837 & -1.62 & -1.94 & -2.57 \\
-\bottomrule
-\end{tabular}
-\label{tab-9}
-\begin{tablenotes}
-\small 
-\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
-\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
-\end{tablenotes}
-\end{threeparttable}
-\end{table}
-
-
-<<include=FALSE>>=
-if (!require(uroot)) install.packages("uroot")
-canova1 = ch.test(y1, type="trigonometric")
-
-@
 
 \begin{table}[H]
 \centering
@@ -631,6 +682,37 @@ $	joint	$	& 	5.1191	& 	1	\\
 
 \chapter{Análisis de cointegración}
 \section{Cointegración y análisis de las relaciones de largo plazo}
+{\color{red} \textbf{Apuntes de Farías (2017a)}
+
+Dutoit et al. (2010, p. 15) define la transmi-
+sión en este contexto como “(...) la relación
+entre los precios de dos mercados relacio-
+nados; por ejemplo, entre el precio interna-
+cional de un producto y su precio doméstico
+
+En econometría, la estimación de las re-
+laciones entre variables que presentan
+tendencia reviste complejidad, porque su
+estructura puede provocar que se consi-
+deren significativas relaciones comple-
+tamente espurias (Granger y Newbold,
+1974)
+
+Estas técnicas (cointegración) corresponden
+a los modelos de cointegración, que en la
+actualidad son utilizados con frecuencia en
+los estudios de transmisión de precios (aná-
+lisis horizontal) y de transferencia de costos
+(análisis vertical)
+
+
+En este caso, $\boldsymbol{\Pi}$ pue-
+de ser factorizado en una matriz $\boldsymbol{\alpha\beta'}$, donde
+$\boldsymbol{\alpha}$ es una matriz de dimensión $n \times r$ que re-
+presenta la velocidad de ajuste al equilibro,
+mientras que $\boldsymbol{\beta}$ es una matriz de dimensión
+$n \times r$ que representa los coeficientes de largo
+plazo
 
 {\color{red} \textbf{Apuntes de Juselius}
 
@@ -1189,291 +1271,5 @@ DH.test(errores, names(errores))
 
 \printbibliography
 
-\chapter{Anexo}
-\begingroup
-\renewcommand\thesection{A}
-\titleformat{\section}[display]
-{\normalfont\huge\bfseries}{}{20pt}{\huge}
-
-\section{Desarrollos adicionales}
-\subsection{Mínimos cuadrados multivariados}
-
-Considere el siguiente modelo lineal multivariado 
-
-\begin{equation}\label{MLS}
-\bf{y}_{k} = \bf{C}\bf{x}_{k}+\boldsymbol{\varepsilon}_{k}, \quad k=1,...,T, 
-\end{equation}
-
-Donde $\bf{y}_{k}= (y_{1k},...,y_{mk})'$ es un vector de variables respuesta de dimensión $m\times 1$, $\bf{x}_{k}=(x_{1k},..,x_{nk})'$ es un vector de $n\times 1$ de predictores\footnote{pudiendo ser éstos tanto valores rezagados de $\bf{y}_{k}$ o variables exógenas}, $\bf{C}$ es una matriz de coeficienes de $m\times n$ y $\boldsymbol{\varepsilon}_{k}$ es un vector de $m\times 1$ errores aleatorios, con media $\mathbb{E}(\boldsymbol{\varepsilon}_{k})=\bf{0}$ y matriz de covarianzas $\text{Cov}(\boldsymbol{\varepsilon_{k}})=\bold{\Sigma}_{\varepsilon\varepsilon}$, una matriz de $m\times n$ definida positiva. Los elementos del vector $\boldsymbol{\varepsilon}_{k}$ son asumidos independientes para diferentes $k$. Asumiendo que se dispone de $T$ observaciones, podemos definir las siguientes matrices 
-\begin{align}
-\bf{Y} = \left[\bf{y}_{1},...,\bf{y}_{T} \right]_{m\times T} = \left[
-\begin{array}{ccc} 
-y_{11} & \hdots & y_{1T} \\ 
-\vdots & \ddots & \vdots \\ 
-y_{m1} & \hdots & y_{mT}
-\end{array}\right] 
-\end{align}
-
-\begin{align}
-\bf{X} = \left[\bf{x}_{1},...,\bf{x}_{T} \right]_{n\times T} = \left[
-\begin{array}{ccc} 
-x_{11} & \hdots & x_{1T} \\ 
-\vdots & \ddots & \vdots \\ 
-x_{m1} & \hdots & x_{mT}
-\end{array}\right] 
-\end{align}
-Si se asume $m+n\leq T$ y que $\bf{X}$ es de rango completo $n=rank(\bf{X})<T$. Se apilan los vectores de errores para formar una matriz $m\times T$ 
-$\boldsymbol{\varepsilon} = [\boldsymbol{\varepsilon}_{1},\boldsymbol{\varepsilon}_{2},...,\boldsymbol{\varepsilon}_{T}]$. De esta forma puede escribirse el modelo de manera compacta como
-
-\begin{equation}
-\underbrace{\bf{Y}}_{m\times T}=\underbrace{\bf{C}}_{m\times n}\underbrace{\bf{X}}_{n\times T}+\underbrace{\boldsymbol{\varepsilon}}_{m\times T}
-\end{equation}
-Otra forma de tratar la matriz de errores es a través del operador \textit{vec}, $T: \mathbb{R}^{m\times T}\rightarrow \mathbb{R}^{mT\times 1}$.
-$e = (\boldsymbol{\varepsilon_{(1)}}, \boldsymbol{\varepsilon_{(2)}}, ..., \boldsymbol{\varepsilon_{(m)}})'$. Se formulan entonces los siguientes supuestos 
-
-\begin{align}
-\mathbb{E}(e) = \bf{0} && && \text{Cov}(e) = \bold{\Sigma}_{\varepsilon\varepsilon} \otimes \bf{I}_{T}
-\end{align}
-
-
-Donde $\otimes$ denota el producto de Kronecker\footnote{Sean $\bf{A}$ una matriz $n\times p$ y $\bf{B}$ una matriz $m\times q$. Entonces la matriz $mn\times pq$
-\begin{equation}
-\bf{A}\otimes \bf{B} = \left[
-\begin{array}{cccc}
-& & & \\
-& & & \\ 
-& & & 
-\end{array}\right]
-\end{equation}
-}
-\subsection{Regresión de Rango Reducido}
-La regresión de rango reducido (RRR) es una técnica. Para el modelo descrito en  \eqref{MLS} se tiene que 
-
-\begin{equation}
-rank(\bf{C}) = r\leq min(n,m)
-\end{equation}
-
-
-\endgroup
-\begingroup
-\renewcommand\thesection{B}
-\titleformat{\section}[display]
-{\normalfont\huge\bfseries}{}{20pt}{\huge}
-\section{Código R}
-\subsection{Información de la sesión}
-<<size="scriptsize", highlight=FALSE, prompt=TRUE, background="#FFFFFF">>=
-sessionInfo()
-@
-
-\subsection{Importación y depurado de los datos}
-
-<<eval=FALSE, size="scriptsize", highlight=FALSE, prompt=TRUE, background="#FFFFFF">>=
-rm(list=ls())
-setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
-
-Sys.setenv(TEXINPUTS=getwd(),
-           BIBINPUTS=getwd(),
-           BSTINPUTS=getwd())
-getwd()
-list.files()
-
-if (!require(magrittr)) install.packages("magrittr")
-if (!require(dplyr)) install.packages("dplyr")
-if (!require(tidyr)) install.packages("tidyr")
-if (!require(data.table)) install.packages("data.table")
-if (!require(ggplot2)) install.packages("ggplot2")
-if (!require(RColorBrewer)) install.packages("RColorBrewer")
-
-################################################################################
-# Precios Supermercado
-################################################################################
-
-palta_2008 = read.csv("2008_consumidor.csv", sep=",")
-palta_2009 = read.csv("2009_consumidor.csv", sep=",")
-palta_2010 = read.csv("2010_consumidor.csv", sep=",")
-palta_2011 = read.csv("2011_consumidor.csv", sep=",")
-palta_2012 = read.csv("2012_consumidor.csv", sep=",")
-palta_2013 = read.csv("2013_consumidor.csv", sep=",")
-palta_2014 = read.csv("2014_consumidor.csv", sep=",")
-palta_2015 = read.csv("2015_consumidor.csv", sep=",")
-palta_2016 = read.csv("2016_consumidor.csv", sep=",")
-
-palta_cons = rbind(palta_2008, palta_2009, palta_2010, 
-                    palta_2011, palta_2012, palta_2013, 
-                    palta_2014, palta_2015, palta_2016)
-
-################################################################################
-p_super_palta = filter(palta_cons, Variedad=="Hass " & Calidad=="Primera " & 
-                       Tipo.punto.monitoreo=="Supermercado ") %>% 
-  `colnames<-` (c("week", "start", "end", "place","product",
-                  "variety","quality","unity","min","max","price")) %>% 
-  mutate(price=price/1.19,start =gsub("/","-",start))
-
-## generaré una secuencia que tiene todas las semanas para luego comparar 
-## con mi secuencia incompleta
-
-ts = seq.POSIXt(as.POSIXct("2008-03-17", '%y%m%d'),
-                as.POSIXct("2016-12-26", '%y%m%d'), by="week")
-
-df <- data.frame(start=ts)
-
-p_super_palta = separate(data=p_super_palta,col = "start",
-                       into = c("day", "month", "year"),sep = "\\-",
-                       extra="drop")
-price_sup_palta = mutate(p_super_palta, day = as.numeric(day), 
-                       month=as.numeric(month), year=as.numeric(year), 
-                       start = paste(year, month, day, sep="-"), 
-                       start = as.POSIXct(start, '%y%m%d'), 
-                       price = log(price))
-
-price_sup_palta <- full_join(df,price_sup_palta)
-
-################################################################################
-# Precios Mayoristas
-################################################################################
-
-lo_valledor = read.csv("LoValledor.csv")
-vega_central = read.csv("VegaCentral.csv")
-
-mayor = rbind(lo_valledor)
-
-mayor = filter(mayor, Variedad=="Hass " & Calidad=="Primera ") %>% 
-  mutate(Desde = gsub("/","-",Desde)) %>% 
-  separate(col="Desde", into=c("day", "month", "year"), sep="\\-",
-           extra="drop") %>% 
-  mutate(day = as.numeric(day), mont = as.numeric(month),
-         year = as.numeric(year), 
-         start = paste(year, month, day, sep="-"), 
-         start = as.POSIXct(start, '%y%m%d'))
-
-mayor$Unidad.de.comercialización. = 
-  recode(as.character(mayor$Unidad.de.comercialización.),
-        "$/bandeja 10 kilos "=10, 
-       "$/bandeja 4 kilos embalada " = 4, "$/caja 12 kilos " = 12, 
-       "$/kilo (en bins de 400 kilos) " = 400, 
-       "$/kilo (en bins de 450 kilos) " = 450,
-       "$/kilo (en caja de 15 kilos) " = 15,
-       "$/kilo (en caja de 17 kilos) " = 17)
-
-mayor$precio_definitivo = 
-  ifelse(mayor$Unidad.de.comercialización.==10 | 
-  mayor$Unidad.de.comercialización.==4 |
-  mayor$Unidad.de.comercialización.== 12, 
-  mayor$Precio.promedio./mayor$Unidad.de.comercialización., 
-  mayor$Precio.promedio.)
-
-################################################################################
-mayor = mutate(mayor, Volumen =
-      as.numeric(Volumen), Precio.promedio. = as.numeric(Precio.promedio.),
-      volumen_definitivo = Volumen*Unidad.de.comercialización.) %>%   
-      group_by(start) %>% 
-  summarise(price = weighted.mean(precio_definitivo, volumen_definitivo)) %>% 
-      mutate(price = log(price))
-
-price_may_tom = full_join(df, mayor)
-
-precio_mayorista = ts(price_may_tom$price, start=c(2008,3), frequency=365/7)
-
-precio_supermercado = 
-  ts(price_sup_palta$price, start=c(2008,3), frequency=365/7)
-@
-
-\subsection{Comparación entre las funciones VECM y cajolrs}
-
-<<eval = FALSE>>=
-#compare results with package vars:
-if(require(vars)) {
- data(finland)
- #check long coint values
-   all.equal(VECM(finland, lag=2, estim="ML", r=2)$model.specific$beta,
-             cajorls(ca.jo(finland, K=3, spec="transitory"), r=2)  $beta, check.attributes=FALSE)
-# check OLS parameters
-  all.equal(t(coefficients(VECM(finland, lag=2, estim="ML", r=2))),
-    coefficients(cajorls(ca.jo(finland, K=3, spec="transitory"), r=2)$rlm), check.attributes=FALSE)
-
-}
-
-@
-
-
-\subsection{Selección modelo VAR}
-
-<<eval=FALSE, size="scriptsize", highlight=FALSE, prompt=TRUE, background="#FFFFFF">>=
-MejorVar <- function(y, lag.max = 10,
-                     type = c("const", "trend", "both", "none"),
-                     fourierTerms = TRUE, season = 365.25/7){
-if (!require(forecast)) install.packages("forecast")  
-y <- as.matrix(y)
-if (any(is.na(y))) 
-        stop("\nNAs in y.\n")
-colnames(y) <- make.names(colnames(y))
-K <- ncol(y)
-lag.max <- abs(as.integer(lag.max))
-type <- match.arg(type)
-lag <- abs(as.integer(lag.max + 1))
-ylagged <- embed(y, lag)[, -c(1:K)]
-yendog <- y[-c(1:lag.max), ]
-sample <- nrow(ylagged)
-k = round((season/2)-1,0)
-rhs <- switch(type, const = rep(1, sample), trend = seq(lag.max + 
-        1, length = sample), both = cbind(rep(1, sample), seq(lag.max + 
-        1, length = sample)), none = NULL)
-idx <- seq(K, K * lag.max, K)
-if (!is.null(rhs)) {
-        detint <- ncol(as.matrix(rhs))
-    }
-    else {
-        detint <- 0
-    }
-criterio = matrix(NA,ncol=k,nrow=lag.max)
-for (j in 1:k){
-for (i in 1:lag.max){
-  fourierTerms = fourier(ts(y[,1], frequency = season),j)[-c(1:lag.max), ]
-  ys.lagged <- cbind(ylagged[, c(1:idx[i])], rhs, fourierTerms)
-  sampletot <- nrow(y)
-  nstar <- ncol(ys.lagged)
-  resids = lm.fit(x = ys.lagged, y = yendog)$residuals
-  sigma.det = det(crossprod(resids)/sample)
-  criterio[i,j] = log(sigma.det)+(2/sample)*(i*K^2+K*detint)
-}
-}
-minimo = which(criterio == min(criterio), arr.ind = TRUE)
-return(list(matriz = criterio, minimo = minimo))
-}
-
-best = MejorVar(datos, lag.max = 12, type=c("const"), fourierTerms = TRUE, season = 52)$minimo
-@
-
-\subsection{Función normalidad}
-
-<<eval=FALSE, size="scriptsize", highlight=FALSE, prompt=TRUE, background="#FFFFFF">>=
-normalidad = function (x, multivariate.only = TRUE) 
-{
-    if (!((class(x) == "TVECM") || (class(x) == "nlvar"))) {
-        stop("\nPlease provide an object of class 'varest', generated by 'var()', or an object of class 'vec2var' generated by 'vec2var()'.\n")
-    }
-    obj.name <- deparse(substitute(x))
-    K <- x$k
-    obs <- x$t # cambio de la forma de recoger el número de observaciones
-    resid <- resid(x)
-    resids <- scale(resid, scale = FALSE)
-    # llamo directamente a la función .jb.multi desde el paquete vars
-    jbm.resids <- vars:::.jb.multi(resids, obs = obs, K = K, obj.name = obj.name)
-    if (multivariate.only) {
-        result <- list(resid = resid, jb.mul = jbm.resids)
-    }
-    else {
-        jbu.resids <- apply(resids, 2, function(x) .jb.uni(x,
-            obs = obs))
-        for (i in 1:K) jbu.resids[[i]][5] <- paste("Residual of", 
-            colnames(resids)[i], "equation")
-        result <- list(resid = resid, jb.uni = jbu.resids, jb.mul = jbm.resids)
-    }
-    class(result) <- "varcheck"
-    return(result)
-}
-@
-
-\endgroup
-
+\include{ANEXO}
 \end{document}
