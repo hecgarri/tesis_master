@@ -146,7 +146,15 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 \section{introducción}
 \section{justificación del trabajo}
 
+\chapter{Escenario de la industria en Chile}
 
+<<include=FALSE>>=
+produ = c(8190,15050,	17047,	18463,	20181,	21208,	22290,	23260,	23800,	24000,	26731,	26744,	26759,	33837,	33531,	34057,	36388,	35679,	36355,	31727,	29908,	29933) 
+@
+
+<<>>=
+ts.plot(produ)
+@
 
 \chapter{Análisis univariante de las series de precios}
 \section{Fuentes de información}
@@ -251,7 +259,7 @@ Pacf(y2, main="c) Función de autocorrelación parcial", lag.max = 200)
 boxplot(y2~cycle(y2), main="Diagrama de caja y bigote")
 @
 
-\section{Contrastes de raíz unitaria}
+\section{Contrastes de raíz unitaria/estacionariedad}
 \subsection{Contraste de Dickey-Fuller Aumentado}
 
 El contraste más utilizado en la investigación aplicada, dada su simplicidad, es el contraste propuesto por \cite{fuller1976} y \cite{dickey1981}. Para aplicar este contraste existen dos posibles modelos 
@@ -334,11 +342,76 @@ Z(t_{\tilde{\beta}}) & = (\tilde{s}/\tilde{\sigma}_{Tl})t_{\tilde{\beta}}-\tilde
 
 Donde $m_{y}$, $\bar{m}_{yy}$, $\tilde{\lambda}$, $\tilde{\lambda}'$ y $\tilde{\sigma}_{Tl}$ son definidos al igual que en las ecuaciones \ref{eq:pp1} a \ref{eq:pp3} y $m_{ty}=T^{5/2}\sum t_{yt}$, $t_{\tilde{\mu}}$, $t_{\tilde{\beta}}$ y $t_{\tilde{\alpha}}$ son los estadísticos $t$ de $\tilde{\mu}$, $\tilde{\alpha}$ y $\tilde{\beta}$, respectivamente. Por último la constante $M=(1-T^{-2})m_{yy}-12m^{2}_{ty}+12(1+T^{-1})m_{ty}m_{y}-(4+6T^{-1}+2T^{-2})m_{y}^{2}$
 
+\subsection{Contraste de Elliot, Rothenberg \& Stock (1996)} 
+
+Un defecto de los contrastes de raíz unitaria recién expuestos es su baja potencia si el verdadero proceso generador de datos es AR(1) cuyo coeficiente sea cercano a uno. Para mejorar la potencia de estos contrastes, Elliott, Rothenberg \& Stock (1996) propusieron quitar los términos deterministas de lae  serie de tiempo. Los autores desarrollaron unos contrastes de punto-óptimo factible, denotados por $P^{\mu}_{T}$ y $P^{\tau}_{T}$, los cuales toman en cuenta posibles problemas de autocorrelación en el término de error. El segundo contraste es denotado omo el $DF-GLS$, el cual consiste en una modificación del contraste de Dickey-Fuller Aumentado. Se asume la siguiente forma para el proceso generador de los datos: 
+
+\begin{align}
+y_{t} & = d_{t}+u_{t} \label{eq:ers1}\\ 
+u_{t} & = a u_{t-1}+v_{t} \label{eq:ers2}
+\end{align}
+
+Donde $d_{t}=\boldsymbol{\beta' z_{t}}$ representa a los componentes determinísticos, $v_{t}$ es un proceso de error estacionario de media cero. En el caso en que $a=1$, las ecuaciones  \ref{eq:ers1} y \ref{eq:ers2} implican que el proceso es I(1), mientras que si $|a|<1$ significa que la serie es estacionaria. 
+
+Entonces el estadístico de punto óptimo factible será 
+
+\begin{equation}
+P_{T} = \frac{S(a=\bar{a})-\bar{a}S(a=1)}{\hat{\omega}^{2}}
+\end{equation}
+
+Donde $S(a=\bar{a})$y $S(a=1)$ son las sumas de cuadrados residuales de una regresión de mínimos cuadradosd de $y_{a}$ sobre $Z_{a}$ con 
+
+\begin{align}
+y_{a} & = (y_{1}, y_{2}-a y_{1},...,y_{T}-ay_{T-1}), \\
+\boldsymbol{Z_{a}} & = (\boldsymbol{z_{1},z_{2}-a z_{1},..., z_{T}-a z_{T-1}})
+\end{align}
+
+Por lo tanto, $y_{a}$ es un vector columna $T-dimensional$ y $\boldsymbol{Z_{a}}$ defin una matriz de dimensiones $T\times q$. El estimador para la varianza del proceso de error $v_{t}$ puede ser estimado como 
+
+\begin{equation}
+\hat{\omega} = \frac{\hat{\sigma}^{2}_{v}}{(1-\sum_{i=1}^{p}\hat{a}^{i})^{2}}
+\end{equation}
+
+Donde $\hat{\sigma}^{2}_{v}$ y $\hat{a}_{i}$ para $i=1,..,p$ son tomados desde la regresión de mínimos cuadrados auxiliar. 
+
+\begin{equation}
+\Delta y_{t} = a_{0}+a_{1}\Delta y_{t-1}+...+\Delta y_{t-p}+a_{p+1}+v_{t}
+\end{equation}
+
+Finalmente, la cantidad escalar $\bar{a}$ es fijada como $\bar{a}=1+\frac{\bar{c}}{T}$, donde $\bar{c}$ denota una constante. Dependiendo de los términos deteministas incluidos originalmente, el valor de $\bar{c}$ será -7 para el caso de una constante, mientras que será de -13.5 en el caso de que se presente una tendencia lineal. 
+
+A continuación Elliot et al (1996) han propuesto otro contraste basado en el contrase de Dickey Fuller, el cuál es un estadístico para probar $\alpha_{0}=0$ basados en el siguiente modelo. 
+
+\begin{equation}
+\Delta y_{t}^{d} = \alpha_{0}y_{t-1}^{d}+\alpha_{1}\Delta _{t-1}^{d}+...+\alpha_{p}\Delta _{t-p}^{d}+\varepsilon_{t}
+\end{equation}
+
+Donde $y_{t}^{d}$ son los residuos en la regresión auxiliar $y_{t}^{d}\equiv y_{t}-\boldsymbol{\hat{\beta}z_{t}}.$  
 
 \subsection{Contraste Kiatkowsky, Pesaran, Schmidt \& Shin (1992)}
-\subsection{Contraste de Elliot, Rothenberg \& Stock (1993)} 
 
+Este contraste está pensando para detectar ya sea estacionariedad en tendencia o en nivel. A diferencia de los contrastes anteriores donde la hipótesis nula implicaba afirmar la presencia de una raíz unitaria, en este caso, la hipótesis nula dice relación con que el proceso sea estacionario. Para construir el contraste se considera el siguiente modelo de base: 
 
+\begin{align}
+y_{t} & = \zeta t+r_{t}+\varepsilon_{t} \\  
+r_{t} & = r_{t-1}+u_{t}
+\end{align}
+
+Donde $r_{t}$ es una caminata aleatoria y el término de error se asume i.i.d $(0,\sigma^{2}_{u})$. La hipótesis nula de este contraste consiste en afirmar que $\mathcal{H}_{0}: \sigma^{2}_{u}=0$, en cuyo caso, la tendencia $r_{t}$ sería igualmente una tendencia determinista en lugar de estocástica. 
+
+Para construir el estadístico de prueba se sigue el siguiente procedimiento: i) se realiza una regresión de $y_{t}$ sobre una constante o bien sobre una tendencia lineal y una constante, dependiendo de si se desea contrastar la hipótesis de estacionariedad en nivel o en pendiente. Luego se calcula la suma parcial de los residuos $\hat{\varepsilon}_{t}$ de la regresión como 
+
+\begin{equation}
+S_{t} = \sum_{i=1}^{t}\hat{\varepsilon}_{i}, \qquad t=1,2,...,T
+\end{equation}
+
+El estadístico de prueba está definido como 
+
+\begin{equation}
+LM  = \frac{\sum_{t=1}^{T}S_{t}^{2}}{\hat{\sigma}^{2}_{\varepsilon}}
+\end{equation}
+
+Donde $\hat{\sigma}^{2}_{\varepsilon}$ es una estimación de la varianza del error a un paso. Los autores sugi
 \subsection{Contraste de Canova \& Hansen (1995) para estacionalidad estable}
 
 \section{Resultados de los contrastes de raíz unitaria}
@@ -500,13 +573,13 @@ Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hi
 
 <<include=FALSE>>=
 
-ers1 = ur.ers(y1, type = c("P-test"), model="trend", lag.max = 5)
+ers1 = ur.ers(y1, type = c("P-test"), model="trend", lag.max = 52)
 
-ers2 = ur.ers(y2, type = c("P-test"), model="trend", lag.max = 5)
+ers2 = ur.ers(y2, type = c("P-test"), model="trend", lag.max = 52)
 
-ers11 = ur.ers(y1, type = c("P-test"), model="constant", lag.max = 5)
+ers11 = ur.ers(y1, type = c("P-test"), model="constant", lag.max = 52)
 
-ers21 = ur.ers(y2, type = c("P-test"), model="constant", lag.max = 5)
+ers21 = ur.ers(y2, type = c("P-test"), model="constant", lag.max = 52)
 @
 
 
@@ -565,6 +638,19 @@ ers21 = ur.ers(y2, type = c("P-test"), model="constant", lag.max = 5)
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
+
+
+
+<<include=FALSE>>=
+ers_1 = ur.ers(y1, type = c("DF-GLS"), model="trend", lag.max = 5)
+
+ers_2 = ur.ers(y2, type = c("DF-GLS"), model="trend", lag.max = 5)
+
+ers_11 = ur.ers(y1, type = c("DF-GLS"), model="constant", lag.max = 5)
+
+ers_21 = ur.ers(y2, type = c("DF-GLS"), model="constant", lag.max = 5)
+
+@
 
 
 <<include=FALSE>>=
@@ -1066,9 +1152,13 @@ modelo1 = VECM(datos, r=1, lag = 2, LRinclude=c("const"), estim=c("ML"))
 ## Recordar que esta secuencia se realiza para imponer restricciones sobre 
 # la estimación del modelo 
 
-vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=24,
+vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=3,
               spec="longrun", season=NULL)
 
+plot(vecm1)
+@
+
+<<>>==
 HD0 = c(1,-1.06,0.98)
 
 modelo11 = blrtest(vecm1, HD0, r=1)

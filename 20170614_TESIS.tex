@@ -197,7 +197,19 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 \section{introducción}
 \section{justificación del trabajo}
 
+\chapter{Escenario de la industria en Chile}
 
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{ts.plot}\hlstd{(produ)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-2-1} 
+
+\end{knitrout}
 
 \chapter{Análisis univariante de las series de precios}
 \section{Fuentes de información}
@@ -270,7 +282,7 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 
 \end{knitrout}
 
-\section{Contrastes de raíz unitaria}
+\section{Contrastes de raíz unitaria/estacionariedad}
 \subsection{Contraste de Dickey-Fuller Aumentado}
 
 El contraste más utilizado en la investigación aplicada, dada su simplicidad, es el contraste propuesto por \cite{fuller1976} y \cite{dickey1981}. Para aplicar este contraste existen dos posibles modelos 
@@ -353,10 +365,62 @@ Z(t_{\tilde{\beta}}) & = (\tilde{s}/\tilde{\sigma}_{Tl})t_{\tilde{\beta}}-\tilde
 
 Donde $m_{y}$, $\bar{m}_{yy}$, $\tilde{\lambda}$, $\tilde{\lambda}'$ y $\tilde{\sigma}_{Tl}$ son definidos al igual que en las ecuaciones \ref{eq:pp1} a \ref{eq:pp3} y $m_{ty}=T^{5/2}\sum t_{yt}$, $t_{\tilde{\mu}}$, $t_{\tilde{\beta}}$ y $t_{\tilde{\alpha}}$ son los estadísticos $t$ de $\tilde{\mu}$, $\tilde{\alpha}$ y $\tilde{\beta}$, respectivamente. Por último la constante $M=(1-T^{-2})m_{yy}-12m^{2}_{ty}+12(1+T^{-1})m_{ty}m_{y}-(4+6T^{-1}+2T^{-2})m_{y}^{2}$
 
+\subsection{Contraste de Elliot, Rothenberg \& Stock (1996)} 
+
+Un defecto de los contrastes de raíz unitaria recién expuestos es su baja potencia si el verdadero proceso generador de datos es AR(1) cuyo coeficiente sea cercano a uno. Para mejorar la potencia de estos contrastes, Elliott, Rothenberg \& Stock (1996) propusieron quitar los términos deterministas de lae  serie de tiempo. Los autores desarrollaron unos contrastes de punto-óptimo factible, denotados por $P^{\mu}_{T}$ y $P^{\tau}_{T}$, los cuales toman en cuenta posibles problemas de autocorrelación en el término de error. El segundo contraste es denotado omo el $DF-GLS$, el cual consiste en una modificación del contraste de Dickey-Fuller Aumentado. Se asume la siguiente forma para el proceso generador de los datos: 
+
+\begin{align}
+y_{t} & = d_{t}+u_{t} \label{eq:ers1}\\ 
+u_{t} & = a u_{t-1}+v_{t} \label{eq:ers2}
+\end{align}
+
+Donde $d_{t}=\boldsymbol{\beta' z_{t}}$ representa a los componentes determinísticos, $v_{t}$ es un proceso de error estacionario de media cero. En el caso en que $a=1$, las ecuaciones  \ref{eq:ers1} y \ref{eq:ers2} implican que el proceso es I(1), mientras que si $|a|<1$ significa que la serie es estacionaria. 
+
+Entonces el estadístico de punto óptimo factible será 
+
+\begin{equation}
+P_{T} = \frac{S(a=\bar{a})-\bar{a}S(a=1)}{\hat{\omega}^{2}}
+\end{equation}
+
+Donde $S(a=\bar{a})$y $S(a=1)$ son las sumas de cuadrados residuales de una regresión de mínimos cuadradosd de $y_{a}$ sobre $Z_{a}$ con 
+
+\begin{align}
+y_{a} & = (y_{1}, y_{2}-a y_{1},...,y_{T}-ay_{T-1}), \\
+\boldsymbol{Z_{a}} & = (\boldsymbol{z_{1},z_{2}-a z_{1},..., z_{T}-a z_{T-1}})
+\end{align}
+
+Por lo tanto, $y_{a}$ es un vector columna $T-dimensional$ y $\boldsymbol{Z_{a}}$ defin una matriz de dimensiones $T\times q$. El estimador para la varianza del proceso de error $v_{t}$ puede ser estimado como 
+
+\begin{equation}
+\hat{\omega} = \frac{\hat{\sigma}^{2}_{v}}{(1-\sum_{i=1}^{p}\hat{a}^{i})^{2}}
+\end{equation}
+
+Donde $\hat{\sigma}^{2}_{v}$ y $\hat{a}_{i}$ para $i=1,..,p$ son tomados desde la regresión de mínimos cuadrados auxiliar. 
+
+\begin{equation}
+\Delta y_{t} = a_{0}+a_{1}\Delta y_{t-1}+...+\Delta y_{t-p}+a_{p+1}+v_{t}
+\end{equation}
+
+Finalmente, la cantidad escalar $\bar{a}$ es fijada como $\bar{a}=1+\frac{\bar{c}}{T}$, donde $\bar{c}$ denota una constante. Dependiendo de los términos deteministas incluidos originalmente, el valor de $\bar{c}$ será -7 para el caso de una constante, mientras que será de -13.5 en el caso de que se presente una tendencia lineal. 
+
+A continuación Elliot et al (1996) han propuesto otro contraste basado en el contrase de Dickey Fuller, el cuál es un estadístico para probar $\alpha_{0}=0$ basados en el siguiente modelo. 
+
+\begin{equation}
+\Delta y_{t}^{d} = \alpha_{0}y_{t-1}^{d}+\alpha_{1}\Delta _{t-1}^{d}+...+\alpha_{p}\Delta _{t-p}^{d}+\varepsilon_{t}
+\end{equation}
+
+Donde $y_{t}^{d}$ son los residuos en la regresión auxiliar $y_{t}^{d}\equiv y_{t}-\boldsymbol{\hat{\beta}z_{t}}.$  
 
 \subsection{Contraste Kiatkowsky, Pesaran, Schmidt \& Shin (1992)}
-\subsection{Contraste de Elliot, Rothenberg \& Stock (1993)} 
 
+Este contraste está pensando para detectar ya sea estacionariedad en tendencia o en nivel. A diferencia de los contrastes anteriores donde la hipótesis nula implicaba afirmar la presencia de una raíz unitaria, en este caso, la hipótesis nula dice relación con que el proceso sea estacionario. Para construir el contraste se considera el siguiente modelo de base: 
+
+\begin{align}
+y_{t} & = \zeta t+r_{t}+\varepsilon_{t} \\  
+r_{t} & = r_{t-1}+u_{t}
+\end{align}
+
+Donde $r_{t}$ es una caminata aleatoria y el término de error se asume i.i.d $(0,\sigma^{2}_{u})$. La hipótesis nula de este contraste consiste en afirmar que $\mathcal{H}_{0}: \sigma^{2}_{u}=0$, en cuyo caso, la tendencia $r_{t}$ sería igualmente una tendencia determinista en lugar de estocástica. 
 
 \subsection{Contraste de Canova \& Hansen (1995) para estacionalidad estable}
 
@@ -557,6 +621,10 @@ Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hi
 
 
 
+
+
+
+
 \begin{table}[H]
 \centering
 \begin{threeparttable}
@@ -613,15 +681,6 @@ $\tau_{3} $  & 2.5592 &  2.9497 & 0.347 & 0.463 & 0.739 \\
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-
-
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in x[, (1 + cs[i]):cs[i + 1]] <- xx: número de items para para sustituir no es un múltiplo de la longitud del reemplazo}}\end{kframe}
-\end{knitrout}
-
 
 
 
@@ -1023,6 +1082,28 @@ El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} s
 
 
 \begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+
+{\centering \includegraphics[width=5in,height=3.5in]{figure/unnamed-chunk-14-1} 
+
+}
+
+\caption[Número de Rezagos para el contraste de Independencia]{Número de Rezagos para el contraste de Independencia}\label{fig:unnamed-chunk-141}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics[width=5in,height=3.5in]{figure/unnamed-chunk-14-2} 
+
+}
+
+\caption[Número de Rezagos para el contraste de Independencia]{Número de Rezagos para el contraste de Independencia}\label{fig:unnamed-chunk-142}
+\end{figure}
+
+
+\end{knitrout}
+
+\begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
 ## 
@@ -1041,11 +1122,11 @@ El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} s
 ## [3,]  0.98
 ## 
 ## Eigenvalues of restricted VAR (lambda):
-## [1] 0.0351
+## [1] 0.0825
 ## 
 ## The value of the likelihood ratio test statistic:
-## 1.09 distributed as chi square with 2 df.
-## The p-value of the test statistic is: 0.58 
+## 2.91 distributed as chi square with 2 df.
+## The p-value of the test statistic is: 0.23 
 ## 
 ## Eigenvectors, normalised to first column
 ## of the restricted VAR:
@@ -1058,8 +1139,8 @@ El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} s
 ## Weights W of the restricted VAR:
 ## 
 ##                   [,1]
-## mayorista.d    -0.1540
-## supermercado.d  0.0265
+## mayorista.d    -0.1138
+## supermercado.d  0.0459
 ## #############
 ## ###Model VECM 
 ## #############
@@ -1081,14 +1162,12 @@ El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} s
 ## Equation mayorista    0.1593(0.0816).   
 ## Equation supermercado 0.0182(0.0439)
 \end{verbatim}
-\end{kframe}\begin{figure}[H]
+\end{kframe}
 
-{\centering \includegraphics[width=5in,height=3.5in]{figure/unnamed-chunk-13-1} 
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-15-1} 
 
 }
 
-\caption[Número de Rezagos para el contraste de Independencia]{Número de Rezagos para el contraste de Independencia}\label{fig:unnamed-chunk-13}
-\end{figure}
 
 
 \end{knitrout}
@@ -1284,7 +1363,7 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-17-1} 
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-19-1} 
 
 }
 
@@ -1296,7 +1375,7 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-18-1} 
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-20-1} 
 
 }
 
