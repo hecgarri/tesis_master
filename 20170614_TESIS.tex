@@ -88,6 +88,16 @@
 \usepackage{booktabs,caption}
 \usepackage[flushleft]{threeparttable}
 
+
+\makeatletter
+\newcommand{\distas}[1]{\mathbin{\overset{#1}{\kern\z@\sim}}}%
+\newsavebox{\mybox}\newsavebox{\mysim}
+\newcommand{\distras}[1]{%
+  \savebox{\mybox}{\hbox{\kern3pt$\scriptstyle#1$\kern3pt}}%
+  \savebox{\mysim}{\hbox{$\sim$}}%
+  \mathbin{\overset{#1}{\kern\z@\resizebox{\wd\mybox}{\ht\mysim}{$\sim$}}}%
+}
+\makeatother
 \usepackage{mdframed} %Para usar recuadros
 
     \usepackage{framed}
@@ -422,6 +432,25 @@ r_{t} & = r_{t-1}+u_{t}
 
 Donde $r_{t}$ es una caminata aleatoria y el término de error se asume i.i.d $(0,\sigma^{2}_{u})$. La hipótesis nula de este contraste consiste en afirmar que $\mathcal{H}_{0}: \sigma^{2}_{u}=0$, en cuyo caso, la tendencia $r_{t}$ sería igualmente una tendencia determinista en lugar de estocástica. 
 
+Para construir el estadístico de prueba se sigue el siguiente procedimiento: i) se realiza una regresión de $y_{t}$ sobre una constante o bien sobre una tendencia lineal y una constante, dependiendo de si se desea contrastar la hipótesis de estacionariedad en nivel o en pendiente. Luego se calcula la suma parcial de los residuos $\hat{\varepsilon}_{t}$ de la regresión como 
+
+\begin{equation}
+S_{t} = \sum_{i=1}^{t}\hat{\varepsilon}_{i}, \qquad t=1,2,...,T
+\end{equation}
+
+El estadístico de prueba está definido como 
+
+\begin{equation}
+LM  = \frac{\sum_{t=1}^{T}S_{t}^{2}}{\hat{\sigma}^{2}_{\varepsilon}}
+\end{equation}
+
+Donde $\hat{\sigma}^{2}_{\varepsilon}$ es una estimación de la varianza del error a un paso. Los autores sugieren utiliza una ventana de Bartlett $w(s,l)=1-s/(l+1)$ como una función que da un peso optimo para calcular la varianza de largo plazo, esto es
+
+\begin{equation}
+\hat{\sigma}^{2}_{\varepsilon} = s^{2}(l)=T^{-1}\sum_{t=1}^{T}\hat{\varepsilon}^{2}_{t}+2T-1\sum_{s=1}^{l}1-\frac{s}{l+1}\sum_{t=s+1}^{T}\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-1}
+\end{equation}
+
+
 \subsection{Contraste de Canova \& Hansen (1995) para estacionalidad estable}
 
 \section{Resultados de los contrastes de raíz unitaria}
@@ -681,6 +710,9 @@ $\tau_{3} $  & 2.5592 &  2.9497 & 0.347 & 0.463 & 0.739 \\
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
+
+
+
 
 
 
@@ -983,11 +1015,42 @@ Al momento de la determinación del número de rezagos, volver a revisar tabla 4
 Donde  $ \boldsymbol{\hat{\Omega}}_{h} = T^{-1}\sum_{t=1}^{T}\boldsymbol{\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-h}'}$. El estadístico se considera distribuido aproximadamente según una $\chi^{2}$ con $p^{2}(T/4-k+1)-p^{2}$ grados de libertad. 
 
 También puede utilizarse un contraste propuesto por Godfrey(1988),  el cual consiste en regresar los residuos del modelo VAR estimado, $\boldsymbol{\hat{\varepsilon}_{t}}$, sobre $k$ variables rezagadas, $\bold{x_{t-1}, x_{t-2}, ...,x_{t-k}}$ y el $j$-ésimo residuo rezagado
-
 \begin{equation}
 \boldsymbol{\hat{\varepsilon}_{t}}=\bold{A_{1}x_{t-1}+A_{2}x_{t-2}+...+A_{k}x_{t-k}+A_{\varepsilon}}\boldsymbol{\hat{\varepsilon}}
 \end{equation}
 
+Donde los primeros $j$ valores están perdidos $\hat{\varepsilon}_{-j},...,\hat{\varepsilon}_{-1}$, los que son fijados a cero. El Estadístico de prueba, de tipo multiplicador de Lagrange es calculado de la siguiente forma 
+
+\begin{equation}
+LM(j) = -(T-p(k+1)-\frac{1}{2})\log \left(\frac{|\boldsymbol{\tilde{\Omega}}(j)|}{||\boldsymbol{\tilde{\Omega}}}\right)
+\end{equation}
+
+El estadístico se distribuye aproximadamente como una $\chi^{2}$ con $p^{2}$ grados de libertad. Porque 
+
+\subsubsection{Contrastes para Heteroscedasticidad Residual}
+
+El contraste ARCH $m$-ésimo es calculado como $(T+k-m)\times R^{2}$. Aquí $R^{2}$ se obtiene de la siguiente regresión auxiliar
+
+\begin{equation}
+\hat{\varepsilon}^{2}_{i,t} = \gamma_{0}+\sum_{j=1}^{m}\gamma_{j}\hat{\varepsilon}_{i,t-j}^{2}+error
+\end{equation}
+
+El estadístico se distribuye aproximadamente como una $\chi^{2}$ con $m$ grados de libertad. 
+
+\subsubsection{Contrastes de normalidad}
+
+Para construir un contraste adecuado para verificar la hipótesis de normalidad (multivariada) de los residuos del modelo, se utiliza lo siguiente
+
+\begin{align}
+\text{skewness}_{i} & = \sqrt{\hat{b}_{1i}} = T^{-1}\sum_{t=1}^{T}(\hat{\varepsilon}_{i}/\hat{\sigma}_{i})^{3}_{t} \\ 
+\text{kurtosis}_{i} & = \hat{b}_{2i} = T^{-1}\sum_{t=1}^{T}(\hat{\varepsilon}_{i}/\hat{\sigma}_{i})^{4}_{t} 
+\end{align}
+
+Bajo el supuesto de que los residuos se distribuyen normal, el skewness y la kurtosis de los residuos $\hat{\varepsilon}_{i}$ son asintóticamente normales con las siguientes medias y varianza
+
+\begin{equation}
+\sqrt{T}(\text{skewness}_{i}-0)\distas{a} \mathcal{N}(0,6)
+\end{equation}
 }
 
 \subsection{Modelo Vectorial de Corrección del Error (VECM)}
@@ -1084,20 +1147,20 @@ El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} s
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
 
-{\centering \includegraphics[width=5in,height=3.5in]{figure/unnamed-chunk-14-1} 
+{\centering \includegraphics[width=5in,height=3.5in]{figure/unnamed-chunk-15-1} 
 
 }
 
-\caption[Número de Rezagos para el contraste de Independencia]{Número de Rezagos para el contraste de Independencia}\label{fig:unnamed-chunk-141}
+\caption[Número de Rezagos para el contraste de Independencia]{Número de Rezagos para el contraste de Independencia}\label{fig:unnamed-chunk-151}
 \end{figure}
 
 \begin{figure}[H]
 
-{\centering \includegraphics[width=5in,height=3.5in]{figure/unnamed-chunk-14-2} 
+{\centering \includegraphics[width=5in,height=3.5in]{figure/unnamed-chunk-15-2} 
 
 }
 
-\caption[Número de Rezagos para el contraste de Independencia]{Número de Rezagos para el contraste de Independencia}\label{fig:unnamed-chunk-142}
+\caption[Número de Rezagos para el contraste de Independencia]{Número de Rezagos para el contraste de Independencia}\label{fig:unnamed-chunk-152}
 \end{figure}
 
 
@@ -1164,7 +1227,7 @@ El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} s
 \end{verbatim}
 \end{kframe}
 
-{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-15-1} 
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-16-1} 
 
 }
 
@@ -1363,7 +1426,7 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-19-1} 
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-20-1} 
 
 }
 
@@ -1375,7 +1438,7 @@ Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no linea
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-20-1} 
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-21-1} 
 
 }
 

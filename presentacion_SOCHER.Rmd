@@ -1,0 +1,108 @@
+---
+title: "Transmisión de precios en el sector de la palta en Chile: Evidencia desde un modelo VAR cointegrado"
+subtitle: "IX Encuentro de la Sociedad Chilena de Estudios Regionales"
+author: "Héctor Garrido Henríquez"
+date: "28 de septiembre de 2017"
+output: beamer_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Los datos 
+
+```{r, message = FALSE, echo=FALSE, warning=FALSE}
+setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
+#source("importa_semanales.R")
+source("weekly_palta.R")
+
+```
+
+```{r figura 1, echo = FALSE, fig.cap = "Evolución de Precios semanales para la palta de larga vida de primera calidad"}
+par(family="serif", bty="l", bg="white", cex.lab=1) # opciones gráficas
+ts.plot(exp(precio_mayorista), exp(precio_supermercado), lty=1,
+        lwd=2, ylab="$/kilo", xlab="Tiempo", col = c("blue", "red"))
+legend("topleft", legend = c("Mayorista", "Supermercado"), lty = 1, col = c("blue", "red"), cex=0.8)
+```
+
+## Imputación de datos perdidos 
+
+```{r imputación de datos perdidos, echo = FALSE, fig.cap = "Imputación de datos perdidos mediante el filtro de Kalman", message=FALSE}
+if (!require(forecast)) install.packages("forecast")
+
+fit1 = auto.arima(precio_mayorista, seasonal=FALSE)
+# Filtro de Kalman 
+kr1 = KalmanRun(precio_mayorista, fit1$model)
+id.na1 = which(is.na(precio_mayorista))
+y1 = precio_mayorista
+for (i in id.na1){
+  y1[i] = fit1$model$Z %*% kr1$states[i,]
+}
+#y1[id.na1]  
+
+
+fit2 = auto.arima(precio_supermercado, seasonal=FALSE)
+# Filtro de Kalman 
+kr2 = KalmanRun(precio_supermercado, fit2$model)
+id.na2 = which(is.na(precio_supermercado))
+y2 = precio_supermercado
+for (i in id.na2){
+  y2[i] = fit2$model$Z %*% kr2$states[i,]
+}
+#y2[id.na2]  
+
+layout(matrix(c(1,1,1,1,1,2,2,2,2,2),2,5, byrow=TRUE))
+
+par(family="serif", bty="l", par(family="serif", bty="l")) # opciones gráficas
+plot(precio_mayorista, lty=2 ,ylab="Precio palta mayorista ($/kilo)", 
+     xlab="Tiempo")
+lines(y1, lwd=1, lty=1)
+points(time(y1)[id.na1], y1[id.na1], col = "red", pch = 18, cex=2)
+legend("topleft", legend = c("Valores imputados"), 
+  col = c("red"), pch = c(18), cex=1.5)
+
+plot(precio_supermercado, lty=2 ,ylab="Precio palta supermercado ($/kilo)", 
+     xlab="Tiempo")
+lines(y2, lwd=1, lty=1)
+points(time(y2)[id.na2], y2[id.na2], col = "blue", pch = 18, cex=2)
+legend("topleft", legend = c("Valores imputados"), 
+  col = c("blue"), pch = c(18), cex=1.5)
+```
+
+## Estacionariedad de las series 
+
+```{r}
+par(family="serif", bty="l")
+layout(matrix(c(1,1,1,1,1,
+                2,2,0,3,3,
+                4,4,4,4,4,
+                5,5,0,6,6),4,5, byrow=TRUE))
+plot(y1, main="a) Evolución log(precios) mayoristas, 2008-2017", 
+     ylab="$/kilo")
+Acf(y1, main="b) Función de autocorrelación log(precios) mayoristas", lag.max = 200)
+Pacf(y1, main="c) Función de autocorrelación parcial log(precios) mayoristas", lag.max = 200)
+plot(y2, main="d) Evolución log(precios) supermercado, 2008-2017", 
+     ylab="$/kilo")
+Acf(y2, main="e) Función de autocorrelación log(precios) supermercado", lag.max = 200)
+Pacf(y2, main="f) Función de autocorrelación parcial log(precios) supermercado", lag.max = 200)
+
+```
+
+
+
+## Contrastes de raíz unitaria - Dickey-Fuller Aumentado
+\begin{figure}
+\centering
+\includegraphics{cuadros/dfuller.pdf}
+\end{figure}
+
+## Contrastes de raíz unitaria - Phillips-Perron 
+
+\begin{center}
+\begin{figure}
+\includegraphics{cuadros/pperron.pdf}
+\end{figure}
+\end{center}
+
+## Contrastes de raíz unitaria/estacionariedad - Kiatkowsky,Phillips,  Schimdt \& Shin (KPSS)

@@ -30,9 +30,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.3.4}Contraste Kiatkowsky, Pesaran, Schmidt \& Shin (1992)}{24}{subsection.3.3.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.5}Contraste de Canova \& Hansen (1995) para estacionalidad estable}{24}{subsection.3.3.5}
+\contentsline {subsection}{\numberline {3.3.5}Contraste de Canova \& Hansen (1995) para estacionalidad estable}{25}{subsection.3.3.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Resultados de los contrastes de ra\IeC {\'\i }z unitaria}{24}{section.3.4}
+\contentsline {section}{\numberline {3.4}Resultados de los contrastes de ra\IeC {\'\i }z unitaria}{25}{section.3.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {4}An\IeC {\'a}lisis de cointegraci\IeC {\'o}n}{29}{chapter.4}
 \defcounter {refsection}{0}\relax 
@@ -44,38 +44,42 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{El contraste de Ljung-Box}{34}{equation.4.2.18}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.2}Modelo Vectorial de Correcci\IeC {\'o}n del Error (VECM)}{35}{subsection.4.2.2}
+\contentsline {subsubsection}{Contrastes para Heteroscedasticidad Residual}{35}{equation.4.2.21}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.2.3}El contraste de cointegraci\IeC {\'o}n de Johansen}{36}{subsection.4.2.3}
+\contentsline {subsubsection}{Contrastes de normalidad}{35}{equation.4.2.22}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Resultados}{37}{section.4.3}
+\contentsline {subsection}{\numberline {4.2.2}Modelo Vectorial de Correcci\IeC {\'o}n del Error (VECM)}{36}{subsection.4.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3.1}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n}{37}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.2.3}El contraste de cointegraci\IeC {\'o}n de Johansen}{37}{subsection.4.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Procesos de transmisi\IeC {\'o}n asim\IeC {\'e}tricos}{43}{chapter.5}
+\contentsline {section}{\numberline {4.3}Resultados}{38}{section.4.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Modelo de vectores de correcci\IeC {\'o}n del error por umbrales (TVECM)}{43}{section.5.1}
+\contentsline {subsection}{\numberline {4.3.1}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n}{38}{subsection.4.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.1}El contraste de Hansen \& Seo (2002)}{43}{subsection.5.1.1}
+\contentsline {chapter}{\numberline {5}Procesos de transmisi\IeC {\'o}n asim\IeC {\'e}tricos}{45}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.2}Contrastes de linealidad}{44}{subsection.5.1.2}
+\contentsline {section}{\numberline {5.1}Modelo de vectores de correcci\IeC {\'o}n del error por umbrales (TVECM)}{45}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.3}Estimaci\IeC {\'o}n del modelo}{44}{subsection.5.1.3}
+\contentsline {subsection}{\numberline {5.1.1}El contraste de Hansen \& Seo (2002)}{45}{subsection.5.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.4}Relaciones din\IeC {\'a}micas a corto plazo}{44}{subsection.5.1.4}
+\contentsline {subsection}{\numberline {5.1.2}Contrastes de linealidad}{46}{subsection.5.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Resultados de la aplicaci\IeC {\'o}n}{44}{section.5.2}
+\contentsline {subsection}{\numberline {5.1.3}Estimaci\IeC {\'o}n del modelo}{46}{subsection.5.1.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.1}An\IeC {\'a}lisis de las relaciones asim\IeC {\'e}tricas}{44}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {5.1.4}Relaciones din\IeC {\'a}micas a corto plazo}{46}{subsection.5.1.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.2}Especificaci\IeC {\'o}n del sistema}{44}{subsection.5.2.2}
+\contentsline {section}{\numberline {5.2}Resultados de la aplicaci\IeC {\'o}n}{46}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.3}Estimaci\IeC {\'o}n del modelo TVECM}{44}{subsection.5.2.3}
+\contentsline {subsection}{\numberline {5.2.1}An\IeC {\'a}lisis de las relaciones asim\IeC {\'e}tricas}{46}{subsection.5.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.4}Funciones de impulso respuesta}{44}{subsection.5.2.4}
+\contentsline {subsection}{\numberline {5.2.2}Especificaci\IeC {\'o}n del sistema}{46}{subsection.5.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.5}Diagn\IeC {\'o}sticos del modelo}{44}{subsection.5.2.5}
+\contentsline {subsection}{\numberline {5.2.3}Estimaci\IeC {\'o}n del modelo TVECM}{46}{subsection.5.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusiones}{49}{chapter.6}
+\contentsline {subsection}{\numberline {5.2.4}Funciones de impulso respuesta}{46}{subsection.5.2.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Bibliograf\IeC {\'\i }a}{51}{chapter.7}
+\contentsline {subsection}{\numberline {5.2.5}Diagn\IeC {\'o}sticos del modelo}{46}{subsection.5.2.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Conclusiones}{51}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {7}Bibliograf\IeC {\'\i }a}{53}{chapter.7}

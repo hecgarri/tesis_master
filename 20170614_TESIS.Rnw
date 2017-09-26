@@ -38,6 +38,16 @@
 \usepackage{booktabs,caption}
 \usepackage[flushleft]{threeparttable}
 
+
+\makeatletter
+\newcommand{\distas}[1]{\mathbin{\overset{#1}{\kern\z@\sim}}}%
+\newsavebox{\mybox}\newsavebox{\mysim}
+\newcommand{\distras}[1]{%
+  \savebox{\mybox}{\hbox{\kern3pt$\scriptstyle#1$\kern3pt}}%
+  \savebox{\mysim}{\hbox{$\sim$}}%
+  \mathbin{\overset{#1}{\kern\z@\resizebox{\wd\mybox}{\ht\mysim}{$\sim$}}}%
+}
+\makeatother
 \usepackage{mdframed} %Para usar recuadros
 
     \usepackage{framed}
@@ -411,7 +421,13 @@ El estadístico de prueba está definido como
 LM  = \frac{\sum_{t=1}^{T}S_{t}^{2}}{\hat{\sigma}^{2}_{\varepsilon}}
 \end{equation}
 
-Donde $\hat{\sigma}^{2}_{\varepsilon}$ es una estimación de la varianza del error a un paso. Los autores sugi
+Donde $\hat{\sigma}^{2}_{\varepsilon}$ es una estimación de la varianza del error a un paso. Los autores sugieren utiliza una ventana de Bartlett $w(s,l)=1-s/(l+1)$ como una función que da un peso optimo para calcular la varianza de largo plazo, esto es
+
+\begin{equation}
+\hat{\sigma}^{2}_{\varepsilon} = s^{2}(l)=T^{-1}\sum_{t=1}^{T}\hat{\varepsilon}^{2}_{t}+2T-1\sum_{s=1}^{l}1-\frac{s}{l+1}\sum_{t=s+1}^{T}\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-1}
+\end{equation}
+
+
 \subsection{Contraste de Canova \& Hansen (1995) para estacionalidad estable}
 
 \section{Resultados de los contrastes de raíz unitaria}
@@ -517,9 +533,8 @@ pperron2 =ur.pp(y2, type=c("Z-alpha"), model = c("trend"), lags = c("short"))
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
 \begin{tabular}{@{}lrll@{}}
 \toprule
-
  & \multicolumn{1}{c}{$Z(t_{\hat{\alpha}})$} &
-\multicolumn{1}{l}{$Z(t_{\hat{\mu}})}&
+\multicolumn{1}{l}{$Z(t_{\hat{\mu}})$}&
 \multicolumn{1}{l}{$Z(t_{\hat{\beta}})$}
 \\
 \cmidrule(l){2-2} \cmidrule(l){3-4} \\
@@ -720,6 +735,13 @@ $\tau_{3} $  & 2.5592 &  2.9497 & 0.347 & 0.463 & 0.739 \\
 \end{threeparttable}
 \end{table}
 
+
+
+<<include = FALSE>>=
+if (!require(uroot)) install.packages("uroot")
+
+#ch.test(y1)
+@
 
 
 \begin{table}[H]
@@ -1021,9 +1043,53 @@ Al momento de la determinación del número de rezagos, volver a revisar tabla 4
 Donde  $ \boldsymbol{\hat{\Omega}}_{h} = T^{-1}\sum_{t=1}^{T}\boldsymbol{\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-h}'}$. El estadístico se considera distribuido aproximadamente según una $\chi^{2}$ con $p^{2}(T/4-k+1)-p^{2}$ grados de libertad. 
 
 También puede utilizarse un contraste propuesto por Godfrey(1988),  el cual consiste en regresar los residuos del modelo VAR estimado, $\boldsymbol{\hat{\varepsilon}_{t}}$, sobre $k$ variables rezagadas, $\bold{x_{t-1}, x_{t-2}, ...,x_{t-k}}$ y el $j$-ésimo residuo rezagado
-
 \begin{equation}
 \boldsymbol{\hat{\varepsilon}_{t}}=\bold{A_{1}x_{t-1}+A_{2}x_{t-2}+...+A_{k}x_{t-k}+A_{\varepsilon}}\boldsymbol{\hat{\varepsilon}}
+\end{equation}
+
+Donde los primeros $j$ valores están perdidos $\hat{\varepsilon}_{-j},...,\hat{\varepsilon}_{-1}$, los que son fijados a cero. El Estadístico de prueba, de tipo multiplicador de Lagrange es calculado de la siguiente forma 
+
+\begin{equation}
+LM(j) = -(T-p(k+1)-\frac{1}{2})\log \left(\frac{|\boldsymbol{\tilde{\Omega}}(j)|}{||\boldsymbol{\tilde{\Omega}}}\right)
+\end{equation}
+
+El estadístico se distribuye aproximadamente como una $\chi^{2}$ con $p^{2}$ grados de libertad. Porque 
+
+\subsubsection{Contrastes para Heteroscedasticidad Residual}
+
+El contraste ARCH $m$-ésimo es calculado como $(T+k-m)\times R^{2}$. Aquí $R^{2}$ se obtiene de la siguiente regresión auxiliar
+
+\begin{equation}
+\hat{\varepsilon}^{2}_{i,t} = \gamma_{0}+\sum_{j=1}^{m}\gamma_{j}\hat{\varepsilon}_{i,t-j}^{2}+error
+\end{equation}
+
+El estadístico se distribuye aproximadamente como una $\chi^{2}$ con $m$ grados de libertad. 
+
+\subsubsection{Contrastes de normalidad}
+
+Para construir un contraste adecuado para verificar la hipótesis de normalidad (multivariada) de los residuos del modelo, se utiliza lo siguiente
+
+\begin{align}
+\text{skewness}_{i} & = \sqrt{\hat{b}_{1i}} = T^{-1}\sum_{t=1}^{T}(\hat{\varepsilon}_{i}/\hat{\sigma}_{i})^{3}_{t} \\ 
+\text{kurtosis}_{i} & = \hat{b}_{2i} = T^{-1}\sum_{t=1}^{T}(\hat{\varepsilon}_{i}/\hat{\sigma}_{i})^{4}_{t} 
+\end{align}
+
+Bajo el supuesto de que los residuos se distribuyen normal, el skewness y la kurtosis de los residuos $\hat{\varepsilon}_{i}$ son asintóticamente normales con las siguientes medias y varianza
+
+\begin{equation}
+\sqrt{T}(\text{skewness}_{i}-0)\distas{a} \mathcal{N}(0,6)
+\end{equation}
+
+y 
+
+\begin{equation}
+\sqrt{T}(\text{kurtosis}_{i}-3)\distas{a}\mathcal{N}(0,24)
+\end{equation}
+
+Entonces, la varianza de skewness es más pequeña que la varianza de la kurtosis, lo cual significa que los contrastes de normalidad son más sensibles a desviaciones sobre el supuesto de skewness (a menudo como resultado de los outliers) que por el exceso de kurtosis (las colas pesadas o demasiados residuos cercanos a la media). Basado en lo anterior, se puede construir un contraste para normalidad univariada de la siguiente forma 
+
+\begin{equation}
+
 \end{equation}
 
 }
