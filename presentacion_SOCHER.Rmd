@@ -105,4 +105,13 @@ Pacf(y2, main="f) Función de autocorrelación parcial log(precios) supermercado
 \end{figure}
 \end{center}
 
+## Contrastes de raíz unitaria - Elliot, Rothenberg \& Stock 
+
+\begin{center}
+\begin{figure}
+\includegraphics{cuadros/ers.pdf}
+\end{figure}
+\end{center}
+
+
 ## Contrastes de raíz unitaria/estacionariedad - Kiatkowsky,Phillips,  Schimdt \& Shin (KPSS)
