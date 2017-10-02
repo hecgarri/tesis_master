@@ -1,0 +1,83 @@
+\documentclass[border=3mm,preview]{standalone}
+\usepackage[]{graphicx}\usepackage[]{color}
+
+\usepackage{alltt}\usepackage[]{graphicx}\usepackage[]{color}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{lscape} %Para seleccionar páginas horizontales 
+\usepackage[cc]{titlepic} 
+\usepackage[hidelinks]{hyperref}  %Para links ocultos
+\usepackage{url} %Para direcciones web
+\usepackage[makeroom]{cancel}
+\pagestyle{fancy}
+\usepackage{multicol} % muchas columnas
+\usepackage{booktabs} % midrule, bottomrule
+\usepackage{titlesec} % cambiar secuencias de TOC 
+\usepackage{siunitx}
+\usepackage{varwidth} % PAra los documentos standalone y el ajuste preciso
+\usepackage{subcaption} % Para usar subcaptions en las matrices de imágenes 
+\sisetup{binary-units = true,table-format=7.0}
+\let\bold\boldsymbol
+\let\bf\mathbf
+
+
+\fancyhf{}
+ \setcounter{page}{1}
+%\rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
+\setcounter{section}{0}
+
+\usepackage{blindtext}  %Texo sin sentido
+\usepackage{amsmath} \newenvironment{smatrix}{\left(\begin{smallmatrix}}{\end{smallmatrix}\right)} %SMALL
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\DeclareMathOperator{\sgn}{sgn} %Para formalizar la función signo 
+\usepackage{enumerate}
+\usepackage{dsfont} %Para usar una indicadora
+\numberwithin{equation}{section}
+\usepackage{xcolor}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{biblio.bib}
+\usepackage{booktabs,caption}
+\usepackage[flushleft]{threeparttable}
+
+\allowdisplaybreaks
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+
+\begin{document}
+\centering
+\begin{varwidth}{\linewidth}
+\begin{table}
+\begin{tabular}{@{}lclcl@{}}
+\toprule 
+\multicolumn{1}{l}{Variables} & \multicolumn{2}{c}{Ecuación $\Delta$Mayorista} & \multicolumn{2}{c}{Ecuación $\Delta$ Supermercado} \\  
+\cmidrule(l){2-3} \cmidrule(l){4-5} \\
+ & Coeficiente & E. estándar & Coeficiente & E. estándar \\
+ \cmidrule(l){2-5} \\
+TCE & -0.1371 & (0.0297)*** & 0.0241 & (0.0158) \\
+$\Delta \text{Mayorista}_{t-1}$ & 0.2053 & (0.0495)*** & 0.0734 & (0.0263)** \\
+$\Delta \text{Supermercado}_{t-1}$ & 0.2011 & (0.0890)* & -0.0728 & (0.0473) \\ 
+$\Delta \text{Mayorista}_{t-2}$ & 0.0628 & (0.0503) & 0.0873 & (0.0267)** \\
+$\Delta \text{Supermercado}_{t-2}$ & 0.1627 & (0.0886). & -0.0183 & (0.0471) \\
+$\Delta \text{Mayorista}_{t-3}$ & 	0.0333 & (0.0500) & 0.0405 & (0.0266) \\ 
+$\Delta \text{Supermercado}_{t-3}$ & 0.0460 & (0.0888)  & 0.0356 & (0.0472) \\
+$\Delta \text{Mayorista}_{t-4}$ & -0.0487 & (0.0493) & 0.0227 & (0.0262) \\ 
+$\Delta \text{Supermercado}_{t-4}$ & 0.0771 & (0.0872)  & 0.0823 & (0.0463). \\
+$\Delta \text{Mayorista}_{t-5}$ & -0.0381 & (0.0490) & -0.0309 & (0.0260) \\ 
+$\Delta \text{Supermercado}_{t-5}$ & 0.0163 & (0.0866) & -0.0314 & (0.0460) \\
+$\Delta \text{Mayorista}_{t-6}$ & 0.0742 & (0.0487) & 0.0445 & (0.0259). \\ 
+$\Delta \text{Supermercado}_{t-6}$ & 0.0195 & (0.0844) & 0.0131 & (0.0448) \\
+$\Delta \text{Mayorista}_{t-7}$ & 0.0337 & (0.0488) & 0.0743 & (0.0259)** \\ 
+$\Delta \text{Supermercado}_{t-7}$ & 0.1745 & (0.0828)* & -0.0192 & (0.0440) \\ 
+\bottomrule
+ & \multicolumn{2}{l}{Tamaño muestral: 494} & \multicolumn{2}{l}{Muestra efectiva: 486} \\
+ &  \multicolumn{2}{l}{AIC: -5399.275} & \multicolumn{2}{l}{BIC: -5269.503} \\
+ \bottomrule 
+\end{tabular}
+\caption*{\small Nota: *** 0.1\% ** 1\% * 5\% . 10\%  }
+\end{table}
+\end{varwidth}
+\end{document}

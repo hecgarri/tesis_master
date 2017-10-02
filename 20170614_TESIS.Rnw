@@ -694,7 +694,7 @@ kpss21 = ur.kpss(y2, type=c("mu"), lags=c("short"))
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$\tau_{3} $  & 0.2657 &  0.3246 & 0.119 & 0.146 & 0.216 \\
+$\tau_{3} $  & 3.4145 &  3.7542 & 0.347 & 0.463 & 0.739 \\
 \bottomrule
 \end{tabular}
 \label{tab-6}
@@ -1180,11 +1180,11 @@ if (!require(tsDyn)) install.packages("tsDyn")
 ### Para seleccionar el número de rezagos del modelo utilizaré un contraste de razón de verosimilitud
 
 vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=19,
-              spec="longrun", season=NULL)
+              spec="transitory", season=NULL)
 
 
 vecm1.1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=20,
-              spec="longrun", season=NULL)
+              spec="transitory", season=NULL)
 
 lrt <- function (obj1, obj2, r) {
    L0 <- logLik(obj1, r=r)
@@ -1207,34 +1207,47 @@ if (!require(ggplot2)) installed.packages("ggplot2")
 if (!require("reshape2")) install.packages("reshape2")
 if (!require(RColorBrewer)) install.packages("RColorBrewer")
 
-vecm2 = lapply(2:7, function(x) ca.jo(datos, type=c("eigen"), ecdet=c( "const"), K=x,
-              spec="longrun", season=NULL))
+#Para ver las fechas 
+fechas = data.frame(as.yearmon(time(datos[,1])))
+
+# Crearé una variable dummy que recoja el efecto del pulso de 2014 en la serie. 
+
+
+
+
+
+vecm2 = lapply(2:7, function(x) ca.jo(datos, type=c("eigen"), ecdet=c( "const"), K=x, spec="transitory", season=NULL, dumvar = dummy))
 
 
 beta = cbind(mayorista = 1, supermercado=1, const = 1)
-
-modelo1 = VECM(datos, r=1, lag = 2, LRinclude=c("const"), estim=c("ML"))
 
 ## Recordar que esta secuencia se realiza para imponer restricciones sobre 
 # la estimación del modelo 
 
 vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=3,
-              spec="longrun", season=NULL)
+              spec="transitory", season=NULL)
 
 plot(vecm1)
 @
 
 <<>>==
-HD0 = c(1,-1.06,0.98)
+HD0 = c(1,-1.04,1.18)
 
-modelo11 = blrtest(vecm1, HD0, r=1)
+modelo11 = blrtest(modelo_, HD0, r=1)
 summary(modelo11)
 
 modelo12 = cajorls(modelo11, r=1)
 
 summary(modelo1)
 
-modelo = lapply(1:6, function(x) vec2var(vecm2[[x]], r=1))
+dummy = ifelse(row(datos)[,1]>=312,1,0) %>% data.frame()
+
+colnames(dummy) = c("quiebre")
+
+vecm2 = lapply(2:12, function(x) ca.jo(datos, type=c("trace"), ecdet=c( "trend"), K=x,
+              spec="transitory", season=NULL, dumvar = dummy))
+
+modelo = lapply(1:11, function(x) vec2var(vecm2[[x]], r=1))
 
 
 lags = 3:30
@@ -1247,9 +1260,9 @@ resultado = sapply(lags, function(x) lapply(1:length(modelo),
 meltresultado = melt(resultado, id = "rezago", na.rm=TRUE) %>% 
   rename(Modelo = variable, `p-value`=value) 
 
-meltresultado$Modelo = recode(meltresultado$Modelo, 'X1'='1 rezago', 'X2'='2 rezagos', 
-       'X3'='3 rezagos', 'X4'='4 rezagos', 'X5'='5 rezagos', 
-       'X6' = '6 rezagos')
+#meltresultado$Modelo = recode(meltresultado$Modelo, 'X1'='1 rezago', 'X2'='2 rezagos', 
+#       'X3'='3 rezagos', 'X4'='4 rezagos', 'X5'='5 rezagos', 
+#       'X6' = '6 rezagos')
 
 ggplot(meltresultado, aes(x=rezago, y=`p-value`, colour=Modelo, group=Modelo)) + 
   geom_line(size=1.2)+geom_hline(yintercept = 0.05, color="red")+
@@ -1263,16 +1276,59 @@ ggplot(meltresultado, aes(x=rezago, y=`p-value`, colour=Modelo, group=Modelo)) +
         legend.text = element_text(size=10, family="serif"), 
         legend.title = element_text(face="bold", family="serif"), 
         legend.title.align = 0.5)+
-  scale_colour_manual(values = brewer.pal(6,"Blues"))+
+#  scale_colour_manual(values = brewer.pal(12,"Blues"))+
   scale_x_continuous(breaks = c(5,10,15,20,25,30))+
   scale_y_continuous(breaks = seq(0.0,1,0.05))
 @
 
-<<>>=
-modelo = VECM(datos, lag=7, r=1, LRinclude= c("const"), 
-              estim = c("ML"))
 
+
+<<>>=
+
+## Pruebo dos formulaciones equivalentes 
+modelo_alternativo = VECM(datos, lag=7, r=1, LRinclude= c("both"), 
+              estim = c("ML"), exogen = dummy)
+
+## Pruebo dos formulaciones equivalentes 
+modelo_nulo = VECM(datos, lag=7, r=1, LRinclude= c("trend"), 
+              estim = c("ML"), exogen = dummy)
+
+D = 2*(logLik(modelo)-logLik(modelito))
+
+beta = c(0,0)
+
+modelo_lala = VECM(datos, lag=7, r=1, LRinclude= c("both"), 
+              estim = c("ML"), exogen = dummy, beta = beta)
+  
+  
 summary(modelo)
+
+modelo_ = ca.jo(datos, type = c("trace"), ecdet = c("trend"), K=8,
+               spec = c("transitory"), dumvar = dummy)
+
+modelo_1 = ca.jo(datos, type = c("eigen"), ecdet = c("const"), K=8,
+               spec = c("transitory"))
+modelo__ = cajorls(modelo_, r=1)
+
+HD0 = c(1,-1,1.18)
+
+modelo11 = blrtest(modelo_, HD0, r=1)
+
+@
+
+
+<<echo= FALSE>>=
+## La relación de cointegracióin puede utilizarse como una regresora
+coint_r = datos[1]-1.090485*datos[2]+1.185426
+
+@
+
+
+<<>>=
+impulso = irf(vec2var(modelo_,r=1),n.ahead =52, seed=123)
+
+plot(impulso)
+
 @
 
 
@@ -1322,6 +1378,14 @@ $r = 0$ & \multicolumn{2}{c}{46.88} & 12.91 & 14.90 & 19.19 \\
 
 <<echo=FALSE>>=
 #source("girf_sample.R")
+@
+
+
+<<>>=
+if (!require(asbio)) install.packages("asbio")
+
+errores = data.frame(residuals(modelo))
+DH.test(errores, names(errores))
 @
 
 

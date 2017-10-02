@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.6.9)  26 SEP 2017 23:37
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.6.9)  27 SEP 2017 00:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1339,7 +1339,7 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 
 \@quotelevel=\count395
 \@quotereset=\count396
-No file ers.aux.
+(./ers.aux)
 \openout1 = `ers.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
@@ -1356,6 +1356,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
 LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
 LaTeX Font Info:    ... okay on input line 50.
+
 Preview: Fontsize 10pt
 Preview: PDFoutput 1
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -1408,6 +1409,8 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 50.
 LaTeX Info: Redefining \pageref on input line 50.
 LaTeX Info: Redefining \nameref on input line 50.
+
+(./ers.out) (./ers.out)
 \@outlinefile=\write5
 \openout5 = `ers.out'.
 
@@ -1526,25 +1529,21 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 \c__siunitx_mathtt_int=\count405
 
-<ers_11.pdf, id=4, 265.56514pt x 81.12408pt>
+<ers_11.pdf, id=4, 263.34285pt x 81.12408pt>
 File: ers_11.pdf Graphic file (type pdf)
  <use ers_11.pdf>
 Package pdftex.def Info: ers_11.pdf used on input line 55.
-(pdftex.def)             Requested size: 265.56448pt x 81.12387pt.
+(pdftex.def)             Requested size: 263.34221pt x 81.12387pt.
 
-<ers_12.pdf, id=5, 265.56514pt x 81.12408pt>
+<ers_12.pdf, id=5, 263.34285pt x 81.12408pt>
 File: ers_12.pdf Graphic file (type pdf)
  <use ers_12.pdf>
 Package pdftex.def Info: ers_12.pdf used on input line 59.
-(pdftex.def)             Requested size: 265.56448pt x 81.12387pt.
+(pdftex.def)             Requested size: 263.34221pt x 81.12387pt.
 
 Preview: Tightpage -559403 -559403 559403 559403
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./ers_11.pdf> <./ers_12.
-pdf>]
-
-Package lastpage Warning: Rerun to get the references right on input line 64.
-
-
+pdf>] 
 AED: lastpage setting LastPage
 Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 64.
@@ -1565,33 +1564,15 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 64.
 (./ers.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 64.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 64.
-
-
-Package rerunfilecheck Warning: File `ers.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `ers.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package biblatex Warning: Please (re)run BibTeX on the file(s):
-(biblatex)                ers
-(biblatex)                and rerun LaTeX afterwards.
-
+Package rerunfilecheck Info: File `ers.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 Package logreq Info: Writing requests to 'ers.run.xml'.
 \openout1 = `ers.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25848 strings out of 492995
- 475212 string characters out of 6135074
+ 25854 strings out of 492995
+ 475260 string characters out of 6135074
  881829 words of memory out of 5000000
  29123 multiletter control sequences out of 15000+600000
  6748 words of font info for 28 fonts, out of 8000000 for 9000
@@ -1599,7 +1580,7 @@ Here is how much of TeX's memory you used:
  59i,10n,94p,10428b,743s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on ers.pdf (1 page, 27784 bytes).
+Output written on ers.pdf (1 page, 27697 bytes).
 PDF statistics:
  37 PDF objects out of 1000 (max. 8388607)
  29 compressed objects within 1 object stream

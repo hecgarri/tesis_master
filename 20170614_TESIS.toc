@@ -52,9 +52,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {4.2.3}El contraste de cointegraci\IeC {\'o}n de Johansen}{37}{subsection.4.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {4.3}Resultados}{38}{section.4.3}
+\contentsline {section}{\numberline {4.3}Resultados}{39}{section.4.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.3.1}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n}{38}{subsection.4.3.1}
+\contentsline {subsection}{\numberline {4.3.1}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n}{39}{subsection.4.3.1}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {5}Procesos de transmisi\IeC {\'o}n asim\IeC {\'e}tricos}{45}{chapter.5}
 \defcounter {refsection}{0}\relax 

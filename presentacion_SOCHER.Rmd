@@ -10,6 +10,17 @@ output: beamer_presentation
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## Antecedentes 
+
+\begin{itemize}
+\item Los datos provienen de \texttt{http://www.odepa.cl}
+\item Para hacer el análisis lo más homegeneo posible, se utiliza un solo producto, palta Hass de primera calidad. 
+\item El período que aborda la investigación comienza en marzo de 2008 hasta agosto de 2017 con un total de 494 semanas. 
+\item Los datos para mayoristas corresponden a un precio promedio ponderado de la feria Lo Valledor en la ciudad de Santiago. 
+\item Los datos para supermercado corresponde a un promedio simple de los precios recogidos por ODP en los supermercados de la ciudad de Santiago.
+\item Se utilizaron precios nominales 
+\end{itemize}
+
 ## Los datos 
 
 ```{r, message = FALSE, echo=FALSE, warning=FALSE}
@@ -107,6 +118,10 @@ Pacf(y2, main="f) Función de autocorrelación parcial log(precios) supermercado
 
 ## Contrastes de raíz unitaria - Elliot, Rothenberg \& Stock 
 
+\begin{itemize}
+\item Se aplicó el test de punto óptimo factible
+\end{itemize}
+
 \begin{center}
 \begin{figure}
 \includegraphics{cuadros/ers.pdf}
@@ -115,3 +130,77 @@ Pacf(y2, main="f) Función de autocorrelación parcial log(precios) supermercado
 
 
 ## Contrastes de raíz unitaria/estacionariedad - Kiatkowsky,Phillips,  Schimdt \& Shin (KPSS)
+
+\begin{center}
+\begin{figure}
+\includegraphics{cuadros/kpss.pdf}
+\end{figure}
+\end{center}
+
+## Selección del orden del modelo VAR subyacente 
+
+Se realizó una rutina para escoger el número de rezagos del VAR de manera de eliminar problemas de autocorrelación  
+
+```{r, message = FALSE, out.width='3.5in', out.height='3.5in',echo=FALSE}
+if (!require(png)) install.packages("png"); require(png)
+if (!require(grid)) install.packages("grid"); require(grid)
+img <- readPNG("cuadros/seleccion_VAR.png")
+ grid.raster(img)
+```
+
+
+## Contraste de Cointegración de Johansen 
+
+\begin{figure}
+\includegraphics{cuadros/johansen.pdf}
+\end{figure}
+
+## Relación de cointegración 
+
+\small
+\begin{equation}
+\boldsymbol{\alpha\beta'}\mathbf{P}_{t-1} =\left[\begin{array}{c} -0.137 \\ 0.006 \\ 0.00 \end{array}\right] \left[\begin{array}{ccc} 1 & -1.090485 & 1.185426 \end{array}\right]\left[\begin{array}{l} \text{Mayorista}_{t-1} \\ \text{Supermercado}_{t-1} \\ 1 \end{array}\right]
+\end{equation}
+
+\begin{figure}
+\includegraphics{cuadros/transmission.pdf}
+\caption{Contraste de razón de Verosimilitud}
+\end{figure}
+
+## Modelo VAR Cointegrado 
+
+\begin{figure}
+\includegraphics{cuadros/vecm.pdf}
+\end{figure}
+
+## Función de Impulso respuesta (1)
+
+Supongamos un shock de una desviación estándar desde \textbf{mayorista}
+($\approx 42.55\%$)
+
+\begin{figure}
+\includegraphics{cuadros/impulso1.pdf} 
+\end{figure}
+
+## Función de Impulso respuesta (2)
+
+Supongamos un shock de una desviación estándar desde \textbf{supermercado} 
+($\approx 33.3\%$)
+
+\begin{figure}
+\includegraphics{cuadros/impulso_2.pdf} 
+\end{figure}
+
+## Diagnóstico de los residuos del modelo
+
+\begin{figure}
+\includegraphics{cuadros/diagnostics.pdf} 
+\end{figure} 
+
+## Resultados y Discusión 
+
+\begin{itemize}
+\item Se observa la predominancia de los supermercados sobre los mayoristas. Esto se explica en la medida en que un eslabón de la cadena se encuentra altamente atomizado en relación al otro. 
+\item Puede extenderse el análisis para modelar el patrón de Heteroscedastidad Condicional (Hassouneh, Serra,Bojnec \& Gil, 2017)
+\item Pueden utilizarse modelos no lineales para capturar comportamientos asimétricos en la transmisión de precios (TVECM) (Véase \textit{Greb, F., von Cramon-Taubadel, S., Krivobokova, T., \& Munk, A. (2013). The estimation of threshold models in price transmission analysis. American Journal of Agricultural Economics, 95(4), 900-916.})
+\end{itemize}

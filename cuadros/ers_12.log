@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.6.9)  26 SEP 2017 23:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2017.6.9)  27 SEP 2017 00:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1339,7 +1339,7 @@ Package biblatex Warning: 'babel/polyglossia' detected but 'csquotes' missing.
 
 \@quotelevel=\count395
 \@quotereset=\count396
-No file ers_12.aux.
+(./ers_12.aux)
 \openout1 = `ers_12.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 50.
@@ -1356,6 +1356,7 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 50.
 LaTeX Font Info:    ... okay on input line 50.
 LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 50.
 LaTeX Font Info:    ... okay on input line 50.
+
 Preview: Fontsize 10pt
 Preview: PDFoutput 1
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
@@ -1408,6 +1409,8 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 50.
 LaTeX Info: Redefining \pageref on input line 50.
 LaTeX Info: Redefining \nameref on input line 50.
+
+(./ers_12.out) (./ers_12.out)
 \@outlinefile=\write5
 \openout5 = `ers_12.out'.
 
@@ -1529,9 +1532,6 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 Preview: Tightpage -559403 -559403 559403 559403
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
 
-Package lastpage Warning: Rerun to get the references right on input line 69.
-
-
 AED: lastpage setting LastPage
 Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 69.
@@ -1550,33 +1550,15 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 69.
 (./ers_12.aux)
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 69.
 Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 69.
-
-
-Package rerunfilecheck Warning: File `ers_12.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `ers_12.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  D41D8CD98F00B204E9800998ECF8427E;0.
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-
-Package biblatex Warning: Please (re)run BibTeX on the file(s):
-(biblatex)                ers_12
-(biblatex)                and rerun LaTeX afterwards.
-
+Package rerunfilecheck Info: File `ers_12.out' has not changed.
+(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
 Package logreq Info: Writing requests to 'ers_12.run.xml'.
 \openout1 = `ers_12.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 25830 strings out of 492995
- 474942 string characters out of 6135074
+ 25836 strings out of 492995
+ 475008 string characters out of 6135074
  881841 words of memory out of 5000000
  29109 multiletter control sequences out of 15000+600000
  6748 words of font info for 28 fonts, out of 8000000 for 9000
@@ -1584,7 +1566,7 @@ Here is how much of TeX's memory you used:
  59i,12n,94p,10431b,743s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr
 /share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on ers_12.pdf (1 page, 24260 bytes).
+Output written on ers_12.pdf (1 page, 24184 bytes).
 PDF statistics:
  17 PDF objects out of 1000 (max. 8388607)
  11 compressed objects within 1 object stream

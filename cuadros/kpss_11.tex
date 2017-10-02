@@ -1,0 +1,69 @@
+\documentclass[border=3mm,preview]{standalone}
+\usepackage[]{graphicx}\usepackage[]{color}
+
+\usepackage{alltt}\usepackage[]{graphicx}\usepackage[]{color}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{lscape} %Para seleccionar páginas horizontales 
+\usepackage[cc]{titlepic} 
+\usepackage[hidelinks]{hyperref}  %Para links ocultos
+\usepackage{url} %Para direcciones web
+\usepackage[makeroom]{cancel}
+\pagestyle{fancy}
+\usepackage{multicol} % muchas columnas
+\usepackage{booktabs} % midrule, bottomrule
+\usepackage{titlesec} % cambiar secuencias de TOC 
+\usepackage{siunitx}
+\usepackage{varwidth} % PAra los documentos standalone y el ajuste preciso
+\usepackage{subcaption} % Para usar subcaptions en las matrices de imágenes 
+\sisetup{binary-units = true,table-format=7.0}
+\let\bold\boldsymbol
+\let\bf\mathbf
+
+
+\fancyhf{}
+ \setcounter{page}{1}
+%\rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
+\setcounter{section}{0}
+
+\usepackage{blindtext}  %Texo sin sentido
+\usepackage{amsmath} \newenvironment{smatrix}{\left(\begin{smallmatrix}}{\end{smallmatrix}\right)} %SMALL
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\DeclareMathOperator{\sgn}{sgn} %Para formalizar la función signo 
+\usepackage{enumerate}
+\usepackage{dsfont} %Para usar una indicadora
+\numberwithin{equation}{section}
+\usepackage{xcolor}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{biblio.bib}
+\usepackage{booktabs,caption}
+\usepackage[flushleft]{threeparttable}
+
+\allowdisplaybreaks
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+
+\begin{document}
+\centering
+\begin{varwidth}{\linewidth}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & 0.2396 &  0.3236 & 0.119 & 0.146 & 0.216 \\
+\bottomrule
+\end{tabular}
+\end{varwidth}
+\end{document}

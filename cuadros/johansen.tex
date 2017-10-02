@@ -1,0 +1,67 @@
+\documentclass[border=3mm,preview]{standalone}
+\usepackage[]{graphicx}\usepackage[]{color}
+
+\usepackage{alltt}\usepackage[]{graphicx}\usepackage[]{color}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{lscape} %Para seleccionar páginas horizontales 
+\usepackage[cc]{titlepic} 
+\usepackage[hidelinks]{hyperref}  %Para links ocultos
+\usepackage{url} %Para direcciones web
+\usepackage[makeroom]{cancel}
+\pagestyle{fancy}
+\usepackage{multicol} % muchas columnas
+\usepackage{booktabs} % midrule, bottomrule
+\usepackage{titlesec} % cambiar secuencias de TOC 
+\usepackage{siunitx}
+\usepackage{varwidth} % PAra los documentos standalone y el ajuste preciso
+\usepackage{subcaption} % Para usar subcaptions en las matrices de imágenes 
+\sisetup{binary-units = true,table-format=7.0}
+\let\bold\boldsymbol
+\let\bf\mathbf
+
+
+\fancyhf{}
+ \setcounter{page}{1}
+%\rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
+\setcounter{section}{0}
+
+\usepackage{blindtext}  %Texo sin sentido
+\usepackage{amsmath} \newenvironment{smatrix}{\left(\begin{smallmatrix}}{\end{smallmatrix}\right)} %SMALL
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\DeclareMathOperator{\sgn}{sgn} %Para formalizar la función signo 
+\usepackage{enumerate}
+\usepackage{dsfont} %Para usar una indicadora
+\numberwithin{equation}{section}
+\usepackage{xcolor}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{biblio.bib}
+\usepackage{booktabs,caption}
+\usepackage[flushleft]{threeparttable}
+
+\allowdisplaybreaks
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+
+\begin{document}
+\centering
+\begin{varwidth}{\linewidth}
+\begin{table}
+\small
+\begin{tabular}{ccccc|cccc}
+\toprule \\ 
+Rango &  \multicolumn{4}{c}{Traza} & \multicolumn{4}{c}{Máximo Eigenvalue} \\ 
+ & \multicolumn{1}{c}{Estadístico} & \multicolumn{3}{c}{Valores críticos} & \multicolumn{1}{c}{Estadístico} & \multicolumn{3}{c}{Valores críticos} \\
+& & 10\% & 5\% & 1\% & & 10\% & 5\% & 1\% \\ 
+\cmidrule(l){1-9} \\
+r = 1 & 5.96  & 7.52 & 9.24 & 12.97 & 5.96 & 7.52 & 9.24 & 12.97\\ 
+r = 0 & 33.45 & 17.85 & 19.96 & 24.60 & 27.49 & 13.75 & 15.67 & 20.20\\
+\bottomrule 
+\end{tabular}
+\end{table}
+\end{varwidth}
+\end{document}

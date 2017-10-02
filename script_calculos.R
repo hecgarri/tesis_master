@@ -114,13 +114,13 @@ pperron21 =ur.pp(y2, type=c("Z-alpha"), model = c("constant"), lags = c("short")
 
 ## ----include=FALSE-------------------------------------------------------
 
-ers1 = ur.ers(y1, type = c("P-test"), model="trend", lag.max = 52)
+ers1 = ur.ers(y1, type = c("P-test"), model="trend", lag.max = 1)
 
-ers2 = ur.ers(y2, type = c("P-test"), model="trend", lag.max = 52)
+ers2 = ur.ers(y2, type = c("P-test"), model="trend", lag.max = 1)
 
-ers11 = ur.ers(y1, type = c("P-test"), model="constant", lag.max = 52)
+ers11 = ur.ers(y1, type = c("P-test"), model="constant", lag.max = 1)
 
-ers21 = ur.ers(y2, type = c("P-test"), model="constant", lag.max = 52)
+ers21 = ur.ers(y2, type = c("P-test"), model="constant", lag.max = 1)
 
 ## ----include=FALSE-------------------------------------------------------
 ers_1 = ur.ers(y1, type = c("DF-GLS"), model="trend", lag.max = 5)

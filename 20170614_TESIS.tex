@@ -539,9 +539,8 @@ El resultado de este contraste es más bien contradictorio, pues no permite conc
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
 \begin{tabular}{@{}lrll@{}}
 \toprule
-
  & \multicolumn{1}{c}{$Z(t_{\hat{\alpha}})$} &
-\multicolumn{1}{l}{$Z(t_{\hat{\mu}})}&
+\multicolumn{1}{l}{$Z(t_{\hat{\mu}})$}&
 \multicolumn{1}{l}{$Z(t_{\hat{\beta}})$}
 \\
 \cmidrule(l){2-2} \cmidrule(l){3-4} \\
@@ -670,7 +669,7 @@ Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hi
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$\tau_{3} $  & 0.2657 &  0.3246 & 0.119 & 0.146 & 0.216 \\
+$\tau_{3} $  & 3.4145 &  3.7542 & 0.347 & 0.463 & 0.739 \\
 \bottomrule
 \end{tabular}
 \label{tab-6}
@@ -1051,6 +1050,19 @@ Bajo el supuesto de que los residuos se distribuyen normal, el skewness y la kur
 \begin{equation}
 \sqrt{T}(\text{skewness}_{i}-0)\distas{a} \mathcal{N}(0,6)
 \end{equation}
+
+y 
+
+\begin{equation}
+\sqrt{T}(\text{kurtosis}_{i}-3)\distas{a}\mathcal{N}(0,24)
+\end{equation}
+
+Entonces, la varianza de skewness es más pequeña que la varianza de la kurtosis, lo cual significa que los contrastes de normalidad son más sensibles a desviaciones sobre el supuesto de skewness (a menudo como resultado de los outliers) que por el exceso de kurtosis (las colas pesadas o demasiados residuos cercanos a la media). Basado en lo anterior, se puede construir un contraste para normalidad univariada de la siguiente forma 
+
+\begin{equation}
+
+\end{equation}
+
 }
 
 \subsection{Modelo Vectorial de Corrección del Error (VECM)}
@@ -1234,6 +1246,8 @@ El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} s
 
 
 \end{knitrout}
+
+
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
