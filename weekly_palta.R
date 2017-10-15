@@ -83,6 +83,6 @@ price_may_palta = separate(price_may_palta, col="start", into=c("year", "month",
 #colnames(dummies) = c("feb", "mar", "abr", "may", "jun", "jul", 
 #                      "aug", "sep", "oct", "nov", "dec")
 
-precio_mayorista = ts(price_may_palta$price, start=c(2008,3), frequency=365/7)
+precio_mayorista = ts(price_may_palta$price, start=c(2008,3), frequency=52)
 
-precio_supermercado = ts(price_sup_palta$price, start=c(2008,3), frequency=365/7)
+precio_supermercado = ts(price_sup_palta$price, start=c(2008,3), frequency=52)

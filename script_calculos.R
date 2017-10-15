@@ -147,8 +147,8 @@ if (!require(uroot)) install.packages("uroot")
 #ch.test(y1)
 
 ## ----echo=FALSE----------------------------------------------------------
-datos = data.frame(y1, y2)
-names(datos) = c("mayorista", "supermercado")
+datos = data.frame(y2,y1)
+names(datos) = c("supermercado","mayorista")
 
 ## ----echo=FALSE, size = "scriptsize", message=FALSE----------------------
 
@@ -157,9 +157,40 @@ if (!require(tsDyn)) install.packages("tsDyn")
 
 ### Para seleccionar el número de rezagos del modelo utilizaré un contraste de razón de verosimilitud
 
-vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=19,
-              spec="longrun", season=NULL)
+dummy = ifelse(row(datos)>312,1,0)
 
+VARselect(datos, lag.max = 52, type = "const", exogen = dummy[,1])
+
+
+vecm1 = ca.jo(datos, type=c("trace"), ecdet=c("none"), K=8,
+              spec="transitory", season=NULL, dumvar = dummy[,1])
+
+var_model  = VAR(datos,p=8, type="const", exogen = dummy[,1])
+var_model2  = VAR(datos,p=8, type="const")
+
+
+lrt <- function (obj1, obj2, r) {
+  L0 <- logLik(obj1)
+  L1 <- logLik(obj2)
+  L01 <- as.vector(- 2 * (L0 - L1))
+  df <- 1
+  list(L01 = L01, df = df,
+       "p-value" = pchisq(L01, df, lower.tail = FALSE))
+}
+
+lrt(var_model2,var_model)
+
+
+normality(var_model)
+arch.test(var_model)
+lapply(8:30, function(i) serial.test(var_model,
+             lags.pt = i, type="PT.asymptotic")$serial$p.value) %>% as.numeric()
+
+plot(stability(var_model, type="OLS-CUSUM"))
+plot(stability(var_model, type="Rec-CUSUM"))
+plot(stability(var_model, type="Rec-MOSUM"))
+
+plot(irf(var_model, n.ahead = 52))
 
 vecm1.1 = ca.jo(datos, type=c("trace"), ecdet=c("const"), K=20,
               spec="longrun", season=NULL)
@@ -183,8 +214,6 @@ if (!require(ggplot2)) installed.packages("ggplot2")
 if (!require("reshape2")) install.packages("reshape2")
 if (!require(RColorBrewer)) install.packages("RColorBrewer")
 
-vecm2 = lapply(2:7, function(x) ca.jo(datos, type=c("eigen"), ecdet=c( "const"), K=x,
-              spec="longrun", season=NULL))
 
 
 beta = cbind(mayorista = 1, supermercado=1, const = 1)
@@ -209,7 +238,10 @@ modelo12 = cajorls(modelo11, r=1)
 
 summary(modelo1)
 
-modelo = lapply(1:6, function(x) vec2var(vecm2[[x]], r=1))
+vecm2 = lapply(2:30, function(x) ca.jo(datos, type=c("eigen"), ecdet=c( "const"), K=x,
+                                      spec="longrun", season=NULL))
+
+modelo = lapply(1:29, function(x) vec2var(vecm2[[x]], r=1))
 
 
 lags = 3:30
@@ -255,15 +287,19 @@ summary(modelo)
 
 if (!require(tsDyn)) install.packages("tsDyn")
 
-mono = TVECM(datos, lag=2, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 500, plot=TRUE, include=c("const"))
+mono = TVECM(datos, lag=7, nthresh = 1, trim=0.05,
+       ngridBeta = 100, ngridTh = 100, plot=TRUE,
+       include=c("const"), beta0 = rep(1, length(datos$mayorista)))
 
-Hansen = TVECM.HStest(datos, lag=3, ngridTh = 300, trim=0.05, nboot=100)
+Hansen = TVECM.HStest(datos, lag=7, ngridTh = 300, trim=0.05, nboot=100)
 
 ## ----results='asis'------------------------------------------------------
 toLatex(mono)
 
 ## ------------------------------------------------------------------------
 plot(Hansen)
+
+summary(mono)
 
 ## ----echo=FALSE----------------------------------------------------------
 res = residuals(mono)

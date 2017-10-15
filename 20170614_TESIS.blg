@@ -22,13 +22,12 @@ Database file #2: biblio.bib
 Warning--I didn't find a database entry for "fuller1976"
 Warning--I didn't find a database entry for "dickey1981"
 Warning--I didn't find a database entry for "phillips1988"
-Warning--I didn't find a database entry for "greene2003"
 Biblatex version: 3.3
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 You've used 1 entry,
             6256 wiz_defined-function locations,
-            1180 strings with 8602 characters,
+            1179 strings with 8592 characters,
 and the built_in function-call counts, 1203 in all, are:
 = -- 58
 > -- 52
@@ -67,4 +66,4 @@ warning$ -- 0
 while$ -- 45
 width$ -- 0
 write$ -- 20
-(There were 4 warnings)
+(There were 3 warnings)
