@@ -13,9 +13,14 @@
 \pagestyle{fancy}
 \usepackage{multicol} % muchas columnas
 \usepackage{booktabs} % midrule, bottomrule
-\usepackage{titlesec} % cambiar secuencias de TOC 
+\usepackage{titlesec}
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt} 
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
+\usepackage{blindtext}
+
 \let\bold\boldsymbol
 \let\bf\mathbf
 
@@ -370,7 +375,7 @@ a integrated twice cumulated of order stochastic two, or in trend,
 t
  s=1 notation
 i=1 s
- εi . pt We ∼ say I(2).
+ i . pt We  say I(2).
  that trend-adjusted prices are
 \item We shall argue below that, unless a unit root is given a structural interpretation, the
 choice of one representation or the other is as such not very important, as long as there is
@@ -401,7 +406,7 @@ Sea $\{\bold{x}_{t}\}$ un proceso estocástico para $t=..., -1,0,1,2,...$ Si
 Entonces $\bold{x}_{t}$ es \textit{debilmente estacionario}. La estacionariedad estricta requiere que la distribución de $(x_{t1},...,x_{tk})$ es la misma que $(x_{t1+h},...,x_{tk+h})$ para $h=...,-1,0,1,2,...$
 \end{defin}
 
-for time t based on the available information at time t − 1. For example, a VAR model
+for time t based on the available information at time $t_1$. For example, a VAR model
 with autocorrelated and or heteroscedastic residuals would describe agents that do not
 use all information in the data as efficiently as possible. This is because by including the
 
@@ -467,7 +472,7 @@ Luego
 
 \begin{align}
 \bold{x}_{t} & = \frac{\boldsymbol{\Pi}^{a}(L)(\boldsymbol{\Phi}\bold{D}_{t}+\varepsilon_{t})}{(1-\rho_{1}z)(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}+\tilde{\bold{X}}^{0}, \qquad t=1,...,T \\ 
-& = \left(\frac{\bold{\Pi}_{1}^{a}L+\bold{\Pi}^{a}_{2}L^{2}}{(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}\right)\left(\frac{\varepsilon_{t}+\bold{\Phi}D_{t}}{(1-\rho_{1}L)}\right)+\bold{\tild{X}}^{0}, \qquad t=1,...,T
+& = \left(\frac{\bold{\Pi}_{1}^{a}L+\bold{\Pi}^{a}_{2}L^{2}}{(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}\right)\left(\frac{\varepsilon_{t}+\bold{\Phi}D_{t}}{(1-\rho_{1}L)}\right)+\bold{\tilde{X}}^{0}, \qquad t=1,...,T
 \end{align}
 
 \section{Estimación basada en la verosimilitud para el modelo VAR irrestricto}
@@ -484,7 +489,7 @@ Donde:
 \begin{itemize}
 \item $\bold{B'}=\left[\boldsymbol{\mu_{0}, \Pi_{1}, \Pi_{2},...,\Pi_{k}}\right]$
 \item $\bold{Z'}_{t} = \left[\bold{1,x'_{t-1}, x'_{t-2},...,x'_{t-k}}\right]$
-\item $\bold{X}^{0}$ = \left[\bold{x'_{0}, x'_{-1},...,x'_{-k+1}}\right]$ 
+\item $\bold{X}^{0} = \left[\bold{x'_{0}, x'_{-1},...,x'_{-k+1}}\right]$ 
 \end{itemize}
 
 La función de verosimilitud será la siguiente: 
@@ -623,9 +628,6 @@ y
 
 Entonces, la varianza de skewness es más pequeña que la varianza de la kurtosis, lo cual significa que los contrastes de normalidad son más sensibles a desviaciones sobre el supuesto de skewness (a menudo como resultado de los outliers) que por el exceso de kurtosis (las colas pesadas o demasiados residuos cercanos a la media). Basado en lo anterior, se puede construir un contraste para normalidad univariada de la siguiente forma 
 
-\begin{equation}
-
-\end{equation}
 
 }
 
@@ -726,8 +728,9 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, out.width='4.5in', out.heig
 
 <<echo=FALSE, results='hide', message=FALSE, warning=FALSE>>=
 setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
-#source("importa_semanales.R")
 source("weekly_palta.R")
+#setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
+#source("weekly_tomate.R")
 @
 
 
@@ -757,7 +760,8 @@ y2[id.na2]
 
 @
 
-<<fig-1,echo=F,fig.cap='Evolución de precios del palta de larga vida de primera calidad,2008-2016', out.width='6.5in', out.height='3.5in', fig.align='center', fig.pos='H'>>=
+
+<<fig-1,echo=F,fig.cap='Evolución de precios del palta Hass de primera calidad,2008-2016', out.width='6.5in', out.height='3.5in', fig.align='center', fig.pos='H'>>=
 
 par(family="serif", bty="l", bg="white", cex.lab=1) # opciones gráficas
 ts.plot(exp(precio_mayorista), exp(precio_supermercado), lty=1:2,
@@ -765,6 +769,7 @@ ts.plot(exp(precio_mayorista), exp(precio_supermercado), lty=1:2,
 legend("topleft", legend = c("Mayorista", "Supermercado"),lty=1:2, lwd=2, cex=0.8)
 
 @
+
 
 
 <<fig-2,echo=F,fig.cap='Imputación de valores perdidos a través del filtro de Kalman', out.width='6.5in', out.height='4.5in', fig.align='center', fig.pos='H'>>=
@@ -792,13 +797,20 @@ legend("topleft", legend = c("Valores imputados"),
 
 \chapter{Resultados}
 
+\newpage
 \section{Análisis del orden de integración de las series}
 \subsection{Análisis gráfico}
 
-
 Para analizar el orden de integración de las series es de utilidad usar herramientas gráficas que entreguen cierta orientación sobre el comportamiento de las series antes de realizar un análisis formal a través de contrastes de hipótesis. 
-En el caso del logaritmo de los precios mayoristas de la palta, puede apreciarse una media no constante, aunque no es directamente apreciable lo mismo para la varianza. Por otro lado, su correlograma muestra autocorrelaciones significativas más allá de 52 períodos de rezago, lo que permite afirmar que el proceso tendría una memoria prolongada y que por tanto, no es estacionario (Véase \ref{fig5.1}). 
-<<fig-2.1,echo=F,fig.cap='Evolución del logaritmo del precio mayorista de la palta, 2008-2016\\label{fig5.1}', out.width='6in', out.height='6.5in', fig.align='center'>>=
+En el caso del logaritmo de los precios mayoristas de la palta, puede apreciarse una media no constante, aunque no es directamente apreciable lo mismo para la varianza. Por otro lado, su correlograma muestra autocorrelaciones significativas más allá de 52 períodos de rezago, lo que permite afirmar que el proceso tendría una memoria prolongada y que por tanto, no es estacionario (Véase \ref{fig5.1}).
+
+Para el caso de la serie del logaritmo del precio de la palta en supermercados, se puede observar un comportamiento bastante similar. Es decir, una media que no es constante debido claramente a una tendencia, cuya naturaleza se determina más adelante; y una memoria prolongada al observar el correlograma correspondiente.  
+
+\blindtext
+
+\blindtext
+
+<<fig-2.1,echo=F,fig.cap='Evolución del logaritmo del precio mayorista de la palta, 2008-2016\\label{fig5.1}', out.width='4.5in', out.height='3.5in', fig.align='center'>>=
 par(family="serif", bty="l")
 layout(matrix(c(1,1,1,1,1,
                 2,2,0,3,3),ncol = 5, byrow=TRUE))
@@ -808,9 +820,8 @@ Acf(y1, main="b) Función de autocorrelación", lag.max = 52)
 Pacf(y1, main="c) Función de autocorrelación parcial", lag.max = 52)
 @
 
-Para el caso de la serie del logaritmo del precio de la palta en supermercados, se puede observar un comportamiento bastante similar. Es decir, una media que no es constante debido claramente a una tendencia, cuya naturaleza se determina más adelante; y una memoria prolongada al observar el correlograma correspondiente.  
 
-<<fig-2.2,echo=F,fig.cap='Evolución del logaritmo del precio en supermercado de la palta, 2008-2016\\label{fig5.2}', out.width='6in', out.height='6.5in', fig.align='center'>>=
+<<fig-2.2,echo=F,fig.cap='Evolución del logaritmo del precio en supermercado de la palta, 2008-2016\\label{fig5.2}', out.width='4.5in', out.height='3.5in', fig.align='center'>>=
 par(family="serif", bty="l")
 layout(matrix(c(1,1,1,1,1,
                 2,2,0,3,3),ncol =5, byrow=TRUE))
@@ -820,52 +831,80 @@ Acf(y2, main="b) Función de autocorrelación", lag.max = 52)
 Pacf(y2, main="c) Función de autocorrelación parcial", lag.max = 52)
 @
 
+\subsubsection{Análisis de las series en diferencias}
+
+<<fig-2.3,echo=F,fig.cap='Evolución del logaritmo del precio mayorista de la palta, 2008-2016\\label{fig5.1}', out.width='4.5in', out.height='3.5in', fig.align='center'>>=
+par(family="serif", bty="l")
+layout(matrix(c(1,1,1,1,1,
+                2,2,0,3,3),ncol = 5, byrow=TRUE))
+plot(diff(y1), main="a) Evolución log(precios) mayoristas, 2008-2016", 
+     ylab="$/kilo")
+Acf(diff(y1), main="b) Función de autocorrelación", lag.max = 52)
+Pacf(diff(y1), main="c) Función de autocorrelación parcial", lag.max = 52)
+@
+
+
+<<fig-2.4,echo=F,fig.cap='Evolución del logaritmo del precio en supermercado de la palta, 2008-2016\\label{fig5.2}', out.width='4.5in', out.height='3.5in', fig.align='center'>>=
+par(family="serif", bty="l")
+layout(matrix(c(1,1,1,1,1,
+                2,2,0,3,3),ncol =5, byrow=TRUE))
+plot(diff(y2), main="a) Evolución log(precios) supermercado, 2008-2016", 
+     ylab="$/kilo")
+Acf(diff(y2), main="b) Función de autocorrelación", lag.max = 52)
+Pacf(diff(y2), main="c) Función de autocorrelación parcial", lag.max = 52)
+@
+
+
+\blindtext[2]
+
 \subsection{Contrastes de raíz unitaria}
 
 <<echo=FALSE, include=FALSE>>=
 if (!require(urca)) install.packages("urca")
 
-dickey1 = ur.df(y1, type="trend", selectlags = c("BIC"))
-summary(dickey1)
-dickey2 = ur.df(y2, type="trend", selectlags = c("BIC"))
-summary(dickey2)
-
 dickey11 = ur.df(y1, type="drift", selectlags = c("BIC"))
 dickey21 = ur.df(y2, type="drift", selectlags = c("BIC"))
 summary(dickey11)
 summary(dickey21)
+
 @
 
 A continuación se aplicará el contraste de Dickey-Fuller aumentado bajo el supuesto de que el proceso subyacente tiene drift y tendencia y bajo el supuesto de que sólo tiene drift. 
 
 \begin{table}[H]
-\centering
-\begin{threeparttable}
 \caption{Contraste de Dickey-Fuller aumentado (con drift)\label{tab:dickey1}}
-\begin{tabular}{@{}lrllll@{}}
-\toprule
-\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\centering
+\begin{tabular}{@{}llllll@{}}
+\toprule \\
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estimaciones} &
 \multicolumn{3}{c}{Valores críticos} \\
 \cmidrule(l){2-3} \cmidrule(l){4-6} \\
-\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
  \multicolumn{1}{c}{Supermercado$^{b}$} &
 \multicolumn{1}{l}{90\%}&
 \multicolumn{1}{l}{95\%}&
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$\tau_{2} $  & -2.5725 &  -1.6393 & -2.57 & -2.87 & -3.44 \\
-$\phi_{1} $  & 3.4095  &  1.6354 & 3.79 & 4.61 &  6.47\\
-\bottomrule
+$\tau_{2} $  & -2.5725 &  -1.6393  & -2.57 & -2.87 & -3.44 \\
+$\phi_{1} $  & 3.4095  &  1.6354   & 3.79 & 4.61 &  6.47\\
+\bottomrule \\
 \end{tabular}
-\label{tab-3}
 \begin{tablenotes}
 \small 
 \item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
 \item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
 \end{tablenotes}
-\end{threeparttable}
 \end{table}
+
+
+<<echo=FALSE, include=FALSE>>=
+dickey1 = ur.df(y1, type="trend", selectlags = c("BIC"))
+dickey2 = ur.df(y2, type="trend", selectlags = c("BIC"))
+summary(dickey1)
+summary(dickey2)
+
+@
 
 El cuadro \ref{tab:dickey1} muestra que la evidencia estadística provista por la realización de la serie es apenas suficiente para rechazar la hipótesis $\mathcal{H}_{0}: \rho = 1$ a un nivel de significancia de 10 \%. Por otro lado, la hipótesis $\mathcal{H}_{0}: (\alpha,\rho) = (0,1) $ no puede ser rechazada.
 
@@ -875,33 +914,31 @@ De acuerdo a lo anterior, la serie no contendría una raíz unitaria. De todas m
 
 \begin{table}[H]
 \centering
-\begin{threeparttable}
-\caption{Contraste de Dickey-Fuller aumentado (con tendencia determinista) \label{tab:dickey2}}
-\begin{tabular}{@{}lrllll@{}}
+\caption{Contraste de Dickey-Fuller aumentado (con tendencia)\label{tab:dickey2}}
+\begin{tabular}{@{}llllll@{}}
 \toprule
-\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estimaciones} &
 \multicolumn{3}{c}{Valores críticos} \\
 \cmidrule(l){2-3} \cmidrule(l){4-6} \\
-\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
  \multicolumn{1}{c}{Supermercado$^{b}$} &
 \multicolumn{1}{l}{90\%}&
 \multicolumn{1}{l}{95\%}&
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$\tau_{3} $  & -3.4073 &  -2.1143 & -3.13 & -3.42 & -3.98 \\
-$\phi_{2} $  & 3.9655   &  1.6848 & 4.05 & 4.71 & 6.15 \\
-$\phi_{3}$   & 5.84  &  2.2351 &    5.36    &   6.30   &  8.34    \\ 
+$\tau_{3} $  & -3.4073 &  -2.1143  &  -3.13 & -3.42  &  -3.98 \\
+$\phi_{2} $  & 3.9655  &  1.6848   &  4.05 &  4.71 &  6.15 \\
+$\phi_{3} $  & 5.8467  &  2.2351   &  5.36 &  6.30 &  8.34 \\
 \bottomrule
 \end{tabular}
-\label{tab-2}
 \begin{tablenotes}
 \small 
 \item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
 \item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
 \end{tablenotes}
-\end{threeparttable}
 \end{table}
+
 
 El cuadro \ref{tab:dickey2} muestra que para el caso de la serie de precios mayoristas, la hipótesis $\mathcal{H}_{0}: \rho=1$ se rechaza a un nivel de significancia de $10\%$. Mientras que la hipótesis $\mathcal{H}_{0}: (\alpha, \beta, \rho)=(0,0,1)$  no muestra evidencia estadística suficiente para ser rechaza a los niveles de significancia propuestos. Por último, la hipótesis $\mathcal{H}_{0}: (\alpha, \beta,\rho)=(\alpha,0,1)$ puede ser rechaza sólo a un 10\% de significancia. 
 
@@ -921,15 +958,17 @@ pperron2 =ur.pp(y2, type=c("Z-alpha"), model = c("trend"), lags = c("short"))
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
-\begin{tabular}{@{}lrll@{}}
+\begin{tabular}{@{}llllll@{}}
 \toprule
- & \multicolumn{1}{c}{$Z(t_{\hat{\alpha}})$} &
-\multicolumn{1}{l}{$Z(t_{\hat{\mu}})$}&
-\multicolumn{1}{l}{$Z(t_{\hat{\beta}})$}
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{Mayorista} &
+\multicolumn{1}{l}{Supermercado} & 
+90\% & 95\% & 99\% 
 \\
-\cmidrule(l){2-2} \cmidrule(l){3-4} \\
-Mayorista  & -22.1367 &  1.5224 & 2.2482\\
-Supermercado & -11.958 & 1.0702 & 1.6795 \\
+\cmidrule(l){2-2} \cmidrule(l){3-3} \cmidrule(l){4-6} \\
+$Z(t_{\hat{\alpha}})$ &-22.1367 & -11.958 & -3.13 & -3.42 & -3.98 \\ 
+$Z(t_{\hat{\mu}})$    &  1.5224 & 1.0702  &  4.04 & 4.71  & 6.15  \\ 
+$Z(t_{\hat{\beta}})$  &  2.2482 & 1.6792  &  5.63 & 6.30  & 8.34 \\
 \bottomrule
 \end{tabular}
 \label{tab-4}
@@ -955,15 +994,16 @@ pperron21 =ur.pp(y2, type=c("Z-alpha"), model = c("constant"), lags = c("short")
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \label{tab:pperron2}}
-\begin{tabular}{@{}lrl@{}}
+\begin{tabular}{@{}llllll@{}}
 \toprule
-
- & \multicolumn{1}{c}{$Z(t_{\hat{\alpha}})$} &
-\multicolumn{1}{l}{$Z(t_{\hat{\mu}})$}
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{Mayorista} & 
+\multicolumn{1}{l}{Supermercado} & 
+90\% & 95\% & 99\% \\ 
 \\
-\cmidrule(l){2-2} \cmidrule(l){3-3} \\
-Mayorista  & -13.3185 &  2.5034 \\
-Supermercado & -6.8785 & 1.846 \\
+\cmidrule(l){2-2} \cmidrule(l){3-3} \cmidrule(l){4-6} \\
+$Z(t_{\hat{\alpha}})$ & -13.3185 & -6.8276 &  -2.57 & -2.87 & -3.44 \\
+$Z(t_{\hat{\mu}})$ & 2.5034 & 1.8389 & 3.79 & 4.61 & 6.47 \\
 \bottomrule
 \end{tabular}
 \label{tab-5}
@@ -987,7 +1027,7 @@ ers11 = ur.ers(y1, type = c("P-test"), model="constant", lag.max = 52)
 ers21 = ur.ers(y2, type = c("P-test"), model="constant", lag.max = 52)
 @
 
-Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando como en primer lugar un modelo con constante y tendencia deteminista. Al observar el cuadro \ref{fig5.5} se puede observar que para el caso de los mayoristas no se puede rechazar la hipótesis nula de raíz unitaria para ninguno de los niveles de significancia prescritos, mientras que para el caso de la serie supermercado dicha hipótesis se rechaza al menos al 5\%.  
+Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer lugar un modelo con constante y tendencia deteminista. El cuadro \ref{fig5.5} muestra que para el caso de los mayoristas no se puede rechazar la hipótesis nula de raíz unitaria para ninguno de los niveles de significancia prescritos, mientras que para el caso de la serie supermercado dicha hipótesis se rechaza al menos al 5\%.  
 
 \begin{table}[H]
 \centering
@@ -1005,7 +1045,7 @@ Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando como en pri
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-  & 10.1445 &  4.1594 & 6.89 & 5.62 & 3.96 \\
+  & 3.8715 &  10.0306 & 6.89 & 5.62 & 3.96 \\
 \bottomrule
 \end{tabular}
 \label{tab-8}
@@ -1017,10 +1057,12 @@ Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando como en pri
 \end{threeparttable}
 \end{table}
 
+El cuadro \ref{fig5.6}
+
 \begin{table}[H]
 \centering
 \begin{threeparttable}
-\caption{Contraste de Elliot, Rothenberg \& Stock (con constante)}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
 \begin{tabular}{@{}lrllll@{}}
 \toprule
 \multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
@@ -1033,7 +1075,7 @@ Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando como en pri
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-  & 11.7915 &  3.5853 & 4.48 & 3.26 & 1.99 \\
+  & 3.0049 &  12.0408 & 4.48 & 3.26 & 1.99 \\
 \bottomrule
 \end{tabular}
 \label{tab-9}
@@ -1044,7 +1086,6 @@ Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando como en pri
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
-
 
 
 <<include=FALSE>>=
@@ -1085,7 +1126,7 @@ kpss21 = ur.kpss(y2, type=c("mu"), lags=c("short"))
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$\tau_{3} $  & 3.4145 &  3.7542 & 0.347 & 0.463 & 0.739 \\
+$\tau_{3} $  & 0.2405 &  0.3223 & 0.119 & 0.146 & 0.216 \\
 \bottomrule
 \end{tabular}
 \label{tab-6}
@@ -1114,7 +1155,7 @@ $\tau_{3} $  & 3.4145 &  3.7542 & 0.347 & 0.463 & 0.739 \\
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$\tau_{3} $  & 2.5592 &  2.9497 & 0.347 & 0.463 & 0.739 \\
+$\tau_{3} $  & 3.5537 &  3.8913 & 0.347 & 0.463 & 0.739 \\
 \bottomrule
 \end{tabular}
 \label{tab-7}
@@ -1126,8 +1167,7 @@ $\tau_{3} $  & 2.5592 &  2.9497 & 0.347 & 0.463 & 0.739 \\
 \end{threeparttable}
 \end{table}
 
-
-\subsection{Determinación del rango de cointegración}
+\section{Determinación del rango de cointegración y estimación del modelo}
 
 <<echo=FALSE>>=
 if (!require(vars)) install.packages("vars"); require(vars)
@@ -1137,13 +1177,20 @@ if (!require("reshape2")) install.packages("reshape2")
 if (!require(RColorBrewer)) install.packages("RColorBrewer")
 
 datos = data.frame(y2,y1)
-
 names(datos) = c("supermercado", "mayorista")
 @
 
-\setlength{\textfloatsep}{10pt plus 1.0pt minus 2.0pt}
+Antes de la determinación del rango de cointegración del proceso, es necesario tener en cuenta que el uso del contraste de cointegración de Johansen que se utilizará para dichos fines es sensible a la especificación del modelo vectorial de corrección del equilibrio que subyace. Para la especificación de dicho modelo recurrió a diferentes criterios. 
 
-<<out.width='5in', out.height='3.5in',fig.cap="Inclusión de variables escalón">>=
+En primer lugar, una inspección visual de ambas series revela la presencia de un comportamiento en forma de pulso\footnote{Esta observación surge de la participación del autor en el encuentro anual de la Sociedad Chilena de Estudios Regionales, SOCHER} el cual puede apreciarse en la figura \ref{fig5.5}. Para modelar dicho comportamiento se procedió a crear dos variable mudas de acuerdo a los siguientes criterios: 
+
+\begin{align}
+\text{Pulso}_{1} = & I(t\geq 312) = \begin{cases} 1 & t\geq 312 \\ 0 & \text{en otro caso} \end{cases} \\ 
+\text{Pulso}_{2} = & I(t\geq 76 \quad \& \quad t\leq 122) = \begin{cases} 1 & t\geq 76 \quad \& \quad t\leq 122 \\ 0 & \text{en otro caso} \end{cases} 
+\end{align}
+
+
+<<out.width='5in', out.height='3.5in',fig.cap="Inclusión de variables escalón\\label{fig5.5}">>=
 # Crearé una variable dummy que recoja el efecto del pulso de 2014 en la serie. 
 
 dummy1 = ifelse(row(datos)[,1]>=312,1,0) 
@@ -1162,7 +1209,7 @@ medio = mean(datos[122:328,1])
 alto = mean(datos[329:494,1])
 segments(c(1,76,122,329),c(medio,bajo,medio,alto),
          c(75,121,328,494),c(medio,bajo,medio,alto),
-         lwd=4, col = "red", lty =1)
+         lwd=3, col = "red", lty =1)
 data = cbind(row(datos)[,2], datos[,2])
 plot(data[,2]~data[,1], type="l", ylab="log(precio)")
 bajo = mean(datos[76:121,2])
@@ -1170,19 +1217,16 @@ medio = mean(datos[122:328,2])
 alto = mean(datos[329:494,2])
 segments(c(1,76,122,329),c(medio,bajo,medio,alto),
          c(75,121,328,494),c(medio,bajo,medio,alto),
-         lwd=4, col = "red", lty =1)
+         lwd=3, col = "red", lty =1)
 @
 
+Otro aspecto a destacar es la distancia más o menos constantes existente entre ambas series de precios, por lo que se asumirá que la relación de cointegración entre ambas series contiene una constante como término determinístico. 
 
-<<out.width='5in', out.height='3.5in',fig.cap="Número de Rezagos para el contraste de Independencia">>=
+El número de rezagos a incluir en el modelo se determinó con el objetivo de prevenir problemas de autocorrelación. De esta manera, se estimó el modelo secuencialmente utiliando entre 2 y  12 rezagos y se calculó el estadístico de Ljung-Box multivariado para los residuos rezagados entre el orden mínimo posible y aquellos de orden 52. Los p-valores correspondientes a cada uno de los contrastes están resumidos en la figura \ref{fig5.6}. De esta manera, se aprecia que la hipótesis nula de independencia no se puede rechazar en la mayoría de los casos para el modelo con ocho términos rezagados. 
 
+<<out.width='5in', out.height='3.5in',fig.cap="Número de Rezagos para el contraste de Independencia\\label{fig5.6}">>==
 #Para ver las fechas 
 fechas = data.frame(as.yearmon(time(datos[,1])))
-
-
-@
-
-<<>>==
 
 vecm2 = lapply(2:8, function(x) ca.jo(datos, type=c("trace"), ecdet=c( "const"), K=x, spec="transitory", season=NULL, dumvar = dummy))
 
@@ -1199,9 +1243,14 @@ resultado = sapply(lags, function(x) lapply(1:length(modelo),
 meltresultado = melt(resultado, id = "rezago", na.rm=TRUE) %>% 
   rename(Modelo = variable, `p-value`=value) 
 
-#meltresultado$Modelo = recode(meltresultado$Modelo, 'X1'='1 rezago', 'X2'='2 rezagos', 
-#       'X3'='3 rezagos', 'X4'='4 rezagos', 'X5'='5 rezagos', 
-#       'X6' = '6 rezagos')
+meltresultado$Modelo = recode(meltresultado$Modelo,
+                              'X1'='2 rezagos',
+                              'X2'='3 rezagos',
+                              'X3'='4 rezagos',
+                              'X4'='5 rezagos',
+                              'X5'='6 rezagos',
+                              'X6' = '7 rezagos',
+                              'X7' = '8 rezagos')
 
 ggplot(meltresultado, aes(x=rezago, y=`p-value`, colour=Modelo, group=Modelo)) + 
   geom_line(size=1.2)+geom_hline(yintercept = 0.05, color="red")+
@@ -1220,10 +1269,13 @@ ggplot(meltresultado, aes(x=rezago, y=`p-value`, colour=Modelo, group=Modelo)) +
   scale_y_continuous(breaks = seq(0.0,1,0.05))
 @
 
+De esta forma, el modelo definitivo a estimar resultó ser el siguiente: 
 
+\begin{equation}
+\Delta \mathbf{y}_{t} = \boldsymbol{\Pi}\mathbf{y}_{t-1}+
+\end{equation}
 
-<<>>=
-
+<<include = FALSE, echo=FALSE >>=
 ## Pruebo dos formulaciones equivalentes 
 modelo_alternativo = VECM(datos, lag=7, r=1, LRinclude= c("both"), 
               estim = c("ML"), exogen = dummy)
@@ -1232,11 +1284,9 @@ modelo_alternativo = VECM(datos, lag=7, r=1, LRinclude= c("both"),
 modelo_nulo = VECM(datos, lag=7, r=1, LRinclude= c("trend"), 
               estim = c("ML"), exogen = dummy)
 
-D = 2*(logLik(modelo)-logLik(modelito))
+D = 2*(logLik(modelo_nulo)-logLik(modelo_alternativo))
 
 beta = c(0,0)
-
-
 
 modelo_ = ca.jo(datos, type = c("trace"), ecdet = c("const"), K=8,
                spec = c("transitory"), dumvar = dummy)
@@ -1251,46 +1301,46 @@ modelo__ = cajorls(modelo_, r=1)
 
 
 \begin{table}[H]
+\caption{Contraste de la \textit{la traza} de cointegración de Johansen}
 \begin{center}
 \begin{tabular}{@{}lrllll@{}}
 \toprule
 \multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
 \multicolumn{3}{c}{Valores críticos} \\
 \cmidrule(l){2-3} \cmidrule(l){4-6} \\
-\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{2}{c}{$p = 2$} &
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{2}{c}{$p = 8$} &
 \multicolumn{1}{l}{90\%}&
 \multicolumn{1}{l}{95\%}&
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$r \leq 1$  & \multicolumn{2}{c}{  2.66}  & 6.50 & 8.18 & 11.65\\
-$r = 0$     & \multicolumn{2}{c}{ 49.54}  & 15.66 & 17.95 & 23.52\\
+$r \leq 1$  & \multicolumn{2}{c}{ 18.48}  & 7.52 & 9.24 & 12.97\\
+$r = 0$     & \multicolumn{2}{c}{ 48.58}  & 17.85 & 19.96 & 24.60\\
 \bottomrule
 \end{tabular}
 \end{center}
-\caption{Contraste de la \textit{la traza} de cointegración de Johansen}
 \label{tab-10}
 \end{table}
 
 
 \begin{table}[H]
+\caption{Contraste del \textit{máximo autovalor} de cointegración de Johansen}
 \begin{center}
 \begin{tabular}{@{}lrllll@{}}
 \toprule
 \multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} & \multicolumn{3}{c}{Valores críticos} \\
 \cmidrule(l){2-3} \cmidrule(l){4-6} \\
-\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{2}{c}{$p = 2$} &
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{2}{c}{$p = 8$} &
 \multicolumn{1}{l}{90\%}&
 \multicolumn{1}{l}{95\%}&
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$r \leq 1$ & \multicolumn{2}{c}{ 2.66} & 6.50 & 8.18 & 11.65\\
-$r = 0$ & \multicolumn{2}{c}{46.88} & 12.91 & 14.90 & 19.19 \\
+$r \leq 1$ & \multicolumn{2}{c}{ 18.48} & 7.52 & 9.24 & 12.97 \\
+$r = 0$ & \multicolumn{2}{c}{30.10} & 13.75 & 15.67 & 20.20 \\
 \bottomrule
 \end{tabular}
 \end{center}
-\caption{Contraste del \textit{máximo autovalor} de cointegración de Johansen}
 \label{tab-11}
 \end{table}
 
@@ -1298,35 +1348,218 @@ $r = 0$ & \multicolumn{2}{c}{46.88} & 12.91 & 14.90 & 19.19 \\
 #source("girf_sample.R")
 @
 
-<<>>=
-VARselect(datos, type = c("const"), exogen = dummy)
 
-modelito = VAR(datos,p=8, type=c("const"), exogen =dummy)
+Para especificar el modelo VAR más adecuado se procede a utilizar los siguientes criterios de información
+
+\begin{table}
+\centering
+\caption{Selección del número de rezagos}
+\begin{tabular}{@{}llll@{}}
+\toprule \\
+AIC & HQ & SC & FPE \\
+\midrule \\ 
+8 & 2 & 2 & 8 \\ 
+\bottomrule  
+\end{tabular}
+\end{table}
+
+
+<<>>=
+modelo = lapply(1:9, function(x) VAR(datos, p=x, type = "const",
+                                     exogen = dummy))
+
+
+lags = 3:52
+resultado = sapply(lags, function(x) lapply(1:length(modelo), 
+                                            function(y) serial.test( modelo[[y]],
+                                                                     lags.pt = x)$serial$p.value) %>% as.numeric()) %>% t() %>% 
+  data.frame() %>% mutate(rezago = lags)
+
+
+meltresultado = melt(resultado, id = "rezago", na.rm=TRUE) %>% 
+  rename(Modelo = variable, `p-value`=value) 
+
+meltresultado$Modelo = recode(meltresultado$Modelo,
+                              'X1'='2 rezagos',
+                              'X2'='3 rezagos',
+                              'X3'='4 rezagos',
+                              'X4'='5 rezagos',
+                              'X5'='6 rezagos',
+                              'X6' = '7 rezagos',
+                              'X7' = '8 rezagos',
+                              'X8' = '9 rezagos', 
+                              'X9' = '10 rezagos')
+
+ggplot(meltresultado, aes(x=rezago, y=`p-value`, colour=Modelo, group=Modelo)) + 
+  geom_line(size=1.2)+geom_hline(yintercept = 0.05, color="red")+
+  geom_hline(yintercept = 0.1, col="red2")+
+  theme(panel.background = element_rect(),
+        plot.background = element_rect(colour = "white",size = 0.5), 
+        axis.text.x = element_text(size=10, family="serif"), 
+        axis.title.x = element_text(size=15, family="serif"), 
+        axis.title.y = element_text(size=15, family = "serif"), 
+        legend.background = element_rect(fill="grey95"), 
+        legend.text = element_text(size=10, family="serif"), 
+        legend.title = element_text(face="bold", family="serif"), 
+        legend.title.align = 0.5)+
+  #  scale_colour_manual(values = brewer.pal(12,"Blues"))+
+  scale_x_continuous(breaks = c(5,10,15,20,25,30))+
+  scale_y_continuous(breaks = seq(0.0,1,0.05))
+
+modelito = VAR(datos, p=9, exogen = dummy)
+@
+
+
+<<include = FALSE>>=
+if (!require(stargazer)) install.packages("stargazer"); require(stargazer)
+if (!require(xtable)) install.packages("xtable"); require(xtable)
+
+print(xtable(summary(modelito)$varresult$supermercado, digits = 2), comment = FALSE)
+
+print(xtable(summary(modelito)$varresult$mayorista, digits = 2), comment = FALSE)
+
+@
+
+\begin{table}[H]
+\centering
+\caption{Ecuación Mayorista}
+\begin{tabular}{lllll}
+  \hline
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \hline
+supermercado$_{t-1}$ & 0.87 & 0.05 & 18.55 & 0.00 \\ 
+  mayorista$_{t-1}$ & 0.09 & 0.02 & 3.57 & 0.00 \\ 
+  supermercado$_{t-2}$ & 0.06 & 0.06 & 0.90 & 0.37 \\ 
+  mayorista$_{t-2}$ & 0.02 & 0.04 & 0.56 & 0.57 \\ 
+  supermercado$_{t-3}$ & 0.05 & 0.06 & 0.75 & 0.46 \\ 
+  mayorista$_{t-3}$ & -0.04 & 0.04 & -1.24 & 0.21 \\ 
+  supermercado$_{t-4}$ & 0.04 & 0.06 & 0.69 & 0.49 \\ 
+  mayorista$_{t-4}$ & -0.02 & 0.04 & -0.45 & 0.65 \\ 
+  supermercado$_{t-5}$ & -0.11 & 0.06 & -1.80 & 0.07 \\ 
+  mayorista$_{t-5}$ & -0.05 & 0.04 & -1.38 & 0.17 \\ 
+  supermercado$_{t-6}$ & 0.05 & 0.06 & 0.80 & 0.43 \\ 
+  mayorista$_{t-6}$ & 0.07 & 0.04 & 2.03 & 0.04 \\ 
+  supermercado$_{t-7}$ & -0.03 & 0.06 & -0.55 & 0.58 \\ 
+  mayorista$_{t-7}$ & 0.03 & 0.04 & 0.94 & 0.35 \\ 
+  supermercado$_{t-8}$ & 0.01 & 0.06 & 0.20 & 0.84 \\ 
+  mayorista$_{t-8}$ & -0.09 & 0.04 & -2.46 & 0.01 \\ 
+  supermercado$_{t-9}$ & -0.02 & 0.04 & -0.40 & 0.69 \\ 
+  mayorista$_{t-9}$ & 0.02 & 0.03 & 0.79 & 0.43 \\ 
+  const & 0.39 & 0.09 & 4.24 & 0.00 \\ 
+  Pulso\_1 & 0.02 & 0.01 & 2.76 & 0.01 \\ 
+  Pulso\_2 & -0.00 & 0.00 & -2.66 & 0.01 \\ 
+  \midrule \\ 
+\multicolumn{2}{l}{R$^{2}$ Multiple = 0.9832} & &  \multicolumn{2}{l}{R$^{2}$ Ajustado = 0.9825} \\
+\multicolumn{5}{l}{F-statistic: 1537 on 18 and 473 DF,  p-value: $<$ 2.2$\times 10^{-16}$} \\
+   \bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Ecuación Supermercado}
+\begin{tabular}{@{}lllll@{}}
+  \toprule
+ & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
+  \midrule
+  supermercado$_{t-1}$ & 0.30 & 0.09 & 3.38 & 0.00 \\ 
+  mayorista$_{t-1}$ & 1.05 & 0.05 & 22.56 & 0.00 \\ 
+  supermercado$_{t-1}$ & -0.04 & 0.12 & -0.30 & 0.76 \\ 
+  mayorista$_{t-1}$ & -0.14 & 0.07 & -2.03 & 0.04 \\ 
+  supermercado$_{t-1}$ & -0.10 & 0.12 & -0.82 & 0.41 \\ 
+  mayorista$_{t-1}$ & -0.02 & 0.07 & -0.25 & 0.80 \\ 
+  supermercado$_{t-1}$ & 0.02 & 0.12 & 0.13 & 0.90 \\ 
+  mayorista$_{t-1}$ & -0.08 & 0.07 & -1.15 & 0.25 \\ 
+  supermercado$_{t-1}$ & -0.04 & 0.12 & -0.33 & 0.74 \\ 
+  mayorista$_{t-1}$ & -0.00 & 0.07 & -0.01 & 0.99 \\ 
+  supermercado$_{t-1}$ & -0.02 & 0.12 & -0.13 & 0.90 \\ 
+  mayorista$_{t-1}$ & 0.11 & 0.07 & 1.59 & 0.11 \\ 
+  supermercado$_{t-1}$ & 0.19 & 0.12 & 1.61 & 0.11 \\ 
+  mayorista$_{t-1}$ & -0.06 & 0.07 & -0.82 & 0.41 \\ 
+  supermercado$_{t-1}$ & -0.22 & 0.11 & -1.94 & 0.05 \\ 
+  mayorista$_{t-1}$ & 0.06 & 0.07 & 0.87 & 0.38 \\ 
+  supermercado$_{t-1}$ & 0.02 & 0.08 & 0.28 & 0.78 \\ 
+  mayorista$_{t-1}$ & -0.08 & 0.05 & -1.62 & 0.11 \\ 
+  const & 0.16 & 0.17 & 0.89 & 0.38 \\ 
+  salto\_1 & 0.03 & 0.01 & 2.49 & 0.01 \\ 
+  \midrule \\ 
+ \multicolumn{2}{l}{R$^{2}$ Multiple = 0.9624} &  & \multicolumn{2}{l}{R$^{2}$ Ajustado = 0.961} \\
+ \multicolumn{5}{l}{F-statistic: 673.3 on 18 and 473 DF,  p-value: < 2.2$\times 10^{-16}$} \\ 
+   \bottomrule
+\end{tabular}
+\end{table}
+
+<<>>=
+plot(modelito)
 @
 
 
 <<>>=
-impulso = irf(modelito,n.ahead = 52, cumulative=FALSE)
+impulso = irf(modelito,n.ahead = 78, cumulative=FALSE)
 plot(impulso)
 @
 
+\section{Diagnósticos del modelo}
 
-<<>>=
+<<include = FALSE, echo = FALSE>>=
+
 if (!require(asbio)) install.packages("asbio")
 
-errores = data.frame(residuals(modelo))
+errores = data.frame(residuals(modelito))
 DH.test(errores, names(errores))
+normality(modelito)
+serial.test(modelito, lags.pt = 13, type = c("PT.adjusted"))
+@
+
+\begin{table}[H]
+\centering
+\caption{Diagnósticos del modelo}
+\begin{tabular}{@{}llll@{}}
+\toprule \\ 
+Contraste   & $E$ & df & $\mathbb{P}(\chi^{2}>E)$ \\
+\midrule \\ 
+Doornik \& Hansen & 215.113 & 4 & 2.11$\times 10^{-45}$ \\
+Jarque-Bera (Multivariado) & 586.74 & 4 & $<$2.2$\times 10^{-16}$ \\
+ARCH (Multivariado) & 134.08 & 72 & 1.2$\times 10^{-5}$ \\ 
+
+\bottomrule 
+\end{tabular}
+\end{table}
+
+
+<<echo=FALSE>>=
+res = residuals(modelito)
+if (!require(plot3D)) install.packages("plot3D")
+
+x = res[,c("mayorista")]
+y = res[,c("supermercado")]
+
+x_c = cut(x,20)
+y_c = cut(y,20)
+
+z = table(x_c,y_c)
+
+layout(matrix(c(1,1,1,1,1,
+                2,2,2,2,2),2,5, byrow=TRUE))
+
 @
 
 
+<<fig-5.3.1,echo=F,fig.cap='Histograma bivariado de los residuos del modelo', out.width='3.5in', out.height='3.5in', fig.align='center', message=FALSE, fig.pos='H'>>=
+hist3D(z=z, border="black", contour=TRUE)
 
-\subsection{Diagnósticos del modelo}
+@
+
+<<fig-5.3.2,echo=F,fig.cap='Mapa de calor de los residuos del modelo', out.width='3.5in', out.height='3.5in', fig.align='center', message=FALSE, fig.pos='H'>>=
+image2D(z=z, border="black")
+@
+
 
 <<fig-5,echo=F,fig.cap='Modelo de corrección del error por umbrales', out.width='4.5in', out.height='4.5in', fig.align='center', message=FALSE, fig.pos='H'>>=
 
-if (!require(tsDyn)) install.packages("tsDyn")
+#if (!require(tsDyn)) install.packages("tsDyn")
 
-mono = TVECM(datos, lag=2, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 500, plot=TRUE, include=c("const"))
+#mono = TVECM(datos, lag=2, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 500, plot=TRUE, include=c("const"))
 
 #Hansen = TVECM.HStest(datos, lag=3, ngridTh = 300, trim=0.05, nboot=100)
 @
@@ -1342,24 +1575,6 @@ mono = TVECM(datos, lag=2, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 50
 \end{figure}
 
 
-<<echo=FALSE>>=
-res = residuals(mono)
-if (!require(plot3D)) install.packages("plot3D")
-
-x = res[,c("mayorista")]
-y = res[,c("supermercado")]
-
-x_c = cut(x,20)
-y_c = cut(y,20)
-
-z = table(x_c,y_c)
-
-layout(matrix(c(1,1,1,1,1,
-                2,2,2,2,2),2,5, byrow=TRUE))
-
-hist3D(z=z, border="black", contour=TRUE)
-image2D(z=z, border="black")
-@
 
 <<echo=FALSE>>=
 normalidad = function (x, multivariate.only = TRUE) 
@@ -1389,12 +1604,6 @@ normalidad = function (x, multivariate.only = TRUE)
     return(result)
 }
 
-normalidad(mono)
-
-if (!require(asbio)) install.packages("asbio")
-
-errores = data.frame(residuals(mono))
-DH.test(errores, names(errores))
 @
 
 <<>>=

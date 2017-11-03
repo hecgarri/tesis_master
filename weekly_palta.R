@@ -19,7 +19,7 @@ p_super_palta = filter(palta_cons, Variedad=="Hass" & Calidad=="Primera" &
 
 #generaré una secuencia que tiene todas las semanas para luego comparar con mi secuencia incompleta
 
-ts = seq.POSIXt(as.POSIXct("2008-03-17", '%y%m%d'), as.POSIXct("2017-08-28", '%y%m%d'), by="week")
+ts = seq.POSIXt(as.POSIXct("2008-03-17", '%y%m%d'), as.POSIXct("2017-10-09", '%y%m%d'), by="week")
 
 df <- data.frame(start=ts)
 
@@ -38,11 +38,10 @@ price_sup_palta <- full_join(df,price_sup_palta)
 ###########################################################
 
 lo_valledor = read.csv("LoValledor.csv")
-vega_central = read.csv("VegaCentral.csv")
 
 mayor = rbind(lo_valledor)
 
-mayor = filter(mayor, Variedad=="Hass " & Calidad=="Primera ") %>% 
+mayor = mayor %>% 
   mutate(Desde = gsub("/","-",Desde)) %>% 
   separate(col="Desde", into=c("day", "month", "year"), sep="\\-", extra="drop") %>% 
   mutate(day = as.numeric(day), mont = as.numeric(month), year = as.numeric(year), 
@@ -77,12 +76,6 @@ price_may_palta = separate(price_may_palta, col="start", into=c("year", "month",
          start = as.POSIXct(start, '%y%m%d')) %>% 
   mutate(mes = as.factor(month))
 
-#dummies = model.matrix(~price_may_palta$mes)[,-1]
+precio_mayorista = ts(price_may_palta$price, start=c(2008,3), frequency=365.25/7)
 
-
-#colnames(dummies) = c("feb", "mar", "abr", "may", "jun", "jul", 
-#                      "aug", "sep", "oct", "nov", "dec")
-
-precio_mayorista = ts(price_may_palta$price, start=c(2008,3), frequency=52)
-
-precio_supermercado = ts(price_sup_palta$price, start=c(2008,3), frequency=52)
+precio_supermercado = ts(price_sup_palta$price, start=c(2008,3), frequency=365.25/7)
