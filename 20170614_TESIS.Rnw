@@ -25,6 +25,9 @@
 \let\bf\mathbf
 
 
+\parindent=0pt % Para el uso de sangrías
+\parskip=\medskipamount
+
 \fancyhf{}
  \setcounter{page}{1}
 %\rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
@@ -802,13 +805,15 @@ legend("topleft", legend = c("Valores imputados"),
 \subsection{Análisis gráfico}
 
 Para analizar el orden de integración de las series es de utilidad usar herramientas gráficas que entreguen cierta orientación sobre el comportamiento de las series antes de realizar un análisis formal a través de contrastes de hipótesis. 
-En el caso del logaritmo de los precios mayoristas de la palta, puede apreciarse una media no constante, aunque no es directamente apreciable lo mismo para la varianza. Por otro lado, su correlograma muestra autocorrelaciones significativas más allá de 52 períodos de rezago, lo que permite afirmar que el proceso tendría una memoria prolongada y que por tanto, no es estacionario (Véase \ref{fig5.1}).
 
-Para el caso de la serie del logaritmo del precio de la palta en supermercados, se puede observar un comportamiento bastante similar. Es decir, una media que no es constante debido claramente a una tendencia, cuya naturaleza se determina más adelante; y una memoria prolongada al observar el correlograma correspondiente.  
+Cabe señalar que, como un intento de estabilizar la varianza de las series, estas serán trabajadas en logaritmo.
 
-\blindtext
+\subsubsection{Análisis de las series en nivel}
 
-\blindtext
+En el caso del logaritmo de los precios mayoristas de la palta, puede apreciarse una media no constante, aunque lo mismo no es directamente apreciable  para la varianza. Por otro lado, su correlograma muestra autocorrelaciones significativas más allá de 52 períodos de rezago, lo que permite afirmar que el proceso tendría una memoria prolongada y que por tanto, no es estacionario (Véase figura \ref{fig5.1}).
+
+Para el caso de la serie del logaritmo del precio de la palta en supermercados, se puede observar un comportamiento bastante similar. Es decir, una media que no es constante debido a una tendencia, cuya naturaleza se determina más adelante; y una memoria prolongada al observar el correlograma correspondiente (Véase figura \ref{fig5.2}).  
+
 
 <<fig-2.1,echo=F,fig.cap='Evolución del logaritmo del precio mayorista de la palta, 2008-2016\\label{fig5.1}', out.width='4.5in', out.height='3.5in', fig.align='center'>>=
 par(family="serif", bty="l")
@@ -833,7 +838,12 @@ Pacf(y2, main="c) Función de autocorrelación parcial", lag.max = 52)
 
 \subsubsection{Análisis de las series en diferencias}
 
-<<fig-2.3,echo=F,fig.cap='Evolución del logaritmo del precio mayorista de la palta, 2008-2016\\label{fig5.1}', out.width='4.5in', out.height='3.5in', fig.align='center'>>=
+A continuación se procedió a diferenciar las series, pues existe la sospecha de la presencia de raíz unitaria en ambas, cuestión que será determinada más adelante.
+
+Al analizar las figuras \ref{fig5.3} y \ref{fig5.4} se observan algunos rezagos significativos en el correlograma, lo que puede servir de orientación para determinar el orden de integración de las series. A pesar de lo anterior, se observa de todas maneras que el comportamiento de la varianza no es estable a lo largo del tiempo en ambos casos.  
+
+
+<<fig-2.3,echo=F,fig.cap='Evolución del logaritmo del precio mayorista de la palta, 2008-2016\\label{fig5.3}', out.width='4.5in', out.height='3.5in', fig.align='center'>>=
 par(family="serif", bty="l")
 layout(matrix(c(1,1,1,1,1,
                 2,2,0,3,3),ncol = 5, byrow=TRUE))
@@ -855,9 +865,12 @@ Pacf(diff(y2), main="c) Función de autocorrelación parcial", lag.max = 52)
 @
 
 
-\blindtext[2]
 
 \subsection{Contrastes de raíz unitaria}
+
+\subsubsection{Análisis de las series originales}
+Para determinar de manera formal la presencia de raíces unitarias en las series analizadas se procede a continuación a aplicar una serie de contrastes comúnmente utilizados en la literatura. 
+
 
 <<echo=FALSE, include=FALSE>>=
 if (!require(urca)) install.packages("urca")
@@ -871,9 +884,11 @@ summary(dickey21)
 
 A continuación se aplicará el contraste de Dickey-Fuller aumentado bajo el supuesto de que el proceso subyacente tiene drift y tendencia y bajo el supuesto de que sólo tiene drift. 
 
-\begin{table}[H]
+\begin{center}
+\begin{table}[h]
 \caption{Contraste de Dickey-Fuller aumentado (con drift)\label{tab:dickey1}}
 \centering
+\begin{threeparttable}
 \begin{tabular}{@{}llllll@{}}
 \toprule \\
 \multicolumn{1}{l}{} & \multicolumn{2}{c}{Estimaciones} &
@@ -895,8 +910,9 @@ $\phi_{1} $  & 3.4095  &  1.6354   & 3.79 & 4.61 &  6.47\\
 \item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
 \item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
 \end{tablenotes}
+\end{threeparttable}
 \end{table}
-
+\end{center}
 
 <<echo=FALSE, include=FALSE>>=
 dickey1 = ur.df(y1, type="trend", selectlags = c("BIC"))
@@ -912,8 +928,9 @@ Con respecto a la serie de precios de supermercados la evidencia va en la misma 
 
 De acuerdo a lo anterior, la serie no contendría una raíz unitaria. De todas maneras, es necesario formular otras representaciones del proceso, como bien podría ser incluir una tendencia determinista (a continuación) o utilizar otros contrastes. 
 
-\begin{table}[H]
+\begin{table}[h]
 \centering
+\begin{threeparttable}
 \caption{Contraste de Dickey-Fuller aumentado (con tendencia)\label{tab:dickey2}}
 \begin{tabular}{@{}llllll@{}}
 \toprule
@@ -937,15 +954,77 @@ $\phi_{3} $  & 5.8467  &  2.2351   &  5.36 &  6.30 &  8.34 \\
 \item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
 \item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
 \end{tablenotes}
+\end{threeparttable}
 \end{table}
 
 
-El cuadro \ref{tab:dickey2} muestra que para el caso de la serie de precios mayoristas, la hipótesis $\mathcal{H}_{0}: \rho=1$ se rechaza a un nivel de significancia de $10\%$. Mientras que la hipótesis $\mathcal{H}_{0}: (\alpha, \beta, \rho)=(0,0,1)$  no muestra evidencia estadística suficiente para ser rechaza a los niveles de significancia propuestos. Por último, la hipótesis $\mathcal{H}_{0}: (\alpha, \beta,\rho)=(\alpha,0,1)$ puede ser rechaza sólo a un 10\% de significancia. 
+El cuadro \ref{tab:dickey2} muestra que para el caso de la serie de precios mayoristas, la hipótesis $\mathcal{H}_{0}: \rho=1$ se rechaza a un nivel de significancia de $10\%$. Mientras que la hipótesis $\mathcal{H}_{0}: (\alpha, \beta, \rho)=(0,0,1)$  no muestra evidencia estadística suficiente para ser rechaza a los niveles de significancia propuestos. Por último, la hipótesis $\mathcal{H}_{0}: (\alpha, \beta,\rho)=(\alpha,0,1)$ puede ser rechazada sólo a un 10\% de significancia. 
 
 Para el caso de la serie de precios de supermercado, la hipótesis $\mathcal{H}_{0}: \rho=1$ no puede ser rechazada a ninguno de los niveles de significancia propuestos. Mientras que el contraste tampoco provee información suficiente para rechazar $\mathcal{H}_{0}: (\alpha, \beta, \rho)=(0,0,1)$. Por último, la hipótesis $\mathcal{H}_{0}: (\alpha, \beta,\rho)=(\alpha,0,1)$ puede ser rechaza sólo a un 10\% de significancia. 
 
 El resultado de este contraste es más bien contradictorio, pues no permite concluir que ambas series contengan una raíz unitaria, bajo los diferentes escenarios que sus hipótesis configuran. Queda la posibilidad entonces de que las series tengan un comportamiento estacionario en tendencia, situación que será abordada con el contraste KPSS. 
 
+Los resultados del cuadro \ref{fig5.3}  muestran que para ambas series se rechaza la hipótesis de estacionariedad de la serie a nivel de significancia del 1\%. Razón por la cual se descarta la hipótesis de estacionariedad en tendencia. 
+
+\begin{table}[h]
+\centering
+\begin{threeparttable}
+\caption{Contraste KPSS (con tendencia determinista) \label{fig5.3}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & 0.2405 &  0.3223 & 0.119 & 0.146 & 0.216 \\
+\bottomrule
+\end{tabular}
+\label{tab-6}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\item $^{b}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Por otro lado, los resultados del cuadro \ref{fig5.4} indican que la hipótesis de estacionariedad en niveles se rechaza fuertemente en ambos casos. 
+
+\begin{table}[h]
+\centering
+\begin{threeparttable}
+\caption{Contraste KPSS (sin tendencia determinista) \label{fig5.4}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & 3.5537 &  3.8913 & 0.347 & 0.463 & 0.739 \\
+\bottomrule
+\end{tabular}
+\label{tab-7}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\item $^{b}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+El contraste de Phillips Perron indica que no se puede rechazar la hipótesis de raíz unitaria para ambas series. 
 
 <<include=FALSE>>=
 pperron1 =ur.pp(y1, type=c("Z-alpha"), model = c("trend"), lags = c("short")) 
@@ -954,7 +1033,7 @@ pperron2 =ur.pp(y2, type=c("Z-alpha"), model = c("trend"), lags = c("short"))
 
 @
 
-\begin{table}[H]
+\begin{table}[h]
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
@@ -990,7 +1069,7 @@ pperron21 =ur.pp(y2, type=c("Z-alpha"), model = c("constant"), lags = c("short")
 @
 
 
-\begin{table}[H]
+\begin{table}[h]
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \label{tab:pperron2}}
@@ -1029,7 +1108,7 @@ ers21 = ur.ers(y2, type = c("P-test"), model="constant", lag.max = 52)
 
 Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer lugar un modelo con constante y tendencia deteminista. El cuadro \ref{fig5.5} muestra que para el caso de los mayoristas no se puede rechazar la hipótesis nula de raíz unitaria para ninguno de los niveles de significancia prescritos, mientras que para el caso de la serie supermercado dicha hipótesis se rechaza al menos al 5\%.  
 
-\begin{table}[H]
+\begin{table}[h]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\label{fig5.5}}
@@ -1059,7 +1138,7 @@ Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer l
 
 El cuadro \ref{fig5.6}
 
-\begin{table}[H]
+\begin{table}[h]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
@@ -1110,39 +1189,66 @@ kpss11 = ur.kpss(y1, type=c("mu"), lags=c("short"))
 kpss21 = ur.kpss(y2, type=c("mu"), lags=c("short"))
 @
 
-\begin{table}[H]
+
+\subsubsection{Análisis de las series en diferencias}
+
+Una vez establecida la presencia de raíces unitarias en las series, se procederá a aplicar los contrastes nuevamente para las series en diferencias
+
+<<echo=FALSE, include=FALSE>>=
+if (!require(urca)) install.packages("urca")
+
+dickey11 = ur.df(diff(y1), type="none", selectlags = c("BIC"))
+dickey21 = ur.df(diff(y2), type="none", selectlags = c("BIC"))
+summary(dickey11)
+summary(dickey21)
+
+@
+
+
+\begin{center}
+\begin{table}[h]
+\caption{Contraste de Dickey-Fuller aumentado (sin drift y tendencia)\label{tab:dickey1}}
 \centering
 \begin{threeparttable}
-\caption{Contraste KPSS (con tendencia determinista)}
-\begin{tabular}{@{}lrllll@{}}
-\toprule
-\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\begin{tabular}{@{}llllll@{}}
+\toprule \\
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estimaciones} &
 \multicolumn{3}{c}{Valores críticos} \\
 \cmidrule(l){2-3} \cmidrule(l){4-6} \\
-\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
  \multicolumn{1}{c}{Supermercado$^{b}$} &
 \multicolumn{1}{l}{90\%}&
 \multicolumn{1}{l}{95\%}&
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$\tau_{3} $  & 0.2405 &  0.3223 & 0.119 & 0.146 & 0.216 \\
-\bottomrule
+$\tau_{3} $  &  -14.0093 &  -14.3253  & -1.62 & -1.95 & -2.58 \\
+\bottomrule \\
 \end{tabular}
-\label{tab-6}
 \begin{tablenotes}
 \small 
-\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
-\item $^{b}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
 \end{tablenotes}
 \end{threeparttable}
 \end{table}
+\end{center}
 
 
-\begin{table}[H]
+
+Por otro lado, los resultados del cuadro \ref{fig5.4} indican que la hipótesis de estacionariedad en niveles se rechaza fuertemente en ambos casos. 
+
+<<include=FALSE>>=
+kpss1 = ur.kpss(diff(y1), type=c("mu"), lags=c("short"))
+summary(kpss1)
+kpss2 = ur.kpss(diff(y2), type=c("mu"), lags=c("short"))
+summary(kpss2)
+@
+
+\begin{table}[h]
 \centering
 \begin{threeparttable}
-\caption{Contraste KPSS (sin tendencia determinista)}
+\caption{Contraste KPSS (sin tendencia determinista) \label{fig5.4}}
 \begin{tabular}{@{}lrllll@{}}
 \toprule
 \multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
@@ -1155,7 +1261,7 @@ $\tau_{3} $  & 0.2405 &  0.3223 & 0.119 & 0.146 & 0.216 \\
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$\tau_{3} $  & 3.5537 &  3.8913 & 0.347 & 0.463 & 0.739 \\
+$\tau_{3} $  & 0.0236 &  0.0433 & 0.347 & 0.463 & 0.739 \\
 \bottomrule
 \end{tabular}
 \label{tab-7}
@@ -1167,7 +1273,168 @@ $\tau_{3} $  & 3.5537 &  3.8913 & 0.347 & 0.463 & 0.739 \\
 \end{threeparttable}
 \end{table}
 
+El contraste KPSS muestra claramente como, ahora que la serie ha sido diferenciada, no se puede rechazar la hipótesis nula de estacionariedad. 
+
+El contraste de Phillips Perron indica que no se puede rechazar la hipótesis de raíz unitaria para ambas series. 
+
+<<include=FALSE>>=
+pperron1 =ur.pp(diff(y1), type=c("Z-alpha"), model = c("constant"), lags = c("short")) 
+summary(pperron1)
+pperron2 =ur.pp(diff(y2), type=c("Z-alpha"), model = c("constant"), lags = c("short")) 
+summary(pperron2)
+@
+
+\begin{table}[h]
+\centering
+\begin{threeparttable}
+\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{Mayorista} &
+\multicolumn{1}{l}{Supermercado} & 
+90\% & 95\% & 99\% 
+\\
+\cmidrule(l){2-2} \cmidrule(l){3-3} \cmidrule(l){4-6} \\
+$Z(t_{\hat{\alpha}})$ &-411.6423 & -571.565 & -3.13 & -3.42 & -3.98 \\ 
+$Z(t_{\hat{\mu}})$    &  0.3197 & 0.7824  &  4.04 & 4.71  & 6.15  \\ 
+\bottomrule
+\end{tabular}
+\label{tab-4}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+El cuadro \ref{tab:pperron1} muestra que el contraste rechaza la hipótesis de raíz unitaria, y que como es de esperar, la serie no contiene término constante. 
+
+
+<<include=FALSE>>=
+pperron11 =ur.pp(y1, type=c("Z-alpha"), model = c("constant"), lags = c("short")) 
+
+pperron21 =ur.pp(y2, type=c("Z-alpha"), model = c("constant"), lags = c("short")) 
+
+@
+
+
+\begin{table}[h]
+\centering
+\begin{threeparttable}
+\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \label{tab:pperron2}}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{Mayorista} & 
+\multicolumn{1}{l}{Supermercado} & 
+90\% & 95\% & 99\% \\ 
+\\
+\cmidrule(l){2-2} \cmidrule(l){3-3} \cmidrule(l){4-6} \\
+$Z(t_{\hat{\alpha}})$ & -13.3185 & -6.8276 &  -2.57 & -2.87 & -3.44 \\
+$Z(t_{\hat{\mu}})$ & 2.5034 & 1.8389 & 3.79 & 4.61 & 6.47 \\
+\bottomrule
+\end{tabular}
+\label{tab-5}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hipótesis de raíz unitaria, aunque por cierto, no se puede afirmar con exactitud el comportamiento de los términos deterministas. 
+
+<<include=FALSE>>=
+
+ers1 = ur.ers(y1, type = c("P-test"), model="trend", lag.max = 52)
+
+ers2 = ur.ers(y2, type = c("P-test"), model="trend", lag.max = 52)
+
+ers11 = ur.ers(y1, type = c("P-test"), model="constant", lag.max = 52)
+
+ers21 = ur.ers(y2, type = c("P-test"), model="constant", lag.max = 52)
+@
+
+Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer lugar un modelo con constante y tendencia deteminista. El cuadro \ref{fig5.5} muestra que para el caso de los mayoristas no se puede rechazar la hipótesis nula de raíz unitaria para ninguno de los niveles de significancia prescritos, mientras que para el caso de la serie supermercado dicha hipótesis se rechaza al menos al 5\%.  
+
+\begin{table}[h]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\label{fig5.5}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+  & 3.8715 &  10.0306 & 6.89 & 5.62 & 3.96 \\
+\bottomrule
+\end{tabular}
+\label{tab-8}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+El cuadro \ref{fig5.6}
+
+\begin{table}[h]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+  & 3.0049 &  12.0408 & 4.48 & 3.26 & 1.99 \\
+\bottomrule
+\end{tabular}
+\label{tab-9}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+<<include=FALSE>>=
+ers_1 = ur.ers(y1, type = c("DF-GLS"), model="trend", lag.max = 5)
+
+ers_2 = ur.ers(y2, type = c("DF-GLS"), model="trend", lag.max = 5)
+
+ers_11 = ur.ers(y1, type = c("DF-GLS"), model="constant", lag.max = 5)
+
+ers_21 = ur.ers(y2, type = c("DF-GLS"), model="constant", lag.max = 5)
+
+@
+
+A partir del análisis recién expuesto, se puede concluir que ambas series al ser diferenciadas tienen un comportamiento estacionario. De forma tal que ambas series son I(1).
+
+De esta forma, se procederá a determinar si la tendencia estocástica es compartida a través de un análisis de cointegración. 
+
 \section{Determinación del rango de cointegración y estimación del modelo}
+
+En este apartado se trabajó principalmente con el paquete \texttt{vars} (Pfaff, 2008). 
 
 <<echo=FALSE>>=
 if (!require(vars)) install.packages("vars"); require(vars)
@@ -1176,69 +1443,29 @@ if (!require(ggplot2)) installed.packages("ggplot2")
 if (!require("reshape2")) install.packages("reshape2")
 if (!require(RColorBrewer)) install.packages("RColorBrewer")
 
-datos = data.frame(y2,y1)
-names(datos) = c("supermercado", "mayorista")
+datos = data.frame(y1,y2)
+names(datos) = c("mayorista", "supermercado")
 @
 
-Antes de la determinación del rango de cointegración del proceso, es necesario tener en cuenta que el uso del contraste de cointegración de Johansen que se utilizará para dichos fines es sensible a la especificación del modelo vectorial de corrección del equilibrio que subyace. Para la especificación de dicho modelo recurrió a diferentes criterios. 
+Antes de la determinación del rango de cointegración del proceso, es necesario tener en cuenta que el uso del contraste de cointegración de Johansen que se utilizará para dichos fines es sensible a la especificación del modelo vectorial de corrección del equilibrio que subyace. Para la especificación de dicho modelo se recurrió a diferentes criterios. 
 
-En primer lugar, una inspección visual de ambas series revela la presencia de un comportamiento en forma de pulso\footnote{Esta observación surge de la participación del autor en el encuentro anual de la Sociedad Chilena de Estudios Regionales, SOCHER} el cual puede apreciarse en la figura \ref{fig5.5}. Para modelar dicho comportamiento se procedió a crear dos variable mudas de acuerdo a los siguientes criterios: 
+De manera similar a como señalan Ben Kaabia \& Gil (2008), se observa que al realizar los contrastes univariantes de raíz unitaria, no se rechaza la existencia de una raíz unitaria en torno a una constante no nula. Así también, al realizar los mismos contrastes para las series en primeras diferencias, las series resultaron estacionarias. Por último, en términos económicos, la presencia de una constante indica que existe una diferencia de escala entre los precios mayoristas y detallistas. 
 
-\begin{align}
-\text{Pulso}_{1} = & I(t\geq 312) = \begin{cases} 1 & t\geq 312 \\ 0 & \text{en otro caso} \end{cases} \\ 
-\text{Pulso}_{2} = & I(t\geq 76 \quad \& \quad t\leq 122) = \begin{cases} 1 & t\geq 76 \quad \& \quad t\leq 122 \\ 0 & \text{en otro caso} \end{cases} 
-\end{align}
-
-
-<<out.width='5in', out.height='3.5in',fig.cap="Inclusión de variables escalón\\label{fig5.5}">>=
-# Crearé una variable dummy que recoja el efecto del pulso de 2014 en la serie. 
-
-dummy1 = ifelse(row(datos)[,1]>=312,1,0) 
-dummy2 = ifelse(datos[,1]<7,row(datos),0) 
-
-dummy = cbind(dummy1, dummy2)
-colnames(dummy) = c("salto_1", "salto_2")
-
-layout(matrix(c(1,1,1,1,1,
-                2,2,2,2,2),2,5, byrow=TRUE))
-
-data = cbind(row(datos)[,1], datos[,1])
-plot(data[,2]~data[,1], type="l", ylab="log(precio)")
-bajo = mean(datos[76:121,1])
-medio = mean(datos[122:328,1])
-alto = mean(datos[329:494,1])
-segments(c(1,76,122,329),c(medio,bajo,medio,alto),
-         c(75,121,328,494),c(medio,bajo,medio,alto),
-         lwd=3, col = "red", lty =1)
-data = cbind(row(datos)[,2], datos[,2])
-plot(data[,2]~data[,1], type="l", ylab="log(precio)")
-bajo = mean(datos[76:121,2])
-medio = mean(datos[122:328,2])
-alto = mean(datos[329:494,2])
-segments(c(1,76,122,329),c(medio,bajo,medio,alto),
-         c(75,121,328,494),c(medio,bajo,medio,alto),
-         lwd=3, col = "red", lty =1)
-@
-
-Otro aspecto a destacar es la distancia más o menos constantes existente entre ambas series de precios, por lo que se asumirá que la relación de cointegración entre ambas series contiene una constante como término determinístico. 
-
-El número de rezagos a incluir en el modelo se determinó con el objetivo de prevenir problemas de autocorrelación. De esta manera, se estimó el modelo secuencialmente utiliando entre 2 y  12 rezagos y se calculó el estadístico de Ljung-Box multivariado para los residuos rezagados entre el orden mínimo posible y aquellos de orden 52. Los p-valores correspondientes a cada uno de los contrastes están resumidos en la figura \ref{fig5.6}. De esta manera, se aprecia que la hipótesis nula de independencia no se puede rechazar en la mayoría de los casos para el modelo con ocho términos rezagados. 
+El número de rezagos a incluir en el modelo se determinó con el objetivo de prevenir problemas de autocorrelación. De esta manera, se estimó el modelo secuencialmente utilizando entre 2 y  12 rezagos y se calculó el estadístico de Ljung-Box multivariado para los residuos rezagados entre el orden mínimo posible y aquellos de orden 52. Los p-valores correspondientes a cada uno de los contrastes están resumidos en la figura \ref{fig5.6}. De esta manera, se aprecia que la hipótesis nula de independencia no se puede rechazar en la mayoría de los casos para el modelo con ocho términos rezagados. 
 
 <<out.width='5in', out.height='3.5in',fig.cap="Número de Rezagos para el contraste de Independencia\\label{fig5.6}">>==
 #Para ver las fechas 
 fechas = data.frame(as.yearmon(time(datos[,1])))
 
-vecm2 = lapply(2:8, function(x) ca.jo(datos, type=c("trace"), ecdet=c( "const"), K=x, spec="transitory", season=NULL, dumvar = dummy))
+vecm2 = lapply(2:8, function(x) ca.jo(datos, type=c("trace"), ecdet=c( "const"), K=x, spec="transitory", season=NULL))
 
 modelo = lapply(1:7, function(x) vec2var(vecm2[[x]], r=1))
-
 
 lags = 3:52
 resultado = sapply(lags, function(x) lapply(1:length(modelo), 
                         function(y) serial.test( modelo[[y]],
                        lags.pt = x)$serial$p.value) %>% as.numeric()) %>% t() %>% 
   data.frame() %>% mutate(rezago = lags)
-
 
 meltresultado = melt(resultado, id = "rezago", na.rm=TRUE) %>% 
   rename(Modelo = variable, `p-value`=value) 
@@ -1265,34 +1492,26 @@ ggplot(meltresultado, aes(x=rezago, y=`p-value`, colour=Modelo, group=Modelo)) +
         legend.title = element_text(face="bold", family="serif"), 
         legend.title.align = 0.5)+
 #  scale_colour_manual(values = brewer.pal(12,"Blues"))+
-  scale_x_continuous(breaks = c(5,10,15,20,25,30))+
+  scale_x_continuous(breaks = c(5,10,15,20,25,30,35,40,45,50))+
   scale_y_continuous(breaks = seq(0.0,1,0.05))
 @
 
 De esta forma, el modelo definitivo a estimar resultó ser el siguiente: 
 
 \begin{equation}
-\Delta \mathbf{y}_{t} = \boldsymbol{\Pi}\mathbf{y}_{t-1}+
+\Delta \mathbf{y}_{t} = \boldsymbol{\Pi}\mathbf{y}_{t-1}+\sum_{i=1}^{8}\boldsymbol{\Gamma_{i}}\mathbf{y}_{t-i}+\boldsymbol{\varepsilon}_{t}
 \end{equation}
 
 <<include = FALSE, echo=FALSE >>=
 ## Pruebo dos formulaciones equivalentes 
-modelo_alternativo = VECM(datos, lag=7, r=1, LRinclude= c("both"), 
-              estim = c("ML"), exogen = dummy)
+modelo_alternativo = VECM(datos, lag=8, r=1, LRinclude= c("const"), 
+              estim = c("ML"))
 
-## Pruebo dos formulaciones equivalentes 
-modelo_nulo = VECM(datos, lag=7, r=1, LRinclude= c("trend"), 
-              estim = c("ML"), exogen = dummy)
+modelo_ = ca.jo(datos, type = c("trace"), ecdet = c("const"), K=9,
+               spec = c("longrun"))
 
-D = 2*(logLik(modelo_nulo)-logLik(modelo_alternativo))
-
-beta = c(0,0)
-
-modelo_ = ca.jo(datos, type = c("trace"), ecdet = c("const"), K=8,
-               spec = c("transitory"), dumvar = dummy)
-
-modelo_1 = ca.jo(datos, type = c("eigen"), ecdet = c("const"), K=8,
-               spec = c("transitory"))
+modelo1_ = ca.jo(datos, type = c("eigen"), ecdet = c("const"), K=9,
+               spec = c("longrun"))
 
 modelo__ = cajorls(modelo_, r=1)
 
@@ -1300,7 +1519,7 @@ modelo__ = cajorls(modelo_, r=1)
 
 
 
-\begin{table}[H]
+\begin{table}[h]
 \caption{Contraste de la \textit{la traza} de cointegración de Johansen}
 \begin{center}
 \begin{tabular}{@{}lrllll@{}}
@@ -1314,8 +1533,8 @@ modelo__ = cajorls(modelo_, r=1)
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$r \leq 1$  & \multicolumn{2}{c}{ 18.48}  & 7.52 & 9.24 & 12.97\\
-$r = 0$     & \multicolumn{2}{c}{ 48.58}  & 17.85 & 19.96 & 24.60\\
+$r \leq 1$  & \multicolumn{2}{c}{5.82}  & 7.52 & 9.24 & 12.97\\
+$r = 0$     & \multicolumn{2}{c}{ 36.63}  & 17.85 & 19.96 & 24.60\\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1323,7 +1542,7 @@ $r = 0$     & \multicolumn{2}{c}{ 48.58}  & 17.85 & 19.96 & 24.60\\
 \end{table}
 
 
-\begin{table}[H]
+\begin{table}[h]
 \caption{Contraste del \textit{máximo autovalor} de cointegración de Johansen}
 \begin{center}
 \begin{tabular}{@{}lrllll@{}}
@@ -1336,8 +1555,8 @@ $r = 0$     & \multicolumn{2}{c}{ 48.58}  & 17.85 & 19.96 & 24.60\\
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$r \leq 1$ & \multicolumn{2}{c}{ 18.48} & 7.52 & 9.24 & 12.97 \\
-$r = 0$ & \multicolumn{2}{c}{30.10} & 13.75 & 15.67 & 20.20 \\
+$r \leq 1$ & \multicolumn{2}{c}{ 8.8155} & 7.52 & 9.24 & 12.97 \\
+$r = 0$ & \multicolumn{2}{c}{30.8177} & 13.75 & 15.67 & 20.20 \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -1348,20 +1567,6 @@ $r = 0$ & \multicolumn{2}{c}{30.10} & 13.75 & 15.67 & 20.20 \\
 #source("girf_sample.R")
 @
 
-
-Para especificar el modelo VAR más adecuado se procede a utilizar los siguientes criterios de información
-
-\begin{table}
-\centering
-\caption{Selección del número de rezagos}
-\begin{tabular}{@{}llll@{}}
-\toprule \\
-AIC & HQ & SC & FPE \\
-\midrule \\ 
-8 & 2 & 2 & 8 \\ 
-\bottomrule  
-\end{tabular}
-\end{table}
 
 
 <<>>=
@@ -1406,7 +1611,7 @@ ggplot(meltresultado, aes(x=rezago, y=`p-value`, colour=Modelo, group=Modelo)) +
   scale_x_continuous(breaks = c(5,10,15,20,25,30))+
   scale_y_continuous(breaks = seq(0.0,1,0.05))
 
-modelito = VAR(datos, p=9, exogen = dummy)
+modelito = VAR(datos, p=9)
 @
 
 
@@ -1420,7 +1625,7 @@ print(xtable(summary(modelito)$varresult$mayorista, digits = 2), comment = FALSE
 
 @
 
-\begin{table}[H]
+\begin{table}[h]
 \centering
 \caption{Ecuación Mayorista}
 \begin{tabular}{lllll}
@@ -1455,7 +1660,7 @@ supermercado$_{t-1}$ & 0.87 & 0.05 & 18.55 & 0.00 \\
 \end{tabular}
 \end{table}
 
-\begin{table}[H]
+\begin{table}[h]
 \centering
 \caption{Ecuación Supermercado}
 \begin{tabular}{@{}lllll@{}}
@@ -1511,7 +1716,7 @@ normality(modelito)
 serial.test(modelito, lags.pt = 13, type = c("PT.adjusted"))
 @
 
-\begin{table}[H]
+\begin{table}[h]
 \centering
 \caption{Diagnósticos del modelo}
 \begin{tabular}{@{}llll@{}}
@@ -1623,7 +1828,13 @@ lrt(vecm1, vecm1.1, r=1)
 \chapter{Conclusiones}
 \chapter{Bibliografía}
 
-\printbibliography
+\hangindent=5em
+\hangafter=-2
+
+Ben-Kaabia, M., & Gil Roig, J. M. (2008). Asimetrías en la transmisión de precios en el sector del tomate en España. Economía Agraria y Recursos Naturales, 8(1), 57-82.
+
+ Pfaff, B. (2008). VAR, SVAR and SVEC models: Implementation within R package vars. Journal of Statistical Software, 27(4), 1-32.
+
 
 \include{ANEXO}
 \end{document}
