@@ -38,40 +38,42 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsection}{\numberline {3.3.3}El contraste de cointegraci\IeC {\'o}n de Johansen}{30}{subsection.3.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}Procesos de transmisi\IeC {\'o}n asim\IeC {\'e}tricos}{31}{section.3.4}
+\contentsline {section}{\numberline {3.4}Modelo de vector de correcci\IeC {\'o}n del error por umbrales (TVECM)}{31}{section.3.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4.1}Modelo de vectores de correcci\IeC {\'o}n del error por umbrales (TVECM)}{31}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {3.4.1}Estimaci\IeC {\'o}n del modelo TVECM}{31}{subsection.3.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.4.1.1}El contraste de Hansen \& Seo (2002)}{31}{subsubsection.3.4.1.1}
-\defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.4.1.2}Contrastes de linealidad}{31}{subsubsection.3.4.1.2}
+\contentsline {subsection}{\numberline {3.4.2}El contraste de Hansen & Seo (2002)}{31}{subsection.3.4.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {4}Metodolog\IeC {\'\i }a y Datos}{33}{chapter.4}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {4.1}Fuentes de informaci\IeC {\'o}n}{33}{section.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {4.1.1}Imputaci\IeC {\'o}n de valores perdidos}{33}{subsection.4.1.1}
-\defcounter {refsection}{0}\relax 
 \contentsline {chapter}{\numberline {5}Resultados}{35}{chapter.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}An\IeC {\'a}lisis del orden de integraci\IeC {\'o}n de las series}{36}{section.5.1}
+\contentsline {section}{\numberline {5.1}Imputaci\IeC {\'o}n de valores perdidos}{36}{section.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.1}An\IeC {\'a}lisis gr\IeC {\'a}fico}{36}{subsection.5.1.1}
+\contentsline {section}{\numberline {5.2}An\IeC {\'a}lisis del orden de integraci\IeC {\'o}n de las series}{37}{section.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.1.1.1}An\IeC {\'a}lisis de las series en nivel}{36}{subsubsection.5.1.1.1}
+\contentsline {subsection}{\numberline {5.2.1}An\IeC {\'a}lisis gr\IeC {\'a}fico}{37}{subsection.5.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.1.1.2}An\IeC {\'a}lisis de las series en diferencias}{37}{subsubsection.5.1.1.2}
+\contentsline {subsubsection}{\numberline {5.2.1.1}An\IeC {\'a}lisis de las series en nivel}{37}{subsubsection.5.2.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.1.2}Contrastes de ra\IeC {\'\i }z unitaria}{39}{subsection.5.1.2}
+\contentsline {subsubsection}{\numberline {5.2.1.2}An\IeC {\'a}lisis de las series en diferencias}{39}{subsubsection.5.2.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.1.2.1}An\IeC {\'a}lisis de las series originales}{39}{subsubsection.5.1.2.1}
+\contentsline {subsection}{\numberline {5.2.2}Contrastes de ra\IeC {\'\i }z unitaria}{41}{subsection.5.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.1.2.2}An\IeC {\'a}lisis de las series en diferencias}{42}{subsubsection.5.1.2.2}
+\contentsline {subsubsection}{\numberline {5.2.2.1}An\IeC {\'a}lisis de las series originales}{41}{subsubsection.5.2.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n y estimaci\IeC {\'o}n del modelo}{44}{section.5.2}
+\contentsline {subsubsection}{\numberline {5.2.2.2}An\IeC {\'a}lisis de las series en diferencias}{44}{subsubsection.5.2.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Diagn\IeC {\'o}sticos del modelo}{50}{section.5.3}
+\contentsline {section}{\numberline {5.3}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n y estimaci\IeC {\'o}n del modelo del modelo lineal de correcci\IeC {\'o}n del error}{46}{section.5.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusiones}{55}{chapter.6}
+\contentsline {section}{\numberline {5.4}Diagn\IeC {\'o}sticos del modelo lineal}{51}{section.5.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Bibliograf\IeC {\'\i }a}{57}{chapter.7}
+\contentsline {section}{\numberline {5.5}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n y estimaci\IeC {\'o}n del modelo del modelo lineal de correcci\IeC {\'o}n del error}{53}{section.5.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.6}Diagn\IeC {\'o}sticos del modelo no lineal}{55}{section.5.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Conclusiones}{59}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {7}Bibliograf\IeC {\'\i }a}{61}{chapter.7}

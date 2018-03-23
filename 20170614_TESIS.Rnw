@@ -703,26 +703,31 @@ y
 \mathcal{H}_{0}: rk(\bold{\Pi})=r_{0} &&  versus && \mathcal{H}_{1}: rk(\bold{\Pi})=r_{0}+1 \label{hipo_johansen3}
 \end{align}
 El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} se denomina comunmente como el estadístico \textit{de la traza} para testear el rango de cointegración, mientras que $\lambda_{LR}(r_{0},r_{0}+1)$ es llamado estadístico de \textit{máximo autovalor}.  
+}
 
-\section{Procesos de transmisión asimétricos}
-\subsection{Modelo de vectores de corrección del error por umbrales (TVECM)}
-\begin{defin}
-Una serie de tiempo $K$-dimensional $\bf{y}_{t}$ se dice que sigue un modelo TVECM de $k$-regímenes de orden $p$ si satisface
+\section{Modelo de vector de corrección del error por umbrales (TVECM)}
+\subsection{Estimación del modelo TVECM}
+
+En esta sección se reproduce lo expuesto en el artículo de Hansen \& Seo (2002). Sea $\mathbf{x}_{t}$ una serie de tiempo p-dimensional $I(1)$ la cual está cointegrada con un vector cointegrante de orden $p\times 1$. Sea $w_{t}(\beta}=\beta'x_{t}$ el término de corrección del error $I(0)$. Se puede escribir un modelo VECM linealde la siguiente forma: 
+
 \begin{equation}
-\Delta y_{t}=c_{j}+\bold{\Pi}_{j}\bf{y}_{t-1}+\bold{\Gamma}_{1j}\Delta \bf{y}_{t-1}+...+\bold{\Gamma}_{(p-1),j}\Delta \bf{y}_{t-p+1}+u_{tj}, \quad \text{si}\quad \gamma_{j-1}\leq y_{t-d-1}\leq \gamma_{j}
+\Delta \mathbf{x}_{t} = \mathbf{A'X}_{t-1}(\boldsymbol{\beta})+\mathbf{u}_{t}
 \end{equation}
-\end{defin}
 
-\subsubsection{El contraste de Hansen \& Seo (2002)}
-Cuando estimamos un modelo TVECM resulta vital discernir si este modelo no lineal tiene una performance superior a la que tendría un modelo lineal VECM. Hansen \& Seo (2002) propusieron un contraste  
-
-\subsubsection{Contrastes de linealidad}
+\subsection{El contraste de Hansen \& Seo (2002)}
 
 \chapter{Metodología y Datos}
 
 \section{Fuentes de información}
 
-\subsection{Imputación de valores perdidos}
+
+
+
+\chapter{Resultados}
+
+\newpage
+
+\section{Imputación de valores perdidos}
 
 <<include=FALSE>>=
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, out.width='4.5in', out.height='3.5in', fig.align='center', message=FALSE, fig.pos='H')
@@ -796,11 +801,6 @@ legend("topleft", legend = c("Valores imputados"),
 
 @
 
-}
-
-\chapter{Resultados}
-
-\newpage
 \section{Análisis del orden de integración de las series}
 \subsection{Análisis gráfico}
 
@@ -1432,7 +1432,7 @@ A partir del análisis recién expuesto, se puede concluir que ambas series al s
 
 De esta forma, se procederá a determinar si la tendencia estocástica es compartida a través de un análisis de cointegración. 
 
-\section{Determinación del rango de cointegración y estimación del modelo}
+\section{Determinación del rango de cointegración y estimación del modelo del modelo lineal de corrección del error}
 
 En este apartado se trabajó principalmente con el paquete \texttt{vars} (Pfaff, 2008). 
 
@@ -1451,7 +1451,7 @@ Antes de la determinación del rango de cointegración del proceso, es necesario
 
 De manera similar a como señalan Ben Kaabia \& Gil (2008), se observa que al realizar los contrastes univariantes de raíz unitaria, no se rechaza la existencia de una raíz unitaria en torno a una constante no nula. Así también, al realizar los mismos contrastes para las series en primeras diferencias, las series resultaron estacionarias. Por último, en términos económicos, la presencia de una constante indica que existe una diferencia de escala entre los precios mayoristas y detallistas. 
 
-El número de rezagos a incluir en el modelo se determinó con el objetivo de prevenir problemas de autocorrelación. De esta manera, se estimó el modelo secuencialmente utilizando entre 2 y  12 rezagos y se calculó el estadístico de Ljung-Box multivariado para los residuos rezagados entre el orden mínimo posible y aquellos de orden 52. Los p-valores correspondientes a cada uno de los contrastes están resumidos en la figura \ref{fig5.6}. De esta manera, se aprecia que la hipótesis nula de independencia no se puede rechazar en la mayoría de los casos para el modelo con ocho términos rezagados. 
+El número de rezagos a incluir en el modelo se determinó con el objetivo de prevenir problemas de autocorrelación. De esta manera, se estimó el modelo secuencialmente utilizando entre 2 y  12 rezagos y se calculó el estadístico de Ljung-Box multivariado para los residuos rezagados entre el orden mínimo posible y aquellos de orden 52. Los p-valores correspondientes a cada uno de los contrastes están resumidos en la figura \ref{fig5.6}. De esta manera, se aprecia que la hipótesis nula de independencia no se puede rechazar a un nivel de significancia de 5\% en la mayoría de los casos para el modelo con ocho términos rezagados. 
 
 <<out.width='5in', out.height='3.5in',fig.cap="Número de Rezagos para el contraste de Independencia\\label{fig5.6}">>==
 #Para ver las fechas 
@@ -1502,6 +1502,9 @@ De esta forma, el modelo definitivo a estimar resultó ser el siguiente:
 \Delta \mathbf{y}_{t} = \boldsymbol{\Pi}\mathbf{y}_{t-1}+\sum_{i=1}^{8}\boldsymbol{\Gamma_{i}}\mathbf{y}_{t-i}+\boldsymbol{\varepsilon}_{t}
 \end{equation}
 
+Entonces, definido el número de rezagos a utilizar y la estructura del vector cointegrante, se procedió a aplicar el contraste de cointegración de Johansen, cuyos resultados pueden apreciarse en los cuadros \ref{tab5.15} y \ref{tab5.16}
+
+
 <<include = FALSE, echo=FALSE >>=
 ## Pruebo dos formulaciones equivalentes 
 modelo_alternativo = VECM(datos, lag=8, r=1, LRinclude= c("const"), 
@@ -1513,14 +1516,13 @@ modelo_ = ca.jo(datos, type = c("trace"), ecdet = c("const"), K=9,
 modelo1_ = ca.jo(datos, type = c("eigen"), ecdet = c("const"), K=9,
                spec = c("longrun"))
 
-modelo__ = cajorls(modelo_, r=1)
 
 @
 
 
 
 \begin{table}[h]
-\caption{Contraste de la \textit{la traza} de cointegración de Johansen}
+\caption{Contraste de la \textit{la traza} de cointegración de Johansen\label{tab5.15}}
 \begin{center}
 \begin{tabular}{@{}lrllll@{}}
 \toprule
@@ -1541,9 +1543,11 @@ $r = 0$     & \multicolumn{2}{c}{ 36.63}  & 17.85 & 19.96 & 24.60\\
 \label{tab-10}
 \end{table}
 
+En el cuadro \ref{tab5.15} se observa el rechazo de la hipótesis $\mathcal{H}_{0}: = 0$ lo que descarta que la especificación adecuada sea un modelo VAR en niveles. Por otro lado, la hipótesis nula $\mathcal{H}_{0}\leq 1$ no puede rechazarse. 
+
 
 \begin{table}[h]
-\caption{Contraste del \textit{máximo autovalor} de cointegración de Johansen}
+\caption{Contraste del \textit{máximo autovalor} de cointegración de Johansen\label{tab5.16}}
 \begin{center}
 \begin{tabular}{@{}lrllll@{}}
 \toprule
@@ -1555,189 +1559,116 @@ $r = 0$     & \multicolumn{2}{c}{ 36.63}  & 17.85 & 19.96 & 24.60\\
 \multicolumn{1}{l}{99\%}
 \\
 \midrule
-$r \leq 1$ & \multicolumn{2}{c}{ 8.8155} & 7.52 & 9.24 & 12.97 \\
-$r = 0$ & \multicolumn{2}{c}{30.8177} & 13.75 & 15.67 & 20.20 \\
+$r \leq 1$ & \multicolumn{2}{c}{5.82} & 7.52 & 9.24 & 12.97 \\
+$r = 0$ & \multicolumn{2}{c}{30.82} & 13.75 & 15.67 & 20.20 \\
 \bottomrule
 \end{tabular}
 \end{center}
 \label{tab-11}
 \end{table}
 
-<<echo=FALSE>>=
+Al realizar la prueba de acuerdo al máximo autovalor, se observa el mismo resultado. 
+
+De esta manera, el modelo puede especificarse como 
+
+\begin{equation}
+ \Delta\mathbf{y}_{t} = \boldsymbol{\alpha \beta}^{'}\left[\begin{array}{c}1 \\ \mathbf{y}_{t-1}\end{array}\right]+\sum_{i=1}^{8}\boldsymbol{\Gamma}_{i}\Delta\mathbf{y}_{t-i}+\boldsymbol{\varepsilon}_{t}
+\end{equation}
+
+Donde $\boldsymbol{\alpha}=\left[\begin{array}{c} \alpha_{1} \\ \alpha_{2} \\ \alpha_{3} \end{array}\right]$ y $\boldsymbol{\beta}^{'} = \left[\begin{array}{ccc} \beta_{1} & \beta_{2} & \beta_{3} \end{array}\right]$
+
+
+<<>>=
+not_restrict = VECM(datos, lag=8, estim="ML", r=1, LRinclude = c("const"))
+
+beta = matrix(c(1,-1), ncol =1)
+restrict = VECM(datos, lag = 8, estim = "ML", r = 1, beta = beta)
+
+D = 2*(logLik(not_restrict)-logLik(restrict))
+
+pchisq(D, df = restrict$npar-not_restrict$npar)
+@
+
+
+
+\begin{table}[h]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
+\begin{tabular}{@{}lll@{}}
+\toprule
+ & $\Delta \text{mayorista}_{t} $ & $\Delta \text{supermerado}_{t}$ \\ 
+ \midrule 
+ $\text{corrección del error}$ & -0.146592   &  0.027821 \\     
+$\Delta$mayorista$_{t-1}$   &   0.065270 &   0.095569  \\   
+$\Delta$supermercado$_{t-1}$  & 0.333719  &  -0.095055 \\     
+$\Delta$mayorista$_{t-2}$  & -0.075599  &   0.112612  \\   
+$\Delta$supermercado$_{t-1}$  & 0.296286  &  -0.042207 \\     
+$\Delta$mayorista$_{t-3}$ &  -0.095907  & 0.063245     \\
+$\Delta$supermercado$_{t-3}$  & 0.198395  &   0.006723  \\   
+$\Delta$mayorista$_{t-4}$   &  -0.174854  &   0.046165 \\     
+$\Delta$supermercado$_{t-4}$  & 0.212239  &   0.053372  \\   
+$\Delta$mayorista$_{t-5}$   &  -0.175601  &  -0.004331 \\     
+$\Delta$supermercado$_{t-5}$  & 0.167277  &  -0.057114  \\   
+$\Delta$mayorista$_{t-6}$   & -0.064872   &  0.068671 \\     
+$\Delta$supermercado$_{t-1}$  & 0.148495  &  -0.011887 \\     
+$\Delta$mayorista$_{t-7}$   &  -0.122949  &   0.101965 \\     
+$\Delta$supermercado$_{t-7}$  & 0.332634  &  -0.042574  \\   
+$\Delta$mayorista$_{t-8}$   &  -0.067370  &   0.009668  \\   
+$\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\ 
+\bottomrule
+\end{tabular}
+\label{tab-9}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+<<echo = F>>=
 #source("girf_sample.R")
+
+modelo__ = cajorls(modelo_, r=1)
+
+var_version = vec2var(modelo_, r= 1)
+
+impulso = irf(var_version, n.ahead = 52)
+impulso2 = irf(var_version, n.ahead = 52, ortho = FALSE)
 @
 
 
 
-<<>>=
-modelo = lapply(1:9, function(x) VAR(datos, p=x, type = "const",
-                                     exogen = dummy))
-
-
-lags = 3:52
-resultado = sapply(lags, function(x) lapply(1:length(modelo), 
-                                            function(y) serial.test( modelo[[y]],
-                                                                     lags.pt = x)$serial$p.value) %>% as.numeric()) %>% t() %>% 
-  data.frame() %>% mutate(rezago = lags)
-
-
-meltresultado = melt(resultado, id = "rezago", na.rm=TRUE) %>% 
-  rename(Modelo = variable, `p-value`=value) 
-
-meltresultado$Modelo = recode(meltresultado$Modelo,
-                              'X1'='2 rezagos',
-                              'X2'='3 rezagos',
-                              'X3'='4 rezagos',
-                              'X4'='5 rezagos',
-                              'X5'='6 rezagos',
-                              'X6' = '7 rezagos',
-                              'X7' = '8 rezagos',
-                              'X8' = '9 rezagos', 
-                              'X9' = '10 rezagos')
-
-ggplot(meltresultado, aes(x=rezago, y=`p-value`, colour=Modelo, group=Modelo)) + 
-  geom_line(size=1.2)+geom_hline(yintercept = 0.05, color="red")+
-  geom_hline(yintercept = 0.1, col="red2")+
-  theme(panel.background = element_rect(),
-        plot.background = element_rect(colour = "white",size = 0.5), 
-        axis.text.x = element_text(size=10, family="serif"), 
-        axis.title.x = element_text(size=15, family="serif"), 
-        axis.title.y = element_text(size=15, family = "serif"), 
-        legend.background = element_rect(fill="grey95"), 
-        legend.text = element_text(size=10, family="serif"), 
-        legend.title = element_text(face="bold", family="serif"), 
-        legend.title.align = 0.5)+
-  #  scale_colour_manual(values = brewer.pal(12,"Blues"))+
-  scale_x_continuous(breaks = c(5,10,15,20,25,30))+
-  scale_y_continuous(breaks = seq(0.0,1,0.05))
-
-modelito = VAR(datos, p=9)
-@
-
-
-<<include = FALSE>>=
-if (!require(stargazer)) install.packages("stargazer"); require(stargazer)
-if (!require(xtable)) install.packages("xtable"); require(xtable)
-
-print(xtable(summary(modelito)$varresult$supermercado, digits = 2), comment = FALSE)
-
-print(xtable(summary(modelito)$varresult$mayorista, digits = 2), comment = FALSE)
-
-@
-
-\begin{table}[h]
-\centering
-\caption{Ecuación Mayorista}
-\begin{tabular}{lllll}
-  \hline
- & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
-  \hline
-supermercado$_{t-1}$ & 0.87 & 0.05 & 18.55 & 0.00 \\ 
-  mayorista$_{t-1}$ & 0.09 & 0.02 & 3.57 & 0.00 \\ 
-  supermercado$_{t-2}$ & 0.06 & 0.06 & 0.90 & 0.37 \\ 
-  mayorista$_{t-2}$ & 0.02 & 0.04 & 0.56 & 0.57 \\ 
-  supermercado$_{t-3}$ & 0.05 & 0.06 & 0.75 & 0.46 \\ 
-  mayorista$_{t-3}$ & -0.04 & 0.04 & -1.24 & 0.21 \\ 
-  supermercado$_{t-4}$ & 0.04 & 0.06 & 0.69 & 0.49 \\ 
-  mayorista$_{t-4}$ & -0.02 & 0.04 & -0.45 & 0.65 \\ 
-  supermercado$_{t-5}$ & -0.11 & 0.06 & -1.80 & 0.07 \\ 
-  mayorista$_{t-5}$ & -0.05 & 0.04 & -1.38 & 0.17 \\ 
-  supermercado$_{t-6}$ & 0.05 & 0.06 & 0.80 & 0.43 \\ 
-  mayorista$_{t-6}$ & 0.07 & 0.04 & 2.03 & 0.04 \\ 
-  supermercado$_{t-7}$ & -0.03 & 0.06 & -0.55 & 0.58 \\ 
-  mayorista$_{t-7}$ & 0.03 & 0.04 & 0.94 & 0.35 \\ 
-  supermercado$_{t-8}$ & 0.01 & 0.06 & 0.20 & 0.84 \\ 
-  mayorista$_{t-8}$ & -0.09 & 0.04 & -2.46 & 0.01 \\ 
-  supermercado$_{t-9}$ & -0.02 & 0.04 & -0.40 & 0.69 \\ 
-  mayorista$_{t-9}$ & 0.02 & 0.03 & 0.79 & 0.43 \\ 
-  const & 0.39 & 0.09 & 4.24 & 0.00 \\ 
-  Pulso\_1 & 0.02 & 0.01 & 2.76 & 0.01 \\ 
-  Pulso\_2 & -0.00 & 0.00 & -2.66 & 0.01 \\ 
-  \midrule \\ 
-\multicolumn{2}{l}{R$^{2}$ Multiple = 0.9832} & &  \multicolumn{2}{l}{R$^{2}$ Ajustado = 0.9825} \\
-\multicolumn{5}{l}{F-statistic: 1537 on 18 and 473 DF,  p-value: $<$ 2.2$\times 10^{-16}$} \\
-   \bottomrule
-\end{tabular}
-\end{table}
-
-\begin{table}[h]
-\centering
-\caption{Ecuación Supermercado}
-\begin{tabular}{@{}lllll@{}}
-  \toprule
- & Estimate & Std. Error & t value & Pr($>$$|$t$|$) \\ 
-  \midrule
-  supermercado$_{t-1}$ & 0.30 & 0.09 & 3.38 & 0.00 \\ 
-  mayorista$_{t-1}$ & 1.05 & 0.05 & 22.56 & 0.00 \\ 
-  supermercado$_{t-1}$ & -0.04 & 0.12 & -0.30 & 0.76 \\ 
-  mayorista$_{t-1}$ & -0.14 & 0.07 & -2.03 & 0.04 \\ 
-  supermercado$_{t-1}$ & -0.10 & 0.12 & -0.82 & 0.41 \\ 
-  mayorista$_{t-1}$ & -0.02 & 0.07 & -0.25 & 0.80 \\ 
-  supermercado$_{t-1}$ & 0.02 & 0.12 & 0.13 & 0.90 \\ 
-  mayorista$_{t-1}$ & -0.08 & 0.07 & -1.15 & 0.25 \\ 
-  supermercado$_{t-1}$ & -0.04 & 0.12 & -0.33 & 0.74 \\ 
-  mayorista$_{t-1}$ & -0.00 & 0.07 & -0.01 & 0.99 \\ 
-  supermercado$_{t-1}$ & -0.02 & 0.12 & -0.13 & 0.90 \\ 
-  mayorista$_{t-1}$ & 0.11 & 0.07 & 1.59 & 0.11 \\ 
-  supermercado$_{t-1}$ & 0.19 & 0.12 & 1.61 & 0.11 \\ 
-  mayorista$_{t-1}$ & -0.06 & 0.07 & -0.82 & 0.41 \\ 
-  supermercado$_{t-1}$ & -0.22 & 0.11 & -1.94 & 0.05 \\ 
-  mayorista$_{t-1}$ & 0.06 & 0.07 & 0.87 & 0.38 \\ 
-  supermercado$_{t-1}$ & 0.02 & 0.08 & 0.28 & 0.78 \\ 
-  mayorista$_{t-1}$ & -0.08 & 0.05 & -1.62 & 0.11 \\ 
-  const & 0.16 & 0.17 & 0.89 & 0.38 \\ 
-  salto\_1 & 0.03 & 0.01 & 2.49 & 0.01 \\ 
-  \midrule \\ 
- \multicolumn{2}{l}{R$^{2}$ Multiple = 0.9624} &  & \multicolumn{2}{l}{R$^{2}$ Ajustado = 0.961} \\
- \multicolumn{5}{l}{F-statistic: 673.3 on 18 and 473 DF,  p-value: < 2.2$\times 10^{-16}$} \\ 
-   \bottomrule
-\end{tabular}
-\end{table}
-
-<<>>=
-plot(modelito)
-@
-
-
-<<>>=
-impulso = irf(modelito,n.ahead = 78, cumulative=FALSE)
+<<graph5.6, echo=FALSE, fig.cap='Función ortogonal de impulso respuesta\\label{graph5.6}'>>=
 plot(impulso)
 @
 
-\section{Diagnósticos del modelo}
+<<graph5.7, echo=FALSE, fig.cap='Función acumulada de impulso respuesta\\label{graph5.6}'>>=
 
-<<include = FALSE, echo = FALSE>>=
-
-if (!require(asbio)) install.packages("asbio")
-
-errores = data.frame(residuals(modelito))
-DH.test(errores, names(errores))
-normality(modelito)
-serial.test(modelito, lags.pt = 13, type = c("PT.adjusted"))
+plot(impulso2)
 @
 
-\begin{table}[h]
-\centering
-\caption{Diagnósticos del modelo}
-\begin{tabular}{@{}llll@{}}
-\toprule \\ 
-Contraste   & $E$ & df & $\mathbb{P}(\chi^{2}>E)$ \\
-\midrule \\ 
-Doornik \& Hansen & 215.113 & 4 & 2.11$\times 10^{-45}$ \\
-Jarque-Bera (Multivariado) & 586.74 & 4 & $<$2.2$\times 10^{-16}$ \\
-ARCH (Multivariado) & 134.08 & 72 & 1.2$\times 10^{-5}$ \\ 
 
-\bottomrule 
-\end{tabular}
-\end{table}
+\section{Diagnósticos del modelo lineal}
 
+<<graph5.8, echo=FALSE, fig.cap='Residuos del modelo\\label{graph5.8}'>>=
+layout(matrix(c(1,1,1,1,1,
+                2,2,2,2,2,
+                3,3,0,4,4),3,5, byrow=TRUE))
+plot(ts(residuals(var_version)[,1]), main = "Residuos de la ecuación mayorista")
+plot(ts(residuals(var_version)[,1]), main = "Residuos de la ecuación supermercado")
+Acf(residuals(var_version)[,1], main = "ACF mayorista")
+Acf(residuals(var_version)[,2], main = "ACF supermercado")
+@
 
 <<echo=FALSE>>=
-res = residuals(modelito)
+res = residuals(var_version)
 if (!require(plot3D)) install.packages("plot3D")
 
-x = res[,c("mayorista")]
-y = res[,c("supermercado")]
+x = res[,1]
+y = res[,2]
 
 x_c = cut(x,20)
 y_c = cut(y,20)
@@ -1760,70 +1691,106 @@ image2D(z=z, border="black")
 @
 
 
-<<fig-5,echo=F,fig.cap='Modelo de corrección del error por umbrales', out.width='4.5in', out.height='4.5in', fig.align='center', message=FALSE, fig.pos='H'>>=
+<<include = FALSE, echo = FALSE>>=
 
-#if (!require(tsDyn)) install.packages("tsDyn")
+if (!require(asbio)) install.packages("asbio")
 
-#mono = TVECM(datos, lag=2, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 500, plot=TRUE, include=c("const"))
-
-#Hansen = TVECM.HStest(datos, lag=3, ngridTh = 300, trim=0.05, nboot=100)
+errores = data.frame(residuals(var_version))
+DH.test(errores, names(errores))
+normality.test(var_version)
+arch.test(var_version, lags.multi = 9)
 @
 
-\begin{figure}
-\includegraphics[scale=0.6]{figure/grid_search.pdf}
-\caption{Estimación simultánea del vector cointegrante y el umbral}
-\end{figure}
+\begin{table}[h]
+\centering
+\caption{Diagnósticos del modelo}
+\begin{tabular}{@{}llll@{}}
+\toprule \\ 
+Contraste   & $E$ & df & $\mathbb{P}(\chi^{2}>E)$ \\
+\midrule \\ 
+Doornik \& Hansen & 246.913 & 4 & 2.11$\times 10^{-45}$ \\
+Jarque-Bera (Multivariado) & 30.141 & 4 & $<$2.85$\times 10^{-7}$ \\
+ARCH (Multivariado) & 144.4 & 81 & 1.89$\times 10^{-5}$ \\ 
+\bottomrule 
+\end{tabular}
+\end{table}
 
-\begin{figure}
-\includegraphics[scale=0.6]{figure/hseo_.pdf}
-\caption{Contraste de Hansen \& Seo}
-\end{figure}
+\section{Determinación del rango de cointegración y estimación del modelo del modelo lineal de corrección del error}
 
 
+<<fig-5.9,echo=F,fig.cap='Modelo de corrección del error por umbrales', out.width='4.5in', out.height='4.5in', fig.align='center', message=FALSE, fig.pos='H'>>=
 
-<<echo=FALSE>>=
-normalidad = function (x, multivariate.only = TRUE) 
-{
-    if (!((class(x) == "TVECM") || (class(x) == "nlvar"))) {
-        stop("\nPlease provide an object of class 'varest', generated by 'var()', or an object of class 'vec2var' generated by 'vec2var()'.\n")
-    }
-    obj.name <- deparse(substitute(x))
-    K <- x$k
-    # cambio de la forma de recoger el número de observaciones
-    obs <- x$t 
-    resid <- resid(x)
-    resids <- scale(resid, scale = FALSE)
-    # llamo directamente a la función .jb.multi desde el paquete vars
-    jbm.resids <- vars:::.jb.multi(resids, obs = obs, K = K, obj.name = obj.name)
-    if (multivariate.only) {
-        result <- list(resid = resid, jb.mul = jbm.resids)
-    }
-    else {
-        jbu.resids <- apply(resids, 2, function(x) .jb.uni(x, 
-            obs = obs))
-        for (i in 1:K) jbu.resids[[i]][5] <- paste("Residual of", 
-            colnames(resids)[i], "equation")
-        result <- list(resid = resid, jb.uni = jbu.resids, jb.mul = jbm.resids)
-    }
-    class(result) <- "varcheck"
-    return(result)
-}
+if (!require(tsDyn)) install.packages("tsDyn")
+
+mono = TVECM(datos, lag=8, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 100, plot=TRUE, include=c("const"), common = "All", beta = list(int = c(-0.5,1.5)))
 
 @
+
+
+<<Modelo restringido>>=
+mono_rest = TVECM(datos, lag=8, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 100, plot=TRUE, include=c("const"), common = "All", beta = list(exact = 1))
+@
+
 
 <<>>=
-lrt <- function (obj1, obj2, r) {
-   L0 <- logLik(obj1, r=r)
-   L1 <- logLik(obj2, r=r)
-   L01 <- as.vector(- 2 * (L0 - L1))
-   df <- obj1@P^2
-   list(L01 = L01, df = df,
-       "p-value" = pchisq(L01, df, lower.tail = FALSE))
-}
 
-lrt(vecm1, vecm1.1, r=1)
+D = 2*(logLik(mono)-logLik(mono_rest))
+
+pchisq(D,1)
 
 @
+
+
+<<>>=
+Hansen = TVECM.HStest(datos, lag=8, ngridTh = 100, trim=0.05, nboot=100, fixed.beta =1)
+
+plot(Hansen)
+@
+
+\section{Diagnósticos del modelo no lineal}
+
+
+<<>>=
+layout(matrix(c(1,1,1,1,1,
+                2,2,2,2,2,
+                3,3,0,4,4),3,5, byrow=TRUE))
+plot(ts(residuals(mono_rest)[,1]), main = "Residuos de la ecuación mayorista")
+plot(ts(residuals(mono_rest)[,1]), main = "Residuos de la ecuación supermercado")
+Acf(residuals(mono_rest)[,1], main = "ACF mayorista")
+Acf(residuals(mono_rest)[,2], main = "ACF supermercado")
+
+@
+
+
+<<fig-5.11,echo=F,fig.cap='Histograma bivariado de los residuos del modelo', out.width='3.5in', out.height='3.5in', fig.align='center', message=FALSE, fig.pos='H'>>=
+
+res = residuals(mono_rest)
+
+x = res[,1]
+y = res[,2]
+
+x_c = cut(x,20)
+y_c = cut(y,20)
+
+z = table(x_c,y_c)
+
+hist3D(z=z, border="black", contour=TRUE)
+
+@
+
+<<fig-5.12,echo=F,fig.cap='Mapa de calor de los residuos del modelo', out.width='3.5in', out.height='3.5in', fig.align='center', message=FALSE, fig.pos='H'>>=
+image2D(z=z, border="black")
+@
+
+
+<<echo = FALSE>>=
+errores = data.frame(residuals(mono_rest))
+DH.test(errores, names(errores))
+vars:::.jb.multi(scale(residuals(mono_rest)), obs = 491, K=2, obj.name = deparse(substitute(mono_rest)))
+vars:::.arch.multi(scale(residuals(mono_rest)), lags.multi = 8, K=2, obs = 491, obj.name = deparse(substitute(mono_rest)))
+
+@
+
 
 \chapter{Conclusiones}
 \chapter{Bibliografía}
@@ -1832,6 +1799,8 @@ lrt(vecm1, vecm1.1, r=1)
 \hangafter=-2
 
 Ben-Kaabia, M., & Gil Roig, J. M. (2008). Asimetrías en la transmisión de precios en el sector del tomate en España. Economía Agraria y Recursos Naturales, 8(1), 57-82.
+
+Hansen, B. E., & Seo, B. (2002). Testing for two-regime threshold cointegration in vector error-correction models. Journal of econometrics, 110(2), 293-318.
 
  Pfaff, B. (2008). VAR, SVAR and SVEC models: Implementation within R package vars. Journal of Statistical Software, 27(4), 1-32.
 
