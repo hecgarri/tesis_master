@@ -20,7 +20,7 @@
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 \usepackage{blindtext}
-
+\usepackage{listings} % Para escribir texto plano 
 \let\bold\boldsymbol
 \let\bf\mathbf
 
@@ -163,13 +163,20 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 \chapter*{Agradecimientos}
 \chapter*{Abstract}
 \chapter{Introducción}
-\section{introducción}
 
-\chapter{Escenario de la industria en Chile}
+
+\chapter{Transmisión de precios}
+
+Meyer, J., & Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
 
 
 \chapter{Modelos y contrastes estadísticos utilizados en esta tesis}
 
+En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de Bde los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
+
+\section{Pronósticos de una serie temporal según la metodología Box-Jenkins}
+
+EN ESTE APARTADO DEBO CITAR EL LIBRO DE BOX JENKINS Y REINSEL
 
 \section{Contrastes de raíz unitaria/estacionariedad}
 \subsection{Contraste de Dickey-Fuller Aumentado}
@@ -333,7 +340,7 @@ Donde $\hat{\sigma}^{2}_{\varepsilon}$ es una estimación de la varianza del err
 
 \section{Análisis de cointegración}
 \subsection{Cointegración y análisis de las relaciones de largo plazo}
-{\color{red} \textbf{Apuntes de Farías (2017a)}
+ \textbf{Apuntes de Farías (2017a)}
 
 Dutoit et al. (2010, p. 15) define la transmi-
 sión en este contexto como “(...) la relación
@@ -365,7 +372,9 @@ mientras que $\boldsymbol{\beta}$ es una matriz de dimensión
 $n \times r$ que representa los coeficientes de largo
 plazo
 
-{\color{red} \textbf{Apuntes de Juselius}
+%{\color{red} 
+
+\textbf{Apuntes de Juselius}
 
 \begin{itemize}
 \item The time series describing cumulated trend-adjusted shocks is usually called a stochas-
@@ -399,14 +408,14 @@ with a linear trend.
 \end{itemize}
 
 \begin{defin}
-Sea $\{\bold{x}_{t}\}$ un proceso estocástico para $t=..., -1,0,1,2,...$ Si 
+Sea $\{\mathbf{x}_{t}\}$ un proceso estocástico para $t=..., -1,0,1,2,...$ Si 
 
 \begin{align}
-\mathbb{E}[\bold{x}_{t}] & =-\infty < \bold{\mu} <\infty \\ 
-\mathbb{E}[\bold{x}_{t}-\bold{\mu}]^{2} & = \bold{\Sigma}_{0}<\infty \qquad \forall t\\ 
-\mathbb{E}[(\bold{x}_{t}-\bold{\mu})(\bold{x}_{t+h}-\bold{\mu})] & = \bold{\Sigma}_{h} \qquad \forall \text{t y h}
+\mathbb{E}[\mathbf{x}_{t}] & =-\infty < \mathbf{\mu} <\infty \\ 
+\mathbb{E}[\mathbf{x}_{t}-\mathbf{\mu}]^{2} & = \mathbf{\Sigma}_{0}<\infty \qquad \forall t\\ 
+\mathbb{E}[(\mathbf{x}_{t}-\mathbf{\mu})(\mathbf{x}_{t+h}-\mathbf{\mu})] & = \mathbf{\Sigma}_{h} \qquad \forall \text{t y h}
 \end{align}
-Entonces $\bold{x}_{t}$ es \textit{debilmente estacionario}. La estacionariedad estricta requiere que la distribución de $(x_{t1},...,x_{tk})$ es la misma que $(x_{t1+h},...,x_{tk+h})$ para $h=...,-1,0,1,2,...$
+Entonces $\mathbf{x}_{t}$ es \textit{debilmente estacionario}. La estacionariedad estricta requiere que la distribución de $(x_{t1},...,x_{tk})$ es la misma que $(x_{t1+h},...,x_{tk+h})$ para $h=...,-1,0,1,2,...$
 \end{defin}
 
 for time t based on the available information at time $t_1$. For example, a VAR model
@@ -437,20 +446,20 @@ mulation is useful for expressing hypotheses on economic behaviour, whereas the 
 Si asumimos un modelo $VAR(2)$ bi-dimensional
 
 \begin{equation}
-(\bold{I}-\boldsymbol{\Pi}_{1}L-\boldsymbol{\Pi}_{2}L^{2})\bold{x}_{t} = \boldsymbol{\Phi}\bold{D}_{t}+\bold{\varepsilon}_{t}
+(\mathbf{I}-\boldsymbol{\Pi}_{1}L-\boldsymbol{\Pi}_{2}L^{2})\mathbf{x}_{t} = \boldsymbol{\Phi}\mathbf{D}_{t}+\mathbf{\varepsilon}_{t}
 \end{equation}
 
 La función características es entonces 
 
 \begin{align}
-\bold{\Pi}(z) & = \bold{I}-\left[\begin{array}{cc} 
+\mathbf{\Pi}(z) & = \mathbf{I}-\left[\begin{array}{cc} 
 \pi_{1.11} & \pi_{1.12} \\
 \pi_{1.21} & \pi_{1.22}
 \end{array}\right]z- \left[\begin{array}{cc} 
 \pi_{2.11} & \pi_{2.12} \\
 \pi_{2.21} & \pi_{2.22}
 \end{array}\right]z^{2} \\
-              & = \bold{I}-\left[\begin{array}{cc} 
+              & = \mathbf{I}-\left[\begin{array}{cc} 
 \pi_{1.11}z & \pi_{1.12}z \\
 \pi_{1.21}z & \pi_{1.22}z
 \end{array}\right]- \left[\begin{array}{cc} 
@@ -474,8 +483,8 @@ El determinante entrega información valiosa sobre el comportamiento dinámico d
 Luego 
 
 \begin{align}
-\bold{x}_{t} & = \frac{\boldsymbol{\Pi}^{a}(L)(\boldsymbol{\Phi}\bold{D}_{t}+\varepsilon_{t})}{(1-\rho_{1}z)(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}+\tilde{\bold{X}}^{0}, \qquad t=1,...,T \\ 
-& = \left(\frac{\bold{\Pi}_{1}^{a}L+\bold{\Pi}^{a}_{2}L^{2}}{(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}\right)\left(\frac{\varepsilon_{t}+\bold{\Phi}D_{t}}{(1-\rho_{1}L)}\right)+\bold{\tilde{X}}^{0}, \qquad t=1,...,T
+\mathbf{x}_{t} & = \frac{\boldsymbol{\Pi}^{a}(L)(\boldsymbol{\Phi}\mathbf{D}_{t}+\varepsilon_{t})}{(1-\rho_{1}z)(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}+\tilde{\mathbf{X}}^{0}, \qquad t=1,...,T \\ 
+& = \left(\frac{\mathbf{\Pi}_{1}^{a}L+\mathbf{\Pi}^{a}_{2}L^{2}}{(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}\right)\left(\frac{\varepsilon_{t}+\mathbf{\Phi}D_{t}}{(1-\rho_{1}L)}\right)+\mathbf{\tilde{X}}^{0}, \qquad t=1,...,T
 \end{align}
 
 \section{Estimación basada en la verosimilitud para el modelo VAR irrestricto}
@@ -484,50 +493,50 @@ Cuando el modelo no tiene restricciones sobre sus parámetros (como las que pued
 
 Si escribimos el modelo en su versión apilada
 \begin{align}
-& \bold{x}_{t} = \bold{B'Z}_{t}+\varepsilon_{t}, \qquad t=1,..,T \\ 
-& \varepsilon_{t}\sim IN_{p}(\bold{0,\Omega})
+& \mathbf{x}_{t} = \mathbf{B'Z}_{t}+\varepsilon_{t}, \qquad t=1,..,T \\ 
+& \varepsilon_{t}\sim IN_{p}(\mathbf{0,\Omega})
 \end{align}
 
 Donde: 
 \begin{itemize}
-\item $\bold{B'}=\left[\boldsymbol{\mu_{0}, \Pi_{1}, \Pi_{2},...,\Pi_{k}}\right]$
-\item $\bold{Z'}_{t} = \left[\bold{1,x'_{t-1}, x'_{t-2},...,x'_{t-k}}\right]$
-\item $\bold{X}^{0} = \left[\bold{x'_{0}, x'_{-1},...,x'_{-k+1}}\right]$ 
+\item $\mathbf{B'}=\left[\boldsymbol{\mu_{0}, \Pi_{1}, \Pi_{2},...,\Pi_{k}}\right]$
+\item $\mathbf{Z'}_{t} = \left[\mathbf{1,x'_{t-1}, x'_{t-2},...,x'_{t-k}}\right]$
+\item $\mathbf{X}^{0} = \left[\mathbf{x'_{0}, x'_{-1},...,x'_{-k+1}}\right]$ 
 \end{itemize}
 
 La función de verosimilitud será la siguiente: 
 
 \begin{equation}
-\log L(\boldsymbol{B,\Omega,X}) = -T\frac{p}{2}\log(2\pi)-T\frac{1}{2}\log|\bold{\Omega}|-\frac{1}{2}\sum_{t=1}^{T}(\bold{x_{t}-B'Z_{t}})'\boldsymbol{\Omega}^{-1}(\bold{x_{t}-B'Z_{t}})
+\log L(\boldsymbol{B,\Omega,X}) = -T\frac{p}{2}\log(2\pi)-T\frac{1}{2}\log|\mathbf{\Omega}|-\frac{1}{2}\sum_{t=1}^{T}(\mathbf{x_{t}-B'Z_{t}})'\boldsymbol{\Omega}^{-1}(\mathbf{x_{t}-B'Z_{t}})
 \end{equation}
 
-Si calculamos $\frac{\partial \log L}{\partial \bold{B}}$, tendremos
+Si calculamos $\frac{\partial \log L}{\partial \mathbf{B}}$, tendremos
 \begin{equation*}
-\sum_{t=1}^{T}\bold{x_{t}Z'_{t}} = \bold{\tilde{B}'}\sum_{t=1}^{T}\bold{Z_{t}Z_{t}'}
+\sum_{t=1}^{T}\mathbf{x_{t}Z'_{t}} = \mathbf{\tilde{B}'}\sum_{t=1}^{T}\mathbf{Z_{t}Z_{t}'}
 \end{equation*}
 
 Entonces, el estimador de máxima verosimilitud es 
 
 \begin{equation}
-\bold{\tilde{B}}' = \sum_{t=1}^{T}(\bold{x_{t}Z'_{t}})\left(\sum_{t=1}^{T}\bold{Z_{t}Z'_{t}}\right)^{-1} = \bold{M}_{xZ}\bold{M}_{ZZ}^{-1}
+\mathbf{\tilde{B}}' = \sum_{t=1}^{T}(\mathbf{x_{t}Z'_{t}})\left(\sum_{t=1}^{T}\mathbf{Z_{t}Z'_{t}}\right)^{-1} = \mathbf{M}_{xZ}\mathbf{M}_{ZZ}^{-1}
 \end{equation}
 
-Luego calculando $\frac{\partial \log L}{\partial \boldsymbol{\Omega}}=\bold{0}$
+Luego calculando $\frac{\partial \log L}{\partial \boldsymbol{\Omega}}=\mathbf{0}$
 
 \begin{equation}
-\boldsymbol{\hat{\Omega}} = T^{-1}\sum_{t=1}^{T}(\bold{x_{t}-\hat{B}'Z_{t}})(\bold{x_{t}-\hat{B}'Z_{t}})' = T^{-1}\sum_{t=1}^{T}\boldsymbol{\hat{\varepsilon}_{t}\hat{\varepsilon}'_{t}}
+\boldsymbol{\hat{\Omega}} = T^{-1}\sum_{t=1}^{T}(\mathbf{x_{t}-\hat{B}'Z_{t}})(\mathbf{x_{t}-\hat{B}'Z_{t}})' = T^{-1}\sum_{t=1}^{T}\boldsymbol{\hat{\varepsilon}_{t}\hat{\varepsilon}'_{t}}
 \end{equation}
 
 El valor máximo de la función de Verosimilitud, será el siguiente: 
 
 \begin{equation}
-\log L _{\max} = -\frac{P}{2}T\log (2\pi)-\frac{1}{2}T\log|\boldsymbol{\hat{\Omega}}|-\frac{1}{2}\sum_{t=1}^{T}(\bold{x_{t}-\hat{B}'Z_{t}})'\boldsymbol{\hat{\Omega}}^{-1}(\bold{x_{t}-\hat{B}'Z_{t}}) 
+\log L _{\max} = -\frac{P}{2}T\log (2\pi)-\frac{1}{2}T\log|\boldsymbol{\hat{\Omega}}|-\frac{1}{2}\sum_{t=1}^{T}(\mathbf{x_{t}-\hat{B}'Z_{t}})'\boldsymbol{\hat{\Omega}}^{-1}(\mathbf{x_{t}-\hat{B}'Z_{t}}) 
 \end{equation}
 
 Mostraremos que $\log L_{\max} = -\frac{1}{2}T\log |\boldsymbol{\hat{\Omega}}|+K, \qquad K\in \mathbb{R}$
 
 \begin{align}
-(\boldsymbol{x_{t}-\hat{B}'Z_{t}})\boldsymbol{\hat{\Omega}}^{-1}(\bold{x_{t}-\hat{B}'Z_{t}}) 
+(\boldsymbol{x_{t}-\hat{B}'Z_{t}})\boldsymbol{\hat{\Omega}}^{-1}(\mathbf{x_{t}-\hat{B}'Z_{t}}) 
 & = \boldsymbol{\hat{\varepsilon}'_{t}\boldsymbol{\hat{\Omega}}^{-1}\hat{\varepsilon}_{t}} \nonumber \\
 & = \sum_{ij}\hat{\varepsilon}_{t,i}(\boldsymbol{\hat{\Omega}}^{-1})_{ij}\hat{\varepsilon}_{t,j} \\
 & = \sum_{ij}(\boldsymbol{\hat{\Omega}}^{-1})_{ij}\hat{\varepsilon}_{t,i}\hat{\varepsilon}_{t,j} \nonumber \\ 
@@ -537,10 +546,10 @@ Mostraremos que $\log L_{\max} = -\frac{1}{2}T\log |\boldsymbol{\hat{\Omega}}|+K
 Luego, se tiene que 
 
 \begin{align}
-\sum_{t=1}^{T}(\bold{x_{t}-\hat{B}'Z_{t}})\boldsymbol{\hat{\Omega}}^{-1}(\bold{x_{t}-\hat{B}'Z_{t}})' & = \sum_{t=1}^{T}\text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\boldsymbol{\hat{\varepsilon_{t}}\hat{\varepsilon}'_{t}}\} \\
+\sum_{t=1}^{T}(\mathbf{x_{t}-\hat{B}'Z_{t}})\boldsymbol{\hat{\Omega}}^{-1}(\mathbf{x_{t}-\hat{B}'Z_{t}})' & = \sum_{t=1}^{T}\text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\boldsymbol{\hat{\varepsilon_{t}}\hat{\varepsilon}'_{t}}\} \\
 & = T \sum_{t=1}^{T}\text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\boldsymbol{\hat{\varepsilon_{t}}\hat{\varepsilon}'_{t}}/T\} \\ 
 & = T \text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\hat{\Omega}\} \\ 
-& = T \text{traza}\{\bold{I}_{p}\} = Tp
+& = T \text{traza}\{\mathbf{I}_{p}\} = Tp
 \end{align}
 
 De donde se desprende que 
@@ -573,7 +582,7 @@ Todos los criterios en común están basados en el máximo valor que alcanza la 
 Al momento de la determinación del número de rezagos, volver a revisar tabla 4.5 de la página 92}
 
 \begin{equation}
-\text{Trace correlation} = 1-\text{traza}(\boldsymbol{\hat{\Omega}}[\text{Cov}(\bold{\Delta x_{t}})]^{-1})/p 
+\text{Trace correlation} = 1-\text{traza}(\boldsymbol{\hat{\Omega}}[\text{Cov}(\mathbf{\Delta x_{t}})]^{-1})/p 
 \end{equation}
 
 
@@ -585,9 +594,9 @@ Al momento de la determinación del número de rezagos, volver a revisar tabla 4
 
 Donde  $ \boldsymbol{\hat{\Omega}}_{h} = T^{-1}\sum_{t=1}^{T}\boldsymbol{\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-h}'}$. El estadístico se considera distribuido aproximadamente según una $\chi^{2}$ con $p^{2}(T/4-k+1)-p^{2}$ grados de libertad. 
 
-También puede utilizarse un contraste propuesto por Godfrey(1988),  el cual consiste en regresar los residuos del modelo VAR estimado, $\boldsymbol{\hat{\varepsilon}_{t}}$, sobre $k$ variables rezagadas, $\bold{x_{t-1}, x_{t-2}, ...,x_{t-k}}$ y el $j$-ésimo residuo rezagado
+También puede utilizarse un contraste propuesto por Godfrey(1988),  el cual consiste en regresar los residuos del modelo VAR estimado, $\boldsymbol{\hat{\varepsilon}_{t}}$, sobre $k$ variables rezagadas, $\mathbf{x_{t-1}, x_{t-2}, ...,x_{t-k}}$ y el $j$-ésimo residuo rezagado
 \begin{equation}
-\boldsymbol{\hat{\varepsilon}_{t}}=\bold{A_{1}x_{t-1}+A_{2}x_{t-2}+...+A_{k}x_{t-k}+A_{\varepsilon}}\boldsymbol{\hat{\varepsilon}}
+\boldsymbol{\hat{\varepsilon}_{t}}=\mathbf{A_{1}x_{t-1}+A_{2}x_{t-2}+...+A_{k}x_{t-k}+A_{\varepsilon}}\boldsymbol{\hat{\varepsilon}}
 \end{equation}
 
 Donde los primeros $j$ valores están perdidos $\hat{\varepsilon}_{-j},...,\hat{\varepsilon}_{-1}$, los que son fijados a cero. El Estadístico de prueba, de tipo multiplicador de Lagrange es calculado de la siguiente forma 
@@ -632,33 +641,181 @@ y
 Entonces, la varianza de skewness es más pequeña que la varianza de la kurtosis, lo cual significa que los contrastes de normalidad son más sensibles a desviaciones sobre el supuesto de skewness (a menudo como resultado de los outliers) que por el exceso de kurtosis (las colas pesadas o demasiados residuos cercanos a la media). Basado en lo anterior, se puede construir un contraste para normalidad univariada de la siguiente forma 
 
 
-}
+
 
 \subsection{Modelo Vectorial de Corrección del Error (VECM)}
 Suponga que  cada componente de una serie de tiempo $K$-dimensional $y_{t}$ es $I(1)$. Entonces, la ecuación (VAR) no será una formulación adecuada de este modelo debido a que los términos $y_{t},y_{t-1},...,y_{t-p}$ son todos no estacionarios. De todas formas, sustituyendo 
 \begin{align}
-\bf{A}_{1} & = \bf{I}_{k}+\bold{\Gamma}_{1} \\ 
-\bf{A}_{i} & = \bold{\Gamma_{i}}-\bold{\Gamma_{i-1}} \qquad i=1,...,p-1 \\ 
-\bf{A}_{p} & = -\bold{\Gamma}_{p-1}
+\bf{A}_{1} & = \bf{I}_{k}+\mathbf{\Gamma}_{1} \\ 
+\bf{A}_{i} & = \mathbf{\Gamma_{i}}-\mathbf{\Gamma_{i-1}} \qquad i=1,...,p-1 \\ 
+\bf{A}_{p} & = -\mathbf{\Gamma}_{p-1}
 \end{align}
 
 En la ecuación (2.8), reagrupando términos y utilizando que $\Delta \bf{y}_{i} = \bf{y}_{i}-\bf{y}_{i-1}\quad \forall i$, podemos reescribir esta ecuación como 
 \begin{equation}\label{vecm1}
-\Delta \bf{y}_{t}=\bold{\mu}+\bold{\Gamma}_{1}\Delta \bf{y}_{t-1}+\bold{\Gamma}_{2}\Delta \bf{y}_{t-2}+...+\bold{\Gamma}_{p-1}\Delta \bf{y}_{t-p+1}+\bf{u}_{t}
+\Delta \bf{y}_{t}=\mathbf{\mu}+\mathbf{\Gamma}_{1}\Delta \bf{y}_{t-1}+\mathbf{\Gamma}_{2}\Delta \bf{y}_{t-2}+...+\mathbf{\Gamma}_{p-1}\Delta \bf{y}_{t-p+1}+\bf{u}_{t}
 \end{equation} 
-Naturalmente, ambas ecuaciones describen el mismo modelo, pero preferimos usar la ecuación \eqref{vecm1} cuando $\bf{y}_{t}$ es $I(1)$, debido a que cada término es estacionario en este caso. Entonces, cuando $\bf{y}_{t}$ es $I(1)$, podemos encontrar un modelo apropiado para $y_{t}$ diferenciando cada componente de $\bf{y}_{t}$ una vez, y llevando a cabo la regresión basada en la ecuación \eqref{vecm1}. De todas formas, entonces no podremos tomar en cuenta que podría haber dependencias entre algunos de los componentes de $\bf{y}_{t}$. Por ejemplo, dos de los componentes podrían tener una tendencia en común, o podría existir una combinación lineal de los componente de $y_{t}$ la cual fuera estacionaria. Este problema suele resolverse utilizando incluyendo un \textbf{término de corrección del error} $\bold{\Pi}\bf{y}_{t-1}$ en la ecuación \eqref{vecm1}, donde $\bold{\Pi}$ es una matriz $K\times K$ de cuyo rango $rank(\bold{\Pi})<K$, debido a que si $\bold{\Pi}$ tuviera rango completo, entonces $\bold{\Pi}$  es invertible, de manera que la variable no estacionaria $\bf{y}_{t-1}$ puede ser escrita como la suma de términos estacionarios, lo que es una contradicción. Entonces, $rank(\bold{\Pi})=r<K$ lo cual implica que existen $(K\times r)-matrices$ $\boldsymbol{\alpha}$ y $\boldsymbol{\beta}$ de rango $r$ tales que $\bold{\Pi}=\boldsymbol{\alpha}\boldsymbol{\beta}'$. Entonces, cada una de las $r$ filas de $\boldsymbol{\beta}'\bf{y_{t-1}}$ es una combinación lineal estacionaria de los componentes de $y_{t}$ y es llamada una \textbf{relación de cointegración}. El número $r$, el cual es igual al número de relación de cointegración es llamado el \textbf{rango de cointegración}. Como la matriz $\boldsymbol{\beta}$ contiene todos los coeficiente de las relaciones de cointegración, es llamada \textbf{la matriz de cointegración}. La matriz $\boldsymbol{\alpha}$, la cual es la matriz de coeficientes de los términos estacionarios $\boldsymbol{\beta}'\bf{y_{t-1}}$ en la ecuación \eqref{vecm2}, es llamada la matriz de carga. 
+Naturalmente, ambas ecuaciones describen el mismo modelo, pero preferimos usar la ecuación \eqref{vecm1} cuando $\bf{y}_{t}$ es $I(1)$, debido a que cada término es estacionario en este caso. Entonces, cuando $\bf{y}_{t}$ es $I(1)$, podemos encontrar un modelo apropiado para $y_{t}$ diferenciando cada componente de $\bf{y}_{t}$ una vez, y llevando a cabo la regresión basada en la ecuación \eqref{vecm1}. De todas formas, entonces no podremos tomar en cuenta que podría haber dependencias entre algunos de los componentes de $\bf{y}_{t}$. Por ejemplo, dos de los componentes podrían tener una tendencia en común, o podría existir una combinación lineal de los componente de $y_{t}$ la cual fuera estacionaria. Este problema suele resolverse utilizando incluyendo un \textbf{término de corrección del error} $\mathbf{\Pi}\bf{y}_{t-1}$ en la ecuación \eqref{vecm1}, donde $\mathbf{\Pi}$ es una matriz $K\times K$ de cuyo rango $rank(\mathbf{\Pi})<K$, debido a que si $\mathbf{\Pi}$ tuviera rango completo, entonces $\mathbf{\Pi}$  es invertible, de manera que la variable no estacionaria $\bf{y}_{t-1}$ puede ser escrita como la suma de términos estacionarios, lo que es una contradicción. Entonces, $rank(\mathbf{\Pi})=r<K$ lo cual implica que existen $(K\times r)-matrices$ $\boldsymbol{\alpha}$ y $\boldsymbol{\beta}$ de rango $r$ tales que $\mathbf{\Pi}=\boldsymbol{\alpha}\boldsymbol{\beta}'$. Entonces, cada una de las $r$ filas de $\boldsymbol{\beta}'\bf{y_{t-1}}$ es una combinación lineal estacionaria de los componentes de $y_{t}$ y es llamada una \textbf{relación de cointegración}. El número $r$, el cual es igual al número de relación de cointegración es llamado el \textbf{rango de cointegración}. Como la matriz $\boldsymbol{\beta}$ contiene todos los coeficiente de las relaciones de cointegración, es llamada \textbf{la matriz de cointegración}. La matriz $\boldsymbol{\alpha}$, la cual es la matriz de coeficientes de los términos estacionarios $\boldsymbol{\beta}'\bf{y_{t-1}}$ en la ecuación \eqref{vecm2}, es llamada la matriz de carga. 
 \begin{defin}
 Un modelo \textbf{VECM} de orden $p$ se define como 
 \begin{equation}\label{vecm2}
 \Delta \bf{y}_{t}=\boldsymbol{\mu}+\boldsymbol{\alpha\beta}'
-\bf{y}_{t-1}+\bold{\Gamma}_{1}\Delta \bf{y}_{t-1}+...+\bold{\Gamma}_{p-1}\Delta \bf{y}_{t-p+1}+u_{t} \quad t=1,...,T
+\bf{y}_{t-1}+\mathbf{\Gamma}_{1}\Delta \bf{y}_{t-1}+...+\mathbf{\Gamma}_{p-1}\Delta \bf{y}_{t-p+1}+u_{t} \quad t=1,...,T
 \end{equation}
 Donde $\bf{y}_{t}=\left[y_{1t},...,y_{Kt}\right]'$ es un vector aleatorio de $K\times 1$, $\boldsymbol{\mu}$ es un vector constante de $(K\times 1)$, $\boldsymbol{\alpha}$ y $\boldsymbol{\beta}$ son matrices $(K\times r)$ tales que $rank(\boldsymbol{\alpha})=rank(\boldsymbol{\beta})<K$, 
 \end{defin} 
 
+\subsection{Estimación de un modelo VECM}
+ 
+En esta sección se reproduce parcialmente lo expuesto por (Juselius, 2006). Considere un modelo $VAR(k)$ en su forma de corrección del error con $\boldsymbol{\Pi}=\boldsymbol{\alpha\beta'}$: 
+
+\begin{equation}
+\Delta \mathbf{x}_{t} = \boldsymbol{\Gamma}_{1}\Delta \mathbf{x}_{t-1}+... % 
+                        +\boldsymbol{\Gamma}_{k-1}\Delta \mathbf{x}_{t-k+1}+%
+                        \boldsymbol{\alpha\beta'}\mathbf{x}_{t-1}+\boldsymbol{\Phi}\mathbf{D}_{t}+%
+                        \boldsymbol{\varepsilon}_{t}
+\end{equation}
+Tal y como se definió previamente 
+
+Para escribir el modelo de manera más compacta se utiliza la siguiente notación
+
+\begin{align*}
+\mathbf{Z}_{0t} & = \Delta \mathbf{x}_{t} \\
+\mathbf{Z}_{1t} & =  \mathbf{x}_{t-1} \\
+\mathbf{Z}_{2t} & = [\Delta \mathbf{x}'_{t-1},\Delta \mathbf{x}'_{t-1},\Delta \mathbf{x}'_{t-2},...,%
+                     \Delta \mathbf{x}'_{t-k+1},\mathbf{D}'_{t}]
+\end{align*}
+
+De manera que el modelo VECM anteriormente descrito se puede escribir de manera más compacta 
+
+\begin{equation}
+\mathbf{Z}_{0t} = \boldsymbol{\alpha\beta'}\mathbf{Z}_{1t}+\boldsymbol{\Psi}\mathbf{Z}_{2t}+% 
+                    \boldsymbol{\varepsilon}_{t}
+\end{equation}
+
+Si se utiliza el teorema de Frisch-Waugh podemos expresar la ecuación anterior de forma aún más simplificada utilizando lo siguiente: 
+
+Primero, se utilizan las siguientes regresiones auxiliares
+\begin{align}
+\mathbf{Z}_{0t} & = \mathbf{\hat{B}}_{1}'\mathbf{Z}_{2t}+\mathbf{R}_{0t} \\
+\mathbf{Z}_{1t} & = \mathbf{\hat{B}}_{2}'\mathbf{Z}_{2t}+\mathbf{R}_{1t}
+\end{align}
+
+Utilizando los residuos de estas regresiones auxiliares puede escribirse el modelo concentrado de la siguiente forma: 
+
+\begin{equation}\label{modelo_concentrado}
+\mathbf{R}_{0t} = \boldsymbol{\alpha\beta}'\mathbf{R}_{1t}+\varepsilon_{t}, \qquad \varepsilon_{t}\sim \mathcal{N}_{p}(\boldsymbol{0,\Omega})
+\end{equation}
+
+Para estimar el modelo se utiliza un procedimiento de dos pasos: Primero, se asume que $\boldsymbol{\beta}$ es conocido y se obtiene un estimador de $\boldsymbol{\alpha}$ bajo el supuesto que $\boldsymbol{\beta}'\mathbf{R}_{1t}$ es una variable conocida. Entonces se inserta $\boldsymbol{\alpha}=\hat{\boldsymbol{\alpha}}(\boldsymbol{\beta})$ en la expresión de la función de verosimilitud, de forma que ésta esté en términos de $\boldsymbol{\beta}$, pero no de $\boldsymbol{\alpha}$. Hecho esto, pueden encontrarse los valores de $\hat{\boldsymbol{\beta}}$ que maximizan la función de verosimilitud. Luego, se puede proceder a estimar $\hat{\boldsymbol{\alpha}}=\boldsymbol{\alpha}(\hat{\boldsymbol{\beta}})$  
+
+El primer paso consiste en utilizar la expresión (\ref{modelo_concentrado}) sin el término de error y post-multiplicar ésta por $\mathbf{R}'_{1t}\boldsymbol{\beta}$
+
+\begin{equation}
+\mathbf{R}_{0t}\mathbf{R}_{1t}'\boldsymbol{\beta} = \boldsymbol{\alpha\beta}'\mathbf{R}_{1t}\mathbf{R}'_{1t}\boldsymbol{\beta}
+\end{equation}
+Sumando sobre $t$ y dividiendo por $T$, se tiene: 
+
+\begin{equation}
+\underbrace{T^{-1}\sum_{t}\mathbf{R}_{0t}\mathbf{R}'_{1t}}_{\mathbf{S}_{01}}\boldsymbol{\beta} = 
+\boldsymbol{\alpha\beta}'\underbrace{T^{-1}\sum_{t}\mathbf{R}_{1t}\mathbf{R}'_{1t}}_{\mathbf{S}_{11}}\boldsymbol{\beta}
+\end{equation}
+Un estimador de mínimos cuadrados ordinarios de esta expresión puede obtenerse \textit{despejando} la expresión anterior: 
+
+\begin{equation}\label{resumido}
+\hat{\boldsymbol{\alpha}}(\boldsymbol{\beta}) = \mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}
+\end{equation}
+
+El segundo paso consiste en consiste en utilizar el método de máxima verosimilitud asumiendo que el término de error sigue una distribución normal multivariada. Donde para maximizar la función es necesario operar sobre el determinante de la matriz de varianza-covarianza. Es decir: 
+
+\begin{equation}\label{reemplazo}
+\mathcal{L}^{-2/T}(\boldsymbol{\beta,\alpha})=|\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta,\alpha})|+\text{términos constantes}
+\end{equation}
+Donde: 
+
+\begin{align}\label{covarianza}
+\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta,\alpha}) & = T^{-1}\sum (\mathbf{R}_{0t}-\boldsymbol{\alpha\beta}'\mathbf{R}_{1t})(\mathbf{R}_{0t}-\boldsymbol{\alpha\beta}'\mathbf{R}_{1t})' \\ 
+& = T^{-1}(\sum \mathbf{R_{0t}R_{0t}}'-\sum \mathbf{R_{0t}R_{1t}}'\boldsymbol{\alpha\beta}'-\boldsymbol{\alpha\beta}'\sum \mathbf{R_{1t}R_{0t}}'+\boldsymbol{\alpha\beta}'\sum \mathbf{R_{1t}R_{1t}}'\boldsymbol{\alpha\beta}') \\ 
+& = \mathbf{S}_{00}-\mathbf{S}_{01}\boldsymbol{\alpha\beta}'-\boldsymbol{\alpha\beta}'\mathbf{S}_{10}+\boldsymbol{\alpha\beta}'\mathbf{S}_{11}\boldsymbol{\alpha\beta}'
+\end{align}
+
+Si se sustituye (\ref{resumido}) en (\ref{covarianza}), puede expresarse la matriz de covarianza como una función exclusiva de $\boldsymbol{\beta}$ 
+
+\begin{equation}\label{verosimilitud}
+\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})= \mathbf{S}_{00}-\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\boldsymbol{\beta}'\mathbf{S}_{10}
+\end{equation}
+
+
+Sustituyendo (\ref{reemplazo}) en (\ref{verosimilitud}), puede expresarse la matriz de covarianza sólo en términos de $\boldsymbol{\beta}$
+
+\begin{align}
+\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta}) & = \mathbf{S}_{00}-\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\boldsymbol{\beta}'\mathbf{S}_{10}-\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\boldsymbol{\beta}'\mathbf{S}_{10} \\ 
+& +\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\underbrace{\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}}_{\mathbf{I}}\mathbf{S}_{10}
+\end{align}
+
+De esta manera, 
+
+\begin{equation}
+\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta}) = 
+\mathbf{S}_{00}-\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'
+\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\boldsymbol{\beta}'\mathbf{S}_{10}
+\end{equation}
+
+Para encontrar el estimador de máxima verosimilitud de $\boldsymbol{\beta}$ que minimiza $|\hat{\boldsymbol{\Omega}}(\hat{\beta})|$ puede utilizarse el siguiente resultado: 
+
+\begin{equation}
+\left|\begin{array}{cc} \mathbf{A} & \mathbf{B} \\ \mathbf{B}' & \mathbf{C} \end{array}\right| = |\mathbf{A}|\cdot |\mathbf{A}-\mathbf{B}\mathbf{C}^{-1}\mathbf{B}'|
+\end{equation}
+
+Donde $\mathbf{A}$ y $\mathbf{C}$ son matrices cuadradas no singulares. Ahora se realiza la siguiente sustitución: 
+
+\begin{align}
+\mathbf{S}_{00} & = \mathbf{A} \\ 
+\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta} & = \mathbf{C} \\ 
+\mathbf{S}_{01}\boldsymbol{\beta} & = \mathbf{B}
+\end{align}
+
+
+De manera que la expresión anterior puede reescribirse como: 
+
+\begin{equation}
+|\mathbf{S}_{00}|\cdot |\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}-\boldsymbol{\beta}'\mathbf{S}_{10}\mathbf{S}_{00}^{-1}\mathbf{S}_{01}\boldsymbol{\beta}| = |\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}|\cdot 
+\underbrace{|\mathbf{S}_{00}-\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\boldsymbol{\beta}'\mathbf{S}_{10}|}_{|\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})|}
+\end{equation}
+
+De donde se deduce que: 
+
+\begin{align}
+|\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})| & = \frac{|\mathbf{S}_{00}|\cdot |\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}-\boldsymbol{\beta}'\mathbf{S}_{10}\mathbf{S}_{00}^{-1}\mathbf{S}_{01}\boldsymbol{\beta}|}{|\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}|} \\
+|\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})| & = |\mathbf{S}_{00}|\cdot\frac{ |\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}-\boldsymbol{\beta}'\mathbf{S}_{10}\mathbf{S}_{00}^{-1}\mathbf{S}_{01}\boldsymbol{\beta}|}{|\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}|}
+\end{align}
+
+El segundo término del lado derecho de la ecuación se conoce como \textit{cociente de Rayleigh}, por lo que los valores de la matriz $\boldsymbol{\beta}$, pueden encontrarse diagonalizando dicha forma cuadrática. 
+
+Los autovalores asociados pueden encontrarse como: 
+
+\begin{equation}
+|\rho\mathbf{S}_{11}-\mathbf{S}_{11}+\mathbf{S}_{10}\mathbf{S}_{00}^{-1}\mathbf{S}_{01}|=0
+\end{equation}
+
+O equivalentemente, 
+\begin{equation}
+|\underbrace{(1-\rho)}_{\lambda}\mathbf{S}_{11}-\mathbf{S}_{10}\mathbf{S}_{00}^{-1}\mathbf{S}_{01}|=0
+\end{equation}
+
+Luego el determinante de la matriz de covarianza puede expresarse como: 
+
+\begin{equation}
+|\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})| = |\mathbf{S}_{00}|\prod_{i=1}^{p}(1-\lambda_{i})
+\end{equation}
+
+Luego, los autovectores asociados a cada autovalor $\mathbf{v_{1},...,v_{p}}$se corresponderán con los vectores columna de la matriz $\hat{\boldsymbol{\beta}}$, ordenados de manera que $\hat{\lambda}_{1}>...>\hat{\lambda}_{p}$.
+
+
+
 \subsection{El contraste de cointegración de Johansen}
 
-Considere el siguiente modelo 
+Esta sección está basada parcialmente en Juselius(2006) y Lutkephol (2005). Considere el siguiente modelo 
 
 \begin{equation}
 \Delta \bf{y}_{t} = \Pi \bf{y}_{t-1}+\Gamma_{1}\Delta\bf{y}_{t-1}+...+\Gamma_{p-1}\Delta\bf{y}_{t-p+1}+u_{t}
@@ -667,12 +824,9 @@ Considere el siguiente modelo
 Donde $\bf{y}_{t}$ es un proceso $K$-dimensional y $rk(\Pi)=r$ con  $0\leq r\leq K$. 
 
 \begin{align}
-\mathcal{H}_{0}: rk(\bold{\Pi})=r_{0} && versus && \mathcal{H}_{1}: r_{0}< rk(\bold{\Pi}) \leq r_{1} \label{hipo_johansen1}
+\mathcal{H}_{0}: rk(\mathbf{\Pi})=r_{0} && versus && \mathcal{H}_{1}: r_{0}< rk(\mathbf{\Pi}) \leq r_{1} \label{hipo_johansen1}
 \end{align} 
 
-Lütkepohl(2005, pp. 294)
-Lütkepohl(2005, pp.340)
-Tso (1981) Para regresión de rango reducido
 \begin{teo}
 Sea $M:=I_{T}-\Delta \bf{X}'(\Delta \bf{X}\Delta \bf{X}')^{-1}\Delta \bf{X}$, $R_{0}:=\Delta \bf{Y}M$ y $R_{1}=\bf{Y}_{-1}M$. Además 
 
@@ -682,8 +836,8 @@ S_{ij}:=R_{i}R'_{j}/T, \qquad i=0,1,
 $\lambda_{1}\geq ... \geq \lambda_{K}$ los autovalores de $S_{11}^{-1/2}S_{10}S_{00}^{-1}S_{01}S_{11}^{-1/2}$, y $\bf{v}_{1},...,\bf{v}_{K}$, los correspondientes autovectores ortonormales 
 
 \begin{align}
-\log l  =  & -\frac{KT}{2}\log 2\pi-\frac{T}{2}\log |\bold{\Sigma}_{u}|  \nonumber \\ 
-  & -\frac{1}{2}\text{tr}\left[(\Delta \bf{Y}-\boldsymbol{\alpha}\boldsymbol{\beta}'Y_{-1}-\bold{\Gamma}\Delta\bf{X})\bold{\Sigma_{u}}(\Delta \bf{Y}-\boldsymbol{\alpha}\boldsymbol{\beta}'Y_{-1}-\bold{\Gamma}\Delta\bf{X})\right] 
+\log l  =  & -\frac{KT}{2}\log 2\pi-\frac{T}{2}\log |\mathbf{\Sigma}_{u}|  \nonumber \\ 
+  & -\frac{1}{2}\text{tr}\left[(\Delta \bf{Y}-\boldsymbol{\alpha}\boldsymbol{\beta}'Y_{-1}-\mathbf{\Gamma}\Delta\bf{X})\mathbf{\Sigma_{u}}(\Delta \bf{Y}-\boldsymbol{\alpha}\boldsymbol{\beta}'Y_{-1}-\mathbf{\Gamma}\Delta\bf{X})\right] 
 \end{align}
 \end{teo}
 
@@ -695,26 +849,55 @@ Desde el resultado anterior puede plantearse el siguiente estadístico de razón
                           & = -T\sum_{i=r_{0}+1}^{r_{1}}\log (1-\lambda_{i})
 \end{align}
 Cabe destacar que bajo la hipótesis nula, el estadístico no sigue una distribución estándar por lo que lo que sus valores críticos deben obtenerse mediante simulación. En particular, depende del número de relaciones de cointegracón y del tipo de hipótesis alterna a utilizar. Dos especificaciones son las más utilizadas en la literatura: 
-\begin{align}
-\mathcal{H}_{0}: rk(\bold{\Pi})=r_{0} &&  versus && \mathcal{H}_{1}: r_{0}<rk(\bold{\Pi})\leq K \label{hipo_johansen2}
+
+\begin{align}\label{hipo_johansen2}
+\mathcal{H}_{0}: rk(\boldsymbol{\Pi})=r_{0} &&  versus && \mathcal{H}_{1}: r_{0}<rk(\boldsymbol{\Pi})\leq K 
 \end{align}
 y
-\begin{align}
-\mathcal{H}_{0}: rk(\bold{\Pi})=r_{0} &&  versus && \mathcal{H}_{1}: rk(\bold{\Pi})=r_{0}+1 \label{hipo_johansen3}
+\begin{align}\label{hipo_johansen3}
+\mathcal{H}_{0}: rk(\mathbf{\Pi})=r_{0} &&  versus && \mathcal{H}_{1}: rk(\mathbf{\Pi})=r_{0}+1 
 \end{align}
 El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} se denomina comunmente como el estadístico \textit{de la traza} para testear el rango de cointegración, mientras que $\lambda_{LR}(r_{0},r_{0}+1)$ es llamado estadístico de \textit{máximo autovalor}.  
-}
+
+
+NOTA PARA RECORDAR: UNA PRIMERA ESTIMACIÓN PARA EL VECTOR COINTEGRANTE ES LA ESTIMACIÓN en dos etapas de DE ENGLE GRANGER
+
+CITAR "FIVE ALTERNATIVE METHODS OF ESTIMATING LONG-RUN EQUILIBRIUM RELATIONSHIPS" PARA MOSTRAR QUE EL MODELO NO ES SENSIBLE A LAS DESVIACIIONES DEL SUPUESTO DE NORMALIDAD. (GONZALOJEC1994)
 
 \section{Modelo de vector de corrección del error por umbrales (TVECM)}
 \subsection{Estimación del modelo TVECM}
 
-En esta sección se reproduce lo expuesto en el artículo de Hansen \& Seo (2002). Sea $\mathbf{x}_{t}$ una serie de tiempo p-dimensional $I(1)$ la cual está cointegrada con un vector cointegrante de orden $p\times 1$. Sea $w_{t}(\beta}=\beta'x_{t}$ el término de corrección del error $I(0)$. Se puede escribir un modelo VECM linealde la siguiente forma: 
+En esta sección se reproduce lo expuesto en el artículo de Hansen \& Seo (2002) y Lo \& Zivot (2001). Sea $\mathbf{x}_{t}$ una serie de tiempo p-dimensional $I(1)$ la cual está cointegrada con un vector cointegrante de orden $p\times 1$. Sea $w_{t}(\beta)=\beta'x_{t}$ el término de corrección del error $I(0)$. Se puede escribir un modelo VECM linealde la siguiente forma: 
 
 \begin{equation}
 \Delta \mathbf{x}_{t} = \mathbf{A'X}_{t-1}(\boldsymbol{\beta})+\mathbf{u}_{t}
 \end{equation}
+Donde 
+
+\begin{equation}
+\mathbf{x_{t-1}}(\boldsymbol{\beta}) = \left(\begin{array}{c} 1 \\ w_{t-1}(\beta) \\ %
+                                                            \Delta \mathbf{x_{t-1}} \\ %
+                                                            \Delta \mathbf{x_{t-1}} \\ %
+                                                            \vdots \\ % 
+                                                            \Delta \mathbf{x_{t-l}} \\ %
+                                                            \end{array}\right)
+\end{equation}
+
+La regresora $\mathbf{x_{t-1}}(\boldsymbol{\beta})$ tiene dimensión $k\times 1$ y $\mathbf{A}$ tiene dimensión $k\times p$ donde $k=pl+2$. El término de error $u_{t}$ se asume como una secuencia de martingalas en diferencia con matriz de covarianza finita, $\boldsymbol{\Sigma} = \mathbb{E}(u_{t}u'_{t})$. 
+
+La notación $w_{t-1}(\boldsymbol{\beta})$ y $\mathbf{x}_{t-1}(\boldsymbol{\beta})$ indica que las variables son evaluadas en valores genéricos de $\boldsymbol{\beta}$. Cuando sean evaluadas en los verdaderos valores del vector cointegrante, se denota como $w_{t-1}$ y $\mathbf{x}_{t-1}$, respectivamente. 
+
+Para la identificación del vector cointegrante es necesario imponer 
 
 \subsection{El contraste de Hansen \& Seo (2002)}
+
+\section{Imputación de datos faltantes a través del filtro de Kalman}
+CITAR A Durbin y Koopman (2012)
+\subsection{El filtro de Kalman}
+\subsection{Formulación en espacio estado de un modelo ARIMA(p,d,q)}
+\subsection{imputación de valores faltantes}
+
+
 
 \chapter{Metodología y Datos}
 
@@ -725,7 +908,9 @@ En esta sección se reproduce lo expuesto en el artículo de Hansen \& Seo (2002
 
 \chapter{Resultados}
 
-\newpage
+En este capítulo se muestra una aplicación
+
+Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017)
 
 \section{Imputación de valores perdidos}
 
@@ -740,6 +925,8 @@ source("weekly_palta.R")
 #setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
 #source("weekly_tomate.R")
 @
+
+Para la imputación de datos perdidos se utilizó el paquete \texttt{forecast} de Hyndman \& Khandakar (2007)
 
 
 <<results='hide', echo=FALSE, message=FALSE>>=
@@ -854,7 +1041,7 @@ Pacf(diff(y1), main="c) Función de autocorrelación parcial", lag.max = 52)
 @
 
 
-<<fig-2.4,echo=F,fig.cap='Evolución del logaritmo del precio en supermercado de la palta, 2008-2016\\label{fig5.2}', out.width='4.5in', out.height='3.5in', fig.align='center'>>=
+<<fig-2.4,echo=F,fig.cap='Evolución del logaritmo del precio en supermercado de la palta, 2008-2016\\label{fig5.4}', out.width='4.5in', out.height='3.5in', fig.align='center'>>=
 par(family="serif", bty="l")
 layout(matrix(c(1,1,1,1,1,
                 2,2,0,3,3),ncol =5, byrow=TRUE))
@@ -1248,7 +1435,7 @@ summary(kpss2)
 \begin{table}[h]
 \centering
 \begin{threeparttable}
-\caption{Contraste KPSS (sin tendencia determinista) \label{fig5.4}}
+\caption{Contraste KPSS (sin tendencia determinista) \label{tab5.4}}
 \begin{tabular}{@{}lrllll@{}}
 \toprule
 \multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
@@ -1434,7 +1621,7 @@ De esta forma, se procederá a determinar si la tendencia estocástica es compar
 
 \section{Determinación del rango de cointegración y estimación del modelo del modelo lineal de corrección del error}
 
-En este apartado se trabajó principalmente con el paquete \texttt{vars} (Pfaff, 2008). 
+En este apartado se utiliza principalmente con el paquete \texttt{vars} (Pfaff, 2008). 
 
 <<echo=FALSE>>=
 if (!require(vars)) install.packages("vars"); require(vars)
@@ -1645,7 +1832,7 @@ impulso2 = irf(var_version, n.ahead = 52, ortho = FALSE)
 plot(impulso)
 @
 
-<<graph5.7, echo=FALSE, fig.cap='Función acumulada de impulso respuesta\\label{graph5.6}'>>=
+<<graph5.7, echo=FALSE, fig.cap='Función acumulada de impulso respuesta\\label{graph5.7}'>>=
 
 plot(impulso2)
 @
@@ -1716,6 +1903,8 @@ ARCH (Multivariado) & 144.4 & 81 & 1.89$\times 10^{-5}$ \\
 \end{table}
 
 \section{Determinación del rango de cointegración y estimación del modelo del modelo lineal de corrección del error}
+
+Los contrastes y estimaciones de esta sección fueron realizadas a través del paquete \texttt{tsDyn} de Di Narzo, Aznarte \& Stigler(2009).
 
 
 <<fig-5.9,echo=F,fig.cap='Modelo de corrección del error por umbrales', out.width='4.5in', out.height='4.5in', fig.align='center', message=FALSE, fig.pos='H'>>=
@@ -1798,12 +1987,86 @@ vars:::.arch.multi(scale(residuals(mono_rest)), lags.multi = 8, K=2, obs = 491, 
 \hangindent=5em
 \hangafter=-2
 
-Ben-Kaabia, M., & Gil Roig, J. M. (2008). Asimetrías en la transmisión de precios en el sector del tomate en España. Economía Agraria y Recursos Naturales, 8(1), 57-82.
+Ben-Kaabia, M., \& Gil Roig, J. M. (2008). Asimetrías en la transmisión de precios en el sector del tomate en España. Economía Agraria y Recursos Naturales, 8(1), 57-82.
 
-Hansen, B. E., & Seo, B. (2002). Testing for two-regime threshold cointegration in vector error-correction models. Journal of econometrics, 110(2), 293-318.
+Box, G. E., Jenkins, G. M., Reinsel, G. C., \& Ljung, G. M. (2015). Time series analysis: forecasting and control. John Wiley \& Sons.
+
+Di Narzo, A. F., Aznarte, J. L., \& Stigler, M. (2009). tsDyn: Time series analysis based on dynamical systems theory. R package version 0.7.(URL: http://stat. ethz. ch/CRAN/web/packages/tsDyn/vignettes/tsDyn. pdf}.
+
+Durbin, J., & Koopman, S. J. (2012). Time series analysis by state space methods (Vol. 38). OUP Oxford.
+
+Hansen, B. E., \& Seo, B. (2002). Testing for two-regime threshold cointegration in vector error-correction models. Journal of econometrics, 110(2), 293-318.
+
+Hyndman, R. J., \& Khandakar, Y. (2007). Automatic time series for forecasting: the forecast package for R (No. 6/07). Monash University, Department of Econometrics and Business Statistics.
+
+Juselius, K. (2006). The cointegrated VAR model: methodology and applications. Oxford university press.
+
+Lo, M. C., & Zivot, E. (2001). Threshold cointegration and nonlinear adjustment to the law of one price. Macroeconomic Dynamics, 5(4), 533-576.
+
+Lütkepohl, H. (2005). New introduction to multiple time series analysis. Springer Science & Business Media.
+
+Meyer, J., & Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
 
  Pfaff, B. (2008). VAR, SVAR and SVEC models: Implementation within R package vars. Journal of Statistical Software, 27(4), 1-32.
 
+R Core Team (2017). R: A language and environment for statistical computing.
+  R Foundation for Statistical Computing, Vienna, Austria. URL
+  https://www.R-project.org/.
 
-\include{ANEXO}
+  
+\chapter{Anexo}
+\section{Algunos resultados útiles de cálculo matricial}
+
+\subsection{Derivada de una forma cuadrática}
+La traza de una matriz cuadrada $\mathbf{A}$ se define como la suma de los elementos de la diagonal $a_{ii}$ de $\mathbf{A}$: 
+
+\begin{equation}
+tr[\mathbf{A}]:= \sum_{i}a_{ii}
+\end{equation}
+Una propiedad útil de la traza es su invariabilidad antes permutaciones
+
+\begin{teorema}
+Sean $\mathbf{A,B,C}$ matrices cuadras de $n\times n$, se tiene que
+\begin{equation}
+tr[\mathbf{ABC}] = tr[\mathbf{CAB}] = tr[\mathbf{BCA}]
+\end{equation}
+\end{teorema}
+
+\begin{teorema}
+Sean $\mathbf{x} = \left[\begin{array}{c} x_{1} \\ \vdots \\ x_{n} \end{array}\right]$ y $\mathbf{A} =
+\left[\begin{array}{ccc}
+a_{11} & \hdots & a_{1n} \\ 
+\vdots & \ddots & \vdots \\ 
+a_{n1} & \hdots & a_{nn}
+\end{array}\right]$. Entonces
+
+\begin{equation}
+\mathbf{x}^{T}\mathbf{Ax} = \sum_{j=1}^{n}\sum_{i=1}^{n}a_{ij}x_{i}x_{j}
+\end{equation}
+\end{teorema}
+
+\begin{teorema}
+Sean $\mathbf{x} = \left[\begin{array}{c} x_{1} \\ \vdots \\ x_{n} \end{array}\right]$ y $\mathbf{A} =
+\left[\begin{array}{ccc}
+a_{11} & \hdots & a_{1n} \\ 
+\vdots & \ddots & \vdots \\ 
+a_{n1} & \hdots & a_{nn}
+\end{array}\right]$. Entonces
+
+\begin{equation}
+\frac{\partial}{\partial \mathbf{A}}\mathbf{x}^{T}\mathbf{Ax} = 
+\frac{\partial}{\partial \mathbf{A}}tr\left[\mathbf{xx}^{T}\mathbf{A}\right] = \left[\mathbf{xx}^{T}\right]^{T} = \mathbf{xx}^{T}
+\end{equation}
+
+\end{teorema}
+\subsection{Derivada de un determinante}
+
+\begin{teo}{Formula de Jacobi}
+
+Para cualquier matriz $A$
+
+\end{teo}
+
 \end{document}
+
+
