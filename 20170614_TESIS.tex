@@ -911,7 +911,11 @@ y
 El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} se denomina comunmente como el estadístico \textit{de la traza} para testear el rango de cointegración, mientras que $\lambda_{LR}(r_{0},r_{0}+1)$ es llamado estadístico de \textit{máximo autovalor}.  
 
 
+
+\subsection{Estabilidad del modelo VECM}
+
 NOTA PARA RECORDAR: UNA PRIMERA ESTIMACIÓN PARA EL VECTOR COINTEGRANTE ES LA ESTIMACIÓN en dos etapas de DE ENGLE GRANGER
+
 
 CITAR "FIVE ALTERNATIVE METHODS OF ESTIMATING LONG-RUN EQUILIBRIUM RELATIONSHIPS" PARA MOSTRAR QUE EL MODELO NO ES SENSIBLE A LAS DESVIACIIONES DEL SUPUESTO DE NORMALIDAD. (GONZALOJEC1994)
 
@@ -942,6 +946,10 @@ Para la identificación del vector cointegrante es necesario imponer
 
 \subsection{El contraste de Hansen \& Seo (2002)}
 
+\subsection{Función de impulso respuesta no lineal}
+
+Mencionar que para obtener los intervalos de confianza en este contexto se deben utilizar métodos de bootstraping y citar a Kreiss \& Lahiri (2012)
+
 \section{Imputación de datos faltantes a través del filtro de Kalman}
 CITAR A Durbin y Koopman (2012)
 \subsection{El filtro de Kalman}
@@ -961,7 +969,7 @@ CITAR A Durbin y Koopman (2012)
 
 En este capítulo se muestra una aplicación
 
-Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017)
+Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017).
 
 \section{Imputación de valores perdidos}
 
@@ -969,11 +977,11 @@ Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y e
 
 
 
-
-Para la imputación de datos perdidos se utilizó el paquete \texttt{forecast} de Hyndman \& Khandakar (2007)
-
+Dada la frecuencia relativamente alta de los datos, se tiene un número relativamente importante de observaciones faltantes. Para solucionar este problema se procedió a estimar un modelo ARIMA a través comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007).
 
 
+
+A continuación se presentan los resultados de la estimación para ambos modelos: 
 
 
 \begin{knitrout}
@@ -1971,6 +1979,8 @@ Hansen, B. E., \& Seo, B. (2002). Testing for two-regime threshold cointegration
 Hyndman, R. J., \& Khandakar, Y. (2007). Automatic time series for forecasting: the forecast package for R (No. 6/07). Monash University, Department of Econometrics and Business Statistics.
 
 Juselius, K. (2006). The cointegrated VAR model: methodology and applications. Oxford university press.
+
+Kreiss, J. P., \& Lahiri, S. N. (2012). Bootstrap methods for time series. In Handbook of statistics (Vol. 30, pp. 3-26). Elsevier.
 
 Lo, M. C., & Zivot, E. (2001). Threshold cointegration and nonlinear adjustment to the law of one price. Macroeconomic Dynamics, 5(4), 533-576.
 

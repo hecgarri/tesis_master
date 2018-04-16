@@ -860,7 +860,11 @@ y
 El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} se denomina comunmente como el estadístico \textit{de la traza} para testear el rango de cointegración, mientras que $\lambda_{LR}(r_{0},r_{0}+1)$ es llamado estadístico de \textit{máximo autovalor}.  
 
 
+
+\subsection{Estabilidad del modelo VECM}
+
 NOTA PARA RECORDAR: UNA PRIMERA ESTIMACIÓN PARA EL VECTOR COINTEGRANTE ES LA ESTIMACIÓN en dos etapas de DE ENGLE GRANGER
+
 
 CITAR "FIVE ALTERNATIVE METHODS OF ESTIMATING LONG-RUN EQUILIBRIUM RELATIONSHIPS" PARA MOSTRAR QUE EL MODELO NO ES SENSIBLE A LAS DESVIACIIONES DEL SUPUESTO DE NORMALIDAD. (GONZALOJEC1994)
 
@@ -891,6 +895,10 @@ Para la identificación del vector cointegrante es necesario imponer
 
 \subsection{El contraste de Hansen \& Seo (2002)}
 
+\subsection{Función de impulso respuesta no lineal}
+
+Mencionar que para obtener los intervalos de confianza en este contexto se deben utilizar métodos de bootstraping y citar a Kreiss \& Lahiri (2012)
+
 \section{Imputación de datos faltantes a través del filtro de Kalman}
 CITAR A Durbin y Koopman (2012)
 \subsection{El filtro de Kalman}
@@ -910,14 +918,13 @@ CITAR A Durbin y Koopman (2012)
 
 En este capítulo se muestra una aplicación
 
-Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017)
+Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017).
 
 \section{Imputación de valores perdidos}
 
 <<include=FALSE>>=
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, out.width='4.5in', out.height='3.5in', fig.align='center', message=FALSE, fig.pos='H')
 @
-
 
 <<echo=FALSE, results='hide', message=FALSE, warning=FALSE>>=
 setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
@@ -926,8 +933,7 @@ source("weekly_palta.R")
 #source("weekly_tomate.R")
 @
 
-Para la imputación de datos perdidos se utilizó el paquete \texttt{forecast} de Hyndman \& Khandakar (2007)
-
+Dada la frecuencia relativamente alta de los datos, se tiene un número relativamente importante de observaciones faltantes. Para solucionar este problema se procedió a estimar un modelo ARIMA a través comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007).
 
 <<results='hide', echo=FALSE, message=FALSE>>=
 if (!require(forecast)) install.packages("forecast")
@@ -942,7 +948,6 @@ for (i in id.na1){
 }
 y1[id.na1]  
 
-
 fit2 = auto.arima(precio_supermercado, seasonal=FALSE)
 # Filtro de Kalman 
 kr2 = KalmanRun(precio_supermercado, fit2$model)
@@ -954,6 +959,8 @@ for (i in id.na2){
 y2[id.na2]  
 
 @
+
+A continuación se presentan los resultados de la estimación para ambos modelos: 
 
 
 <<fig-1,echo=F,fig.cap='Evolución de precios del palta Hass de primera calidad,2008-2016', out.width='6.5in', out.height='3.5in', fig.align='center', fig.pos='H'>>=
@@ -1906,34 +1913,22 @@ ARCH (Multivariado) & 144.4 & 81 & 1.89$\times 10^{-5}$ \\
 
 Los contrastes y estimaciones de esta sección fueron realizadas a través del paquete \texttt{tsDyn} de Di Narzo, Aznarte \& Stigler(2009).
 
+<<>>=
+Hansen = TVECM.HStest(datos, lag=8, ngridTh = 100, trim=0.05, nboot=100,
+                      fixed.beta =NULL)
+
+plot(Hansen)
+@
+
+
+El modelo ha sido estimado con una constante en la relación de cointegración
 
 <<fig-5.9,echo=F,fig.cap='Modelo de corrección del error por umbrales', out.width='4.5in', out.height='4.5in', fig.align='center', message=FALSE, fig.pos='H'>>=
 
 if (!require(tsDyn)) install.packages("tsDyn")
 
-mono = TVECM(datos, lag=8, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 100, plot=TRUE, include=c("const"), common = "All", beta = list(int = c(-0.5,1.5)))
+mono = TVECM(datos, lag=8, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 200, plot=TRUE, include=c("none"), common = "All", beta = list(int = c(-0.5,1.5),beta0 = rep(1,nrow(datos))))
 
-@
-
-
-<<Modelo restringido>>=
-mono_rest = TVECM(datos, lag=8, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 100, plot=TRUE, include=c("const"), common = "All", beta = list(exact = 1))
-@
-
-
-<<>>=
-
-D = 2*(logLik(mono)-logLik(mono_rest))
-
-pchisq(D,1)
-
-@
-
-
-<<>>=
-Hansen = TVECM.HStest(datos, lag=8, ngridTh = 100, trim=0.05, nboot=100, fixed.beta =1)
-
-plot(Hansen)
 @
 
 \section{Diagnósticos del modelo no lineal}
@@ -1978,6 +1973,32 @@ DH.test(errores, names(errores))
 vars:::.jb.multi(scale(residuals(mono_rest)), obs = 491, K=2, obj.name = deparse(substitute(mono_rest)))
 vars:::.arch.multi(scale(residuals(mono_rest)), lags.multi = 8, K=2, obs = 491, obj.name = deparse(substitute(mono_rest)))
 
+# Construiré una función adhoc basada en el código fuente del contraste de Ljung Box
+# que se encuentra en el paquete vars
+resids = residuals(mono)
+K = mono$k
+obs = mono$T
+lags.pt = 20
+ljung = function (K, obs, lags.pt, resids) 
+{
+    C0 <- crossprod(resids)/obs
+    C0inv <- solve(C0)
+    tracesum <- rep(NA, lags.pt)
+    for (i in 1:lags.pt) {
+        Ut.minus.i <- vars:::.matlag1(resids, lag = i)[-c(1:i), ]
+        Ut <- resids[-c(1:i), ]
+        Ci <- crossprod(Ut, Ut.minus.i)/obs
+        tracesum[i] <- sum(diag(t(Ci) %*% C0inv %*% Ci %*% C0inv))
+    }
+    vec.adj <- obs - (1:lags.pt)
+    Qh <- obs * sum(tracesum)
+    Qh.star <- obs^2 * sum(tracesum/vec.adj)
+    nstar <- K^2 * x$p
+    STATISTIC <- Qh
+    PARAMETER <- (K^2 * lags.pt - nstar + x$K)
+    names(PARAMETER) <- "df"
+    PVAL <- 1 - pchisq(STATISTIC, df = PARAMETER)
+}
 @
 
 
@@ -2000,6 +2021,8 @@ Hansen, B. E., \& Seo, B. (2002). Testing for two-regime threshold cointegration
 Hyndman, R. J., \& Khandakar, Y. (2007). Automatic time series for forecasting: the forecast package for R (No. 6/07). Monash University, Department of Econometrics and Business Statistics.
 
 Juselius, K. (2006). The cointegrated VAR model: methodology and applications. Oxford university press.
+
+Kreiss, J. P., \& Lahiri, S. N. (2012). Bootstrap methods for time series. In Handbook of statistics (Vol. 30, pp. 3-26). Elsevier.
 
 Lo, M. C., & Zivot, E. (2001). Threshold cointegration and nonlinear adjustment to the law of one price. Macroeconomic Dynamics, 5(4), 533-576.
 
