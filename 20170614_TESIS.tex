@@ -1820,11 +1820,26 @@ ARCH (Multivariado) & 144.4 & 81 & 1.89$\times 10^{-5}$ \\
 
 Los contrastes y estimaciones de esta sección fueron realizadas a través del paquete \texttt{tsDyn} de Di Narzo, Aznarte \& Stigler(2009).
 
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-24-1} 
+
+}
+
+
+
+\end{knitrout}
+
+
+El modelo ha sido estimado con una constante en la relación de cointegración
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 \begin{verbatim}
-## 9588 (95.9%) points of the grid lead to regimes with percentage of observations < trim and were not computed
+## 19176 (95.9%) points of the grid lead to regimes with percentage of observations < trim and were not computed
+## There were  2  thresholds/cointegrating combinations ( 0.083844807555983 / 0.974747474747475 ,  0.085491918036552 / 0.974747474747475 ,  ) 
+## which minimize the SSR in the first search, the first one  0.08384481   0.9747475  was taken
 \end{verbatim}
 \end{kframe}\begin{figure}[H]
 
@@ -1838,60 +1853,28 @@ Los contrastes y estimaciones de esta sección fueron realizadas a través del p
 
 \end{knitrout}
 
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-## 1 (1%) points of the grid lead to regimes with percentage of observations < trim and were not computed
-\end{verbatim}
-\end{kframe}
-
-{\centering \includegraphics[width=4.5in,height=3.5in]{figure/Modelo_restringido-1} 
-
-}
-
-
-
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-## [1] 0.9982959
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-
-{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-25-1} 
-
-}
-
-
-
-\end{knitrout}
-
 \section{Diagnósticos del modelo no lineal}
 
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-
-{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-26-1} 
-
-}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}
 
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}\end{kframe}
 \end{knitrout}
 
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}\end{kframe}\begin{figure}[H]
 
 {\centering \includegraphics[width=3.5in,height=3.5in]{figure/fig-5_11-1} 
 
@@ -1919,44 +1902,23 @@ Los contrastes y estimaciones de esta sección fueron realizadas a través del p
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}\begin{verbatim}
 ## $multi
-##          E df   P(Chi > E)
-## 1 163.5603  4 2.519119e-34
+##         E df   P(Chi > E)
+## 1 246.913  4 3.009846e-52
 ## 
 ## $univ
-##                      E df   P(Chi > E)
-## mayorista     53.13165  2 2.901401e-12
-## supermercado 110.42869  2 1.048853e-24
-## $JB
-## 
-## 	JB-Test (multivariate)
-## 
-## data:  Residuals of VAR object mono_rest
-## Chi-squared = 305.24, df = 4, p-value < 2.2e-16
-## 
-## 
-## $Skewness
-## 
-## 	Skewness only (multivariate)
-## 
-## data:  Residuals of VAR object mono_rest
-## Chi-squared = 12.421, df = 2, p-value = 0.002008
-## 
-## 
-## $Kurtosis
-## 
-## 	Kurtosis only (multivariate)
-## 
-## data:  Residuals of VAR object mono_rest
-## Chi-squared = 292.82, df = 2, p-value < 2.2e-16
-## 
-## 	ARCH (multivariate)
-## 
-## data:  Residuals of VAR object mono_rest
-## Chi-squared = 121.29, df = 72, p-value = 0.000251
+##                                E df   P(Chi > E)
+## resids.of.mayorista     72.63378  2 1.689563e-16
+## resids.of.supermercado 174.27920  2 1.431372e-38
 \end{verbatim}
-\end{kframe}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}\end{kframe}
 \end{knitrout}
 
 
@@ -1972,7 +1934,7 @@ Box, G. E., Jenkins, G. M., Reinsel, G. C., \& Ljung, G. M. (2015). Time series 
 
 Di Narzo, A. F., Aznarte, J. L., \& Stigler, M. (2009). tsDyn: Time series analysis based on dynamical systems theory. R package version 0.7.(URL: http://stat. ethz. ch/CRAN/web/packages/tsDyn/vignettes/tsDyn. pdf}.
 
-Durbin, J., & Koopman, S. J. (2012). Time series analysis by state space methods (Vol. 38). OUP Oxford.
+Durbin, J., \& Koopman, S. J. (2012). Time series analysis by state space methods (Vol. 38). OUP Oxford.
 
 Hansen, B. E., \& Seo, B. (2002). Testing for two-regime threshold cointegration in vector error-correction models. Journal of econometrics, 110(2), 293-318.
 

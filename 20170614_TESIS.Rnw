@@ -2014,7 +2014,7 @@ Box, G. E., Jenkins, G. M., Reinsel, G. C., \& Ljung, G. M. (2015). Time series 
 
 Di Narzo, A. F., Aznarte, J. L., \& Stigler, M. (2009). tsDyn: Time series analysis based on dynamical systems theory. R package version 0.7.(URL: http://stat. ethz. ch/CRAN/web/packages/tsDyn/vignettes/tsDyn. pdf}.
 
-Durbin, J., & Koopman, S. J. (2012). Time series analysis by state space methods (Vol. 38). OUP Oxford.
+Durbin, J., \& Koopman, S. J. (2012). Time series analysis by state space methods (Vol. 38). OUP Oxford.
 
 Hansen, B. E., \& Seo, B. (2002). Testing for two-regime threshold cointegration in vector error-correction models. Journal of econometrics, 110(2), 293-318.
 
