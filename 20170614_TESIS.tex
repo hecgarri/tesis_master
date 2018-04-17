@@ -108,6 +108,14 @@
   \mathbin{\overset{#1}{\kern\z@\resizebox{\wd\mybox}{\ht\mysim}{$\sim$}}}%
 }
 \makeatother
+\makeatletter
+\g@addto@macro\normalsize{%
+  \setlength\abovedisplayskip{10pt}
+  \setlength\belowdisplayskip{10pt}
+  \setlength\abovedisplayshortskip{10pt}
+  \setlength\belowdisplayshortskip{10pt}
+}
+\makeatother
 \usepackage{mdframed} %Para usar recuadros
 
     \usepackage{framed}
@@ -218,7 +226,7 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 
 \chapter{Transmisión de precios}
 
-Meyer, J., & Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
+Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
 
 
 \chapter{Modelos y contrastes estadísticos utilizados en esta tesis}
@@ -707,13 +715,14 @@ En la ecuación (2.8), reagrupando términos y utilizando que $\Delta \bf{y}_{i}
 \Delta \bf{y}_{t}=\mathbf{\mu}+\mathbf{\Gamma}_{1}\Delta \bf{y}_{t-1}+\mathbf{\Gamma}_{2}\Delta \bf{y}_{t-2}+...+\mathbf{\Gamma}_{p-1}\Delta \bf{y}_{t-p+1}+\bf{u}_{t}
 \end{equation} 
 Naturalmente, ambas ecuaciones describen el mismo modelo, pero preferimos usar la ecuación \eqref{vecm1} cuando $\bf{y}_{t}$ es $I(1)$, debido a que cada término es estacionario en este caso. Entonces, cuando $\bf{y}_{t}$ es $I(1)$, podemos encontrar un modelo apropiado para $y_{t}$ diferenciando cada componente de $\bf{y}_{t}$ una vez, y llevando a cabo la regresión basada en la ecuación \eqref{vecm1}. De todas formas, entonces no podremos tomar en cuenta que podría haber dependencias entre algunos de los componentes de $\bf{y}_{t}$. Por ejemplo, dos de los componentes podrían tener una tendencia en común, o podría existir una combinación lineal de los componente de $y_{t}$ la cual fuera estacionaria. Este problema suele resolverse utilizando incluyendo un \textbf{término de corrección del error} $\mathbf{\Pi}\bf{y}_{t-1}$ en la ecuación \eqref{vecm1}, donde $\mathbf{\Pi}$ es una matriz $K\times K$ de cuyo rango $rank(\mathbf{\Pi})<K$, debido a que si $\mathbf{\Pi}$ tuviera rango completo, entonces $\mathbf{\Pi}$  es invertible, de manera que la variable no estacionaria $\bf{y}_{t-1}$ puede ser escrita como la suma de términos estacionarios, lo que es una contradicción. Entonces, $rank(\mathbf{\Pi})=r<K$ lo cual implica que existen $(K\times r)-matrices$ $\boldsymbol{\alpha}$ y $\boldsymbol{\beta}$ de rango $r$ tales que $\mathbf{\Pi}=\boldsymbol{\alpha}\boldsymbol{\beta}'$. Entonces, cada una de las $r$ filas de $\boldsymbol{\beta}'\bf{y_{t-1}}$ es una combinación lineal estacionaria de los componentes de $y_{t}$ y es llamada una \textbf{relación de cointegración}. El número $r$, el cual es igual al número de relación de cointegración es llamado el \textbf{rango de cointegración}. Como la matriz $\boldsymbol{\beta}$ contiene todos los coeficiente de las relaciones de cointegración, es llamada \textbf{la matriz de cointegración}. La matriz $\boldsymbol{\alpha}$, la cual es la matriz de coeficientes de los términos estacionarios $\boldsymbol{\beta}'\bf{y_{t-1}}$ en la ecuación \eqref{vecm2}, es llamada la matriz de carga. 
+
 \begin{defin}
 Un modelo \textbf{VECM} de orden $p$ se define como 
 \begin{equation}\label{vecm2}
-\Delta \bf{y}_{t}=\boldsymbol{\mu}+\boldsymbol{\alpha\beta}'
-\bf{y}_{t-1}+\mathbf{\Gamma}_{1}\Delta \bf{y}_{t-1}+...+\mathbf{\Gamma}_{p-1}\Delta \bf{y}_{t-p+1}+u_{t} \quad t=1,...,T
+\Delta \bf{x}_{t}=\mathbf{\Gamma}_{1}\Delta \bf{x}_{t-1}+...+\mathbf{\Gamma}_{p-1}\Delta \bf{x}_{t-p+1}+\boldsymbol{\alpha\beta}'
+\bf{x}_{t-1}+\boldsymbol{\Phi}\mathbf{D}_{t}+\boldsymbol{\varepsilon}_{t} \quad t=1,...,T
 \end{equation}
-Donde $\bf{y}_{t}=\left[y_{1t},...,y_{Kt}\right]'$ es un vector aleatorio de $K\times 1$, $\boldsymbol{\mu}$ es un vector constante de $(K\times 1)$, $\boldsymbol{\alpha}$ y $\boldsymbol{\beta}$ son matrices $(K\times r)$ tales que $rank(\boldsymbol{\alpha})=rank(\boldsymbol{\beta})<K$, 
+Donde $\bf{x}_{t}=\left[x_{1t},...,x_{Kt}\right]'$ es un vector aleatorio de $k\times 1$, $\mathbf{D}_{t}$ representa regresores deterministicos, $\boldsymbol{\alpha}$ y $\boldsymbol{\beta}$ son matrices $(K\times r)$ tales que $rank(\boldsymbol{\alpha})=rank(\boldsymbol{\beta})<K$, 
 \end{defin} 
 
 \subsection{Estimación de un modelo VECM}
@@ -856,7 +865,7 @@ O equivalentemente,
 
 Luego el determinante de la matriz de covarianza puede expresarse como: 
 
-\begin{equation}
+\begin{equation}\label{autovalores}
 |\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})| = |\mathbf{S}_{00}|\prod_{i=1}^{p}(1-\lambda_{i})
 \end{equation}
 
@@ -866,50 +875,28 @@ Luego, los autovectores asociados a cada autovalor $\mathbf{v_{1},...,v_{p}}$se 
 
 \subsection{El contraste de cointegración de Johansen}
 
-Esta sección está basada parcialmente en Juselius(2006) y Lutkephol (2005). Considere el siguiente modelo 
+Utilizando las expresiones (\ref{reemplazo}) y (\ref{autovalores}), la función de logverosimilitud del modelo puede ser representada por: 
 
 \begin{equation}
-\Delta \bf{y}_{t} = \Pi \bf{y}_{t-1}+\Gamma_{1}\Delta\bf{y}_{t-1}+...+\Gamma_{p-1}\Delta\bf{y}_{t-p+1}+u_{t}
+-2\log \mathcal{L}(\boldsymbol{\beta}) = T\log|\mathbf{S}_{00}|+T\sum_{i=1}^{p}\log(1-\lambda_{i})
 \end{equation}
 
-Donde $\bf{y}_{t}$ es un proceso $K$-dimensional y $rk(\Pi)=r$ con  $0\leq r\leq K$. 
+Cabe notar entonces que, como se señaló en la sección anterior, mientras mayor la magnitud de los autovalores, más \textit{estacionaria} será la relación de cointegración que representa. De esta manera, el contraste busca identificar qué autovalores - y por tanto vectores cointegrantes - llevan a relaciones estacionarias. De esta manera, el contraste de hipótesis puede realizarse de manera secuencial. 
 
 \begin{align}
-\mathcal{H}_{0}: rk(\mathbf{\Pi})=r_{0} && versus && \mathcal{H}_{1}: r_{0}< rk(\mathbf{\Pi}) \leq r_{1} \label{hipo_johansen1}
-\end{align} 
+\mathcal{H}(p): rk(\boldsymbol{\Pi})=p && vs && \mathcal{H}(r): rk(\boldsymbol{\Pi})=r 
+\end{align}
 
-\begin{teo}
-Sea $M:=I_{T}-\Delta \bf{X}'(\Delta \bf{X}\Delta \bf{X}')^{-1}\Delta \bf{X}$, $R_{0}:=\Delta \bf{Y}M$ y $R_{1}=\bf{Y}_{-1}M$. Además 
+Esto quiere decir que para el primer caso, se contrasta la hipótesis de que no existen raíces unitarias comunes entre las diferentes variables endógenas del modelo y por tanto, puede estimarse un modelo VAR en niveles. Mientras que en los contrastes posteriores se pone a prueba la hipótesis sobre el número de relaciones de cointegración que pueden considerarse estacionarias. 
 
-\begin{equation}
-S_{ij}:=R_{i}R'_{j}/T, \qquad i=0,1, 
-\end{equation}
-$\lambda_{1}\geq ... \geq \lambda_{K}$ los autovalores de $S_{11}^{-1/2}S_{10}S_{00}^{-1}S_{01}S_{11}^{-1/2}$, y $\bf{v}_{1},...,\bf{v}_{K}$, los correspondientes autovectores ortonormales 
+Para estos efectos se puede construir un contraste de razón de verosimilitud (LR rest) de la siguiente forma: 
 
 \begin{align}
-\log l  =  & -\frac{KT}{2}\log 2\pi-\frac{T}{2}\log |\mathbf{\Sigma}_{u}|  \nonumber \\ 
-  & -\frac{1}{2}\text{tr}\left[(\Delta \bf{Y}-\boldsymbol{\alpha}\boldsymbol{\beta}'Y_{-1}-\mathbf{\Gamma}\Delta\bf{X})\mathbf{\Sigma_{u}}(\Delta \bf{Y}-\boldsymbol{\alpha}\boldsymbol{\beta}'Y_{-1}-\mathbf{\Gamma}\Delta\bf{X})\right] 
+-2 \log |\mathcal{Q}(\mathcal{H}_{r}/\mathcal{H}_{r}) & = T\log \left\{\frac{|\mathbf{S}_{00}|(1-\hat{\lambda}_{1})...(1-\hat{\lambda}_{r})}{|\mathbf{S}_{00}|(1-\hat{\lambda}_{1})...(1-\hat{\lambda}_{p})}\right\} \\ 
+\tau_{p-r} & = -T\log\left[(1-\hat{\lambda}_{r+1})...(1-\hat{\lambda}_{p})\right]
 \end{align}
-\end{teo}
 
-Desde el resultado anterior puede plantearse el siguiente estadístico de razón de verosimilitud (LRT) para contrastar \eqref{hipo_johansen1}
-
-\begin{align}
-\lambda_{LR}(r_{0},r_{1}) & = 2[\log l(r_{1})-\log l(r_{0})] \nonumber \\ 
-                          & = T\left[-\sum_{i=1}^{r_{1}}\log(1-\lambda_{i})+\sum_{i=1}^{r_{0}}\log(1-\lambda_{i})\right] \nonumber \\ 
-                          & = -T\sum_{i=r_{0}+1}^{r_{1}}\log (1-\lambda_{i})
-\end{align}
-Cabe destacar que bajo la hipótesis nula, el estadístico no sigue una distribución estándar por lo que lo que sus valores críticos deben obtenerse mediante simulación. En particular, depende del número de relaciones de cointegracón y del tipo de hipótesis alterna a utilizar. Dos especificaciones son las más utilizadas en la literatura: 
-
-\begin{align}\label{hipo_johansen2}
-\mathcal{H}_{0}: rk(\boldsymbol{\Pi})=r_{0} &&  versus && \mathcal{H}_{1}: r_{0}<rk(\boldsymbol{\Pi})\leq K 
-\end{align}
-y
-\begin{align}\label{hipo_johansen3}
-\mathcal{H}_{0}: rk(\mathbf{\Pi})=r_{0} &&  versus && \mathcal{H}_{1}: rk(\mathbf{\Pi})=r_{0}+1 
-\end{align}
-El estadístico $\lambda_{LR}(r_{0},K)$ para contrastar \eqref{hipo_johansen2} se denomina comunmente como el estadístico \textit{de la traza} para testear el rango de cointegración, mientras que $\lambda_{LR}(r_{0},r_{0}+1)$ es llamado estadístico de \textit{máximo autovalor}.  
-
+La magnitud de este estadístico proporcionará evidencia en torno a la validez o no de las hipótesis a contrastar de acuerdo a si sobrepasa o no algún valor crítico $C_{p-r*}$. Sin embargo, de manera similar a como ocurre con el contraste de raíz unitaria de Dickey-Fuller, la distribución de este estadístico no es estándar. Sin embargo Johansen et al. (1996) proveen los valores críticos del contraste bajo diferentes escenarios. 
 
 
 \subsection{Estabilidad del modelo VECM}
@@ -922,7 +909,7 @@ CITAR "FIVE ALTERNATIVE METHODS OF ESTIMATING LONG-RUN EQUILIBRIUM RELATIONSHIPS
 \section{Modelo de vector de corrección del error por umbrales (TVECM)}
 \subsection{Estimación del modelo TVECM}
 
-En esta sección se reproduce lo expuesto en el artículo de Hansen \& Seo (2002) y Lo \& Zivot (2001). Sea $\mathbf{x}_{t}$ una serie de tiempo p-dimensional $I(1)$ la cual está cointegrada con un vector cointegrante de orden $p\times 1$. Sea $w_{t}(\beta)=\beta'x_{t}$ el término de corrección del error $I(0)$. Se puede escribir un modelo VECM linealde la siguiente forma: 
+En esta sección se reproduce lo expuesto en el artículo de Hansen \& Seo (2002) y Lo \& Zivot (2001). En esta sección puede reescribirse la formulación del modelo (\ref{vecm2}) apilando los diferentes elementos, de la siguiente forma: 
 
 \begin{equation}
 \Delta \mathbf{x}_{t} = \mathbf{A'X}_{t-1}(\boldsymbol{\beta})+\mathbf{u}_{t}
@@ -930,25 +917,84 @@ En esta sección se reproduce lo expuesto en el artículo de Hansen \& Seo (2002
 Donde 
 
 \begin{equation}
-\mathbf{x_{t-1}}(\boldsymbol{\beta}) = \left(\begin{array}{c} 1 \\ w_{t-1}(\beta) \\ %
+\mathbf{x_{t-1}}(\boldsymbol{\beta}) = \left(\begin{array}{c} w_{t-1}(\boldsymbol{\beta}) \\ %
                                                             \Delta \mathbf{x_{t-1}} \\ %
                                                             \Delta \mathbf{x_{t-1}} \\ %
                                                             \vdots \\ % 
                                                             \Delta \mathbf{x_{t-l}} \\ %
+                                                            \mathbf{D}_{t}
                                                             \end{array}\right)
 \end{equation}
 
-La regresora $\mathbf{x_{t-1}}(\boldsymbol{\beta})$ tiene dimensión $k\times 1$ y $\mathbf{A}$ tiene dimensión $k\times p$ donde $k=pl+2$. El término de error $u_{t}$ se asume como una secuencia de martingalas en diferencia con matriz de covarianza finita, $\boldsymbol{\Sigma} = \mathbb{E}(u_{t}u'_{t})$. 
+Donde $w_{t}(\boldsymbol{\beta})=\boldsymbol{\beta}'\mathbf{x}_{t-1}$. La regresora $\mathbf{x_{t-1}}(\boldsymbol{\beta})$ tiene dimensión $k\times 1$ y $\mathbf{A}$ tiene dimensión $k\times p$ donde $k=pl+2$. El término de error $\boldsymbol{\varepsilon}_{t}$ se distribuye de la misma manera asumida anteriormente, es decir, tiene  covarianza finita, $\boldsymbol{\Omega} = \mathbb{E}(\boldsymbol{\varepsilon}_{t}\boldsymbol{\varepsilon}'_{t})$. 
 
-La notación $w_{t-1}(\boldsymbol{\beta})$ y $\mathbf{x}_{t-1}(\boldsymbol{\beta})$ indica que las variables son evaluadas en valores genéricos de $\boldsymbol{\beta}$. Cuando sean evaluadas en los verdaderos valores del vector cointegrante, se denota como $w_{t-1}$ y $\mathbf{x}_{t-1}$, respectivamente. 
+La notación $w_{t-1}(\boldsymbol{\beta})$ y $\mathbf{x}_{t-1}(\boldsymbol{\beta})$ indica que las variables son evaluadas en valores genéricos de $\boldsymbol{\beta}$. Cuando sean evaluadas en los verdaderos valores del vector cointegrante, se denota como $w_{t-1}$ y $\mathbf{x}_{t-1}$, respectivamente\footnote{Es importante notar que para este modelo, no se utiliza la versión concentrada, pues como se verá más adelante, los coeficientes que describen la dinámica de corto plazo del proceso también dependerán del régimen escogido}. 
 
-Para la identificación del vector cointegrante es necesario imponer 
+Como una extensión del modelo anterior, puede escribirse el modelo TVECM de la siguiente forma: 
+
+\begin{defin}
+\begin{equation}
+\Delta \mathbf{x}_{t} = \begin{cases} 
+\mathbf{A}_{1}'\mathbf{X}_{t-1}(\boldsymbol{\beta})+\boldsymbol{\varepsilon}_{t} & \text{si }w_{t-1}\boldsymbol{\beta}\leq \gamma \\ 
+\mathbf{A}_{2}'\mathbf{X}_{t-1}(\boldsymbol{\beta})+\boldsymbol{\varepsilon}_{t} & \text{si }w_{t-1}\boldsymbol{\beta}> \gamma
+\end{cases}
+\end{equation}
+
+Donde $\gamma$ es el parámetro que determina el umbral a partir del cual ocurre el cambio de estructura del modelo. 
+\end{defin}
+
+El modelo anterior puede representarse de manera más sucinta utilizando variables indicadoras: 
+
+\begin{equation}
+\Delta \mathbf{x}_{t} = \mathbf{A}_{1}'\mathbf{X}_{t-1}(\boldsymbol{\beta})d_{1t}(\boldsymbol{\beta},\gamma)+\mathbf{A}_{2}'\mathbf{X}_{t-1}(\boldsymbol{\beta})d_{2t}(\boldsymbol{\beta},\gamma)+\boldsymbol{\varepsilon}_{t}
+\end{equation}
+
+Donde 
+
+\begin{align}
+d_{1t} & = 1(w_{t-1}(\boldsymbol{\beta})\leq \gamma) \\
+d_{2t} & = 1(w_{t-1}(\boldsymbol{\beta})> \gamma) 
+\end{align}
+
+El efecto del umbral sólo tiene sentido si $0<\mathbb{P}(w_{t-1}\leq \gamma)<1$. Lo que se puede representar a través de la siguiente restricción: 
+\begin{equation}
+\pi_{0}\leq \mathbb{P}(w_{t-1}\leq \gamma)\leq 1-\pi_{0}
+\end{equation}
+Donde $\pi_{0}>0$ es un parámetro que restringe el espacio del parámetro $\gamma$, para las aplicaciones dicho parámetro suele fijarse en $\pi_{0}=0.05$. Luego el modelo puede estimarse por el método de máxima verosimilitud, siendo la función a maximizar la siguiente:
+
+\begin{equation}
+\mathcal{L}(\mathbf{A_{1},A_{2}},\boldsymbol{\Omega,\beta},\gamma) = -
+\frac{T}{2}\log |\hat{\boldsymbol{\Omega}}|-\frac{1}{2}\sum_{t=1}^{T}\varepsilon_{t}(\mathbf{A_{1},A_{2}},\boldsymbol{\Omega,\beta},\gamma)'\boldsymbol{\Omega}^{-1}\boldsymbol{\varepsilon}_{t}(\mathbf{A_{1},A_{2}},\boldsymbol{\Omega,\beta},\gamma)
+\end{equation}
+
+Para efectos prácticos, resulta útil resolver la ecuación anterior para los estimadores de la dinámica de corto plazo como funciones de los parámetros $(\boldsymbol{\beta},\gamma)$. De manera que las estimaciones OLS son las siguientes: 
+\begin{align}
+\hat{\mathbf{A}}_{1}(\boldsymbol{\beta},1) & = \left(\sum_{t=1}^{T}\mathbf{X}_{t-1}(\boldsymbol{\beta})\mathbf{X}_{t-1}(\boldsymbol{\beta})'d_{1t}(\boldsymbol{\beta},\gamma)\right)^{-1}\left(\sum_{t=1}^{T}\mathbf{X}_{t-1}(\boldsymbol{\beta})\Delta\mathbf{x}_{t-1}(\boldsymbol{\beta})'d_{1t}(\boldsymbol{\beta},\gamma)\right) \\
+\hat{\mathbf{A}}_{2}(\boldsymbol{\beta},1) & = \left(\sum_{t=1}^{T}\mathbf{X}_{t-1}(\boldsymbol{\beta})\mathbf{X}_{t-1}(\boldsymbol{\beta})'d_{2t}(\boldsymbol{\beta},\gamma)\right)^{-1}\left(\sum_{t=1}^{T}\mathbf{X}_{t-1}(\boldsymbol{\beta})\Delta\mathbf{x}_{t-1}(\boldsymbol{\beta})'d_{2t}(\boldsymbol{\beta},\gamma)\right) \\
+\hat{\boldsymbol{\varepsilon}}_{t}(\boldsymbol{\beta},\gamma) & =\boldsymbol{\varepsilon}_{t}(\hat{\mathbf{A}}_{1}(\boldsymbol{\beta},\gamma),\hat{\mathbf{A}}_{2}(\boldsymbol{\beta},\gamma),\boldsymbol{\beta},\gamma) \\ 
+\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta},\gamma) & = \frac{1}{T}\sum_{t=1}^{T}\hat{\boldsymbol{\varepsilon}}_{t}(\boldsymbol{\beta},\gamma)\hat{\boldsymbol{\varepsilon}}_{t}(\boldsymbol{\beta},\gamma)'
+\end{align}
+
+Luego los estimadores de máxima verosimilitud son $\hat{\mathbf{A}}_{1}=\hat{\mathbf{A}}_{1}(\hat{\boldsymbol{\beta}},\hat{\gamma})$ y $\hat{\mathbf{A}}_{2}=\hat{\mathbf{A}}_{2}(\hat{\boldsymbol{\beta}},\hat{\gamma})$. Este procedimiento no da pie a una solución analítica para encontrar los parámetros $(\boldsymbol{\beta},\gamma)$, por lo que se suele utilizar una \textit{gridsearch}, que puede entenderse como una búsqueda exhaustiva de los parámetros a través de tanteo. Esto implica que la búsqueda sólo ha de realizarse sobre la base de un modelo con dos variables $k=2$, y teniendo en cuenta la normalización para la identificación del vector cointegrante, se tiene que sólo se pueden buscar dos parámetros: $\boldsymbol{\beta}=(1,\beta)$ y $\gamma$. De utilizarse más variables endógenas el proceso de búsqueda se vuelve demasiado costoso computacionalmente. 
+
+Aún así, para disminuir el tiempo de búsqueda se suelen exponer diferentes restricciones. Por ejemplo, se sugiere utilizar como punto de referencia para $\beta$ la estimación del modelo lineal y para el caso de $\gamma$ utilizar el soporte empírico de la relación de cointegración obtenida a través de la estimación del modelo \textbf{VECM}.
+
+El proceso de estimación puede resumirse en los siguientes pasos: 
+
+\begin{enumerate}
+\item Determinar los posibles valores de los parámetros estableciendo un intervalo de búsqueda dado por $[\gamma_{L},\gamma_{U}]$ y $[\beta_{L},\beta_{U}]$ basándose en la estimación lineal $\tilde{\beta}$ y el soporte de la relación de cointegración. 
+\item Para cada par $(\beta,\gamma)$ sobre el espacio de búsqueda, evaluar $\hat{\mathbf{A}}_{1}(\beta,\gamma),\hat{\mathbf{A}}_{2}(\beta,\gamma)$, y $\hat{\boldsymbol{\Omega}}(\beta,\gamma)$
+\item Encontrar los estimadores $(\hat{\beta},\hat{\gamma})$ como los valores de $(\beta,\gamma)$ sobre el espacio de búsqueda que lleva al valor más pequeño de la expresión $\log|\hat{\boldsymbol{\Omega}}(\beta,\gamma)|$
+\item Fijar $\hat{\boldsymbol{\Omega}} = \hat{\boldsymbol{\Omega}}(\hat{\beta},\hat{\gamma})$
+\end{enumerate}
 
 \subsection{El contraste de Hansen \& Seo (2002)}
 
+Para determinar la presencia de un efecto umbral en la relación de integración se plantea el problema bajo las siguientes hipótesis: 
+
 \subsection{Función de impulso respuesta no lineal}
 
-Mencionar que para obtener los intervalos de confianza en este contexto se deben utilizar métodos de bootstraping y citar a Kreiss \& Lahiri (2012)
+Mencionar que para obtener los intervalos de confianza en este contexto se deben utilizar métodos de bootstraping y citar a Kreiss \& Lahiri (2012) y también a Koop, Pesaran \& Potter (1996)
 
 \section{Imputación de datos faltantes a través del filtro de Kalman}
 CITAR A Durbin y Koopman (2012)
@@ -1820,6 +1866,8 @@ ARCH (Multivariado) & 144.4 & 81 & 1.89$\times 10^{-5}$ \\
 
 Los contrastes y estimaciones de esta sección fueron realizadas a través del paquete \texttt{tsDyn} de Di Narzo, Aznarte \& Stigler(2009).
 
+El paquete \texttt{tsDyn} y la función asociada a este, \texttt{TVECM.HStest} no permiten utilizar una constante en la relación de cointegración, por lo que para esto se debió modificar ligeramente el código original de la función recién mencionada, pues como ha sido descrito en el capítulo 3, la estimación del modelo VECM se construye sobre al base de un modelo lineal, por lo que sólo bastó con incorporar la constante en la estimación del primer paso. 
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
@@ -1932,7 +1980,7 @@ Ben-Kaabia, M., \& Gil Roig, J. M. (2008). Asimetrías en la transmisión de pre
 
 Box, G. E., Jenkins, G. M., Reinsel, G. C., \& Ljung, G. M. (2015). Time series analysis: forecasting and control. John Wiley \& Sons.
 
-Di Narzo, A. F., Aznarte, J. L., \& Stigler, M. (2009). tsDyn: Time series analysis based on dynamical systems theory. R package version 0.7.(URL: http://stat. ethz. ch/CRAN/web/packages/tsDyn/vignettes/tsDyn. pdf}.
+Di Narzo, A. F., Aznarte, J. L., \& Stigler, M. (2009). tsDyn: Time series analysis based on dynamical systems theory. R package version 0.7.(URL: \texttt{http://stat. ethz. ch/CRAN/web/packages/tsDyn/vignettes/tsDyn.pdf}.
 
 Durbin, J., \& Koopman, S. J. (2012). Time series analysis by state space methods (Vol. 38). OUP Oxford.
 
@@ -1940,21 +1988,25 @@ Hansen, B. E., \& Seo, B. (2002). Testing for two-regime threshold cointegration
 
 Hyndman, R. J., \& Khandakar, Y. (2007). Automatic time series for forecasting: the forecast package for R (No. 6/07). Monash University, Department of Econometrics and Business Statistics.
 
+Koop, G., Pesaran, M. H., \& Potter, S. M. (1996). Impulse response analysis in nonlinear multivariate models. Journal of econometrics, 74(1), 119-147.
+
+Johansen, S., Danielsdottir, A. K., Kristinsson, K., Petersen, P. H., \& Naevdal, G. (1996). Likelihood-Based Inference in Cointegrated Vector Autoregressive Models. Oxford University Press
+
 Juselius, K. (2006). The cointegrated VAR model: methodology and applications. Oxford university press.
 
 Kreiss, J. P., \& Lahiri, S. N. (2012). Bootstrap methods for time series. In Handbook of statistics (Vol. 30, pp. 3-26). Elsevier.
 
-Lo, M. C., & Zivot, E. (2001). Threshold cointegration and nonlinear adjustment to the law of one price. Macroeconomic Dynamics, 5(4), 533-576.
+Lo, M. C., \& Zivot, E. (2001). Threshold cointegration and nonlinear adjustment to the law of one price. Macroeconomic Dynamics, 5(4), 533-576.
 
-Lütkepohl, H. (2005). New introduction to multiple time series analysis. Springer Science & Business Media.
+Lütkepohl, H. (2005). New introduction to multiple time series analysis. Springer Science \& Business Media.
 
-Meyer, J., & Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
+Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
 
  Pfaff, B. (2008). VAR, SVAR and SVEC models: Implementation within R package vars. Journal of Statistical Software, 27(4), 1-32.
 
 R Core Team (2017). R: A language and environment for statistical computing.
   R Foundation for Statistical Computing, Vienna, Austria. URL
-  https://www.R-project.org/.
+  \texttt{https://www.R-project.org/}.
 
   
 \chapter{Anexo}
