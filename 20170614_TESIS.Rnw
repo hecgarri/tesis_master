@@ -938,8 +938,52 @@ El proceso de estimación puede resumirse en los siguientes pasos:
 \end{enumerate}
 
 \subsection{El contraste de Hansen \& Seo (2002)}
+Sea $\mathcal{H}_{0}$ la clase de modelos lineales \textbf{VECM} y $\mathcal{H}_{1}$ la clase de modelos de umbrales de dos regímenes\footnote{Nótese que en esta sección se utiliza el modelo bivariado, razón por lo cual se deja de utilizar notación $\boldsymbol{\beta}$ que denota una matriz y se utiliza solamente $\beta$, que denota un solo parámetros, pues se asume además que el vector cointegrante ha sido normalizado}. Cabe notar que ambos modelos estan anidados, por lo que un modelo lineal será un modelo de dos regimenes en que se cumpla que $\mathbf{A}_{1}=\mathbf{A}_{2}$. El objeto de esta sección es entonces determinar como contrastar la evidencia estadística a favor de cointegración lineal o bien de cointegración por umbrales.  
 
-Para determinar la presencia de un efecto umbral en la relación de integración se plantea el problema bajo las siguientes hipótesis: 
+En primersa instancia se asume que los parámetros $(\beta,\gamma)$ son fijos y conocidos. El modelo bajo $\mathcal{H}_{0}$ es el siguiente: 
+
+\begin{equation}
+\Delta \mathbf{x}_{t} = \mathbf{A}'\mathbf{X}_{t-1}(\beta)+\boldsymbol{\varepsilon}_{t}
+\end{equation}
+y bajo $\mathcal{H}_{1}$
+
+\begin{equation}
+\Delta \mathbf{x}_{t} = \mathbf{A}_{1}'\mathbf{X}_{t-1}(\beta)d_{1t}(\beta,\gamma)+\mathbf{A}_{2}'\mathbf{X}_{t-1}(\beta)d_{2t}(\beta,\gamma)+\boldsymbol{\varepsilon}_{t}
+\end{equation}
+
+Al asumir ambos parámetros de interés conocidos, el modelo se vuelve lineal, por lo que el estimador de máxima verosimilitud coincide con el de mínimos cuadrados. Siguiendo este mismo razonamiento, se puede utilizar un contraste de tipo multiplicador de lagrange (LM) que sea robusto a problemas de heteroscedasticidad. Para estos fines se cambia ligeramenta la notación. Sean $\mathbf{X}_{1}(\beta,\gamma)$ y $\mathbf{X}_{2}(\beta,\gamma)$ matrices formadas por los vectores apilados de $\mathbf{X}_{t-1}(\beta)d_{1t}(\beta,\gamma)$ y $\mathbf{X}_{t-1}(\beta)d_{2t}(\beta,\gamma)$, respectivamente. Sean además $\boldsymbol{\xi}_{1}(\beta,\gamma)$ y $\boldsymbol{\xi}_{2}(\beta,\gamma)$ matrices de las filas apiladas $\tilde{\boldsymbol{\varepsilon}}_{t}\otimes \mathbf{X}_{t-1}(\beta)d_{1t}(\beta,\gamma)$ y $\tilde{\boldsymbol{\varepsilon}}_{t}\otimes \mathbf{X}_{t-1}(\beta)d_{2t}(\beta,\gamma)$, respectivamente. Con $\tilde{\boldsymbol{\varepsilon}}_{t}$ representando los residuos de un modelo \textbf{VECM} lineal. Luego se define el producto externo:
+
+\begin{align}
+\mathbf{M}_{1}(\beta,\gamma) & = \mathbf{I}_{p}\otimes \mathbf{X}_{1}(\beta,\gamma)'\mathbf{X}_{1}(\beta,\gamma) \\
+\mathbf{M}_{2}(\beta,\gamma) & = \mathbf{I}_{p}\otimes \mathbf{X}_{2}(\beta,\gamma)'\mathbf{X}_{2}(\beta,\gamma) 
+\end{align}
+
+y 
+
+\begin{align}
+\boldsymbol{\Xi}_{1}(\beta,\gamma) & = \xi_{1}(\beta,\gamma)'\xi_{1}(\beta,\gamma) \\ 
+\boldsymbol{\Xi}_{2}(\beta,\gamma) & = \xi_{2}(\beta,\gamma)'\xi_{2}(\beta,\gamma) \\ 
+\end{align}
+Acto seguido se puede definir las matrices $\hat{\mathbf{V}}_{1}(\beta,\gamma)$ y $\hat{\mathbf{V}}_{2}(\beta,\gamma)$, como estimadores de la varianza al \textit{textit} Eicker-White
+
+\begin{align}
+\hat{\mathbf{V}}_{1}(\beta,\gamma) & = \mathbf{M}_{1}(\beta,\gamma)^{-1}\Xi_{1}(\beta,\gamma)\mathbf{M}_{1}(\beta,\gamma)^{-1}\\ 
+\hat{\mathbf{V}}_{2}(\beta,\gamma) & = \mathbf{M}_{1}(\beta,\gamma)^{-1}\Xi_{1}(\beta,\gamma)\mathbf{M}_{1}(\beta,\gamma)^{-1}
+\end{align}
+
+Lo que lleva a un estimador LM resistente a problemas de heteroscedasticidad: 
+
+\begin{equation}
+LM(\beta,\gamma) = vec(\hat{\mathbf{A}}_{1}(\beta,\gamma)-\hat{\mathbf{A}}_{1}(\beta,\gamma))'(\hat{\mathbf{V}}_{1}(\beta,\gamma)+\hat{\mathbf{V}}_{2}(\beta,\gamma))^{-1}vec(\hat{\mathbf{A}}_{1}(\beta,\gamma)-\hat{\mathbf{A}}_{1}(\beta,\gamma))
+\end{equation}
+
+Si $\beta$ y $\gamma$ fueran conocidos, éste sería el estadístico. Pero, dado que no lo son, el estadístico debe ser evaluado bajo $\mathcal{H}_{0}$. El estimador de $\beta$ ha usarse será el proveniente del modelo lineal $\tilde{\beta}$, pero no existe un estimador de $\gamma$ bajo $\mathcal{H}_{0}$, por lo que, como señalan Hansen \& Seo (2012), se utiliza el criterio de unión intersección  que propone utilizar como estadístico
+
+\begin{equation}
+SupLM = \underset{\gamma_{L}\leq \gamma <\gamma_{U}}{sup}LM(\tilde{\beta},\gamma)
+\end{equation}
+
+Luego la distribución de este contraste tiene una distribución no estándar, para mayor detalle referirse a Hansen \& Seo (2002)
 
 \subsection{Función de impulso respuesta no lineal}
 
@@ -1985,10 +2029,10 @@ TVECM_rest = function (data, lag = 1, ngridTh = 300, trim = 0.05, nboot = 100,
   x <- DeltaX
   t <- nrow(y)
   if (is.null(fixed.beta)) {
-    ve <- VECM(data, lag = lag, include = "const", estim = "ML")
+    ve <- VECM(data, lag = lag, LRinclude = "const", estim = "ML")
   }
   else {
-    ve <- VECM(data, lag = lag, include = "const", beta = fixed.beta, 
+    ve <- VECM(data, lag = lag, LRinclude = "const", beta = fixed.beta, 
                estim = "2OLS")
   }
   beta <- ve$model.specific$coint[2, 1]
@@ -2123,11 +2167,11 @@ TVECM_rest = function (data, lag = 1, ngridTh = 300, trim = 0.05, nboot = 100,
       lmtest_with_resBoot <- function(ve) {
         data.boot <- TVECM.sim(TVECMobject = ve, type = "boot")
         if (is.null(fixed.beta)) {
-          ve.boot <- VECM(data.boot, lag = lag, include = "const", 
-                          estim = "ML",beta0 = rep(1,dim(data)[1,]))
+          ve.boot <- VECM(data.boot, lag = lag, LRinclude = "const", 
+                          estim = "ML")
         }
         else {
-          ve.boot <- VECM(data.boot, lag = lag, include = "const", 
+          ve.boot <- VECM(data.boot, lag = lag, LRinclude = "none", 
                           beta = fixed.beta, estim = "2OLS")
         }
         ect.boot <- ve.boot$model[, "ECT"]
@@ -2185,7 +2229,7 @@ El modelo ha sido estimado con una constante en la relación de cointegración
 
 if (!require(tsDyn)) install.packages("tsDyn")
 
-mono = TVECM(datos, lag=8, nthresh = 1, trim=0.05, ngridBeta = 100, ngridTh = 200, plot=TRUE, include=c("none"), common = "All", beta = list(int = c(-0.5,1.5),beta0 = rep(1,nrow(datos))))
+mono = TVECM(datos[,c(2,1)], lag=8, nthresh = 1, trim=0.05, ngridBeta = 200, ngridTh = 200, plot=TRUE, include=c("none"), common = "All", beta = list(int = c(-0.5,1.5)), beta0=rep(1,dim(datos)[1]))
 
 @
 
