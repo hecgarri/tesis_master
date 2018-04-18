@@ -55,6 +55,8 @@ graph_rotate <- 0	# set to 1 to generate rotated graphs
 # Load your own data into matrix "dat" #
 # Here we load in the 3-month and 6-month T-Bill series #
 
+rm(list=ls())
+setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master/Hansen_programs")
 dat <- read.table("zeroyld.dat")
 dat <- dat[1:nrow(dat),(7:62)]
 rs <- rbind(as.matrix(seq(0,18,1)),21,24,30,as.matrix(seq(36,(36+7*12),12)))
@@ -62,7 +64,7 @@ short <- 12
 long <- 120
 short_i <- which.max(rs==short)
 long_i <- which.max(rs==long)
-dat <- dat[,cbind(long_i,short_i)]   
+dat <- dat[,cbind(long_i,short_i)]   # Esto es sólo para seleccionar las columnas. 
 
 #*************************************************************#
 #   MAIN PROGRAM                                              #
@@ -90,17 +92,17 @@ cat ("\n")
 
 # Organize Data #
 n <- nrow(dat)
-y <- as.matrix(dat[(2+k):n,]-dat[(1+k):(n-1),])
+y <- as.matrix(dat[(2+k):n,]-dat[(1+k):(n-1),]) # Equivalente al operador de diferencias.
 t <- nrow(y)
-xlag <- as.matrix(dat[(1+k):(n-1),])
-x <- matrix(1,t,1)
-for (j in 1:k)  x <- cbind(x,(dat[(2+k-j):(n-j),]-dat[(1+k-j):(n-1-j),]))
+xlag <- as.matrix(dat[(1+k):(n-1),]) # variable rezagada
+x <- matrix(1,t,1) # intercepto
+for (j in 1:k)  x <- cbind(x,(dat[(2+k-j):(n-j),]-dat[(1+k-j):(n-1-j),])) # matriz de datos
 x <- as.matrix(x)
 
 # Compute Linear Model #
 xx <- solve(t(x)%*%x)
 xxx <- x%*%xx
-u <- y-x%*%xx%*%(t(x)%*%y)
+u <- y-x%*%xx%*%(t(x)%*%y) # este paso involucra al estimador OLS, lleva al modelo concentrado
 if (coint==1){
   v <- xlag-x%*%xx%*%(t(x)%*%xlag)
   uu <- t(u)%*%u
@@ -109,21 +111,21 @@ if (coint==1){
   va <- ev$val
   ve <- ev$vec
   h <- ve[,which.max(va)]
-  b0 <- -h[2]/h[1]
+  b0 <- -h[2]/h[1] # aquí es donde se procede a normalizar el vector
 }else{
   b0 <- cvalue
 }
-w0 <- as.matrix(xlag%*%rbind(1,-b0))
-z0 <- cbind(w0,x)
+w0 <- as.matrix(xlag%*%rbind(1,-b0)) # Esta es la relación de cointegración o ECM
+z0 <- cbind(w0,x) # Este es la matriz con los términos apilados
 kk <- ncol(z0)
 zz0 <- solve(t(z0)%*%z0)
 zzz0 <- z0%*%zz0
-beta0 <- t(zzz0)%*%y 
+beta0 <- t(zzz0)%*%y # esta matriz permite mirar los términos de corto plazo. 
 e <- y - z0%*%beta0 
-sige <- t(e)%*%e/t 
-nlike <- (t/2)*log(det(sige))
-bic <- nlike+log10(t)*4*(1+k)
-aic <- nlike+2*4*(1+k)
+sige <- t(e)%*%e/t # Matriz de covarianza estimada
+nlike <- (t/2)*log(det(sige)) # Función de verosimilitud 
+bic <- nlike+log10(t)*4*(1+k) # criterio bic 
+aic <- nlike+2*4*(1+k) # criterio aic
 b_like <- function(b){
   z <- cbind((xlag%*%rbind(1,-b)),x) 
   yz <- y - z%*%qr.solve(z,y)
