@@ -226,21 +226,60 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 
 \chapter{Transmisión de precios}
 
+Si la transmisión de precios es perfecta, puede afirmarse que la elasticidad de los precios al consumidor ($P_{t}^{c}$) con respecto a los precios al productor ($P_{t}^{p}$) debe ser unitaria. Es decir: 
+
+\begin{align}
+\log P_{t}^{c} & = \beta_{0}+\beta_1 \log(P_{t}^{p}) \\ 
+P_{t}^{c} & = \exp\{\beta_{0}+ \log([P_{t}^{p}]^{\beta_{1}})\} \\
+P_{t}^{c} & = \exp\{\beta_{0}\}[P_{t}^{P}]^{\beta_1} \label{margen}
+\end{align}
+
+Tal y como señalan Tiffin \& Dawson (2001), si $\beta_{1}=1$, entonces el margen comercial se obtiene como $e^{\beta0}-1$
 Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
 
 
 \chapter{Modelos y contrastes estadísticos utilizados en esta tesis}
 
-En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de Bde los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
+En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de de los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
 
-\section{Pronósticos de una serie temporal según la metodología Box-Jenkins}
+\section{Modelos univariados de series de tiempo}
 
-EN ESTE APARTADO DEBO CITAR EL LIBRO DE BOX JENKINS Y REINSEL
+Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
+
+\begin{defin}
+Un \textbf{proceso de ruido blanco} es un proceso generador de datos $\varepsilon_{t}$ tal que $\mathbb{E}(\varepsilon_{t})=0$, $\mathbb{E}(\varepsilon_{t}^{2})=\sigma^{2}\quad \forall t$ y $\mathbb{E}(\varepsilon_{t}\varepsilon_{\tau})\neq 0\quad \forall t\neq \tau$. Si además se presume que $\varepsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$, se denomina \textbf{proceso de ruido blanco gaussiano}
+\end{defin}
+
+\begin{defin}
+Una serie de tiempo $x_{t}$ sigue un proceso \textbf{ARMA(p,q)} si 
+\begin{equation}
+x_{t}  = c +\phi x_{t-1}+...+\phi x_{t-p}+\varepsilon_{t}+\theta_{1}\varepsilon_{t-1}+...+\theta_{q}\varepsilon_{t-q}
+\end{equation}
+
+Donde $c$ es una constante, $p$ y $q$ son enteros no negativos, $\phi_{p}\neq 0,\quad \theta_{q}\neq 0$ y $\varepsilon_{t}$ es un proceso de ruido blanco. El entero $p$ determina el orden los términos autoregresivos, mientras que $q$ determina el orden de términos de media móvil.   
+
+\end{defin}
+
+Utilizando el operador de rezagos $L$ definido como $Lx_{t}=x_{t-1}$, el modelo puede ser expresado como 
+\begin{equation}
+(1-\phi_{1}L-...-\phi_{p}L^{p})x_{t} = c+(1+\theta_{1}L+...+\theta_{q}L^{q})\varepsilon_{t}
+\end{equation}
+
+\begin{defin}
+Una serie de tiempo se denomina \textbf{ARIMA(p,d,q)} si 
+\begin{equation}
+\bigtriangledown^{d}x_{t} = (1-B)^{d}x_{t} 
+\end{equation}
+es un proceso \textbf{ARMA}(p,q)
+\end{defin}
+
+Existen varias maneras de estimar los parámetros de este modelo, aunque más adelante en esta tesis se muestra como estimarlo utilizando el filtro de Kalman.
 
 \section{Contrastes de raíz unitaria/estacionariedad}
+
 \subsection{Contraste de Dickey-Fuller Aumentado}
 
-El contraste más utilizado en la investigación aplicada, dada su simplicidad, es el contraste propuesto por \cite{fuller1976} y \cite{dickey1981}. Para aplicar este contraste existen dos posibles modelos 
+El contraste más utilizado en la investigación aplicada, dada su simplicidad, es el contraste propuesto por Dickey \& Fuller (1979,1981) y . Para aplicar este contraste existen dos posibles modelos 
 
 Si $y_{t}$ satisface la siguiente ecuación
 
@@ -257,7 +296,7 @@ y_{t} = \alpha+\beta\left(t-1-\frac{1}{2}n\right)+\rho y_{t-1}+\epsilon_{t}\qqua
 \end{equation}
 Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$. 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Hipótesis del contraste de Dickey-Fuller}
@@ -288,9 +327,9 @@ Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$.
 \end{threeparttable}
 \end{table}
 
-\subsection{Contraste de Phillips Perron (1992)}
+\subsection{Contraste de Phillips-Perron}
 
-De manera similar al contraste anterior \cite{phillips1988} proponen un contraste no paramétrico para la hipótesis nula de raíz unitaria. A diferencia del contraste de Dickey Fuller este contraste resiste dependencia débil y heteroscedasticidad del término de error. El contraste está construido sobre la base de las siguientes formas funcionales: 
+De manera similar al contraste anterior Phillips \& Perron (1988) proponen un contraste no paramétrico para la hipótesis nula de raíz unitaria. A diferencia del contraste de Dickey Fuller este contraste resiste dependencia débil y heteroscedasticidad del término de error. El contraste está construido sobre la base de las siguientes formas funcionales: 
 
 \begin{align}
 y_{t} & = \mu+\alpha y_{t-1}+\varepsilon_{t}, \\ 
@@ -1034,6 +1073,8 @@ Si $\beta$ y $\gamma$ fueran conocidos, éste sería el estadístico. Pero, dado
 SupLM = \underset{\gamma_{L}\leq \gamma <\gamma_{U}}{sup}LM(\tilde{\beta},\gamma)
 \end{equation}
 
+Luego la distribución de este contraste tiene una distribución no estándar, para mayor detalle referirse a Hansen \& Seo (2002)
+
 \subsection{Función de impulso respuesta no lineal}
 
 Mencionar que para obtener los intervalos de confianza en este contexto se deben utilizar métodos de bootstraping y citar a Kreiss \& Lahiri (2012) y también a Koop, Pesaran \& Potter (1996)
@@ -1048,28 +1089,9 @@ CITAR A Durbin y Koopman (2012)
 
 \chapter{Metodología y Datos}
 
-\section{Fuentes de información}
 
 
 
-
-\chapter{Resultados}
-
-En este capítulo se muestra una aplicación
-
-Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017).
-
-\section{Imputación de valores perdidos}
-
-
-
-
-
-Dada la frecuencia relativamente alta de los datos, se tiene un número relativamente importante de observaciones faltantes. Para solucionar este problema se procedió a estimar un modelo ARIMA a través comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007).
-
-
-
-A continuación se presentan los resultados de la estimación para ambos modelos: 
 
 
 \begin{knitrout}
@@ -1087,14 +1109,81 @@ A continuación se presentan los resultados de la estimación para ambos modelos
 
 
 
+
+\chapter{Resultados}
+
+En este capítulo se muestra una aplicación
+
+Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017).
+
+\section{Imputación de valores perdidos}
+
+
+Dada la frecuencia relativamente alta de los datos, se tiene un número importante de observaciones faltantes. Para solucionar este problema se estima un modelo ARIMA(p,d,q) en su formulación de espacio estado a través del comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007).Cabe destacar que el análisis aquí desarrollado utiliza el logaritmod e las series originales con el fin de estabilizar la varianza de éstas.
+
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
 
-{\centering \includegraphics[width=6.5in,height=4.5in]{figure/fig-2-1} 
+{\centering \includegraphics[width=6.5in,height=3.5in]{figure/fig-2-1} 
 
 }
 
-\caption[Imputación de valores perdidos a través del filtro de Kalman]{Imputación de valores perdidos a través del filtro de Kalman}\label{fig:fig-2}
+\caption[Evolución de precios del palta Hass de primera calidad,2008-2016]{Evolución de precios del palta Hass de primera calidad,2008-2016}\label{fig:fig-2}
+\end{figure}
+
+
+\end{knitrout}
+
+A continuación se presentan los resultados de la estimación para ambos modelos: 
+
+
+
+En la tabla \ref{tab:Kalman} se pueden observar los resultados de la estimación para ambas series. 
+\begin{center}
+\begin{table}[!htbp]
+\caption{Modelos ARIMA para las series univariadas\label{tab:Kalman}}
+\centering
+\begin{threeparttable}
+\begin{tabular}{@{}lllll@{}}
+\toprule \\
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Serie mayoristas$^{a}$} &
+\multicolumn{2}{c}{Serie supermercados$^{a}$} \\
+\cmidrule(l){2-3} \cmidrule(l){4-5} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Coeficientes} &
+ \multicolumn{1}{c}{Error estándar} &
+\multicolumn{1}{l}{Coeficientes}&
+\multicolumn{1}{l}{Error estándar}
+\\
+\midrule
+$\mu       $ &        &          & 0.0015   &  0.0022 \\
+$\phi_{1}  $ & 0.1733 &  0.0448  &          &          \\
+$\theta_{1}$ &        &          &          &           \\
+AIC          & \multicolumn{2}{c}{-992.72}  & \multicolumn{2}{c}{-1519.81} \\
+BIC          & \multicolumn{2}{c}{-1519.81} & \multicolumn{2}{c}{-1511.41} \\
+\bottomrule 
+\end{tabular}
+\begin{tablenotes}
+\small 
+\item $^{a}$: modelo ARIMA(1,1,0) : $\Delta x_{t}=\phi_{1}x_{t-1}+\varepsilon_{t}$. 
+\item $^{b}$: modelo ARIMA(0,1,0) : $\Delta x_{t}=\mu+\varepsilon_{t}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\end{center}
+
+De aquí se desprende que ambas series son $I(1)$, aunque se ahondará en este asunto en la sección posterior. 
+
+Posteriormente, se procede a estimar los valores perdidos de ambas series a través del Filtro de Kalman utilizando el comando \texttt{KalmanRun} del paquete \texttt{base}. Los 
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+
+{\centering \includegraphics[width=6.5in,height=4.5in]{figure/fig-3-1} 
+
+}
+
+\caption[Imputación de valores perdidos a través del filtro de Kalman]{Imputación de valores perdidos a través del filtro de Kalman}\label{fig:fig-3}
 \end{figure}
 
 
@@ -1105,17 +1194,16 @@ A continuación se presentan los resultados de la estimación para ambos modelos
 
 Para analizar el orden de integración de las series es de utilidad usar herramientas gráficas que entreguen cierta orientación sobre el comportamiento de las series antes de realizar un análisis formal a través de contrastes de hipótesis. 
 
-Cabe señalar que, como un intento de estabilizar la varianza de las series, estas serán trabajadas en logaritmo.
 
 \subsubsection{Análisis de las series en nivel}
 
-En el caso del logaritmo de los precios mayoristas de la palta, puede apreciarse una media no constante, aunque lo mismo no es directamente apreciable  para la varianza. Por otro lado, su correlograma muestra autocorrelaciones significativas más allá de 52 períodos de rezago, lo que permite afirmar que el proceso tendría una memoria prolongada y que por tanto, no es estacionario (Véase figura \ref{fig5.1}).
+En el caso del logaritmo de los precios mayoristas de la palta, puede apreciarse una media no constante, aunque lo mismo no es directamente apreciable  para la varianza. Por otro lado, su correlograma muestra autocorrelaciones significativas más allá de 52 períodos de rezago, lo que permite afirmar que el proceso posiblemente pueda contener raíces unitarias y que por tanto, no es estacionario (Véase figura \ref{fig5.1}).
 
 Para el caso de la serie del logaritmo del precio de la palta en supermercados, se puede observar un comportamiento bastante similar. Es decir, una media que no es constante debido a una tendencia, cuya naturaleza se determina más adelante; y una memoria prolongada al observar el correlograma correspondiente (Véase figura \ref{fig5.2}).  
 
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=4.5in,height=3.5in]{figure/fig-2_1-1} 
 
@@ -1129,7 +1217,7 @@ Para el caso de la serie del logaritmo del precio de la palta en supermercados, 
 
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=4.5in,height=3.5in]{figure/fig-2_2-1} 
 
@@ -1143,13 +1231,13 @@ Para el caso de la serie del logaritmo del precio de la palta en supermercados, 
 
 \subsubsection{Análisis de las series en diferencias}
 
-A continuación se procedió a diferenciar las series, pues existe la sospecha de la presencia de raíz unitaria en ambas, cuestión que será determinada más adelante.
+A continuación se procede a diferenciar las series, pues sobre la base de lo expuesto en la sección anterior, existe la sospecha de la presencia de raíces unitaria en ambas, cuestión que será determinada más adelante.
 
 Al analizar las figuras \ref{fig5.3} y \ref{fig5.4} se observan algunos rezagos significativos en el correlograma, lo que puede servir de orientación para determinar el orden de integración de las series. A pesar de lo anterior, se observa de todas maneras que el comportamiento de la varianza no es estable a lo largo del tiempo en ambos casos.  
 
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=4.5in,height=3.5in]{figure/fig-2_3-1} 
 
@@ -1163,7 +1251,7 @@ Al analizar las figuras \ref{fig5.3} y \ref{fig5.4} se observan algunos rezagos 
 
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=4.5in,height=3.5in]{figure/fig-2_4-1} 
 
@@ -1179,16 +1267,17 @@ Al analizar las figuras \ref{fig5.3} y \ref{fig5.4} se observan algunos rezagos 
 
 \subsection{Contrastes de raíz unitaria}
 
-\subsubsection{Análisis de las series originales}
-Para determinar de manera formal la presencia de raíces unitarias en las series analizadas se procede a continuación a aplicar una serie de contrastes comúnmente utilizados en la literatura. 
+\subsubsection{Análisis de las series en nivel}
+
+Para determinar de manera formal la presencia de raíces unitarias en las series analizadas se aplica una serie de contrastes comúnmente utilizados en la literatura. 
 
 
 
 
-A continuación se aplicará el contraste de Dickey-Fuller aumentado bajo el supuesto de que el proceso subyacente tiene drift y tendencia y bajo el supuesto de que sólo tiene drift. 
+En primer lugar, se utiliza el contraste de Dickey-Fuller aumentado bajo el supuesto de que el proceso subyacente tiene drift y tendencia y bajo el supuesto de que sólo tiene drift. 
 
 \begin{center}
-\begin{table}[h]
+\begin{table}[!htpb]
 \caption{Contraste de Dickey-Fuller aumentado (con drift)\label{tab:dickey1}}
 \centering
 \begin{threeparttable}
@@ -1223,9 +1312,9 @@ El cuadro \ref{tab:dickey1} muestra que la evidencia estadística provista por l
 
 Con respecto a la serie de precios de supermercados la evidencia va en la misma dirección. 
 
-De acuerdo a lo anterior, la serie no contendría una raíz unitaria. De todas maneras, es necesario formular otras representaciones del proceso, como bien podría ser incluir una tendencia determinista (a continuación) o utilizar otros contrastes. 
+De acuerdo a lo anterior, la serie no contendría una raíz unitaria. De todas formas, es necesario formular otras representaciones del proceso, como bien podría ser incluir una tendencia determinista (a continuación) o utilizar otros contrastes. 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Dickey-Fuller aumentado (con tendencia)\label{tab:dickey2}}
@@ -1263,7 +1352,7 @@ El resultado de este contraste es más bien contradictorio, pues no permite conc
 
 Los resultados del cuadro \ref{fig5.3}  muestran que para ambas series se rechaza la hipótesis de estacionariedad de la serie a nivel de significancia del 1\%. Razón por la cual se descarta la hipótesis de estacionariedad en tendencia. 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste KPSS (con tendencia determinista) \label{fig5.3}}
@@ -1293,7 +1382,7 @@ $\tau_{3} $  & 0.2405 &  0.3223 & 0.119 & 0.146 & 0.216 \\
 
 Por otro lado, los resultados del cuadro \ref{fig5.4} indican que la hipótesis de estacionariedad en niveles se rechaza fuertemente en ambos casos. 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste KPSS (sin tendencia determinista) \label{fig5.4}}
@@ -1325,7 +1414,7 @@ El contraste de Phillips Perron indica que no se puede rechazar la hipótesis de
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
@@ -1356,7 +1445,7 @@ El cuadro \ref{tab:pperron1} muestra que el contraste rechaza la hipótesis de r
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \label{tab:pperron2}}
@@ -1386,7 +1475,7 @@ Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hi
 
 Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer lugar un modelo con constante y tendencia deteminista. El cuadro \ref{fig5.5} muestra que para el caso de los mayoristas no se puede rechazar la hipótesis nula de raíz unitaria para ninguno de los niveles de significancia prescritos, mientras que para el caso de la serie supermercado dicha hipótesis se rechaza al menos al 5\%.  
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\label{fig5.5}}
@@ -1416,7 +1505,7 @@ Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer l
 
 El cuadro \ref{fig5.6}
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
@@ -1459,7 +1548,7 @@ Una vez establecida la presencia de raíces unitarias en las series, se proceder
 
 
 \begin{center}
-\begin{table}[h]
+\begin{table}[!htpb]
 \caption{Contraste de Dickey-Fuller aumentado (sin drift y tendencia)\label{tab:dickey1}}
 \centering
 \begin{threeparttable}
@@ -1493,7 +1582,7 @@ Por otro lado, los resultados del cuadro \ref{fig5.4} indican que la hipótesis 
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste KPSS (sin tendencia determinista) \label{tab5.4}}
@@ -1527,7 +1616,7 @@ El contraste de Phillips Perron indica que no se puede rechazar la hipótesis de
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
@@ -1557,7 +1646,7 @@ El cuadro \ref{tab:pperron1} muestra que el contraste rechaza la hipótesis de r
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \label{tab:pperron2}}
@@ -1587,7 +1676,7 @@ Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hi
 
 Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer lugar un modelo con constante y tendencia deteminista. El cuadro \ref{fig5.5} muestra que para el caso de los mayoristas no se puede rechazar la hipótesis nula de raíz unitaria para ninguno de los niveles de significancia prescritos, mientras que para el caso de la serie supermercado dicha hipótesis se rechaza al menos al 5\%.  
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\label{fig5.5}}
@@ -1617,7 +1706,7 @@ Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer l
 
 El cuadro \ref{fig5.6}
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
@@ -1662,10 +1751,10 @@ Antes de la determinación del rango de cointegración del proceso, es necesario
 
 De manera similar a como señalan Ben Kaabia \& Gil (2008), se observa que al realizar los contrastes univariantes de raíz unitaria, no se rechaza la existencia de una raíz unitaria en torno a una constante no nula. Así también, al realizar los mismos contrastes para las series en primeras diferencias, las series resultaron estacionarias. Por último, en términos económicos, la presencia de una constante indica que existe una diferencia de escala entre los precios mayoristas y detallistas. 
 
-El número de rezagos a incluir en el modelo se determinó con el objetivo de prevenir problemas de autocorrelación. De esta manera, se estimó el modelo secuencialmente utilizando entre 2 y  12 rezagos y se calculó el estadístico de Ljung-Box multivariado para los residuos rezagados entre el orden mínimo posible y aquellos de orden 52. Los p-valores correspondientes a cada uno de los contrastes están resumidos en la figura \ref{fig5.6}. De esta manera, se aprecia que la hipótesis nula de independencia no se puede rechazar a un nivel de significancia de 5\% en la mayoría de los casos para el modelo con ocho términos rezagados. 
+El número de rezagos a incluir en el modelo se determinó con el objetivo de prevenir problemas de autocorrelación. De esta manera, se estimó el modelo secuencialmente utilizando entre 2 y  12 rezagos y se calculó el estadístico de Ljung-Box multivariado para los residuos rezagados entre el orden mínimo posible y aquellos de orden 52. Los p-valores correspondientes a cada uno de los contrastes están resumidos en la figura \ref{fig5.6}. De esta manera, se aprecia que la hipótesis nula de independencia no se puede rechazar a un nivel de significancia de 5\% en la mayoría de los casos para el modelo con siete términos rezagados. 
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=5in,height=3.5in]{figure/unnamed-chunk-18-1} 
 
@@ -1680,7 +1769,7 @@ El número de rezagos a incluir en el modelo se determinó con el objetivo de pr
 De esta forma, el modelo definitivo a estimar resultó ser el siguiente: 
 
 \begin{equation}
-\Delta \mathbf{y}_{t} = \boldsymbol{\Pi}\mathbf{y}_{t-1}+\sum_{i=1}^{8}\boldsymbol{\Gamma_{i}}\mathbf{y}_{t-i}+\boldsymbol{\varepsilon}_{t}
+\Delta \mathbf{y}_{t} = \boldsymbol{\Pi}\mathbf{y}_{t-1}+\sum_{i=1}^{7}\boldsymbol{\Gamma_{i}}\mathbf{y}_{t-i}+\boldsymbol{\varepsilon}_{t}
 \end{equation}
 
 Entonces, definido el número de rezagos a utilizar y la estructura del vector cointegrante, se procedió a aplicar el contraste de cointegración de Johansen, cuyos resultados pueden apreciarse en los cuadros \ref{tab5.15} y \ref{tab5.16}
@@ -1690,7 +1779,7 @@ Entonces, definido el número de rezagos a utilizar y la estructura del vector c
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \caption{Contraste de la \textit{la traza} de cointegración de Johansen\label{tab5.15}}
 \begin{center}
 \begin{tabular}{@{}lrllll@{}}
@@ -1715,7 +1804,7 @@ $r = 0$     & \multicolumn{2}{c}{ 36.63}  & 17.85 & 19.96 & 24.60\\
 En el cuadro \ref{tab5.15} se observa el rechazo de la hipótesis $\mathcal{H}_{0}: = 0$ lo que descarta que la especificación adecuada sea un modelo VAR en niveles. Por otro lado, la hipótesis nula $\mathcal{H}_{0}\leq 1$ no puede rechazarse. 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \caption{Contraste del \textit{máximo autovalor} de cointegración de Johansen\label{tab5.16}}
 \begin{center}
 \begin{tabular}{@{}lrllll@{}}
@@ -1744,52 +1833,92 @@ De esta manera, el modelo puede especificarse como
  \Delta\mathbf{y}_{t} = \boldsymbol{\alpha \beta}^{'}\left[\begin{array}{c}1 \\ \mathbf{y}_{t-1}\end{array}\right]+\sum_{i=1}^{8}\boldsymbol{\Gamma}_{i}\Delta\mathbf{y}_{t-i}+\boldsymbol{\varepsilon}_{t}
 \end{equation}
 
-Donde $\boldsymbol{\alpha}=\left[\begin{array}{c} \alpha_{1} \\ \alpha_{2} \\ \alpha_{3} \end{array}\right]$ y $\boldsymbol{\beta}^{'} = \left[\begin{array}{ccc} \beta_{1} & \beta_{2} & \beta_{3} \end{array}\right]$
+Donde $\boldsymbol{\alpha}=\left[\begin{array}{c} \alpha_{1} \\ \alpha_{2} \end{array}\right]$ y $\boldsymbol{\beta}^{'} = \left[\begin{array}{ccc} \frac{\beta_{0}}{\beta_{2}} & 1} & \frac{\beta_{3}}{\beta_{2}} \end{array}\right]$
 
+Teniendo en cuenta que para ser identificado el vector cointegrante debe estar normalizado. El modelo finalmente a estimar finalmente es: 
 
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
-\begin{verbatim}
-## [1] 0.5149079
-\end{verbatim}
-\end{kframe}
-\end{knitrout}
+\begin{equation}
+\begin{array}{c} \Delta y_{1t} \\ \Delta y_{2t} \end{array} = 
+\begin{array}{c} \alpha_{1}(\beta^{*}_{0}+y_{1t}+\beta^{*}_{1}y_{2t}) \\
+                       \alpha_{2}(\beta^{*}_{0}+y_{1t}+\beta^{*}_{1}y_{2t})\end{array}+
+\begin{array}{c} \sum_{i}^{8}\phi_{11,i}\Delta y_{1t-i}+\sum_{i}^{8}\phi_{12,i}\Delta y_{2t-i} \\
+                 \sum_{i}^{8}\phi_{21,i}\Delta y_{1t-i}+\sum_{i}^{8}\phi_{22,i}\Delta y_{2t-i}\end{array}+
+                 \begin{array}{c} \varepsilon_{1t} \\ \varepsilon_{2t} \end{array}
+\end{equation}
 
+Donde $\beta_{0}^{*}=\frac{\beta_{1}}{\beta_{2}}$ y $\beta_{1}^{*}=\frac{\beta_3}{\beta_{2}}$.
 
-
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
-\caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
+\caption{Modelo de corrección hacia el equilibrio (\textbf{VECM}) estimado mediante método de máxima verosimilitud \label{vecm_f}}
 \begin{tabular}{@{}lll@{}}
 \toprule
- & $\Delta \text{mayorista}_{t} $ & $\Delta \text{supermerado}_{t}$ \\ 
+\multicolumn{3}{c}{Vector cointegrante} \\
+\midrule 
+Supermercados & Mayoristas & constante \\ 
+1             & -0.9198301 & -0.9077687 \\
+\midrule
+ & $\Delta \text{Supermercados}_{t} $ & $\Delta \text{Mayoristas}_{t}$ \\ 
  \midrule 
- $\text{corrección del error}$ & -0.146592   &  0.027821 \\     
-$\Delta$mayorista$_{t-1}$   &   0.065270 &   0.095569  \\   
-$\Delta$supermercado$_{t-1}$  & 0.333719  &  -0.095055 \\     
-$\Delta$mayorista$_{t-2}$  & -0.075599  &   0.112612  \\   
-$\Delta$supermercado$_{t-1}$  & 0.296286  &  -0.042207 \\     
-$\Delta$mayorista$_{t-3}$ &  -0.095907  & 0.063245     \\
-$\Delta$supermercado$_{t-3}$  & 0.198395  &   0.006723  \\   
-$\Delta$mayorista$_{t-4}$   &  -0.174854  &   0.046165 \\     
-$\Delta$supermercado$_{t-4}$  & 0.212239  &   0.053372  \\   
-$\Delta$mayorista$_{t-5}$   &  -0.175601  &  -0.004331 \\     
-$\Delta$supermercado$_{t-5}$  & 0.167277  &  -0.057114  \\   
-$\Delta$mayorista$_{t-6}$   & -0.064872   &  0.068671 \\     
-$\Delta$supermercado$_{t-1}$  & 0.148495  &  -0.011887 \\     
-$\Delta$mayorista$_{t-7}$   &  -0.122949  &   0.101965 \\     
-$\Delta$supermercado$_{t-7}$  & 0.332634  &  -0.042574  \\   
-$\Delta$mayorista$_{t-8}$   &  -0.067370  &   0.009668  \\   
-$\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\ 
+ $\text{corrección del error}$ & -0.0254 (0.0168)   &  0.1499 (0.0319)*** \\     
+$\Delta$supermercados$_{t-1}$   &   -0.0724 (0.0469) &   0.2048 (0.0893)*  \\   
+$\Delta$mayoristas$_{t-1}$  & 0.0715(0.0257) **  &  0.1998(0.0490)*** \\     
+$\Delta$supermercados$_{t-2}$  & -0.0178 (0.0468)  &   0.1577 (0.0890).  \\   
+$\Delta$mayoristas$_{t-2}$  & 0.0877 (0.0265)**  &  0.0624 (0.0505) \\     
+$\Delta$supermercados$_{t-3}$ &  0.0373 (0.0469)  & 0.0497 (0.0892) \\
+$\Delta$mayoristas$_{t-3}$  & 0.0398 (0.0263)  &   0.0331 (0.0501)   \\   
+$\Delta$supermercados$_{t-4}$   &   0.0825 (0.0461).  &   0.0799 (0.0877) \\     
+$\Delta$mayoristas$_{t-4}$  & 0.0225 (0.0258)  &   -0.0475 (0.0492)  \\   
+$\Delta$supermercados$_{t-5}$   &  -0.0320 (0.0458)  &  0.0212 (0.0871) \\     
+$\Delta$mayoristas$_{t-5}$  & -0.0290 (0.0257)  &  -0.0385 (0.0489)  \\   
+$\Delta$supermercados$_{t-6}$   & 0.0136(0.0446)   &  0.0300(0.0848) \\     
+$\Delta$mayoristas$_{t-6}$  & 0.0434 (0.0255).  &  0.0704 (0.0486) \\     
+$\Delta$supermercados$_{t-7}$   &  -0.0194 (0.0437)  &   0.1860 (0.0832)* \\     
+$\Delta$mayoristas$_{t-7}$  & 0.0743(0.0256)**   &  0.0187 (0.0487)  \\   
+\midrule 
+AIC & BIC & SSR \\ 
+\midrule 
+-5465.432 & -5335.279 & 4.425978 \\
 \bottomrule
 \end{tabular}
-\label{tab-9}
 \begin{tablenotes}
 \small 
-\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
-\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{a}$: Errores estándar entre paréntesis. 
+\item $^{b}$: . 10\%, *5\%, ** 1\%, ***0.1\%
 \end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+De los resultados provistos en el cuadro (\ref{vecm_f}) se desprende que la elasticidad de largo plazo de los precios de supermercados con respecto a los precios mayoristas es de aproximadamente 0.92, lo que indica un comportamiento relativamente inelástico. Es decir, cuando los mayoristas suben el precio en 1\% los supermercados lo hacen en un orden de 0.92\%. Esto contradice la hipótesis de transmisión perfecta de precios, en cuyo caso, el valor de la elasticidad debiera ser 1. Debido a esto a continuación se estima el modelo restringido, para determinar la evidencia estadística en favor o en contra de esta hipótesis, de la siguiente forma, utilizando una matriz $\mathbf{H}$ que permite incorporar las restricciones sobre el modelo: 
+
+\begin{equation}
+\mathbf{H}\boldsymbol{\beta} = \left[\begin{array}{ccc} 1 & -1 & 0 \\ 
+                                                            0 &  0 &  1 \end{array}\right]
+                                   \left[\begin{array}{c} 
+                                    \beta_{1} \\ \beta_{2} \\ \beta_{3} \end{array}\right]=\begin{array}{c} 0 \\ 0 \end{array}
+\end{equation}
+
+Del resultado del contraste de razón de verosimilitud expuesto en el cuadro (\ref{blrtest}) se tiene que no se puede rechazar la hipótesis acerca de que la transmisión es perfecta en el largo plazo. Esto significa que la relación cointegrante puede reescribirse de la siguiente forma: 
+
+\begin{equation}
+\log P_{t}^{c} = 0.3305+\log P_{t}^{c}
+\end{equation}
+
+Con lo que utilizando el resultado expuesto en la ecuación (\ref{margen}), se puede afirmar que el margen que los supermercados mantienen en el largo plazo es de 39\%. Un resultado ligeramente superior al que se obtendría como el promedio de las diferencias entre los logaritmos de los precios, que corresponde a 32.64\%. 
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste de homogeneidad en precios \label{blrtest}}
+\begin{tabular}{@{}llll@{}}
+\toprule \\
+Hipótesis & Estadístico & Grados de libertad & p-value \\
+\midrule 
+$\mathcal{H}_{0}=\beta_{2}=\beta_{3}=1$ & 0.88 & 1 & 0.35
+\\
+\bottomrule
+\end{tabular}
 \end{threeparttable}
 \end{table}
 
@@ -1798,8 +1927,10 @@ $\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\
 
 
 
+
+
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=4.5in,height=3.5in]{figure/graph5_6-1} 
 
@@ -1808,7 +1939,7 @@ $\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\
 \caption{Función ortogonal de impulso respuesta\label{graph5.6}}\label{fig:graph5.61}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=4.5in,height=3.5in]{figure/graph5_6-2} 
 
@@ -1821,7 +1952,7 @@ $\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=4.5in,height=3.5in]{figure/graph5_7-1} 
 
@@ -1830,7 +1961,7 @@ $\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\
 \caption{Función acumulada de impulso respuesta\label{graph5.7}}\label{fig:graph5.71}
 \end{figure}
 
-\begin{figure}[H]
+\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=4.5in,height=3.5in]{figure/graph5_7-2} 
 
@@ -1846,7 +1977,7 @@ $\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\
 \section{Diagnósticos del modelo lineal}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=4.5in,height=3.5in]{figure/graph5_8-1} 
 
@@ -1862,7 +1993,7 @@ $\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\
 
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=3.5in,height=3.5in]{figure/fig-5_3_1-1} 
 
@@ -1875,7 +2006,7 @@ $\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=3.5in,height=3.5in]{figure/fig-5_3_2-1} 
 
@@ -1890,7 +2021,7 @@ $\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \caption{Diagnósticos del modelo}
 \begin{tabular}{@{}llll@{}}
@@ -1929,7 +2060,7 @@ El modelo ha sido estimado con una constante en la relación de cointegración
 \begin{verbatim}
 ## 38780 (97%) points of the grid lead to regimes with percentage of observations < trim and were not computed
 \end{verbatim}
-\end{kframe}\begin{figure}[H]
+\end{kframe}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=4.5in,height=4.5in]{figure/fig-5_9-1} 
 
@@ -1962,7 +2093,7 @@ El modelo ha sido estimado con una constante en la relación de cointegración
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
 
 
-{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}\end{kframe}\begin{figure}[H]
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}\end{kframe}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=3.5in,height=3.5in]{figure/fig-5_11-1} 
 
@@ -1975,7 +2106,7 @@ El modelo ha sido estimado con una constante en la relación de cointegración
 \end{knitrout}
 
 \begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
 {\centering \includegraphics[width=3.5in,height=3.5in]{figure/fig-5_12-1} 
 
@@ -1994,13 +2125,13 @@ El modelo ha sido estimado con una constante en la relación de cointegración
 
 {\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}\begin{verbatim}
 ## $multi
-##         E df   P(Chi > E)
-## 1 246.913  4 3.009846e-52
+##          E df   P(Chi > E)
+## 1 243.2766  4 1.827222e-51
 ## 
 ## $univ
 ##                                E df   P(Chi > E)
-## resids.of.mayorista     72.63378  2 1.689563e-16
-## resids.of.supermercado 174.27920  2 1.431372e-38
+## resids.of.mayorista     73.53364  2 1.077391e-16
+## resids.of.supermercado 169.74293  2 1.382904e-37
 \end{verbatim}
 
 
@@ -2020,9 +2151,15 @@ Ben-Kaabia, M., \& Gil Roig, J. M. (2008). Asimetrías en la transmisión de pre
 
 Box, G. E., Jenkins, G. M., Reinsel, G. C., \& Ljung, G. M. (2015). Time series analysis: forecasting and control. John Wiley \& Sons.
 
+Dickey, D. A., \& Fuller, W. A. (1979). Distribution of the estimators for autoregressive time series with a unit root. Journal of the American statistical association, 74(366a), 427-431.
+
+Dickey, D. A., \& Fuller, W. A. (1981). Likelihood ratio statistics for autoregressive time series with a unit root. Econometrica: Journal of the Econometric Society, 1057-1072.
+
 Di Narzo, A. F., Aznarte, J. L., \& Stigler, M. (2009). tsDyn: Time series analysis based on dynamical systems theory. R package version 0.7.(URL: \texttt{http://stat. ethz. ch/CRAN/web/packages/tsDyn/vignettes/tsDyn.pdf}.
 
 Durbin, J., \& Koopman, S. J. (2012). Time series analysis by state space methods (Vol. 38). OUP Oxford.
+
+Phillips, P. C., \& Perron, P. (1988). Testing for a unit root in time series regression. Biometrika, 75(2), 335-346.
 
 Hansen, B. E., \& Seo, B. (2002). Testing for two-regime threshold cointegration in vector error-correction models. Journal of econometrics, 110(2), 293-318.
 
@@ -2043,6 +2180,8 @@ Lütkepohl, H. (2005). New introduction to multiple time series analysis. Spring
 Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
 
  Pfaff, B. (2008). VAR, SVAR and SVEC models: Implementation within R package vars. Journal of Statistical Software, 27(4), 1-32.
+
+Tiffin, R., \& Dawson, P. J. (2000). Structural breaks, cointegration and the farm-retail price spread for lamb. Applied economics, 32(10), 1281-1286.
 
 R Core Team (2017). R: A language and environment for statistical computing.
   R Foundation for Statistical Computing, Vienna, Austria. URL

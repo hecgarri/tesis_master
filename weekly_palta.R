@@ -79,3 +79,5 @@ price_may_palta = separate(price_may_palta, col="start", into=c("year", "month",
 precio_mayorista = ts(price_may_palta$price, start=c(2008,3), frequency=365.25/7)
 
 precio_supermercado = ts(price_sup_palta$price, start=c(2008,3), frequency=365.25/7)
+
+setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")

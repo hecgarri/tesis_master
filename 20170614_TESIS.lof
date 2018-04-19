@@ -10,41 +10,43 @@
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Evoluci\IeC {\'o}n de precios del palta Hass de primera calidad,2008-2016}}{43}{figure.caption.8}
+\defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.1}{\ignorespaces Evoluci\IeC {\'o}n de precios del palta Hass de primera calidad,2008-2016}}{44}{figure.caption.8}
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Evoluci\IeC {\'o}n de precios del palta Hass de primera calidad,2008-2016}}{46}{figure.caption.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.2}{\ignorespaces Imputaci\IeC {\'o}n de valores perdidos a trav\IeC {\'e}s del filtro de Kalman}}{44}{figure.caption.9}
+\contentsline {figure}{\numberline {5.2}{\ignorespaces Imputaci\IeC {\'o}n de valores perdidos a trav\IeC {\'e}s del filtro de Kalman}}{47}{figure.caption.12}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.3}{\ignorespaces Evoluci\IeC {\'o}n del logaritmo del precio mayorista de la palta, 2008-2016\relax }}{45}{figure.caption.10}
+\contentsline {figure}{\numberline {5.3}{\ignorespaces Evoluci\IeC {\'o}n del logaritmo del precio mayorista de la palta, 2008-2016\relax }}{48}{figure.caption.13}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.4}{\ignorespaces Evoluci\IeC {\'o}n del logaritmo del precio en supermercado de la palta, 2008-2016\relax }}{46}{figure.caption.11}
+\contentsline {figure}{\numberline {5.4}{\ignorespaces Evoluci\IeC {\'o}n del logaritmo del precio en supermercado de la palta, 2008-2016\relax }}{48}{figure.caption.14}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.5}{\ignorespaces Evoluci\IeC {\'o}n del logaritmo del precio mayorista de la palta, 2008-2016\relax }}{47}{figure.caption.12}
+\contentsline {figure}{\numberline {5.5}{\ignorespaces Evoluci\IeC {\'o}n del logaritmo del precio mayorista de la palta, 2008-2016\relax }}{49}{figure.caption.15}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.6}{\ignorespaces Evoluci\IeC {\'o}n del logaritmo del precio en supermercado de la palta, 2008-2016\relax }}{47}{figure.caption.13}
+\contentsline {figure}{\numberline {5.6}{\ignorespaces Evoluci\IeC {\'o}n del logaritmo del precio en supermercado de la palta, 2008-2016\relax }}{50}{figure.caption.16}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.7}{\ignorespaces N\IeC {\'u}mero de Rezagos para el contraste de Independencia\relax }}{55}{figure.caption.42}
+\contentsline {figure}{\numberline {5.7}{\ignorespaces N\IeC {\'u}mero de Rezagos para el contraste de Independencia\relax }}{57}{figure.caption.45}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.8}{\ignorespaces Funci\IeC {\'o}n ortogonal de impulso respuesta\relax }}{56}{figure.caption.47}
+\contentsline {figure}{\numberline {5.8}{\ignorespaces Funci\IeC {\'o}n ortogonal de impulso respuesta\relax }}{60}{figure.caption.52}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.9}{\ignorespaces Funci\IeC {\'o}n ortogonal de impulso respuesta\relax }}{57}{figure.caption.48}
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Funci\IeC {\'o}n ortogonal de impulso respuesta\relax }}{61}{figure.caption.53}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.10}{\ignorespaces Funci\IeC {\'o}n acumulada de impulso respuesta\relax }}{58}{figure.caption.49}
+\contentsline {figure}{\numberline {5.10}{\ignorespaces Funci\IeC {\'o}n acumulada de impulso respuesta\relax }}{61}{figure.caption.54}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.11}{\ignorespaces Funci\IeC {\'o}n acumulada de impulso respuesta\relax }}{58}{figure.caption.50}
+\contentsline {figure}{\numberline {5.11}{\ignorespaces Funci\IeC {\'o}n acumulada de impulso respuesta\relax }}{62}{figure.caption.55}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.12}{\ignorespaces Residuos del modelo\relax }}{59}{figure.caption.51}
+\contentsline {figure}{\numberline {5.12}{\ignorespaces Residuos del modelo\relax }}{62}{figure.caption.56}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.13}{\ignorespaces Histograma bivariado de los residuos del modelo}}{59}{figure.caption.52}
+\contentsline {figure}{\numberline {5.13}{\ignorespaces Histograma bivariado de los residuos del modelo}}{63}{figure.caption.57}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.14}{\ignorespaces Mapa de calor de los residuos del modelo}}{60}{figure.caption.53}
+\contentsline {figure}{\numberline {5.14}{\ignorespaces Mapa de calor de los residuos del modelo}}{63}{figure.caption.58}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.15}{\ignorespaces Modelo de correcci\IeC {\'o}n del error por umbrales}}{62}{figure.caption.55}
+\contentsline {figure}{\numberline {5.15}{\ignorespaces Modelo de correcci\IeC {\'o}n del error por umbrales}}{65}{figure.caption.60}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.16}{\ignorespaces Histograma bivariado de los residuos del modelo}}{63}{figure.caption.56}
+\contentsline {figure}{\numberline {5.16}{\ignorespaces Histograma bivariado de los residuos del modelo}}{66}{figure.caption.61}
 \defcounter {refsection}{0}\relax 
-\contentsline {figure}{\numberline {5.17}{\ignorespaces Mapa de calor de los residuos del modelo}}{63}{figure.caption.57}
+\contentsline {figure}{\numberline {5.17}{\ignorespaces Mapa de calor de los residuos del modelo}}{66}{figure.caption.62}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 
