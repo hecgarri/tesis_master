@@ -231,16 +231,46 @@ Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a sur
 
 \chapter{Modelos y contrastes estadísticos utilizados en esta tesis}
 
-En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de Bde los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
+En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de de los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
 
-\section{Pronósticos de una serie temporal según la metodología Box-Jenkins}
+\section{Modelos univariados de series de tiempo}
 
-EN ESTE APARTADO DEBO CITAR EL LIBRO DE BOX JENKINS Y REINSEL
+Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
+
+\begin{defin}
+Un \textbf{proceso de ruido blanco} es un proceso generador de datos $\varepsilon_{t}$ tal que $\mathbb{E}(\varepsilon_{t})=0$, $\mathbb{E}(\varepsilon_{t}^{2})=\sigma^{2}\quad \forall t$ y $\mathbb{E}(\varepsilon_{t}\varepsilon_{\tau})\neq 0\quad \forall t\neq \tau$. Si además se presume que $\varepsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$, se denomina \textbf{proceso de ruido blanco gaussiano}
+\end{defin}
+
+\begin{defin}
+Una serie de tiempo $x_{t}$ sigue un proceso \textbf{ARMA(p,q)} si 
+\begin{equation}
+x_{t}  = c +\phi x_{t-1}+...+\phi x_{t-p}+\varepsilon_{t}+\theta_{1}\varepsilon_{t-1}+...+\theta_{q}\varepsilon_{t-q}
+\end{equation}
+
+Donde $c$ es una constante, $p$ y $q$ son enteros no negativos, $\phi_{p}\neq 0,\quad \theta_{q}\neq 0$ y $\varepsilon_{t}$ es un proceso de ruido blanco. El entero $p$ determina el orden los términos autoregresivos, mientras que $q$ determina el orden de términos de media móvil.   
+
+\end{defin}
+
+Utilizando el operador de rezagos $L$ definido como $Lx_{t}=x_{t-1}$, el modelo puede ser expresado como 
+\begin{equation}
+(1-\phi_{1}L-...-\phi_{p}L^{p})x_{t} = c+(1+\theta_{1}L+...+\theta_{q}L^{q})\varepsilon_{t}
+\end{equation}
+
+\begin{defin}
+Una serie de tiempo se denomina \textbf{ARIMA(p,d,q)} si 
+\begin{equation}
+\bigtriangledown^{d}x_{t} = (1-B)^{d}x_{t} 
+\end{equation}
+es un proceso \textbf{ARMA}(p,q)
+\end{defin}
+
+Existen varias maneras de estimar los parámetros de este modelo, aunque más adelante en esta tesis se muestra como estimarlo utilizando el filtro de Kalman.
 
 \section{Contrastes de raíz unitaria/estacionariedad}
+
 \subsection{Contraste de Dickey-Fuller Aumentado}
 
-El contraste más utilizado en la investigación aplicada, dada su simplicidad, es el contraste propuesto por \cite{fuller1976} y \cite{dickey1981}. Para aplicar este contraste existen dos posibles modelos 
+El contraste más utilizado en la investigación aplicada, dada su simplicidad, es el contraste propuesto por Dickey \& Fuller (1979,1981) y . Para aplicar este contraste existen dos posibles modelos 
 
 Si $y_{t}$ satisface la siguiente ecuación
 
@@ -257,7 +287,7 @@ y_{t} = \alpha+\beta\left(t-1-\frac{1}{2}n\right)+\rho y_{t-1}+\epsilon_{t}\qqua
 \end{equation}
 Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$. 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Hipótesis del contraste de Dickey-Fuller}
@@ -288,9 +318,9 @@ Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$.
 \end{threeparttable}
 \end{table}
 
-\subsection{Contraste de Phillips Perron (1992)}
+\subsection{Contraste de Phillips-Perron}
 
-De manera similar al contraste anterior \cite{phillips1988} proponen un contraste no paramétrico para la hipótesis nula de raíz unitaria. A diferencia del contraste de Dickey Fuller este contraste resiste dependencia débil y heteroscedasticidad del término de error. El contraste está construido sobre la base de las siguientes formas funcionales: 
+De manera similar al contraste anterior Phillips \& Perron (1988) proponen un contraste no paramétrico para la hipótesis nula de raíz unitaria. A diferencia del contraste de Dickey Fuller este contraste resiste dependencia débil y heteroscedasticidad del término de error. El contraste está construido sobre la base de las siguientes formas funcionales: 
 
 \begin{align}
 y_{t} & = \mu+\alpha y_{t-1}+\varepsilon_{t}, \\ 
@@ -1034,6 +1064,8 @@ Si $\beta$ y $\gamma$ fueran conocidos, éste sería el estadístico. Pero, dado
 SupLM = \underset{\gamma_{L}\leq \gamma <\gamma_{U}}{sup}LM(\tilde{\beta},\gamma)
 \end{equation}
 
+Luego la distribución de este contraste tiene una distribución no estándar, para mayor detalle referirse a Hansen \& Seo (2002)
+
 \subsection{Función de impulso respuesta no lineal}
 
 Mencionar que para obtener los intervalos de confianza en este contexto se deben utilizar métodos de bootstraping y citar a Kreiss \& Lahiri (2012) y también a Koop, Pesaran \& Potter (1996)
@@ -1048,28 +1080,9 @@ CITAR A Durbin y Koopman (2012)
 
 \chapter{Metodología y Datos}
 
-\section{Fuentes de información}
 
 
 
-
-\chapter{Resultados}
-
-En este capítulo se muestra una aplicación
-
-Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017).
-
-\section{Imputación de valores perdidos}
-
-
-
-
-
-Dada la frecuencia relativamente alta de los datos, se tiene un número relativamente importante de observaciones faltantes. Para solucionar este problema se procedió a estimar un modelo ARIMA a través comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007).
-
-
-
-A continuación se presentan los resultados de la estimación para ambos modelos: 
 
 
 \begin{knitrout}
@@ -1087,14 +1100,83 @@ A continuación se presentan los resultados de la estimación para ambos modelos
 
 
 
+
+\chapter{Resultados}
+
+En este capítulo se muestra una aplicación
+
+Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017).
+
+\section{Imputación de valores perdidos}
+
+
+Dada la frecuencia relativamente alta de los datos, se tiene un número importante de observaciones faltantes. Para solucionar este problema se estima un modelo ARIMA(p,d,q) en su formulación de espacio estado a través del comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007) y posteriormente se procede a .
+
+
+
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
 
-{\centering \includegraphics[width=6.5in,height=4.5in]{figure/fig-2-1} 
+{\centering \includegraphics[width=6.5in,height=3.5in]{figure/fig-2-1} 
 
 }
 
-\caption[Imputación de valores perdidos a través del filtro de Kalman]{Imputación de valores perdidos a través del filtro de Kalman}\label{fig:fig-2}
+\caption[Evolución de precios del palta Hass de primera calidad,2008-2016]{Evolución de precios del palta Hass de primera calidad,2008-2016}\label{fig:fig-2}
+\end{figure}
+
+
+\end{knitrout}
+
+A continuación se presentan los resultados de la estimación para ambos modelos: 
+
+
+
+
+En la tabla \ref{tab:Kalman} se pueden observar los resultados de la estimación para ambas series. 
+\begin{center}
+\begin{table}[!htbp]
+\caption{Modelos ARIMA para las series univariadas\label{tab:Kalman}}
+\centering
+\begin{threeparttable}
+\begin{tabular}{@{}lllll@{}}
+\toprule \\
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Serie mayoristas$^{a}$} &
+\multicolumn{2}{c}{Serie supermercados$^{a}$} \\
+\cmidrule(l){2-3} \cmidrule(l){4-5} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Coeficientes} &
+ \multicolumn{1}{c}{Error estándar} &
+\multicolumn{1}{l}{Coeficientes}&
+\multicolumn{1}{l}{Error estándar}
+\\
+\midrule
+$\mu       $ &        &          & 0.0015   &  0.0022 \\
+$\phi_{1}  $ & 0.1733 &  0.0448  &          &          \\
+$\theta_{1}$ &        &          &          &           \\
+AIC          & \multicolumn{2}{c}{-992.72}  & \multicolumn{2}{c}{-1519.81} \\
+BIC          & \multicolumn{2}{c}{-1519.81} & \multicolumn{2}{c}{-1511.41} \\
+\bottomrule 
+\end{tabular}
+\begin{tablenotes}
+\small 
+\item $^{a}$: modelo ARIMA(1,1,0) : $\Delta x_{t}=\phi_{1}x_{t-1}+\varepsilon_{t}$. 
+\item $^{b}$: modelo ARIMA(0,1,0) : $\Delta x_{t}=\mu+\varepsilon_{t}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\end{center}
+
+De aquí se desprende que ambas series son $I(1)$, aunque se ahondará en este asunto en la sección posterior. 
+
+Posteriormente se procede a estimar los valores perdidos de ambas series a través del Filtro de Kalman utilizando el comando \textit{KalmanRun} del paquete \texttt{base}.
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+
+{\centering \includegraphics[width=6.5in,height=4.5in]{figure/fig-3-1} 
+
+}
+
+\caption[Imputación de valores perdidos a través del filtro de Kalman]{Imputación de valores perdidos a través del filtro de Kalman}\label{fig:fig-3}
 \end{figure}
 
 
@@ -1188,7 +1270,7 @@ Para determinar de manera formal la presencia de raíces unitarias en las series
 A continuación se aplicará el contraste de Dickey-Fuller aumentado bajo el supuesto de que el proceso subyacente tiene drift y tendencia y bajo el supuesto de que sólo tiene drift. 
 
 \begin{center}
-\begin{table}[h]
+\begin{table}[!htpb]
 \caption{Contraste de Dickey-Fuller aumentado (con drift)\label{tab:dickey1}}
 \centering
 \begin{threeparttable}
@@ -1225,7 +1307,7 @@ Con respecto a la serie de precios de supermercados la evidencia va en la misma 
 
 De acuerdo a lo anterior, la serie no contendría una raíz unitaria. De todas maneras, es necesario formular otras representaciones del proceso, como bien podría ser incluir una tendencia determinista (a continuación) o utilizar otros contrastes. 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Dickey-Fuller aumentado (con tendencia)\label{tab:dickey2}}
@@ -1263,7 +1345,7 @@ El resultado de este contraste es más bien contradictorio, pues no permite conc
 
 Los resultados del cuadro \ref{fig5.3}  muestran que para ambas series se rechaza la hipótesis de estacionariedad de la serie a nivel de significancia del 1\%. Razón por la cual se descarta la hipótesis de estacionariedad en tendencia. 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste KPSS (con tendencia determinista) \label{fig5.3}}
@@ -1293,7 +1375,7 @@ $\tau_{3} $  & 0.2405 &  0.3223 & 0.119 & 0.146 & 0.216 \\
 
 Por otro lado, los resultados del cuadro \ref{fig5.4} indican que la hipótesis de estacionariedad en niveles se rechaza fuertemente en ambos casos. 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste KPSS (sin tendencia determinista) \label{fig5.4}}
@@ -1325,7 +1407,7 @@ El contraste de Phillips Perron indica que no se puede rechazar la hipótesis de
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
@@ -1356,7 +1438,7 @@ El cuadro \ref{tab:pperron1} muestra que el contraste rechaza la hipótesis de r
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \label{tab:pperron2}}
@@ -1386,7 +1468,7 @@ Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hi
 
 Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer lugar un modelo con constante y tendencia deteminista. El cuadro \ref{fig5.5} muestra que para el caso de los mayoristas no se puede rechazar la hipótesis nula de raíz unitaria para ninguno de los niveles de significancia prescritos, mientras que para el caso de la serie supermercado dicha hipótesis se rechaza al menos al 5\%.  
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\label{fig5.5}}
@@ -1416,7 +1498,7 @@ Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer l
 
 El cuadro \ref{fig5.6}
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
@@ -1459,7 +1541,7 @@ Una vez establecida la presencia de raíces unitarias en las series, se proceder
 
 
 \begin{center}
-\begin{table}[h]
+\begin{table}[!htpb]
 \caption{Contraste de Dickey-Fuller aumentado (sin drift y tendencia)\label{tab:dickey1}}
 \centering
 \begin{threeparttable}
@@ -1493,7 +1575,7 @@ Por otro lado, los resultados del cuadro \ref{fig5.4} indican que la hipótesis 
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste KPSS (sin tendencia determinista) \label{tab5.4}}
@@ -1527,7 +1609,7 @@ El contraste de Phillips Perron indica que no se puede rechazar la hipótesis de
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
@@ -1557,7 +1639,7 @@ El cuadro \ref{tab:pperron1} muestra que el contraste rechaza la hipótesis de r
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \label{tab:pperron2}}
@@ -1587,7 +1669,7 @@ Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hi
 
 Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer lugar un modelo con constante y tendencia deteminista. El cuadro \ref{fig5.5} muestra que para el caso de los mayoristas no se puede rechazar la hipótesis nula de raíz unitaria para ninguno de los niveles de significancia prescritos, mientras que para el caso de la serie supermercado dicha hipótesis se rechaza al menos al 5\%.  
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\label{fig5.5}}
@@ -1617,7 +1699,7 @@ Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer l
 
 El cuadro \ref{fig5.6}
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
@@ -1690,7 +1772,7 @@ Entonces, definido el número de rezagos a utilizar y la estructura del vector c
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \caption{Contraste de la \textit{la traza} de cointegración de Johansen\label{tab5.15}}
 \begin{center}
 \begin{tabular}{@{}lrllll@{}}
@@ -1715,7 +1797,7 @@ $r = 0$     & \multicolumn{2}{c}{ 36.63}  & 17.85 & 19.96 & 24.60\\
 En el cuadro \ref{tab5.15} se observa el rechazo de la hipótesis $\mathcal{H}_{0}: = 0$ lo que descarta que la especificación adecuada sea un modelo VAR en niveles. Por otro lado, la hipótesis nula $\mathcal{H}_{0}\leq 1$ no puede rechazarse. 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \caption{Contraste del \textit{máximo autovalor} de cointegración de Johansen\label{tab5.16}}
 \begin{center}
 \begin{tabular}{@{}lrllll@{}}
@@ -1757,7 +1839,7 @@ Donde $\boldsymbol{\alpha}=\left[\begin{array}{c} \alpha_{1} \\ \alpha_{2} \\ \a
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \begin{threeparttable}
 \caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
@@ -1890,7 +1972,7 @@ $\Delta$supermercado$_{t-1}$  & 0.107484  &  -0.033937  \\
 
 
 
-\begin{table}[h]
+\begin{table}[!htpb]
 \centering
 \caption{Diagnósticos del modelo}
 \begin{tabular}{@{}llll@{}}
@@ -2020,9 +2102,15 @@ Ben-Kaabia, M., \& Gil Roig, J. M. (2008). Asimetrías en la transmisión de pre
 
 Box, G. E., Jenkins, G. M., Reinsel, G. C., \& Ljung, G. M. (2015). Time series analysis: forecasting and control. John Wiley \& Sons.
 
+Dickey, D. A., \& Fuller, W. A. (1979). Distribution of the estimators for autoregressive time series with a unit root. Journal of the American statistical association, 74(366a), 427-431.
+
+Dickey, D. A., \& Fuller, W. A. (1981). Likelihood ratio statistics for autoregressive time series with a unit root. Econometrica: Journal of the Econometric Society, 1057-1072.
+
 Di Narzo, A. F., Aznarte, J. L., \& Stigler, M. (2009). tsDyn: Time series analysis based on dynamical systems theory. R package version 0.7.(URL: \texttt{http://stat. ethz. ch/CRAN/web/packages/tsDyn/vignettes/tsDyn.pdf}.
 
 Durbin, J., \& Koopman, S. J. (2012). Time series analysis by state space methods (Vol. 38). OUP Oxford.
+
+Phillips, P. C., \& Perron, P. (1988). Testing for a unit root in time series regression. Biometrika, 75(2), 335-346.
 
 Hansen, B. E., \& Seo, B. (2002). Testing for two-regime threshold cointegration in vector error-correction models. Journal of econometrics, 110(2), 293-318.
 

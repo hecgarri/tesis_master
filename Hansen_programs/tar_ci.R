@@ -136,8 +136,8 @@ b_like <- function(b){
 nlike1 <- b_like(b0+.001)
 nlike2 <- b_like(b0-.001)
 hp <- (nlike1+nlike2-2*nlike)/(.001^2)
-seb <- 1/sqrt(hp)
-k_product <- function(ma,mb){
+seb <- 1/sqrt(hp) # Error estándar del parámetro de cointegración 
+k_product <- function(ma,mb){ # Producto Kronecker
     mat <- matrix(0,nrow(ma)*nrow(mb),ncol(ma)*ncol(mb))
     for (i in 1:nrow(ma)){
         for (j in 1:ncol(ma)){
