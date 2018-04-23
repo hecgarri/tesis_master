@@ -241,6 +241,7 @@ Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a sur
 \chapter{Modelos y contrastes estadísticos utilizados en esta tesis}
 
 En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de de los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
+<<<<<<< HEAD
 
 \section{Modelos univariados de series de tiempo}
 
@@ -273,6 +274,40 @@ Una serie de tiempo se denomina \textbf{ARIMA(p,d,q)} si
 es un proceso \textbf{ARMA}(p,q)
 \end{defin}
 
+=======
+
+\section{Modelos univariados de series de tiempo}
+
+Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
+
+\begin{defin}
+Un \textbf{proceso de ruido blanco} es un proceso generador de datos $\varepsilon_{t}$ tal que $\mathbb{E}(\varepsilon_{t})=0$, $\mathbb{E}(\varepsilon_{t}^{2})=\sigma^{2}\quad \forall t$ y $\mathbb{E}(\varepsilon_{t}\varepsilon_{\tau})\neq 0\quad \forall t\neq \tau$. Si además se presume que $\varepsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$, se denomina \textbf{proceso de ruido blanco gaussiano}
+\end{defin}
+
+\begin{defin}
+Una serie de tiempo $x_{t}$ sigue un proceso \textbf{ARMA(p,q)} si 
+\begin{equation}
+x_{t}  = c +\phi x_{t-1}+...+\phi x_{t-p}+\varepsilon_{t}+\theta_{1}\varepsilon_{t-1}+...+\theta_{q}\varepsilon_{t-q}
+\end{equation}
+
+Donde $c$ es una constante, $p$ y $q$ son enteros no negativos, $\phi_{p}\neq 0,\quad \theta_{q}\neq 0$ y $\varepsilon_{t}$ es un proceso de ruido blanco. El entero $p$ determina el orden los términos autoregresivos, mientras que $q$ determina el orden de términos de media móvil.   
+
+\end{defin}
+
+Utilizando el operador de rezagos $L$ definido como $Lx_{t}=x_{t-1}$, el modelo puede ser expresado como 
+\begin{equation}
+(1-\phi_{1}L-...-\phi_{p}L^{p})x_{t} = c+(1+\theta_{1}L+...+\theta_{q}L^{q})\varepsilon_{t}
+\end{equation}
+
+\begin{defin}
+Una serie de tiempo se denomina \textbf{ARIMA(p,d,q)} si 
+\begin{equation}
+\bigtriangledown^{d}x_{t} = (1-B)^{d}x_{t} 
+\end{equation}
+es un proceso \textbf{ARMA}(p,q)
+\end{defin}
+
+>>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
 Existen varias maneras de estimar los parámetros de este modelo, aunque más adelante en esta tesis se muestra como estimarlo utilizando el filtro de Kalman.
 
 \section{Contrastes de raíz unitaria/estacionariedad}
@@ -1111,6 +1146,7 @@ CITAR A Durbin y Koopman (2012)
 
 
 \chapter{Resultados}
+<<<<<<< HEAD
 
 En este capítulo se muestra una aplicación
 
@@ -1120,6 +1156,18 @@ Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y e
 
 
 Dada la frecuencia relativamente alta de los datos, se tiene un número importante de observaciones faltantes. Para solucionar este problema se estima un modelo ARIMA(p,d,q) en su formulación de espacio estado a través del comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007).Cabe destacar que el análisis aquí desarrollado utiliza el logaritmod e las series originales con el fin de estabilizar la varianza de éstas.
+=======
+
+En este capítulo se muestra una aplicación
+
+Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017).
+
+\section{Imputación de valores perdidos}
+
+
+Dada la frecuencia relativamente alta de los datos, se tiene un número importante de observaciones faltantes. Para solucionar este problema se estima un modelo ARIMA(p,d,q) en su formulación de espacio estado a través del comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007) y posteriormente se procede a .
+
+>>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
 
 
 \begin{knitrout}
@@ -1137,6 +1185,10 @@ Dada la frecuencia relativamente alta de los datos, se tiene un número importan
 
 A continuación se presentan los resultados de la estimación para ambos modelos: 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
 
 
 En la tabla \ref{tab:Kalman} se pueden observar los resultados de la estimación para ambas series. 
@@ -1174,7 +1226,11 @@ BIC          & \multicolumn{2}{c}{-1519.81} & \multicolumn{2}{c}{-1511.41} \\
 
 De aquí se desprende que ambas series son $I(1)$, aunque se ahondará en este asunto en la sección posterior. 
 
+<<<<<<< HEAD
 Posteriormente, se procede a estimar los valores perdidos de ambas series a través del Filtro de Kalman utilizando el comando \texttt{KalmanRun} del paquete \texttt{base}. Los 
+=======
+Posteriormente se procede a estimar los valores perdidos de ambas series a través del Filtro de Kalman utilizando el comando \textit{KalmanRun} del paquete \texttt{base}.
+>>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]

@@ -72,6 +72,7 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.2.1.2}An\IeC {\'a}lisis de las series en diferencias}{49}{subsubsection.5.2.1.2}
 \defcounter {refsection}{0}\relax 
+<<<<<<< HEAD
 \contentsline {subsection}{\numberline {5.2.2}Contrastes de ra\IeC {\'\i }z unitaria}{49}{subsection.5.2.2}
 \defcounter {refsection}{0}\relax 
 \contentsline {subsubsection}{\numberline {5.2.2.1}An\IeC {\'a}lisis de las series en nivel}{49}{subsubsection.5.2.2.1}
@@ -81,6 +82,17 @@
 \contentsline {section}{\numberline {5.3}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n y estimaci\IeC {\'o}n del modelo del modelo lineal de correcci\IeC {\'o}n del error}{56}{section.5.3}
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.4}Diagn\IeC {\'o}sticos del modelo lineal}{64}{section.5.4}
+=======
+\contentsline {subsection}{\numberline {5.2.2}Contrastes de ra\IeC {\'\i }z unitaria}{51}{subsection.5.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {5.2.2.1}An\IeC {\'a}lisis de las series originales}{51}{subsubsection.5.2.2.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsubsection}{\numberline {5.2.2.2}An\IeC {\'a}lisis de las series en diferencias}{54}{subsubsection.5.2.2.2}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.3}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n y estimaci\IeC {\'o}n del modelo del modelo lineal de correcci\IeC {\'o}n del error}{57}{section.5.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {5.4}Diagn\IeC {\'o}sticos del modelo lineal}{62}{section.5.4}
+>>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
 \defcounter {refsection}{0}\relax 
 \contentsline {section}{\numberline {5.5}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n y estimaci\IeC {\'o}n del modelo del modelo lineal de correcci\IeC {\'o}n del error}{64}{section.5.5}
 \defcounter {refsection}{0}\relax 
