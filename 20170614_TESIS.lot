@@ -16,7 +16,6 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {5.1}{\ignorespaces Modelos ARIMA para las series univariadas\relax }}{46}{table.caption.10}
 \defcounter {refsection}{0}\relax 
-<<<<<<< HEAD
 \contentsline {table}{\numberline {5.2}{\ignorespaces Contraste de Dickey-Fuller aumentado (con drift)\relax }}{50}{table.caption.17}
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {5.3}{\ignorespaces Contraste de Dickey-Fuller aumentado (con tendencia)\relax }}{51}{table.caption.20}
@@ -36,33 +35,11 @@
 \contentsline {table}{\numberline {5.10}{\ignorespaces Contraste de Dickey-Fuller aumentado (sin drift y tendencia)\relax }}{54}{table.caption.33}
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {5.11}{\ignorespaces Contraste KPSS (sin tendencia determinista) \relax }}{54}{table.caption.36}
-=======
-\contentsline {table}{\numberline {5.2}{\ignorespaces Contraste de Dickey-Fuller aumentado (con drift)\relax }}{51}{table.caption.17}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.3}{\ignorespaces Contraste de Dickey-Fuller aumentado (con tendencia)\relax }}{52}{table.caption.20}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.4}{\ignorespaces Contraste KPSS (con tendencia determinista) \relax }}{52}{table.caption.22}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.5}{\ignorespaces Contraste KPSS (sin tendencia determinista) \relax }}{53}{table.caption.24}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.6}{\ignorespaces Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\relax }}{53}{table.caption.26}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.7}{\ignorespaces Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \relax }}{53}{table.caption.28}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.8}{\ignorespaces Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\relax }}{54}{table.caption.30}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.9}{\ignorespaces Contraste de Elliot, Rothenberg \& Stock (con constante)\relax }}{54}{table.caption.32}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.10}{\ignorespaces Contraste de Dickey-Fuller aumentado (sin drift y tendencia)\relax }}{55}{table.caption.33}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.11}{\ignorespaces Contraste KPSS (sin tendencia determinista) \relax }}{55}{table.caption.36}
->>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {5.12}{\ignorespaces Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\relax }}{55}{table.caption.38}
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {5.13}{\ignorespaces Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \relax }}{55}{table.caption.40}
 \defcounter {refsection}{0}\relax 
-<<<<<<< HEAD
 \contentsline {table}{\numberline {5.14}{\ignorespaces Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\relax }}{55}{table.caption.42}
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {5.15}{\ignorespaces Contraste de Elliot, Rothenberg \& Stock (con constante)\relax }}{56}{table.caption.44}
@@ -75,20 +52,9 @@
 \defcounter {refsection}{0}\relax 
 \contentsline {table}{\numberline {5.19}{\ignorespaces Contraste de homogeneidad en precios \relax }}{60}{table.caption.51}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.20}{\ignorespaces Diagn\IeC {\'o}sticos del modelo\relax }}{64}{table.caption.59}
-=======
-\contentsline {table}{\numberline {5.14}{\ignorespaces Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\relax }}{56}{table.caption.42}
+\contentsline {table}{\numberline {5.20}{\ignorespaces Modelo de correcci\IeC {\'o}n hacia el equilibrio (\textbf {VECM}) restringido \relax }}{60}{table.caption.53}
 \defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.15}{\ignorespaces Contraste de Elliot, Rothenberg \& Stock (con constante)\relax }}{56}{table.caption.44}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.16}{\ignorespaces Contraste de la \textit {la traza} de cointegraci\IeC {\'o}n de Johansen\relax }}{58}{table.caption.46}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.17}{\ignorespaces Contraste del \textit {m\IeC {\'a}ximo autovalor} de cointegraci\IeC {\'o}n de Johansen\relax }}{59}{table.caption.47}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.18}{\ignorespaces Contraste de Elliot, Rothenberg \& Stock (con constante)\relax }}{60}{table.caption.49}
-\defcounter {refsection}{0}\relax 
-\contentsline {table}{\numberline {5.19}{\ignorespaces Diagn\IeC {\'o}sticos del modelo\relax }}{64}{table.caption.57}
->>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
+\contentsline {table}{\numberline {5.21}{\ignorespaces Diagn\IeC {\'o}sticos del modelo\relax }}{65}{table.caption.61}
 \defcounter {refsection}{0}\relax 
 \addvspace {10\p@ }
 \defcounter {refsection}{0}\relax 

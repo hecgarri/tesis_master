@@ -241,11 +241,18 @@ Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a sur
 \chapter{Modelos y contrastes estadísticos utilizados en esta tesis}
 
 En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de de los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
-<<<<<<< HEAD
+
 
 \section{Modelos univariados de series de tiempo}
 
 Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
+
+
+
+\section{Modelos univariados de series de tiempo}
+
+Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
+
 
 \begin{defin}
 Un \textbf{proceso de ruido blanco} es un proceso generador de datos $\varepsilon_{t}$ tal que $\mathbb{E}(\varepsilon_{t})=0$, $\mathbb{E}(\varepsilon_{t}^{2})=\sigma^{2}\quad \forall t$ y $\mathbb{E}(\varepsilon_{t}\varepsilon_{\tau})\neq 0\quad \forall t\neq \tau$. Si además se presume que $\varepsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$, se denomina \textbf{proceso de ruido blanco gaussiano}
@@ -274,40 +281,6 @@ Una serie de tiempo se denomina \textbf{ARIMA(p,d,q)} si
 es un proceso \textbf{ARMA}(p,q)
 \end{defin}
 
-=======
-
-\section{Modelos univariados de series de tiempo}
-
-Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
-
-\begin{defin}
-Un \textbf{proceso de ruido blanco} es un proceso generador de datos $\varepsilon_{t}$ tal que $\mathbb{E}(\varepsilon_{t})=0$, $\mathbb{E}(\varepsilon_{t}^{2})=\sigma^{2}\quad \forall t$ y $\mathbb{E}(\varepsilon_{t}\varepsilon_{\tau})\neq 0\quad \forall t\neq \tau$. Si además se presume que $\varepsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$, se denomina \textbf{proceso de ruido blanco gaussiano}
-\end{defin}
-
-\begin{defin}
-Una serie de tiempo $x_{t}$ sigue un proceso \textbf{ARMA(p,q)} si 
-\begin{equation}
-x_{t}  = c +\phi x_{t-1}+...+\phi x_{t-p}+\varepsilon_{t}+\theta_{1}\varepsilon_{t-1}+...+\theta_{q}\varepsilon_{t-q}
-\end{equation}
-
-Donde $c$ es una constante, $p$ y $q$ son enteros no negativos, $\phi_{p}\neq 0,\quad \theta_{q}\neq 0$ y $\varepsilon_{t}$ es un proceso de ruido blanco. El entero $p$ determina el orden los términos autoregresivos, mientras que $q$ determina el orden de términos de media móvil.   
-
-\end{defin}
-
-Utilizando el operador de rezagos $L$ definido como $Lx_{t}=x_{t-1}$, el modelo puede ser expresado como 
-\begin{equation}
-(1-\phi_{1}L-...-\phi_{p}L^{p})x_{t} = c+(1+\theta_{1}L+...+\theta_{q}L^{q})\varepsilon_{t}
-\end{equation}
-
-\begin{defin}
-Una serie de tiempo se denomina \textbf{ARIMA(p,d,q)} si 
-\begin{equation}
-\bigtriangledown^{d}x_{t} = (1-B)^{d}x_{t} 
-\end{equation}
-es un proceso \textbf{ARMA}(p,q)
-\end{defin}
-
->>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
 Existen varias maneras de estimar los parámetros de este modelo, aunque más adelante en esta tesis se muestra como estimarlo utilizando el filtro de Kalman.
 
 \section{Contrastes de raíz unitaria/estacionariedad}
@@ -1146,7 +1119,6 @@ CITAR A Durbin y Koopman (2012)
 
 
 \chapter{Resultados}
-<<<<<<< HEAD
 
 En este capítulo se muestra una aplicación
 
@@ -1156,18 +1128,6 @@ Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y e
 
 
 Dada la frecuencia relativamente alta de los datos, se tiene un número importante de observaciones faltantes. Para solucionar este problema se estima un modelo ARIMA(p,d,q) en su formulación de espacio estado a través del comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007).Cabe destacar que el análisis aquí desarrollado utiliza el logaritmod e las series originales con el fin de estabilizar la varianza de éstas.
-=======
-
-En este capítulo se muestra una aplicación
-
-Todos los cálculos aquí expuestos fueron realizados a través del lenguaje y entorno de programación orientado a la estadística, \texttt{R} (R core team, 2017).
-
-\section{Imputación de valores perdidos}
-
-
-Dada la frecuencia relativamente alta de los datos, se tiene un número importante de observaciones faltantes. Para solucionar este problema se estima un modelo ARIMA(p,d,q) en su formulación de espacio estado a través del comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007) y posteriormente se procede a .
-
->>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
 
 
 \begin{knitrout}
@@ -1185,10 +1145,6 @@ Dada la frecuencia relativamente alta de los datos, se tiene un número importan
 
 A continuación se presentan los resultados de la estimación para ambos modelos: 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
 
 
 En la tabla \ref{tab:Kalman} se pueden observar los resultados de la estimación para ambas series. 
@@ -1226,11 +1182,7 @@ BIC          & \multicolumn{2}{c}{-1519.81} & \multicolumn{2}{c}{-1511.41} \\
 
 De aquí se desprende que ambas series son $I(1)$, aunque se ahondará en este asunto en la sección posterior. 
 
-<<<<<<< HEAD
 Posteriormente, se procede a estimar los valores perdidos de ambas series a través del Filtro de Kalman utilizando el comando \texttt{KalmanRun} del paquete \texttt{base}. Los 
-=======
-Posteriormente se procede a estimar los valores perdidos de ambas series a través del Filtro de Kalman utilizando el comando \textit{KalmanRun} del paquete \texttt{base}.
->>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
@@ -1955,13 +1907,7 @@ De los resultados provistos en el cuadro (\ref{vecm_f}) se desprende que la elas
                                     \beta_{1} \\ \beta_{2} \\ \beta_{3} \end{array}\right]=\begin{array}{c} 0 \\ 0 \end{array}
 \end{equation}
 
-Del resultado del contraste de razón de verosimilitud expuesto en el cuadro (\ref{blrtest}) se tiene que no se puede rechazar la hipótesis acerca de que la transmisión es perfecta en el largo plazo. Esto significa que la relación cointegrante puede reescribirse de la siguiente forma: 
 
-\begin{equation}
-\log P_{t}^{c} = 0.3305+\log P_{t}^{c}
-\end{equation}
-
-Con lo que utilizando el resultado expuesto en la ecuación (\ref{margen}), se puede afirmar que el margen que los supermercados mantienen en el largo plazo es de 39\%. Un resultado ligeramente superior al que se obtendría como el promedio de las diferencias entre los logaritmos de los precios, que corresponde a 32.64\%. 
 
 \begin{table}[!htpb]
 \centering
@@ -1971,14 +1917,69 @@ Con lo que utilizando el resultado expuesto en la ecuación (\ref{margen}), se p
 \toprule \\
 Hipótesis & Estadístico & Grados de libertad & p-value \\
 \midrule 
-$\mathcal{H}_{0}=\beta_{2}=\beta_{3}=1$ & 0.88 & 1 & 0.35
+$\mathcal{H}_{0}:\beta_{2}=\beta_{3}=1$ & 0.88 & 1 & 0.35
 \\
 \bottomrule
 \end{tabular}
 \end{threeparttable}
 \end{table}
 
+Del resultado del contraste de razón de verosimilitud expuesto en el cuadro (\ref{blrtest}) se tiene que no se puede rechazar la hipótesis acerca de que la transmisión es perfecta en el largo plazo. Esto significa que la relación cointegrante puede reescribirse de la siguiente forma: 
 
+\begin{equation}
+\log P_{t}^{c} = 0.3305+\log P_{t}^{p}
+\end{equation}
+
+A continuación se presentan los resultados para el modelo restringido 
+
+
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Modelo de corrección hacia el equilibrio (\textbf{VECM}) restringido \label{vecm_rest}}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\multicolumn{3}{c}{Vector cointegrante} \\
+\midrule 
+Supermercados & Mayoristas & constante \\ 
+1             & -1 & -0.3304581 \\
+\midrule
+ & $\Delta \text{Supermercados}_{t} $ & $\Delta \text{Mayoristas}_{t}$ \\ 
+ \midrule 
+ $\text{corrección del error}$ &  0.13300 (0.02752)***    & -0.01489 (0.01449)  \\     
+$\Delta$supermercados$_{t-1} $ & -0.07855 (0.04675)**  &  0.21312 (0.08876)*    \\   
+$\Delta$mayoristas$_{t-1}    $ &    0.19365 (0.04825)*** &   0.07725 (0.02541).     \\  
+$\Delta$supermercados$_{t-2} $ & 0.16574 (0.08865).    &  -0.02221 (0.04669)   \\   
+$\Delta$mayoristas$_{t-2}    $ &  0.05746 (0.04988) & 0.09346 (0.02627)***   \\     
+$\Delta$supermercados$_{t-3} $ &  0.05759 (0.08892)    &  0.04480 (0.02615)  \\
+$\Delta$mayoristas$_{t-3}    $ &  0.02912 (0.04965)   & 0.04480 (0.02615).     \\   
+$\Delta$supermercados$_{t-4} $ &  0.08859 (0.08744)   & 0.02675 (0.04605).   \\     
+$\Delta$mayoristas$_{t-4}    $ & -0.05076 (0.04882)    &  -0.05076 (0.02675)  \\   
+$\Delta$supermercados$_{t-5} $ & 0.03105 (0.08690)    & -0.03430 (0.04577)   \\     
+$\Delta$mayoristas$_{t-5}    $ & -0.04163 (0.04860)    &  -0.02537 (0.02560)  \\   
+$\Delta$supermercados$_{t-6} $ &  0.03908 (0.08473)    &  0.01272 (0.04463)  \\     
+$\Delta$mayoristas$_{t-6}    $ &  0.06732 (0.04836)   & 0.04671 (0.02547).   \\     
+$\Delta$supermercados$_{t-7} $ & 0.19470 (0.08318)*    &  -0.01940 (0.04381)  \\     
+$\Delta$mayoristas$_{t-7}    $ &  0.01660 (0.04842)  &  0.07771 (0.02550)**   \\   
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Errores estándar entre paréntesis. 
+\item $^{b}$: significativo al: . 10\%, *5\%, ** 1\%, ***0.1\%
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Con lo que utilizando el resultado expuesto en la ecuación (\ref{margen}), se puede afirmar que el margen que los supermercados mantienen en el largo plazo es de 39\%. Un resultado ligeramente superior al que se obtendría como el promedio de las diferencias entre los logaritmos de los precios, que corresponde a 32.64\%. Además de los resultados del cuadro (\ref{vecm_rest}), se confirma que existe un comportamiento de corrección hacia el equilibrio, pues cuando dicho término tiene variaciones positivas, los mayoristas responden bajandos sus precios. Así también, cabe mencionar que la relación con el término corrección del error es significativa para el caso de los mayoristas, pero no así para los supermercados. Esto se puede inferir a raíz de que en el modelo de \textbf{VECM} todas las variables explicativas son estacionarias, por lo que el uso del contraste $t$ es válido en muestras grandes. 
+
+De todas formas, se procedió a aplicar un contraste de razón de verosimilitud para deteminar la hipótesis de exogeneidad débil. 
+
+
+
+
+Aunque varios de los coeficientes representantes de la dinámica de corto plazo en el cuadro (\ref{vecm_rest}) son significativos, su interpretación no es directa, pues el modelo por construcción presenta problemas de multicolineadad. Para analizar la respuesta del sistema frente a diferentes perturbaciones, se utilizan las funciones de impulso respuesta, como se señala en el capítulo 3. 
 
 
 
@@ -2100,7 +2101,7 @@ El paquete \texttt{tsDyn} y la función asociada a este, \texttt{TVECM.HStest} n
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-24-1} 
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-26-1} 
 
 }
 
@@ -2182,12 +2183,12 @@ El modelo ha sido estimado con una constante en la relación de cointegración
 {\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in residuals(mono\_rest): objeto 'mono\_rest' no encontrado}}\begin{verbatim}
 ## $multi
 ##          E df   P(Chi > E)
-## 1 243.2766  4 1.827222e-51
+## 1 243.2701  4 1.833063e-51
 ## 
 ## $univ
 ##                                E df   P(Chi > E)
-## resids.of.mayorista     73.53364  2 1.077391e-16
-## resids.of.supermercado 169.74293  2 1.382904e-37
+## resids.of.supermercado 169.73015  2 1.391769e-37
+## resids.of.mayorista     73.53998  2 1.073978e-16
 \end{verbatim}
 
 

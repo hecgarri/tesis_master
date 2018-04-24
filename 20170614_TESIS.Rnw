@@ -190,19 +190,19 @@ Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a sur
 \chapter{Modelos y contrastes estadísticos utilizados en esta tesis}
 
 En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de de los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
-<<<<<<< HEAD
+
 
 \section{Modelos univariados de series de tiempo}
 
 Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
 
-=======
+
 
 \section{Modelos univariados de series de tiempo}
 
 Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
 
->>>>>>> 4a01a6e21e3c6f3d12d8afa7c4477428c1e8c4b7
+
 \begin{defin}
 Un \textbf{proceso de ruido blanco} es un proceso generador de datos $\varepsilon_{t}$ tal que $\mathbb{E}(\varepsilon_{t})=0$, $\mathbb{E}(\varepsilon_{t}^{2})=\sigma^{2}\quad \forall t$ y $\mathbb{E}(\varepsilon_{t}\varepsilon_{\tau})\neq 0\quad \forall t\neq \tau$. Si además se presume que $\varepsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$, se denomina \textbf{proceso de ruido blanco gaussiano}
 \end{defin}
@@ -2008,13 +2008,14 @@ De los resultados provistos en el cuadro (\ref{vecm_f}) se desprende que la elas
                                     \beta_{1} \\ \beta_{2} \\ \beta_{3} \end{array}\right]=\begin{array}{c} 0 \\ 0 \end{array}
 \end{equation}
 
-Del resultado del contraste de razón de verosimilitud expuesto en el cuadro (\ref{blrtest}) se tiene que no se puede rechazar la hipótesis acerca de que la transmisión es perfecta en el largo plazo. Esto significa que la relación cointegrante puede reescribirse de la siguiente forma: 
+<<>>=
+not_restrict = VECM(datos, lag=7, estim="ML", r=1, LRinclude = c("const"))
 
-\begin{equation}
-\log P_{t}^{c} = 0.3305+\log P_{t}^{p}
-\end{equation}
-
-Con lo que utilizando el resultado expuesto en la ecuación (\ref{margen}), se puede afirmar que el margen que los supermercados mantienen en el largo plazo es de 39\%. Un resultado ligeramente superior al que se obtendría como el promedio de las diferencias entre los logaritmos de los precios, que corresponde a 32.64\%. 
+modelo_ = ca.jo(datos, type = c("trace"), ecdet = c("const"), K=8,
+               spec = c("transitory"))
+H0=matrix(c(1,-1,0,0,0,1),c(3,2))
+homogeneity = blrtest(modelo_,H=H0,r=1)
+@
 
 \begin{table}[!htpb]
 \centering
@@ -2031,20 +2032,71 @@ $\mathcal{H}_{0}:\beta_{2}=\beta_{3}=1$ & 0.88 & 1 & 0.35
 \end{threeparttable}
 \end{table}
 
-<<>>=
-not_restrict = VECM(datos, lag=7, estim="ML", r=1, LRinclude = c("const"))
+Del resultado del contraste de razón de verosimilitud expuesto en el cuadro (\ref{blrtest}) se tiene que no se puede rechazar la hipótesis acerca de que la transmisión es perfecta en el largo plazo. Esto significa que la relación cointegrante puede reescribirse de la siguiente forma: 
 
-modelo_ = ca.jo(datos, type = c("trace"), ecdet = c("const"), K=8,
-               spec = c("transitory"))
-H0=matrix(c(1,-1,0,0,0,1),c(3,2))
+\begin{equation}
+\log P_{t}^{c} = 0.3305+\log P_{t}^{p}
+\end{equation}
+
+A continuación se presentan los resultados para el modelo restringido 
+
+<<>>=
+restrict = cajorls(homogeneity,r=1)$rlm
+@
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Modelo de corrección hacia el equilibrio (\textbf{VECM}) restringido \label{vecm_rest}}
+\begin{tabular}{@{}lll@{}}
+\toprule
+\multicolumn{3}{c}{Vector cointegrante} \\
+\midrule 
+Supermercados & Mayoristas & constante \\ 
+1             & -1 & -0.3304581 \\
+\midrule
+ & $\Delta \text{Supermercados}_{t} $ & $\Delta \text{Mayoristas}_{t}$ \\ 
+ \midrule 
+ $\text{corrección del error}$ &  0.13300 (0.02752)***    & -0.01489 (0.01449)  \\     
+$\Delta$supermercados$_{t-1} $ & -0.07855 (0.04675)**  &  0.21312 (0.08876)*    \\   
+$\Delta$mayoristas$_{t-1}    $ &    0.19365 (0.04825)*** &   0.07725 (0.02541).     \\  
+$\Delta$supermercados$_{t-2} $ & 0.16574 (0.08865).    &  -0.02221 (0.04669)   \\   
+$\Delta$mayoristas$_{t-2}    $ &  0.05746 (0.04988) & 0.09346 (0.02627)***   \\     
+$\Delta$supermercados$_{t-3} $ &  0.05759 (0.08892)    &  0.04480 (0.02615)  \\
+$\Delta$mayoristas$_{t-3}    $ &  0.02912 (0.04965)   & 0.04480 (0.02615).     \\   
+$\Delta$supermercados$_{t-4} $ &  0.08859 (0.08744)   & 0.02675 (0.04605).   \\     
+$\Delta$mayoristas$_{t-4}    $ & -0.05076 (0.04882)    &  -0.05076 (0.02675)  \\   
+$\Delta$supermercados$_{t-5} $ & 0.03105 (0.08690)    & -0.03430 (0.04577)   \\     
+$\Delta$mayoristas$_{t-5}    $ & -0.04163 (0.04860)    &  -0.02537 (0.02560)  \\   
+$\Delta$supermercados$_{t-6} $ &  0.03908 (0.08473)    &  0.01272 (0.04463)  \\     
+$\Delta$mayoristas$_{t-6}    $ &  0.06732 (0.04836)   & 0.04671 (0.02547).   \\     
+$\Delta$supermercados$_{t-7} $ & 0.19470 (0.08318)*    &  -0.01940 (0.04381)  \\     
+$\Delta$mayoristas$_{t-7}    $ &  0.01660 (0.04842)  &  0.07771 (0.02550)**   \\   
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Errores estándar entre paréntesis. 
+\item $^{b}$: significativo al: . 10\%, *5\%, ** 1\%, ***0.1\%
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Con lo que utilizando el resultado expuesto en la ecuación (\ref{margen}), se puede afirmar que el margen que los supermercados mantienen en el largo plazo es de 39\%. Un resultado ligeramente superior al que se obtendría como el promedio de las diferencias entre los logaritmos de los precios, que corresponde a 32.64\%. Además de los resultados del cuadro (\ref{vecm_rest}), se confirma que existe un comportamiento de corrección hacia el equilibrio, pues cuando dicho término tiene variaciones positivas, los mayoristas responden bajandos sus precios. Así también, cabe mencionar que la relación con el término corrección del error es significativa para el caso de los mayoristas, pero no así para los supermercados. Esto se puede inferir a raíz de que en el modelo de \textbf{VECM} todas las variables explicativas son estacionarias, por lo que el uso del contraste $t$ es válido en muestras grandes. 
+
+De todas formas, se procedió a aplicar un contraste de razón de verosimilitud para deteminar la hipótesis de exogeneidad débil. 
+
+<<>>=
 homogeneity = blrtest(modelo_,H=H0,r=1)
+
+weak_exogeneity = alrtest(modelo_,A=c(1,0),r=1)
 @
 
 
+Aunque varios de los coeficientes representantes de la dinámica de corto plazo en el cuadro (\ref{vecm_rest}) son significativos, su interpretación no es directa, pues el modelo por construcción presenta problemas de multicolineadad. Para analizar la respuesta del sistema frente a diferentes perturbaciones, se utilizan las funciones de impulso respuesta, como se señala en el capítulo 3. 
+
+
 <<echo = F>>=
-#source("girf_sample.R")
-
-
 var_version = vec2var(modelo_, r= 1)
 
 impulso = irf(var_version, n.ahead = 52)
@@ -2054,12 +2106,13 @@ impulso2 = irf(var_version, n.ahead = 52, ortho = FALSE)
 
 
 <<graph5.6, echo=FALSE, fig.cap='Función ortogonal de impulso respuesta\\label{graph5.6}', fig.pos='!htpb'>>=
-plot(impulso)
+source("plot.varirf.R")
+plot.varirf1(impulso)
 @
 
 <<graph5.7, echo=FALSE, fig.cap='Función acumulada de impulso respuesta\\label{graph5.7}', fig.pos='!htpb'>>=
 
-plot(impulso2)
+plot.varirf1(impulso2)
 @
 
 
@@ -2344,7 +2397,7 @@ TVECM_rest = function (data, lag = 1, ngridTh = 300, trim = 0.05, nboot = 100,
   return(ret)
 }
 
-hansen2 = TVECM_rest(datos, lag=8, ngridTh = 100, trim=0.05, nboot=100,
+hansen2 = TVECM_rest(datos, lag=7, ngridTh = 100, trim=0.05, nboot=100,
 fixed.beta =NULL)
 
 plot(hansen2)
@@ -2357,7 +2410,7 @@ El modelo ha sido estimado con una constante en la relación de cointegración
 
 if (!require(tsDyn)) install.packages("tsDyn")
 
-mono = TVECM(datos[,c(2,1)], lag=8, nthresh = 1, trim=0.05, ngridBeta = 200, ngridTh = 200, plot=TRUE, include=c("none"), common = "All", beta = list(int = c(-0.5,1.5)), beta0=rep(1,dim(datos)[1]))
+mono = TVECM(datos, lag=7, nthresh = 1, trim=0.05, ngridBeta = 200, ngridTh = 200, plot=TRUE, include=c("none"), common = "All", beta = list(int = c(-0.5,1.5)), beta0=rep(1,nrow(datos)))
 
 @
 
