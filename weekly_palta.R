@@ -2,8 +2,8 @@ rm(list=ls())
 setwd("~/GoogleDrivePersonal/Master/Tesis/datos/semanales/palta")
 getwd()
 
-if (!require(data.table)) install.packages("data.table")
-if (!require(tidyverse)) install.packages("tidyverse")
+if (!require(data.table)) install.packages("data.table"); require(data.table)
+if (!require(tidyverse)) install.packages("tidyverse"); require(tidyverse)
 
 paltas = list.files(pattern="consumidor.csv$")
 
