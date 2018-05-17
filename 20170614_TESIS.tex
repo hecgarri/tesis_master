@@ -221,22 +221,22 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 \onehalfspacing
 \chapter*{Agradecimientos}
 \chapter*{Abstract}
+
 \chapter{Introducción}
 
+\section{Antecedentes generales}
 
-\chapter{Transmisión de precios}
+\section{Justificación de la investigación}
 
-Ideas importantes en McCorriston2001: 
-\begin{itemize}
-\item Bajo ciertas condiciones la transmisión de precios puede ser mayor en industrias con retornos a escala crecientes que en mercados caracterizados por la competencias perfecta y retornos a escala constantes. 
-\item Si los precios no se transmiten completamente a lo largo de la cadena, los consumidores no pueden beneficiarse de las caídas de los precios de los agricultores. 
-\item Una razón para que los precios no se transmitan completamente puede atribuirse a los costos de menú. 
-\item Un comportamiento oligopolístico también puede explicar este fenómeno. 
-\item El sector alimentario en los países en desarrollo se caracteriza por los oligopolios. 
-\item El poder de mercado reduce el grado de transmisión de precios en los mercados. 
-\item En el caso de estados unidos la mayoría de las empresas del sector alimentario mostraron returnos crecientes a escala 
-\item 
-\end{itemize}
+\section{Objetivo General}
+
+\section{Objetivos Específicos, alcances y limitaciones del estudio}
+\section{Estructura general de la tesis}
+
+\chapter{Marco Teórico}
+\section{Transmisión de precios}
+
+
 
 Si la transmisión de precios es perfecta, puede afirmarse que la elasticidad de los precios al consumidor ($P_{t}^{c}$) con respecto a los precios al productor ($P_{t}^{p}$) debe ser unitaria. Es decir: 
 
@@ -249,19 +249,22 @@ P_{t}^{c} & = \exp\{\beta_{0}\}[P_{t}^{P}]^{\beta_1} \label{margen}
 Tal y como señalan Tiffin \& Dawson (2001), si $\beta_{1}=1$, entonces el margen comercial se obtiene como $e^{\beta0}-1$
 Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
 
+\section{Evidencia Internacional}
+\section{Evidencia Nacional}
 
-\chapter{Modelos y contrastes estadísticos utilizados en esta tesis}
+
+\section{Modelos y contrastes estadísticos utilizados en esta tesis}
 
 En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de de los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
 
 
-\section{Modelos univariados de series de tiempo}
+\subsection{Modelos univariados de series de tiempo}
 
 Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
 
 
 
-\section{Modelos univariados de series de tiempo}
+\subsection{Modelos univariados de series de tiempo}
 
 Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
 
@@ -295,9 +298,9 @@ es un proceso \textbf{ARMA}(p,q)
 
 Existen varias maneras de estimar los parámetros de este modelo, aunque más adelante en esta tesis se muestra como estimarlo utilizando el filtro de Kalman.
 
-\section{Contrastes de raíz unitaria/estacionariedad}
+\subsection{Contrastes de raíz unitaria/estacionariedad}
 
-\subsection{Contraste de Dickey-Fuller Aumentado}
+\subsubsection{Contraste de Dickey-Fuller Aumentado}
 
 El contraste más utilizado en la investigación aplicada, dada su simplicidad, es el contraste propuesto por Dickey \& Fuller (1979,1981) y . Para aplicar este contraste existen dos posibles modelos 
 
@@ -347,7 +350,7 @@ Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$.
 \end{threeparttable}
 \end{table}
 
-\subsection{Contraste de Phillips-Perron}
+\subsubsection{Contraste de Phillips-Perron}
 
 De manera similar al contraste anterior Phillips \& Perron (1988) proponen un contraste no paramétrico para la hipótesis nula de raíz unitaria. A diferencia del contraste de Dickey Fuller este contraste resiste dependencia débil y heteroscedasticidad del término de error. El contraste está construido sobre la base de las siguientes formas funcionales: 
 
@@ -379,7 +382,7 @@ Z(t_{\tilde{\beta}}) & = (\tilde{s}/\tilde{\sigma}_{Tl})t_{\tilde{\beta}}-\tilde
 
 Donde $m_{y}$, $\bar{m}_{yy}$, $\tilde{\lambda}$, $\tilde{\lambda}'$ y $\tilde{\sigma}_{Tl}$ son definidos al igual que en las ecuaciones \ref{eq:pp1} a \ref{eq:pp3} y $m_{ty}=T^{5/2}\sum t_{yt}$, $t_{\tilde{\mu}}$, $t_{\tilde{\beta}}$ y $t_{\tilde{\alpha}}$ son los estadísticos $t$ de $\tilde{\mu}$, $\tilde{\alpha}$ y $\tilde{\beta}$, respectivamente. Por último la constante $M=(1-T^{-2})m_{yy}-12m^{2}_{ty}+12(1+T^{-1})m_{ty}m_{y}-(4+6T^{-1}+2T^{-2})m_{y}^{2}$
 
-\subsection{Contraste de Elliot, Rothenberg \& Stock (1996)} 
+\subsubsection{Contraste de Elliot, Rothenberg \& Stock (1996)} 
 
 Un defecto de los contrastes de raíz unitaria recién expuestos es su baja potencia si el verdadero proceso generador de datos es AR(1) cuyo coeficiente sea cercano a uno. Para mejorar la potencia de estos contrastes, Elliott, Rothenberg \& Stock (1996) propusieron quitar los términos deterministas de lae  serie de tiempo. Los autores desarrollaron unos contrastes de punto-óptimo factible, denotados por $P^{\mu}_{T}$ y $P^{\tau}_{T}$, los cuales toman en cuenta posibles problemas de autocorrelación en el término de error. El segundo contraste es denotado omo el $DF-GLS$, el cual consiste en una modificación del contraste de Dickey-Fuller Aumentado. Se asume la siguiente forma para el proceso generador de los datos: 
 
@@ -425,7 +428,7 @@ A continuación Elliot et al (1996) han propuesto otro contraste basado en el co
 
 Donde $y_{t}^{d}$ son los residuos en la regresión auxiliar $y_{t}^{d}\equiv y_{t}-\boldsymbol{\hat{\beta}z_{t}}.$  
 
-\subsection{Contraste Kiatkowsky, Pesaran, Schmidt \& Shin (1992)}
+\subsubsection{Contraste Kiatkowsky, Pesaran, Schmidt \& Shin (1992)}
 
 Este contraste está pensando para detectar ya sea estacionariedad en tendencia o en nivel. A diferencia de los contrastes anteriores donde la hipótesis nula implicaba afirmar la presencia de una raíz unitaria, en este caso, la hipótesis nula dice relación con que el proceso sea estacionario. Para construir el contraste se considera el siguiente modelo de base: 
 
@@ -456,8 +459,8 @@ Donde $\hat{\sigma}^{2}_{\varepsilon}$ es una estimación de la varianza del err
 
 
 
-\section{Análisis de cointegración}
-\subsection{Cointegración y análisis de las relaciones de largo plazo}
+\subsection{Análisis de cointegración}
+\subsubsection{Cointegración y análisis de las relaciones de largo plazo}
  \textbf{Apuntes de Farías (2017a)}
 
 Dutoit et al. (2010, p. 15) define la transmi-
@@ -605,7 +608,7 @@ Luego
 & = \left(\frac{\mathbf{\Pi}_{1}^{a}L+\mathbf{\Pi}^{a}_{2}L^{2}}{(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}\right)\left(\frac{\varepsilon_{t}+\mathbf{\Phi}D_{t}}{(1-\rho_{1}L)}\right)+\mathbf{\tilde{X}}^{0}, \qquad t=1,...,T
 \end{align}
 
-\section{Estimación basada en la verosimilitud para el modelo VAR irrestricto}
+\subsection{Estimación basada en la verosimilitud para el modelo VAR irrestricto}
 
 Cuando el modelo no tiene restricciones sobre sus parámetros (como las que pueden surgir debido a la presencia de raíces unitarias) el modelo puede estimarse por MCO, caso que coincide con el estimador de \textit{Full information maximum likelihood}
 
@@ -679,7 +682,7 @@ De donde se desprende que
 \textbf{NOTA PARA RECORDAR: si las variables del modelo están formuladas en logaritmo la desviación estándar de cada una de estas puede ser interpretada como un porcentaje de error }
 
 
-\subsection{Contraste de razón de verosimilitud}
+\subsubsection{Contraste de razón de verosimilitud}
 
 \begin{equation}
   -2\log Q(\mathcal{H}_{k}/\mathcal{H}_{k+1}) =  T(\log|\boldsymbol{\hat{\Omega}}_{k}|-\log|\boldsymbol{\hat{\Omega}}_{k+1}|) \sim \chi^{2}_{p^{2}}
@@ -725,7 +728,7 @@ LM(j) = -(T-p(k+1)-\frac{1}{2})\log \left(\frac{|\boldsymbol{\tilde{\Omega}}(j)|
 
 El estadístico se distribuye aproximadamente como una $\chi^{2}$ con $p^{2}$ grados de libertad. Porque 
 
-\subsubsection{Contrastes para Heteroscedasticidad Residual}
+\subsubsubsection{Contrastes para Heteroscedasticidad Residual}
 
 El contraste ARCH $m$-ésimo es calculado como $(T+k-m)\times R^{2}$. Aquí $R^{2}$ se obtiene de la siguiente regresión auxiliar
 
@@ -1105,9 +1108,10 @@ CITAR A Durbin y Koopman (2012)
 \subsection{Formulación en espacio estado de un modelo ARIMA(p,d,q)}
 \subsection{imputación de valores faltantes}
 
+\chapter{Metodología de la Investigación}
+\section{Tipo de estudio}
+\section{Fuentes de Información}
 
-
-\chapter{Metodología y Datos}
 
 
 
@@ -1126,8 +1130,6 @@ CITAR A Durbin y Koopman (2012)
 
 
 \end{knitrout}
-
-
 
 
 \chapter{Resultados}

@@ -2,100 +2,118 @@
 \defcounter {refsection}{0}\relax 
 \select@language {spanish}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{13}{chapter.1}
+\contentsline {chapter}{\numberline {1}Introducci\IeC {\'o}n}{15}{chapter.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {2}Transmisi\IeC {\'o}n de precios}{15}{chapter.2}
+\contentsline {section}{\numberline {1.1}Antecedentes generales}{15}{section.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {3}Modelos y contrastes estad\IeC {\'\i }sticos utilizados en esta tesis}{17}{chapter.3}
+\contentsline {section}{\numberline {1.2}Justificaci\IeC {\'o}n de la investigaci\IeC {\'o}n}{15}{section.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.1}Modelos univariados de series de tiempo}{17}{section.3.1}
+\contentsline {section}{\numberline {1.3}Objetivo General}{15}{section.1.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.2}Modelos univariados de series de tiempo}{17}{section.3.2}
+\contentsline {section}{\numberline {1.4}Objetivos Espec\IeC {\'\i }ficos, alcances y limitaciones del estudio}{15}{section.1.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.3}Contrastes de ra\IeC {\'\i }z unitaria/estacionariedad}{18}{section.3.3}
+\contentsline {section}{\numberline {1.5}Estructura general de la tesis}{15}{section.1.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.1}Contraste de Dickey-Fuller Aumentado}{18}{subsection.3.3.1}
+\contentsline {chapter}{\numberline {2}Marco Te\IeC {\'o}rico}{17}{chapter.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.2}Contraste de Phillips-Perron}{19}{subsection.3.3.2}
+\contentsline {section}{\numberline {2.1}Transmisi\IeC {\'o}n de precios}{17}{section.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.3}Contraste de Elliot, Rothenberg \& Stock (1996)}{20}{subsection.3.3.3}
+\contentsline {section}{\numberline {2.2}Evidencia Internacional}{17}{section.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.3.4}Contraste Kiatkowsky, Pesaran, Schmidt \& Shin (1992)}{22}{subsection.3.3.4}
+\contentsline {section}{\numberline {2.3}Evidencia Nacional}{17}{section.2.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.4}An\IeC {\'a}lisis de cointegraci\IeC {\'o}n}{23}{section.3.4}
+\contentsline {section}{\numberline {2.4}Modelos y contrastes estad\IeC {\'\i }sticos utilizados en esta tesis}{17}{section.2.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.4.1}Cointegraci\IeC {\'o}n y an\IeC {\'a}lisis de las relaciones de largo plazo}{23}{subsection.3.4.1}
+\contentsline {subsection}{\numberline {2.4.1}Modelos univariados de series de tiempo}{18}{subsection.2.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.5}Estimaci\IeC {\'o}n basada en la verosimilitud para el modelo VAR irrestricto}{26}{section.3.5}
+\contentsline {subsection}{\numberline {2.4.2}Modelos univariados de series de tiempo}{18}{subsection.2.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.1}Contraste de raz\IeC {\'o}n de verosimilitud}{28}{subsection.3.5.1}
+\contentsline {subsection}{\numberline {2.4.3}Contrastes de ra\IeC {\'\i }z unitaria/estacionariedad}{19}{subsection.2.4.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.5.1.1}El contraste de Ljung-Box}{28}{subsubsection.3.5.1.1}
+\contentsline {subsubsection}{\numberline {2.4.3.1}Contraste de Dickey-Fuller Aumentado}{19}{subsubsection.2.4.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.5.1.2}Contrastes para Heteroscedasticidad Residual}{29}{subsubsection.3.5.1.2}
+\contentsline {subsubsection}{\numberline {2.4.3.2}Contraste de Phillips-Perron}{19}{subsubsection.2.4.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {3.5.1.3}Contrastes de normalidad}{29}{subsubsection.3.5.1.3}
+\contentsline {subsubsection}{\numberline {2.4.3.3}Contraste de Elliot, Rothenberg \& Stock (1996)}{21}{subsubsection.2.4.3.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.2}Modelo Vectorial de Correcci\IeC {\'o}n del Error (VECM)}{30}{subsection.3.5.2}
+\contentsline {subsubsection}{\numberline {2.4.3.4}Contraste Kiatkowsky, Pesaran, Schmidt \& Shin (1992)}{22}{subsubsection.2.4.3.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.3}Estimaci\IeC {\'o}n de un modelo VECM}{31}{subsection.3.5.3}
+\contentsline {subsection}{\numberline {2.4.4}An\IeC {\'a}lisis de cointegraci\IeC {\'o}n}{23}{subsection.2.4.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.4}El contraste de cointegraci\IeC {\'o}n de Johansen}{35}{subsection.3.5.4}
+\contentsline {subsubsection}{\numberline {2.4.4.1}Cointegraci\IeC {\'o}n y an\IeC {\'a}lisis de las relaciones de largo plazo}{23}{subsubsection.2.4.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.5.5}Estabilidad del modelo VECM}{36}{subsection.3.5.5}
+\contentsline {subsection}{\numberline {2.4.5}Estimaci\IeC {\'o}n basada en la verosimilitud para el modelo VAR irrestricto}{26}{subsection.2.4.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.6}Modelo de vector de correcci\IeC {\'o}n del error por umbrales (TVECM)}{36}{section.3.6}
+\contentsline {subsubsection}{\numberline {2.4.5.1}Contraste de raz\IeC {\'o}n de verosimilitud}{28}{subsubsection.2.4.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6.1}Estimaci\IeC {\'o}n del modelo TVECM}{36}{subsection.3.6.1}
+\contentsline {subsubsection}{\numberline {2.4.5.2}El contraste de Ljung-Box}{29}{subsubsection.2.4.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6.2}El contraste de Hansen \& Seo (2002)}{39}{subsection.3.6.2}
+\contentsline {subsubsection}{\numberline {2.4.5.3}Contrastes de normalidad}{30}{subsubsection.2.4.5.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.6.3}Funci\IeC {\'o}n de impulso respuesta no lineal}{41}{subsection.3.6.3}
+\contentsline {subsection}{\numberline {2.4.6}Modelo Vectorial de Correcci\IeC {\'o}n del Error (VECM)}{31}{subsection.2.4.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {3.7}Imputaci\IeC {\'o}n de datos faltantes a trav\IeC {\'e}s del filtro de Kalman}{41}{section.3.7}
+\contentsline {subsection}{\numberline {2.4.7}Estimaci\IeC {\'o}n de un modelo VECM}{32}{subsection.2.4.7}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.1}El filtro de Kalman}{41}{subsection.3.7.1}
+\contentsline {subsection}{\numberline {2.4.8}El contraste de cointegraci\IeC {\'o}n de Johansen}{36}{subsection.2.4.8}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.2}Formulaci\IeC {\'o}n en espacio estado de un modelo ARIMA(p,d,q)}{41}{subsection.3.7.2}
+\contentsline {subsection}{\numberline {2.4.9}Estabilidad del modelo VECM}{37}{subsection.2.4.9}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {3.7.3}imputaci\IeC {\'o}n de valores faltantes}{41}{subsection.3.7.3}
+\contentsline {section}{\numberline {2.5}Modelo de vector de correcci\IeC {\'o}n del error por umbrales (TVECM)}{37}{section.2.5}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {4}Metodolog\IeC {\'\i }a y Datos}{43}{chapter.4}
+\contentsline {subsection}{\numberline {2.5.1}Estimaci\IeC {\'o}n del modelo TVECM}{37}{subsection.2.5.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {5}Resultados}{45}{chapter.5}
+\contentsline {subsection}{\numberline {2.5.2}El contraste de Hansen \& Seo (2002)}{40}{subsection.2.5.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.1}Imputaci\IeC {\'o}n de valores perdidos}{45}{section.5.1}
+\contentsline {subsection}{\numberline {2.5.3}Funci\IeC {\'o}n de impulso respuesta no lineal}{42}{subsection.2.5.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.2}An\IeC {\'a}lisis del orden de integraci\IeC {\'o}n de las series}{47}{section.5.2}
+\contentsline {section}{\numberline {2.6}Imputaci\IeC {\'o}n de datos faltantes a trav\IeC {\'e}s del filtro de Kalman}{42}{section.2.6}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.1}An\IeC {\'a}lisis gr\IeC {\'a}fico}{47}{subsection.5.2.1}
+\contentsline {subsection}{\numberline {2.6.1}El filtro de Kalman}{42}{subsection.2.6.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.2.1.1}An\IeC {\'a}lisis de las series en nivel}{47}{subsubsection.5.2.1.1}
+\contentsline {subsection}{\numberline {2.6.2}Formulaci\IeC {\'o}n en espacio estado de un modelo ARIMA(p,d,q)}{42}{subsection.2.6.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.2.1.2}An\IeC {\'a}lisis de las series en diferencias}{49}{subsubsection.5.2.1.2}
+\contentsline {subsection}{\numberline {2.6.3}imputaci\IeC {\'o}n de valores faltantes}{42}{subsection.2.6.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {5.2.2}Contrastes de ra\IeC {\'\i }z unitaria}{49}{subsection.5.2.2}
+\contentsline {chapter}{\numberline {3}Metodolog\IeC {\'\i }a de la Investigaci\IeC {\'o}n}{43}{chapter.3}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.2.2.1}An\IeC {\'a}lisis de las series en nivel}{49}{subsubsection.5.2.2.1}
+\contentsline {section}{\numberline {3.1}Tipo de estudio}{43}{section.3.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsubsection}{\numberline {5.2.2.2}An\IeC {\'a}lisis de las series en diferencias}{54}{subsubsection.5.2.2.2}
+\contentsline {section}{\numberline {3.2}Fuentes de Informaci\IeC {\'o}n}{43}{section.3.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.3}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n y estimaci\IeC {\'o}n del modelo del modelo lineal de correcci\IeC {\'o}n del error}{56}{section.5.3}
+\contentsline {chapter}{\numberline {4}Resultados}{45}{chapter.4}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.4}Diagn\IeC {\'o}sticos del modelo lineal}{65}{section.5.4}
+\contentsline {section}{\numberline {4.1}Imputaci\IeC {\'o}n de valores perdidos}{45}{section.4.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.5}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n y estimaci\IeC {\'o}n del modelo del modelo lineal de correcci\IeC {\'o}n del error}{65}{section.5.5}
+\contentsline {section}{\numberline {4.2}An\IeC {\'a}lisis del orden de integraci\IeC {\'o}n de las series}{47}{section.4.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {5.6}Diagn\IeC {\'o}sticos del modelo no lineal}{66}{section.5.6}
+\contentsline {subsection}{\numberline {4.2.1}An\IeC {\'a}lisis gr\IeC {\'a}fico}{47}{subsection.4.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {6}Conclusiones}{69}{chapter.6}
+\contentsline {subsubsection}{\numberline {4.2.1.1}An\IeC {\'a}lisis de las series en nivel}{47}{subsubsection.4.2.1.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {7}Bibliograf\IeC {\'\i }a}{71}{chapter.7}
+\contentsline {subsubsection}{\numberline {4.2.1.2}An\IeC {\'a}lisis de las series en diferencias}{49}{subsubsection.4.2.1.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {chapter}{\numberline {8}Anexo}{73}{chapter.8}
+\contentsline {subsection}{\numberline {4.2.2}Contrastes de ra\IeC {\'\i }z unitaria}{49}{subsection.4.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {section}{\numberline {8.1}Algunos resultados \IeC {\'u}tiles de c\IeC {\'a}lculo matricial}{73}{section.8.1}
+\contentsline {subsubsection}{\numberline {4.2.2.1}An\IeC {\'a}lisis de las series en nivel}{49}{subsubsection.4.2.2.1}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.1.1}Derivada de una forma cuadr\IeC {\'a}tica}{73}{subsection.8.1.1}
+\contentsline {subsubsection}{\numberline {4.2.2.2}An\IeC {\'a}lisis de las series en diferencias}{54}{subsubsection.4.2.2.2}
 \defcounter {refsection}{0}\relax 
-\contentsline {subsection}{\numberline {8.1.2}Derivada de un determinante}{74}{subsection.8.1.2}
+\contentsline {section}{\numberline {4.3}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n y estimaci\IeC {\'o}n del modelo del modelo lineal de correcci\IeC {\'o}n del error}{56}{section.4.3}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.4}Diagn\IeC {\'o}sticos del modelo lineal}{65}{section.4.4}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.5}Determinaci\IeC {\'o}n del rango de cointegraci\IeC {\'o}n y estimaci\IeC {\'o}n del modelo del modelo lineal de correcci\IeC {\'o}n del error}{65}{section.4.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.6}Diagn\IeC {\'o}sticos del modelo no lineal}{66}{section.4.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {5}Conclusiones}{69}{chapter.5}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {6}Bibliograf\IeC {\'\i }a}{71}{chapter.6}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {7}Anexo}{73}{chapter.7}
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {7.1}Algunos resultados \IeC {\'u}tiles de c\IeC {\'a}lculo matricial}{73}{section.7.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.1.1}Derivada de una forma cuadr\IeC {\'a}tica}{73}{subsection.7.1.1}
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {7.1.2}Derivada de un determinante}{74}{subsection.7.1.2}
