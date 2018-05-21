@@ -226,17 +226,27 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 
 \section{Antecedentes generales}
 
+\section{Objetivo General, objetivos Específicos y preguntas de investigación}
+\subsection{Objetivo General}
+
+Analizar el mecanismo de transmisión de precios en el mercado de la palta en Chile en el período 2008-2017. 
+
+\subsection{Objetivos específicos}
+\begin{itemize}
+\item Determinar si existe asimetría en la transmisión de precios de la palta
+\item 
+\end{itemize}
+
 \section{Justificación de la investigación}
 
-\section{Objetivo General}
-
-\section{Objetivos Específicos, alcances y limitaciones del estudio}
 \section{Estructura general de la tesis}
 
+
+
 \chapter{Marco Teórico}
-\section{Transmisión de precios}
 
-
+\section{Transmisión de precios: Transmisión Vertical y Horizonal}
+\section{Asimetrías en la transmisión de precios}
 
 Si la transmisión de precios es perfecta, puede afirmarse que la elasticidad de los precios al consumidor ($P_{t}^{c}$) con respecto a los precios al productor ($P_{t}^{p}$) debe ser unitaria. Es decir: 
 
@@ -249,11 +259,76 @@ P_{t}^{c} & = \exp\{\beta_{0}\}[P_{t}^{P}]^{\beta_1} \label{margen}
 Tal y como señalan Tiffin \& Dawson (2001), si $\beta_{1}=1$, entonces el margen comercial se obtiene como $e^{\beta0}-1$
 Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
 
+\section{Razones económicas para el origen de asimetrías en el proceso de transmisión de precios}
+\subsection{Poder de mercado}
+\subsection{Costos de Menú}
+\subsection{Razones institucionales: Regulación del mercado}
+\subection{Costos de transporte}
+\subsection{Inflación}
+\subsection{Costos de búsqueda}
+\subsection{Prácticas en la gestión de inventarios}
+
+\section{Clasificación de los tipos de asimetrías y diferentes estrategias empíricas utilizadas}
+
+Incluir principalmente las ideas del trabajo de Frey y Manera e incluir algunos desarrollos recientes sobre la materia, como bien pueden ser los estudios sobre transmisión de la volatilidad. 
 \section{Evidencia Internacional}
 \section{Evidencia Nacional}
 
 
-\section{Modelos y contrastes estadísticos utilizados en esta tesis}
+\chapter{El mercado de la Palta en Chile}
+
+
+
+
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+
+{\centering \includegraphics[width=6.5in,height=3.5in]{figure/fig-1-1} 
+
+}
+
+\caption[Evolución de precios del palta Hass de primera calidad,2008-2017]{Evolución de precios del palta Hass de primera calidad,2008-2017.}\label{fig:fig-1}
+\end{figure}
+
+
+\end{knitrout}
+
+
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-4-1} 
+
+}
+
+\caption[Volúmenes de palta arribados en mercados mayoristas 1975-2017\label{volumen}]{Volúmenes de palta arribados en mercados mayoristas 1975-2017\label{volumen}}\label{fig:unnamed-chunk-4}
+\end{figure}
+
+
+\end{knitrout}
+
+Una manera de aproximarse al consumo nacional de la palta es el volumen arribado en los mercados mayoristas del país. Como se desprende de la figura \ref{volumen} se observa un aumento importante en el período 1975-2017.  
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
+
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-5-1} 
+
+}
+
+\caption[Superficie plantada de Paltos\label{Paltos}]{Superficie plantada de Paltos\label{Paltos}}\label{fig:unnamed-chunk-5}
+\end{figure}
+
+
+\end{knitrout}
+
+
+\chapter{Modelos y contrastes utilizados en esta tesis}
 
 En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de de los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
 
@@ -1115,23 +1190,6 @@ CITAR A Durbin y Koopman (2012)
 
 
 
-
-
-
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[H]
-
-{\centering \includegraphics[width=6.5in,height=3.5in]{figure/fig-1-1} 
-
-}
-
-\caption[Evolución de precios del palta Hass de primera calidad,2008-2016]{Evolución de precios del palta Hass de primera calidad,2008-2016}\label{fig:fig-1}
-\end{figure}
-
-
-\end{knitrout}
-
-
 \chapter{Resultados}
 
 En este capítulo se muestra una aplicación
@@ -1778,11 +1836,11 @@ El número de rezagos a incluir en el modelo se determinó con el objetivo de pr
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}[!htpb]
 
-{\centering \includegraphics[width=5in,height=3.5in]{figure/unnamed-chunk-18-1} 
+{\centering \includegraphics[width=5in,height=3.5in]{figure/unnamed-chunk-21-1} 
 
 }
 
-\caption{Número de Rezagos para el contraste de Independencia\label{fig5.6}}\label{fig:unnamed-chunk-18}
+\caption{Número de Rezagos para el contraste de Independencia\label{fig5.6}}\label{fig:unnamed-chunk-21}
 \end{figure}
 
 
@@ -2115,7 +2173,7 @@ El paquete \texttt{tsDyn} y la función asociada a este, \texttt{TVECM.HStest} n
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
 
-{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-26-1} 
+{\centering \includegraphics[width=4.5in,height=3.5in]{figure/unnamed-chunk-29-1} 
 
 }
 

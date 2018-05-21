@@ -178,12 +178,11 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 \section{Objetivo General, objetivos Específicos y preguntas de investigación}
 \subsection{Objetivo General}
 
-Determinar la existencia de asimetría en la transmisión de precios en el mercado de la palta en Chile. 
+Analizar el mecanismo de transmisión de precios en el mercado de la palta en Chile en el período 2008-2017. 
 
 \subsection{Objetivos específicos}
 \begin{itemize}
-\item 
-\item 
+\item Determinar si existe asimetría en la transmisión de precios de la palta
 \item 
 \end{itemize}
 
@@ -191,10 +190,12 @@ Determinar la existencia de asimetría en la transmisión de precios en el merca
 
 \section{Estructura general de la tesis}
 
+
+
 \chapter{Marco Teórico}
-\section{Transmisión de precios}
 
-
+\section{Transmisión de precios: Transmisión Vertical y Horizonal}
+\section{Asimetrías en la transmisión de precios}
 
 Si la transmisión de precios es perfecta, puede afirmarse que la elasticidad de los precios al consumidor ($P_{t}^{c}$) con respecto a los precios al productor ($P_{t}^{p}$) debe ser unitaria. Es decir: 
 
@@ -207,11 +208,87 @@ P_{t}^{c} & = \exp\{\beta_{0}\}[P_{t}^{P}]^{\beta_1} \label{margen}
 Tal y como señalan Tiffin \& Dawson (2001), si $\beta_{1}=1$, entonces el margen comercial se obtiene como $e^{\beta0}-1$
 Meyer, J., \& Cramon‐Taubadel, S. (2004). Asymmetric price transmission: a survey. Journal of agricultural economics, 55(3), 581-611.
 
+\section{Razones económicas para el origen de asimetrías en el proceso de transmisión de precios}
+\subsection{Poder de mercado}
+\subsection{Costos de Menú}
+\subsection{Razones institucionales: Regulación del mercado}
+\subection{Costos de transporte}
+\subsection{Inflación}
+\subsection{Costos de búsqueda}
+\subsection{Prácticas en la gestión de inventarios}
+
+\section{Clasificación de los tipos de asimetrías y diferentes estrategias empíricas utilizadas}
+
+Incluir principalmente las ideas del trabajo de Frey y Manera e incluir algunos desarrollos recientes sobre la materia, como bien pueden ser los estudios sobre transmisión de la volatilidad. 
 \section{Evidencia Internacional}
 \section{Evidencia Nacional}
 
 
-\section{Modelos y contrastes estadísticos utilizados en esta tesis}
+\chapter{El mercado de la Palta en Chile}
+
+<<include=FALSE>>=
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE, out.width='4.5in', out.height='3.5in', fig.align='center', message=FALSE, fig.pos='H')
+@
+
+<<echo=FALSE, results='hide', message=FALSE, warning=FALSE>>=
+if (!require(tidyverse)) install.packages("tidyverse"); require(tidyverse)
+if (!require(readxl)) install.packages("readxl"); require(readxl)
+if (!require(RColorBrewer)) install.packages("RColorBrewer"); require(RColorBrewer)
+
+
+setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
+source("weekly_palta.R")
+#setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
+#source("weekly_tomate.R")
+@
+
+
+<<fig-1,echo=F,fig.cap='Evolución de precios del palta Hass de primera calidad,2008-2017.', out.width='6.5in', out.height='3.5in', fig.align='center', fig.pos='H'>>=
+
+par(family="serif", bty="l", bg="white", cex.lab=1) # opciones gráficas
+
+precios = left_join(price_may_palta, price_sup_palta, by = "start") %>%
+  select(year.x,month.x,day.x,price.x, price.y) %>% 
+  melt(id = c("year.x","month.x","day.x")) %>% mutate(precio = exp(value)) %>% 
+  mutate(fecha = as.Date(paste0(year.x,"/",month.x,"/",day.x)))
+
+ggplot(precios,aes(x=fecha,y=precio,colour=variable,group=variable)) + geom_line()+
+  scale_colour_discrete(name  ="Precio",
+                          breaks=c("price.x", "price.y"),
+                          labels=c("Mayorista", "Supermercado"))+ylab("Precio ($/kilo)")
+@
+
+
+<<include=FALSE>>=
+arribo_mayoristas <- read_excel("~/GoogleDrivePersonal/Master/Tesis/datos/Volumen_Paltas.xls", range = "B6:O50") 
+
+arribo_mayoristas = arribo_mayoristas %>% select(-Total) %>% 
+  gather(mes, volumen,-Años) %>% arrange(Años) %>% filter(Años!=2018) %>% 
+  mutate(fecha = seq(as.Date("1975/01/01"),as.Date("2017/12/01"),by="month")) %>% 
+  select(-c(Años,mes)) 
+@
+
+<<fig.cap="Volúmenes de palta arribados en mercados mayoristas 1975-2017\\label{volumen}",out.width='4.5in', out.height='3.5in', fig.align='center', message=FALSE>>=
+options(scipen = 10)
+ggplot(arribo_mayoristas[1:516,], aes(fecha, volumen/1000000)) + geom_line() +
+   xlab("") + ylab("Miles de toneladas")
+@
+
+Una manera de aproximarse al consumo nacional de la palta es el volumen arribado en los mercados mayoristas del país. Como se desprende de la figura \ref{volumen} se observa un aumento importante en el período 1975-2017.  
+
+
+<<echo=FALSE,fig.cap="Superficie plantada de Paltos\\label{Paltos}",out.width='4.5in', out.height='3.5in', fig.align='center', message=FALSE>>=
+catastro <- read_excel("~/GoogleDrivePersonal/Master/Tesis/datos/Datos-Catastro_may.xlsx")
+
+catastro = catastro %>% filter(Especie=="Palto") %>% select(-Especie) %>% 
+  rename(superficie = `Superficie comercial (hectáreas)`)
+
+ggplot(catastro,aes(x=Año,y=superficie,colour=Región,group=Región)) + geom_line()+
+  scale_colour_manual(values = brewer.pal(10,"Set3"))
+@
+
+
+\chapter{Modelos y contrastes utilizados en esta tesis}
 
 En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de de los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
 
@@ -1071,26 +1148,6 @@ CITAR A Durbin y Koopman (2012)
 \section{Fuentes de Información}
 
 
-<<include=FALSE>>=
-knitr::opts_chunk$set(echo = FALSE, warning = FALSE, out.width='4.5in', out.height='3.5in', fig.align='center', message=FALSE, fig.pos='H')
-@
-
-<<echo=FALSE, results='hide', message=FALSE, warning=FALSE>>=
-setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
-source("weekly_palta.R")
-#setwd("/home/hector/GoogleDrivePersonal/Master/Tesis/GitHub/tesis_master")
-#source("weekly_tomate.R")
-@
-
-
-<<fig-1,echo=F,fig.cap='Evolución de precios del palta Hass de primera calidad,2008-2016', out.width='6.5in', out.height='3.5in', fig.align='center', fig.pos='H'>>=
-
-par(family="serif", bty="l", bg="white", cex.lab=1) # opciones gráficas
-ts.plot(exp(precio_mayorista), exp(precio_supermercado), lty=1:2,
-        lwd=1, ylab="$/kilo", xlab="Tiempo")
-legend("topleft", legend = c("Mayorista", "Supermercado"),lty=1:2, lwd=2, cex=0.8)
-
-@
 
 
 \chapter{Resultados}
@@ -1831,7 +1888,6 @@ if (!require(vars)) install.packages("vars"); require(vars)
 if (!require(tsDyn)) install.packages("tsDyn"); require(vars)
 if (!require(ggplot2)) installed.packages("ggplot2"); require(ggplot2)
 if (!require("reshape2")) install.packages("reshape2"); require(reshape2)
-if (!require(RColorBrewer)) install.packages("RColorBrewer"); require(RColorBrewer)
 
 datos = data.frame(y1,y2)
 names(datos) = c("mayorista", "supermercado")
