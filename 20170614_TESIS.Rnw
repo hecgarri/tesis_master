@@ -169,9 +169,20 @@ Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia
 \listoftables
 \onehalfspacing
 \chapter*{Agradecimientos}
-\chapter*{Abstract}
+\chapter*{Resumen}
 
+Un primer párrafo describiendo a grandes rasgos el objetivo de la investigación. 
+
+Un segundo párrafo donde se discute la metodología utilizada en el trabajo. 
+
+Un tercer párrafo describiendo los principales hallazgos. 
 \chapter{Introducción}
+
+\section{Introducción}
+
+Un párrafo discutiendo la importancia del sector agroalimentario en Chile. Incluir por ejemplo estadísticas sobre el PIB agrícola (Incluir una figura con el pib agropecuario)
+
+Incluir un gráfico de torta indicando cuánto gastan los chilenos en productos alimentarios. 
 
 \section{Antecedentes generales}
 
@@ -233,6 +244,7 @@ knitr::opts_chunk$set(echo = FALSE, warning = FALSE, out.width='4.5in', out.heig
 <<echo=FALSE, results='hide', message=FALSE, warning=FALSE>>=
 if (!require(tidyverse)) install.packages("tidyverse"); require(tidyverse)
 if (!require(readxl)) install.packages("readxl"); require(readxl)
+if (!require(readr)) install.packages("readr"); require(readr)
 if (!require(RColorBrewer)) install.packages("RColorBrewer"); require(RColorBrewer)
 
 
@@ -286,6 +298,27 @@ catastro = catastro %>% filter(Especie=="Palto") %>% select(-Especie) %>%
 ggplot(catastro,aes(x=Año,y=superficie,colour=Región,group=Región)) + geom_line()+
   scale_colour_manual(values = brewer.pal(10,"Set3"))
 @
+
+
+Consumo de Palta, encuesta de presupuestso familiares
+
+<<>>=
+if (!require(haven)) install.packages("haven"); require(haven)
+IPF <- read_dta("~/GoogleDrivePersonal/Master/Tesis/datos/BASE_GASTOS_VIIEPF.dta")
+IPF = IPF %>% filter(GLOSA == "PALTA")
+@
+
+Producción de palta 
+
+<<>>=
+world_prod <- read_csv("~/GoogleDrivePersonal/Master/Tesis/datos/Producción mundial de palta.csv")
+
+produccion = world_prod %>% filter(Element == "Production")
+
+produccion_chile = world_prod %>% filter(Element == "Production", Area =="Chile")
+@
+
+
 
 
 \chapter{Modelos y contrastes utilizados en esta tesis}
@@ -2491,6 +2524,7 @@ if (!require(tsDyn)) install.packages("tsDyn")
 
 mono = TVECM(datos, lag=7, nthresh = 1, trim=0.05, ngridBeta = 200, ngridTh = 200, plot=TRUE, include=c("none"), common = "All", beta = list(int = c(-0.5,1.5)), beta0=rep(1,nrow(datos)))
 
+TVECM.sim(TVECMobject = mono, type = "boot")
 @
 
 \section{Diagnósticos del modelo no lineal}
