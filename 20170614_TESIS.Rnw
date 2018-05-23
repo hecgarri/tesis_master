@@ -235,7 +235,9 @@ Incluir principalmente las ideas del trabajo de Frey y Manera e incluir algunos 
 \section{Evidencia Nacional}
 
 
-\chapter{El mercado de la Palta en Chile}
+\chapter{El mercado de la Palta}
+
+
 
 <<include=FALSE>>=
 knitr::opts_chunk$set(echo = FALSE, warning = FALSE, out.width='4.5in', out.height='3.5in', fig.align='center', message=FALSE, fig.pos='H')
@@ -302,13 +304,48 @@ ggplot(catastro,aes(x=Año,y=superficie,colour=Región,group=Región)) + geom_li
 
 Consumo de Palta, encuesta de presupuestso familiares
 
-<<>>=
+<<echo = FALSE>>=
+if (!require(survey)) install.packages("survey"); require(survey)
 if (!require(haven)) install.packages("haven"); require(haven)
-IPF <- read_dta("~/GoogleDrivePersonal/Master/Tesis/datos/BASE_GASTOS_VIIEPF.dta")
-IPF = IPF %>% filter(GLOSA == "PALTA")
+
+
+gasto <- read_dta("~/GoogleDrivePersonal/Master/Tesis/datos/BASE_GASTOS_VIIEPF.dta")
+gasto = gasto  %>% mutate(PERSONA = 1) %>% arrange(FOLIO, PERSONA)
+
+
+glosario_epf <- read_excel("~/GoogleDrivePersonal/Master/Tesis/datos/glosario_epf.xlsx", 
+     range = "A2:D87")
+
+clasificacion <- read_excel("~/GoogleDrivePersonal/Master/Tesis/datos/clasificacion_de_consumo_individual_por_finalidades.xls", range = "A3:H1573")
+
+legumbres_hortalizas = clasificacion %>% filter(D==0,X__1==1,G==1, C==7)
+
+gasto = gasto %>% mutate(legumbres = grepl("^01.1.7",CCIF)) %>% 
+  filter(legumbres == 1,P!=0) 
+
+design = svydesign(~1, weights = ~FE, data = gasto)
+
+consumo_promedio = svyby(~GASTO, by = ~GLOSA, design = design, svymean) %>% arrange(desc(GASTO))
+
+rownames(consumo_promedio) = rownames(consumo_promedio) %>% as.numeric()
+
+otras = consumo_promedio$GLOSA[12:50]
+
+design$variables = design$variables %>% mutate(glosa = ifelse(GLOSA %in% otras,"Otras",GLOSA))
+
+consumo_promedio = svyby(~GASTO, by = ~glosa, design = design, svymean) %>% arrange(desc(GASTO)) %>% 
+  mutate(glosa = tolower(glosa))
+
+
 @
 
-Producción de palta 
+<<results = 'asis'>>=
+xtable::xtable(consumo_promedio[,c(1,2)], type = "latex", caption = "Gasto promedio en legumbres y hortalizas en Chile",
+               digits = 1)
+@
+
+
+\section{Producción de palta} 
 
 <<>>=
 world_prod <- read_csv("~/GoogleDrivePersonal/Master/Tesis/datos/Producción mundial de palta.csv")
@@ -2524,7 +2561,7 @@ if (!require(tsDyn)) install.packages("tsDyn")
 
 mono = TVECM(datos, lag=7, nthresh = 1, trim=0.05, ngridBeta = 200, ngridTh = 200, plot=TRUE, include=c("none"), common = "All", beta = list(int = c(-0.5,1.5)), beta0=rep(1,nrow(datos)))
 
-TVECM.sim(TVECMobject = mono, type = "boot")
+#TVECM.sim(TVECMobject = mono, type = "boot")
 @
 
 \section{Diagnósticos del modelo no lineal}
