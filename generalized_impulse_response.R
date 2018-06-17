@@ -1,6 +1,15 @@
-
-
-
+##  generalized_impulse_response.R
+##  
+##  Héctor Garrido Henríquez
+##  Analista Cuantitativo. Observatorio Laboral Ñuble
+##  Docente. Facultad de Ciencias Empresariales
+##  Universidad del Bío-Bío
+##  Avenida Andrés Bello 720, Casilla 447, Chillán
+##  Teléfono: +56-942353973
+##  http://www.observatoriolaboralnuble.cl
+##
+##  Este programa estima una función de impulso respuesta generalizada
+##  para el modelo TVECM
 
 #k=1; results=res;dat=datS;horizon=hor;sh=shk;shvar=shVar;history=1;
 simTVECM <- function(k=1, results=res, dat=datS, horizon = hor, sh=1, shvar=1, history=1) {
@@ -48,10 +57,10 @@ require(parallel)
 
 res = mono
 datS = datos
-hor = 52
+hor = 62
 sh = 1
 shvar = 1
-replic = 100
+replic = 1000
 
 avgDiff <- array(dim = c(hor, ncol(datS), (nrow(datS) - res$lag)), NA)
 for (i in 1 : (nrow(datS) - res$lag)) {
@@ -65,5 +74,21 @@ regimes <- regime(res)[(res$lag + 2) : length(regime(res))]
 girf <- array(dim = c(hor, ncol(datS), max(regimes)), NA)
 for (i in 1 : max(regimes)) {
   selectReg <- avgDiff[, , which(regimes == i)]
-  girf[, , i] <- apply(selectReg, MARGIN=c(1, 2), sum) / dim(selectReg)[3]
+  girf[, , i] <- apply(selectReg, MARGIN=c(1, 2), sum,na.rm = TRUE) / dim(selectReg)[3]
 }
+
+### Para el caso de los precios mayoristas el shock es de aproximadamente 
+### un aumento de 8% en el precio.
+
+layout(matrix(c(1,2),nrow=1,ncol =2, byrow=TRUE))
+
+colnames(girf) = c("% Mayoristas", "% Supermercados")
+plot.ts(girf[(res$lag+2):hor,,1],
+        main = "IRF ortogonal desde mayoristas, primer regimen",
+        xy.labels =FALSE, 
+        xlab = "Semanas", family = "Serif")
+plot.ts(girf[(res$lag+2):hor,,2],
+        main = "IRF ortogonal desde mayoristas, segundo regimen",
+        xy.labels =FALSE, 
+        xlab = "Semanas", family = "Serif")
+

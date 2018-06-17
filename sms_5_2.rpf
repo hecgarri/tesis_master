@@ -1,0 +1,152 @@
+*
+* SMS_5_2.RPF
+* Switching Models and Structural Breaks
+* Example 5.2
+*
+* Based upon Balke and Fomby(1997), "Threshold Cointegration,"
+* International Economic Review, vol 38, no 3, 627-45.
+*
+* Data file is a reconstruction.
+*
+* This estimates the thresholds using the bivariate likelihood, computes
+* an eventual forecast function and GIRF.
+*
+cal(m) 1955:1
+open data irates.xls
+data(format=xls,org=columns) 1955:01 1990:12 fedfunds mdiscrt
+*
+set spread = fedfunds-mdiscrt
+set thresh = spread{1}
+linreg spread
+# constant spread{1 2}
+@UniqueValues(values=tvalues) thresh %regstart() %regend()
+*
+compute n=%rows(tvalues)
+compute pi=.15
+*
+compute spacing=fix(pi*n)
+*
+* These are the bottom and top of the permitted index values for the
+* lower index, and the top of the permitted values for the upper index.
+*
+compute lstart=spacing,lend=n+1-2*spacing
+compute uend  =n+1-spacing
+*
+set dff = fedfunds-fedfunds{1}
+set ddr = mdiscrt -mdiscrt{1}
+*
+sweep
+# dff ddr
+# constant dff{1} ddr{1} spread{1}
+compute loglbest=%logl
+*
+do lindex=lstart,lend
+   do uindex=lindex+spacing,uend
+      sweep(group=(thresh>=tvalues(lindex))+(thresh>tvalues(uindex)))
+      # dff ddr
+      # constant dff{1} ddr{1} spread{1}
+     	if %logl>loglbest
+        	compute lindexbest=lindex,uindexbest=uindex,loglbest=%logl
+  	end do uindex
+end do lindex
+disp "Best Break Values" tvalues(lindexbest) "and" tvalues(uindexbest)
+*
+compute lower=tvalues(lindexbest),upper=tvalues(uindexbest)
+dec frml[int] switch
+frml switch = 1+fix((spread{1}>=lower)+(spread{1}>upper))
+*
+* Estimate the model at the best breaks to get the covariance matrix.
+*
+sweep(group=switch(t))
+# dff ddr
+# constant dff{1} ddr{1} spread{1}
+compute tvecmsigma=%sigma
+*
+set dff = fedfunds-fedfunds{1}
+set ddr = mdiscrt -mdiscrt{1}
+*
+system(model=basevecm)
+variables dff ddr
+lags 1
+det constant spread{1}
+end(system)
+*
+dec rect[frml] tvecfrml(2,3)
+do i=1,3
+   estimate(smpl=(switch(t)==i))
+   frml(equation=%modeleqn(basevecm,1)) tvecfrml(1,i)
+   frml(equation=%modeleqn(basevecm,2)) tvecfrml(2,i)
+end do i
+*
+frml(identity) ffid fedfunds = fedfunds{1}+dff
+frml(identity) drid mdiscrt  = mdiscrt{1}+ddr
+frml(identity) spid spread   = fedfunds-mdiscrt
+*
+frml dffeq dff = tvecfrml(1,switch(t))
+frml ddreq ddr = tvecfrml(2,switch(t))
+*
+group tvecm dffeq ddreq ffid drid spid
+*
+* Eventual forecast function, starting with 1981:1 data (largest value
+* of spread).
+*
+forecast(model=tvecm,from=1981:1,steps=40,results=eff)
+graph(footer=$
+   "Eventual Forecast Function for SPREAD, starting at 1981:1")
+# eff(5)
+graph(footer=$
+   "Eventual Forecast Function for Change in DR, starting at 1981:1")
+# eff(2)
+*
+* GIRF starting in 1969:3 for a one s.d. shock to DR correlated with FF
+* using the estimated covariance matrix. (1969:3 has values for both
+* rates which are close to the average for the full period).
+*
+compute ndraws=5000
+compute baseentry=1969:3
+compute nsteps   =40
+*
+dec vect[series] fshocks(2) girf(5)
+dec series[vect] bishocks
+dec vect ishocks
+*
+smpl baseentry baseentry+(nsteps-1)
+do i=1,5
+   set girf(i) = 0.0
+end do i
+*
+compute fsigma=%psdfactor(tvecmsigma,||2,1||)
+*
+do draw=1,ndraws
+   gset bishocks = %ranmvnormal(fsigma)
+   set fshocks(1) = bishocks(t)(1)
+   set fshocks(2) = bishocks(t)(2)
+   forecast(paths,model=tvecm,results=basesims)
+   # fshocks
+   compute ishock=fsigma(2,2)
+   compute ishocks=inv(fsigma)*bishocks(baseentry)
+   compute ishocks(2)=ishock/fsigma(2,2)
+   compute bishocks(baseentry)=fsigma*ishocks
+   compute fshocks(1)(baseentry)=bishocks(baseentry)(1)
+   compute fshocks(2)(baseentry)=bishocks(baseentry)(2)
+   forecast(paths,model=tvecm,results=sims)
+   # fshocks
+   do i=1,5
+      set girf(i) = girf(i)+(sims(i)-basesims(i))
+   end do i
+end do draw
+*
+do i=1,5
+   set girf(i) = girf(i)/ndraws
+end do i
+*
+graph(footer=$
+  "GIRF for Discount Rate to One S.D. Shock in Discount Rate")
+# girf(4)
+graph(footer=$
+  "GIRF for FedFunds Rate to One S.D. Shock in Discount Rate")
+# girf(3)
+graph(footer=$
+  "GIRF for Spread to One S.D. Shock in Discount Rate")
+# girf(5)
+

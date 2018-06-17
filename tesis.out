@@ -1,0 +1,67 @@
+\BOOKMARK [0][-]{chapter.1}{Introducci\363n}{}% 1
+\BOOKMARK [1][-]{section.1.1}{Introducci\363n}{chapter.1}% 2
+\BOOKMARK [1][-]{section.1.2}{Antecedentes generales}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.3}{Objetivo General, objetivos Espec\355ficos y preguntas de investigaci\363n}{chapter.1}% 4
+\BOOKMARK [2][-]{subsection.1.3.1}{Objetivo General}{section.1.3}% 5
+\BOOKMARK [2][-]{subsection.1.3.2}{Objetivos espec\355ficos}{section.1.3}% 6
+\BOOKMARK [1][-]{section.1.4}{Justificaci\363n de la investigaci\363n}{chapter.1}% 7
+\BOOKMARK [1][-]{section.1.5}{Estructura general de la tesis}{chapter.1}% 8
+\BOOKMARK [0][-]{chapter.2}{Marco Te\363rico}{}% 9
+\BOOKMARK [1][-]{section.2.1}{Transmisi\363n de precios: Transmisi\363n Vertical y Horizonal}{chapter.2}% 10
+\BOOKMARK [1][-]{section.2.2}{Asimetr\355as en la transmisi\363n de precios}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.3}{Razones econ\363micas para el origen de asimetr\355as en el proceso de transmisi\363n de precios}{chapter.2}% 12
+\BOOKMARK [2][-]{subsection.2.3.1}{Poder de mercado}{section.2.3}% 13
+\BOOKMARK [2][-]{subsection.2.3.2}{Costos de Men\372}{section.2.3}% 14
+\BOOKMARK [2][-]{subsection.2.3.3}{Razones institucionales: Regulaci\363n del mercado}{section.2.3}% 15
+\BOOKMARK [2][-]{subsection.2.3.4}{Costos de transporte}{section.2.3}% 16
+\BOOKMARK [2][-]{subsection.2.3.5}{Inflaci\363n}{section.2.3}% 17
+\BOOKMARK [2][-]{subsection.2.3.6}{Costos de b\372squeda}{section.2.3}% 18
+\BOOKMARK [2][-]{subsection.2.3.7}{Pr\341cticas en la gesti\363n de inventarios}{section.2.3}% 19
+\BOOKMARK [1][-]{section.2.4}{Clasificaci\363n de los tipos de asimetr\355as y diferentes estrategias emp\355ricas utilizadas}{chapter.2}% 20
+\BOOKMARK [1][-]{section.2.5}{Evidencia Internacional}{chapter.2}% 21
+\BOOKMARK [1][-]{section.2.6}{Evidencia Nacional}{chapter.2}% 22
+\BOOKMARK [0][-]{chapter.3}{El mercado de la palta}{}% 23
+\BOOKMARK [1][-]{section.3.1}{El precio de la palta}{chapter.3}% 24
+\BOOKMARK [1][-]{section.3.2}{Consumo}{chapter.3}% 25
+\BOOKMARK [0][-]{chapter.4}{Modelos y contrastes utilizados en esta tesis}{}% 26
+\BOOKMARK [1][-]{subsection.4.0.1}{Modelos univariados de series de tiempo}{chapter.4}% 27
+\BOOKMARK [2][-]{subsection.4.0.2}{Modelos univariados de series de tiempo}{subsection.4.0.1}% 28
+\BOOKMARK [2][-]{subsection.4.0.3}{Contrastes de ra\355z unitaria/estacionariedad}{subsection.4.0.1}% 29
+\BOOKMARK [3][-]{subsubsection.4.0.3.1}{Contraste de Dickey-Fuller Aumentado}{subsection.4.0.3}% 30
+\BOOKMARK [3][-]{subsubsection.4.0.3.2}{Contraste de Phillips-Perron}{subsection.4.0.3}% 31
+\BOOKMARK [3][-]{subsubsection.4.0.3.3}{Contraste de Elliot, Rothenberg \046 Stock \(1996\)}{subsection.4.0.3}% 32
+\BOOKMARK [3][-]{subsubsection.4.0.3.4}{Contraste Kiatkowsky, Pesaran, Schmidt \046 Shin \(1992\)}{subsection.4.0.3}% 33
+\BOOKMARK [2][-]{subsection.4.0.4}{An\341lisis de cointegraci\363n}{subsection.4.0.1}% 34
+\BOOKMARK [3][-]{subsubsection.4.0.4.1}{Cointegraci\363n y an\341lisis de las relaciones de largo plazo}{subsection.4.0.4}% 35
+\BOOKMARK [2][-]{subsection.4.0.5}{Estimaci\363n basada en la verosimilitud para el modelo VAR irrestricto}{subsection.4.0.1}% 36
+\BOOKMARK [3][-]{subsubsection.4.0.5.1}{Contraste de raz\363n de verosimilitud}{subsection.4.0.5}% 37
+\BOOKMARK [3][-]{subsubsection.4.0.5.2}{El contraste de Ljung-Box}{subsection.4.0.5}% 38
+\BOOKMARK [3][-]{subsubsection.4.0.5.3}{Contrastes para Heteroscedasticidad Residual}{subsection.4.0.5}% 39
+\BOOKMARK [3][-]{subsubsection.4.0.5.4}{Contrastes de normalidad}{subsection.4.0.5}% 40
+\BOOKMARK [2][-]{subsection.4.0.6}{Modelo Vectorial de Correcci\363n del Error \(VECM\)}{subsection.4.0.1}% 41
+\BOOKMARK [2][-]{subsection.4.0.7}{Estimaci\363n de un modelo VECM}{subsection.4.0.1}% 42
+\BOOKMARK [2][-]{subsection.4.0.8}{El contraste de cointegraci\363n de Johansen}{subsection.4.0.1}% 43
+\BOOKMARK [2][-]{subsection.4.0.9}{Estabilidad del modelo VECM}{subsection.4.0.1}% 44
+\BOOKMARK [1][-]{section.4.1}{Modelo de vector de correcci\363n del error por umbrales \(TVECM\)}{chapter.4}% 45
+\BOOKMARK [2][-]{subsection.4.1.1}{Estimaci\363n del modelo TVECM}{section.4.1}% 46
+\BOOKMARK [2][-]{subsection.4.1.2}{El contraste de Hansen \046 Seo \(2002\)}{section.4.1}% 47
+\BOOKMARK [2][-]{subsection.4.1.3}{Funci\363n de impulso respuesta no lineal}{section.4.1}% 48
+\BOOKMARK [1][-]{section.4.2}{Imputaci\363n de datos faltantes a trav\351s del filtro de Kalman}{chapter.4}% 49
+\BOOKMARK [2][-]{subsection.4.2.1}{El filtro de Kalman}{section.4.2}% 50
+\BOOKMARK [2][-]{subsection.4.2.2}{Formulaci\363n en espacio estado de un modelo ARIMA\(p,d,q\)}{section.4.2}% 51
+\BOOKMARK [2][-]{subsection.4.2.3}{imputaci\363n de valores faltantes}{section.4.2}% 52
+\BOOKMARK [0][-]{chapter.5}{An\341lisis del orden de integraci\363n de las series}{}% 53
+\BOOKMARK [1][-]{section.5.1}{Imputaci\363n de valores perdidos}{chapter.5}% 54
+\BOOKMARK [1][-]{section.5.2}{An\341lisis del orden de integraci\363n de las series}{chapter.5}% 55
+\BOOKMARK [2][-]{subsection.5.2.1}{An\341lisis gr\341fico}{section.5.2}% 56
+\BOOKMARK [3][-]{subsubsection.5.2.1.1}{An\341lisis de las series en nivel}{subsection.5.2.1}% 57
+\BOOKMARK [3][-]{subsubsection.5.2.1.2}{An\341lisis de las series en diferencias}{subsection.5.2.1}% 58
+\BOOKMARK [2][-]{subsection.5.2.2}{Contrastes de ra\355z unitaria}{section.5.2}% 59
+\BOOKMARK [3][-]{subsubsection.5.2.2.1}{An\341lisis de las series en nivel}{subsection.5.2.2}% 60
+\BOOKMARK [3][-]{subsubsection.5.2.2.2}{An\341lisis de las series en diferencias}{subsection.5.2.2}% 61
+\BOOKMARK [0][-]{chapter.6}{Resultados}{}% 62
+\BOOKMARK [1][-]{section.6.1}{Determinaci\363n del rango de cointegraci\363n y estimaci\363n del modelo lineal de correcci\363n del error}{chapter.6}% 63
+\BOOKMARK [1][-]{section.6.2}{Diagn\363sticos del modelo lineal}{chapter.6}% 64
+\BOOKMARK [1][-]{section.6.3}{Estimaci\363n del modelo vectorial de correcci\363n del error por umbrales TVECM}{chapter.6}% 65
+\BOOKMARK [1][-]{section.6.4}{Diagn\363sticos del modelo no lineal}{chapter.6}% 66
+\BOOKMARK [0][-]{chapter.7}{Bibliograf\355a}{}% 67

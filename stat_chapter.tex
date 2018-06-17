@@ -1,0 +1,854 @@
+\chapter{Modelos y contrastes utilizados en esta tesis}
+
+En este capítulo se exponen los principales modelos y contrastes estadísticos utilizados en esta tesis. Se comienza por la descripción de la estimación de modelos de series de tiempo univariados según la metodología de de los contrastes de raíz unitaria univariantes que permiten realizar una exploración preliminar de los datos, para luego abordar la formulación del modelo de regresiones vectoriales autorregresivas (\textbf{VAR}), el modelo vectorial de corrección del error (\textbf{VECM}), el contraste de cointegración de Johansen, el modelo vectorial de corrección del error por umbrales (\textbf{TVECM}) y el contraste de Hansen y Seo (2002). Además, se aborda el problema de imputación de datos faltantes a través del filtro de Kalman. 
+
+
+\subsection{Modelos univariados de series de tiempo}
+
+Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
+
+
+
+\subsection{Modelos univariados de series de tiempo}
+
+Una serie de tiempo univariada $x_{t}$ es un conjunto ordenado de variables aleatorias $x_{1},x_{2},...$ donde $x_{t}$ es el valor que ésta toma al momento $t$. Cabe destacar para efectos de esta tesis , no se hace distinción entre la secuencia de variables y la realización de estas, por lo que la notación es la misma. 
+
+
+\begin{defin}
+Un \textbf{proceso de ruido blanco} es un proceso generador de datos $\varepsilon_{t}$ tal que $\mathbb{E}(\varepsilon_{t})=0$, $\mathbb{E}(\varepsilon_{t}^{2})=\sigma^{2}\quad \forall t$ y $\mathbb{E}(\varepsilon_{t}\varepsilon_{\tau})\neq 0\quad \forall t\neq \tau$. Si además se presume que $\varepsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$, se denomina \textbf{proceso de ruido blanco gaussiano}
+\end{defin}
+
+\begin{defin}
+Una serie de tiempo $x_{t}$ sigue un proceso \textbf{ARMA(p,q)} si 
+\begin{equation}
+x_{t}  = c +\phi x_{t-1}+...+\phi x_{t-p}+\varepsilon_{t}+\theta_{1}\varepsilon_{t-1}+...+\theta_{q}\varepsilon_{t-q}
+\end{equation}
+
+Donde $c$ es una constante, $p$ y $q$ son enteros no negativos, $\phi_{p}\neq 0,\quad \theta_{q}\neq 0$ y $\varepsilon_{t}$ es un proceso de ruido blanco. El entero $p$ determina el orden los términos autoregresivos, mientras que $q$ determina el orden de términos de media móvil.   
+
+\end{defin}
+
+Utilizando el operador de rezagos $L$ definido como $Lx_{t}=x_{t-1}$, el modelo puede ser expresado como 
+\begin{equation}
+(1-\phi_{1}L-...-\phi_{p}L^{p})x_{t} = c+(1+\theta_{1}L+...+\theta_{q}L^{q})\varepsilon_{t}
+\end{equation}
+
+\begin{defin}
+Una serie de tiempo se denomina \textbf{ARIMA(p,d,q)} si 
+\begin{equation}
+\bigtriangledown^{d}x_{t} = (1-B)^{d}x_{t} 
+\end{equation}
+es un proceso \textbf{ARMA}(p,q)
+\end{defin}
+
+Existen varias maneras de estimar los parámetros de este modelo, aunque más adelante en esta tesis se muestra como estimarlo utilizando el filtro de Kalman.
+
+\subsection{Contrastes de raíz unitaria/estacionariedad}
+
+\subsubsection{Contraste de Dickey-Fuller Aumentado}
+
+El contraste más utilizado en la investigación aplicada, dada su simplicidad, es el contraste propuesto por Dickey \& Fuller (1979,1981) y . Para aplicar este contraste existen dos posibles modelos 
+
+Si $y_{t}$ satisface la siguiente ecuación
+
+\begin{equation}
+y_{t} = \alpha+\rho y_{t-1}+\epsilon_{t}\qquad (t=1,...,n)
+\end{equation}
+Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$. 
+
+Si $y_{t}$ satisface la siguiente ecuación 
+
+Como puede observarse en el cuadro \ref{tab-1}, existen 3 estadísticos, $\Phi_{1},\quad \Phi_{2}$ y $\Phi_{3}$, y sus respectivas hipótesis que pueden ser utilizados. Mientras $\Phi_{1}$
+\begin{equation}
+y_{t} = \alpha+\beta\left(t-1-\frac{1}{2}n\right)+\rho y_{t-1}+\epsilon_{t}\qquad (t=1,...,n)
+\end{equation}
+Donde $\epsilon_{t}\sim \mathcal{N}(0,\sigma^{2})$. 
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Hipótesis del contraste de Dickey-Fuller}
+\begin{tabular}{@{}llrllll@{}}
+\toprule
+\multicolumn{2}{l}{Estadístico} & \multicolumn{2}{c}{$\mathcal{H}_{0}$} &
+\multicolumn{2}{c}{$\mathcal{H}_{a}$} \\
+\cmidrule(l){3-4} \cmidrule(l){5-6} \\
+\multicolumn{2}{l}{$\tau$} & 
+\multicolumn{2}{l}{$\rho =1 $} & 
+\multicolumn{2}{l}{$\rho =0 $} \\
+\multicolumn{2}{l}{$\Phi_{1}$} &
+\multicolumn{2}{l}{$(\alpha,\rho)=(0,1)$} &
+\multicolumn{2}{l}{$(\alpha,\rho)\neq(0,1)$} \\
+\multicolumn{2}{l}{$\Phi_{2}$} &
+\multicolumn{2}{l}{$(\alpha,\beta, \rho)=(0,0,1)$} &
+\multicolumn{2}{l}{$(\alpha,\beta,\rho)\neq(0,0,1)$} \\
+\multicolumn{2}{l}{$\Phi_{3}$} &
+\multicolumn{2}{l}{$(\alpha,\beta, \rho)=(\alpha,0,1)$} &
+\multicolumn{2}{l}{$(\alpha,\beta,\rho)\neq(\alpha,0,1)$} \\
+\bottomrule
+\end{tabular}
+\label{tab-1}
+\begin{tablenotes}
+\small
+\item Fuente: Elaboración propia basado en Dickey y Fuller (1981)
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+\subsubsection{Contraste de Phillips-Perron}
+
+De manera similar al contraste anterior Phillips \& Perron (1988) proponen un contraste no paramétrico para la hipótesis nula de raíz unitaria. A diferencia del contraste de Dickey Fuller este contraste resiste dependencia débil y heteroscedasticidad del término de error. El contraste está construido sobre la base de las siguientes formas funcionales: 
+
+\begin{align}
+y_{t} & = \mu+\alpha y_{t-1}+\varepsilon_{t}, \\ 
+y_{t} & = \mu+\beta\left(t-\frac{1}{2}T\right)+\alpha y_{t-1}+\varepsilon_{t}
+\end{align}
+
+Luego de esto definen los siguientes estadísticos de prueba: 
+\begin{align}
+Z(\hat{\alpha}) & = T(\hat{\alpha}-1)-\hat{\lambda}/\bar{m}_{yy}, \label{eq:pp1}\\ 
+Z(\tau_{\hat{\alpha}}) & = (\hat{s}/\hat{\sigma}T_{l})t_{\hat{\alpha}}-\hat{\lambda}'\hat{\sigma}T_{l}/\bar{m}^{1/2}_{yy}, \\ 
+Z(\tau_{\hat{\mu}}) & = (\hat{s}/\hat{\sigma}_{Tl})t_{\hat{\mu}}+\hat{\lambda}'\hat{\sigma}_{Tl}m_{y}/\bar{m}^{1/2}_{yy}m^{1/2}_{yy} \label{eq:pp3}
+\end{align}
+
+Donde $\bar{m}_{yy}=T^{-2}\sum (y_{t}-\bar{y})^{2}$, $m_{yy}=T^{-2}\sum y_{t}^{2}$, $m_{y}=T^{-3/2}\sum y_{t}$ y $\hat{\lambda} = \frac{1}{2}(\hat{\sigma}^{2}_{Tl}-\hat{s} ^{2})$, donde $\hat{\sigma}^{2}$ es la varianza muestral de los residuos, $\hat{\lambda}'=\hat{\lambda}/\hat{\sigma}^{2}_{Tl}$. Luego, la varianza de largo plazo es estimada de la siguiente forma: 
+\begin{equation}
+\hat{\sigma}^{2}_{Tl}=T^{-1}\sum_{t=1}^{T}\hat{\varepsilon}_{t}^{2}+2T^{-1}\sum_{s=1}^{l}w_{sl}\sum_{t=s+1}^{T}\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-s}
+\end{equation}
+Donde $w_{sl}=1-s/(l+1)$
+
+De manera similar, el contraste permite la inclusión de una tendencia determinista, modificando los estadísticos de prueba de la siguiente manera: 
+\begin{align}
+Z(\tilde{\alpha})  & = T(\hat{\alpha}-1)-\hat{\lambda}/M, \\ 
+Z(t_{\tilde{\alpha}}) & = (\tilde{s}/\tilde{\sigma}_{Tl})t_{\tilde{\alpha}}-\tilde{\lambda}'\tilde{\sigma}_{Tl}/M^{1/2}, \\ 
+Z(t_{\tilde{\mu}}) & = (\tilde{s}/\tilde{\sigma}_{Tl})t_{\tilde{\mu}}-\tilde{\lambda}'\tilde{\sigma}_{Tl}m_{y}/M^{1/2}(M+m_{y}^{2})^{1/2}, \\
+Z(t_{\tilde{\beta}}) & = (\tilde{s}/\tilde{\sigma}_{Tl})t_{\tilde{\beta}}-\tilde{\lambda}'\tilde{\sigma}_{Tl}\left(\frac{1}{2}m_{y}-m_{ty}\right)/(M/12)^{1/2}\bar{m}_{yy}^{1/2}
+\end{align}
+
+Donde $m_{y}$, $\bar{m}_{yy}$, $\tilde{\lambda}$, $\tilde{\lambda}'$ y $\tilde{\sigma}_{Tl}$ son definidos al igual que en las ecuaciones \ref{eq:pp1} a \ref{eq:pp3} y $m_{ty}=T^{5/2}\sum t_{yt}$, $t_{\tilde{\mu}}$, $t_{\tilde{\beta}}$ y $t_{\tilde{\alpha}}$ son los estadísticos $t$ de $\tilde{\mu}$, $\tilde{\alpha}$ y $\tilde{\beta}$, respectivamente. Por último la constante $M=(1-T^{-2})m_{yy}-12m^{2}_{ty}+12(1+T^{-1})m_{ty}m_{y}-(4+6T^{-1}+2T^{-2})m_{y}^{2}$
+
+\subsubsection{Contraste de Elliot, Rothenberg \& Stock (1996)} 
+
+Un defecto de los contrastes de raíz unitaria recién expuestos es su baja potencia si el verdadero proceso generador de datos es AR(1) cuyo coeficiente sea cercano a uno. Para mejorar la potencia de estos contrastes, Elliott, Rothenberg \& Stock (1996) propusieron quitar los términos deterministas de lae  serie de tiempo. Los autores desarrollaron unos contrastes de punto-óptimo factible, denotados por $P^{\mu}_{T}$ y $P^{\tau}_{T}$, los cuales toman en cuenta posibles problemas de autocorrelación en el término de error. El segundo contraste es denotado omo el $DF-GLS$, el cual consiste en una modificación del contraste de Dickey-Fuller Aumentado. Se asume la siguiente forma para el proceso generador de los datos: 
+
+\begin{align}
+y_{t} & = d_{t}+u_{t} \label{eq:ers1}\\ 
+u_{t} & = a u_{t-1}+v_{t} \label{eq:ers2}
+\end{align}
+
+Donde $d_{t}=\boldsymbol{\beta' z_{t}}$ representa a los componentes determinísticos, $v_{t}$ es un proceso de error estacionario de media cero. En el caso en que $a=1$, las ecuaciones  \ref{eq:ers1} y \ref{eq:ers2} implican que el proceso es I(1), mientras que si $|a|<1$ significa que la serie es estacionaria. 
+
+Entonces el estadístico de punto óptimo factible será 
+
+\begin{equation}
+P_{T} = \frac{S(a=\bar{a})-\bar{a}S(a=1)}{\hat{\omega}^{2}}
+\end{equation}
+
+Donde $S(a=\bar{a})$y $S(a=1)$ son las sumas de cuadrados residuales de una regresión de mínimos cuadradosd de $y_{a}$ sobre $Z_{a}$ con 
+
+\begin{align}
+y_{a} & = (y_{1}, y_{2}-a y_{1},...,y_{T}-ay_{T-1}), \\
+\boldsymbol{Z_{a}} & = (\boldsymbol{z_{1},z_{2}-a z_{1},..., z_{T}-a z_{T-1}})
+\end{align}
+
+Por lo tanto, $y_{a}$ es un vector columna $T-dimensional$ y $\boldsymbol{Z_{a}}$ defin una matriz de dimensiones $T\times q$. El estimador para la varianza del proceso de error $v_{t}$ puede ser estimado como 
+
+\begin{equation}
+\hat{\omega} = \frac{\hat{\sigma}^{2}_{v}}{(1-\sum_{i=1}^{p}\hat{a}^{i})^{2}}
+\end{equation}
+
+Donde $\hat{\sigma}^{2}_{v}$ y $\hat{a}_{i}$ para $i=1,..,p$ son tomados desde la regresión de mínimos cuadrados auxiliar. 
+
+\begin{equation}
+\Delta y_{t} = a_{0}+a_{1}\Delta y_{t-1}+...+\Delta y_{t-p}+a_{p+1}+v_{t}
+\end{equation}
+
+Finalmente, la cantidad escalar $\bar{a}$ es fijada como $\bar{a}=1+\frac{\bar{c}}{T}$, donde $\bar{c}$ denota una constante. Dependiendo de los términos deteministas incluidos originalmente, el valor de $\bar{c}$ será -7 para el caso de una constante, mientras que será de -13.5 en el caso de que se presente una tendencia lineal. 
+
+A continuación Elliot et al (1996) han propuesto otro contraste basado en el contrase de Dickey Fuller, el cuál es un estadístico para probar $\alpha_{0}=0$ basados en el siguiente modelo. 
+
+\begin{equation}
+\Delta y_{t}^{d} = \alpha_{0}y_{t-1}^{d}+\alpha_{1}\Delta _{t-1}^{d}+...+\alpha_{p}\Delta _{t-p}^{d}+\varepsilon_{t}
+\end{equation}
+
+Donde $y_{t}^{d}$ son los residuos en la regresión auxiliar $y_{t}^{d}\equiv y_{t}-\boldsymbol{\hat{\beta}z_{t}}.$  
+
+\subsubsection{Contraste Kiatkowsky, Pesaran, Schmidt \& Shin (1992)}
+
+Este contraste está pensando para detectar ya sea estacionariedad en tendencia o en nivel. A diferencia de los contrastes anteriores donde la hipótesis nula implicaba afirmar la presencia de una raíz unitaria, en este caso, la hipótesis nula dice relación con que el proceso sea estacionario. Para construir el contraste se considera el siguiente modelo de base: 
+
+\begin{align}
+y_{t} & = \zeta t+r_{t}+\varepsilon_{t} \\  
+r_{t} & = r_{t-1}+u_{t}
+\end{align}
+
+Donde $r_{t}$ es una caminata aleatoria y el término de error se asume i.i.d $(0,\sigma^{2}_{u})$. La hipótesis nula de este contraste consiste en afirmar que $\mathcal{H}_{0}: \sigma^{2}_{u}=0$, en cuyo caso, la tendencia $r_{t}$ sería igualmente una tendencia determinista en lugar de estocástica. 
+
+Para construir el estadístico de prueba se sigue el siguiente procedimiento: i) se realiza una regresión de $y_{t}$ sobre una constante o bien sobre una tendencia lineal y una constante, dependiendo de si se desea contrastar la hipótesis de estacionariedad en nivel o en pendiente. Luego se calcula la suma parcial de los residuos $\hat{\varepsilon}_{t}$ de la regresión como 
+
+\begin{equation}
+S_{t} = \sum_{i=1}^{t}\hat{\varepsilon}_{i}, \qquad t=1,2,...,T
+\end{equation}
+
+El estadístico de prueba está definido como 
+
+\begin{equation}
+LM  = \frac{\sum_{t=1}^{T}S_{t}^{2}}{\hat{\sigma}^{2}_{\varepsilon}}
+\end{equation}
+
+Donde $\hat{\sigma}^{2}_{\varepsilon}$ es una estimación de la varianza del error a un paso. Los autores sugieren utiliza una ventana de Bartlett $w(s,l)=1-s/(l+1)$ como una función que da un peso optimo para calcular la varianza de largo plazo, esto es
+
+\begin{equation}
+\hat{\sigma}^{2}_{\varepsilon} = s^{2}(l)=T^{-1}\sum_{t=1}^{T}\hat{\varepsilon}^{2}_{t}+2T-1\sum_{s=1}^{l}1-\frac{s}{l+1}\sum_{t=s+1}^{T}\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-1}
+\end{equation}
+
+
+
+\subsection{Análisis de cointegración}
+\subsubsection{Cointegración y análisis de las relaciones de largo plazo}
+ \textbf{Apuntes de Farías (2017a)}
+
+Dutoit et al. (2010, p. 15) define la transmi-
+sión en este contexto como “(...) la relación
+entre los precios de dos mercados relacio-
+nados; por ejemplo, entre el precio interna-
+cional de un producto y su precio doméstico
+
+En econometría, la estimación de las re-
+laciones entre variables que presentan
+tendencia reviste complejidad, porque su
+estructura puede provocar que se consi-
+deren significativas relaciones comple-
+tamente espurias (Granger y Newbold,
+1974)
+
+Estas técnicas (cointegración) corresponden
+a los modelos de cointegración, que en la
+actualidad son utilizados con frecuencia en
+los estudios de transmisión de precios (aná-
+lisis horizontal) y de transferencia de costos
+(análisis vertical)
+
+
+En este caso, $\boldsymbol{\Pi}$ pue-
+de ser factorizado en una matriz $\boldsymbol{\alpha\beta'}$, donde
+$\boldsymbol{\alpha}$ es una matriz de dimensión $n \times r$ que re-
+presenta la velocidad de ajuste al equilibro,
+mientras que $\boldsymbol{\beta}$ es una matriz de dimensión
+$n \times r$ que representa los coeficientes de largo
+plazo
+
+%{\color{red} 
+
+\textbf{Apuntes de Juselius}
+
+\begin{itemize}
+\item The time series describing cumulated trend-adjusted shocks is usually called a stochas-
+tic trend. It is a cumulation of random shocks with zero mean and constant variance. If
+\item with a linear deterministic trend component. Thus, the difference between a stochastic
+and deterministic trend is that the increments of a stochastic trend change randomly,
+whereas those of a deterministic trend are constant over time.
+\item It is easy to see that if inflation rate is I(1) with a non-zero mean, then prices will contain
+a integrated twice cumulated of order stochastic two, or in trend, 
+t
+ s=1 notation
+i=1 s
+ i . pt We  say I(2).
+ that trend-adjusted prices are
+\item We shall argue below that, unless a unit root is given a structural interpretation, the
+choice of one representation or the other is as such not very important, as long as there is
+consistency between the economic analysis and the choice. However, from an econometric
+point of view the choice between the two representations is usually crucial for the whole
+empirical analysis and should therefore be carefully considered.
+\item variable.
+Because a cointegrating relation does not necessarily correspond to an interpretable
+economic relation, we make a further distinction between the statistical concept of a
+‘cointegration relation’ and the economic concept of a ‘long-run equilibrium relation’.
+\item say second that stochastic the distinction trend,
+ between 
+ u2i , as a long-run a long-run and structural medium-run trend stochastic or not. trend Thus,in one this might
+ case
+is between an I(1) stochastic trend with no linear trend and a near I(1) stochastic trend
+with a linear trend.
+
+\end{itemize}
+
+\begin{defin}
+Sea $\{\mathbf{x}_{t}\}$ un proceso estocástico para $t=..., -1,0,1,2,...$ Si 
+
+\begin{align}
+\mathbb{E}[\mathbf{x}_{t}] & =-\infty < \mathbf{\mu} <\infty \\ 
+\mathbb{E}[\mathbf{x}_{t}-\mathbf{\mu}]^{2} & = \mathbf{\Sigma}_{0}<\infty \qquad \forall t\\ 
+\mathbb{E}[(\mathbf{x}_{t}-\mathbf{\mu})(\mathbf{x}_{t+h}-\mathbf{\mu})] & = \mathbf{\Sigma}_{h} \qquad \forall \text{t y h}
+\end{align}
+Entonces $\mathbf{x}_{t}$ es \textit{debilmente estacionario}. La estacionariedad estricta requiere que la distribución de $(x_{t1},...,x_{tk})$ es la misma que $(x_{t1+h},...,x_{tk+h})$ para $h=...,-1,0,1,2,...$
+\end{defin}
+
+for time t based on the available information at time $t_1$. For example, a VAR model
+with autocorrelated and or heteroscedastic residuals would describe agents that do not
+use all information in the data as efficiently as possible. This is because by including the
+
+ For example, a VAR model
+with autocorrelated and or heteroscedastic residuals would describe agents that do not
+use all information in the data as efficiently as possible. 
+
+Simulation studies have shown that valid statistical inference is sensitive to violation
+of some of the assumptions, such as parameter non-constancy, autocorrelated residu-
+als (the higher, the worse) and skewed residuals, while quite robust to others, such as
+excess kurtosis and residual heteroscedasticity. This will be discussed in more detail in
+
+
+• the use of intervention dummies to account for significant political or institutional
+events during the sample;
+• conditioning on weakly or strongly exogenous variables;
+• checking the measurements of the chosen variables;
+• changing the sample period to avoid fundamental regime shift or splitting the sample
+into more homogenous periods.
+
+and the model has been extended to contain Dt , a vector of deterministic components,
+such as a constant, seasonal dummies and intervention dummies. The autoregressive for-
+mulation is useful for expressing hypotheses on economic behaviour, whereas the moving average representation is useful when examining the properties of the proces.
+
+Si asumimos un modelo $VAR(2)$ bi-dimensional
+
+\begin{equation}
+(\mathbf{I}-\boldsymbol{\Pi}_{1}L-\boldsymbol{\Pi}_{2}L^{2})\mathbf{x}_{t} = \boldsymbol{\Phi}\mathbf{D}_{t}+\mathbf{\varepsilon}_{t}
+\end{equation}
+
+La función características es entonces 
+
+\begin{align}
+\mathbf{\Pi}(z) & = \mathbf{I}-\left[\begin{array}{cc} 
+\pi_{1.11} & \pi_{1.12} \\
+\pi_{1.21} & \pi_{1.22}
+\end{array}\right]z- \left[\begin{array}{cc} 
+\pi_{2.11} & \pi_{2.12} \\
+\pi_{2.21} & \pi_{2.22}
+\end{array}\right]z^{2} \\
+              & = \mathbf{I}-\left[\begin{array}{cc} 
+\pi_{1.11}z & \pi_{1.12}z \\
+\pi_{1.21}z & \pi_{1.22}z
+\end{array}\right]- \left[\begin{array}{cc} 
+\pi_{2.11}z^{2} & \pi_{2.12}z^{2} \\
+\pi_{2.21}z^{2} & \pi_{2.22}z^{2}
+\end{array}\right] \\
+ & = \left[\begin{array}{cc} (1-\pi_{1.11}z-\pi_{2.11}z^{2}) & (-\pi_{1.12}z-\pi_{2.12}z^{2}) \\ 
+ (-\pi_{1.21}z-\pi_{2.21}z^{2}) & (1-\pi_{1.22}z-\pi_{2.22}z^{2})
+ \end{array}\right]
+\end{align}
+y 
+
+\begin{align}
+|\boldsymbol{\Pi}(z)| & = (1-\pi_{1.11}z-\pi_{2.11}z^{2})(1-\pi_{1.22}z-\pi_{2.22}z^{2})-(\pi_{1.12}z+\pi_{2.12}z^{2})(\pi_{1.21}z+\pi_{2.21}z^{2}) \\ 
+& = 1-a_{1}z-a_{2}z^{2}-a_{3}z^{3}-a_{4}z^{4} \\ 
+& = (1-\rho_{1}z)(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)
+\end{align}
+
+El determinante entrega información valiosa sobre el comportamiento dinámico del proceso. 
+
+Luego 
+
+\begin{align}
+\mathbf{x}_{t} & = \frac{\boldsymbol{\Pi}^{a}(L)(\boldsymbol{\Phi}\mathbf{D}_{t}+\varepsilon_{t})}{(1-\rho_{1}z)(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}+\tilde{\mathbf{X}}^{0}, \qquad t=1,...,T \\ 
+& = \left(\frac{\mathbf{\Pi}_{1}^{a}L+\mathbf{\Pi}^{a}_{2}L^{2}}{(1-\rho_{2}z)(1-\rho_{3}z)(1-\rho_{4}z)}\right)\left(\frac{\varepsilon_{t}+\mathbf{\Phi}D_{t}}{(1-\rho_{1}L)}\right)+\mathbf{\tilde{X}}^{0}, \qquad t=1,...,T
+\end{align}
+
+\subsection{Estimación basada en la verosimilitud para el modelo VAR irrestricto}
+
+Cuando el modelo no tiene restricciones sobre sus parámetros (como las que pueden surgir debido a la presencia de raíces unitarias) el modelo puede estimarse por MCO, caso que coincide con el estimador de \textit{Full information maximum likelihood}
+
+Si escribimos el modelo en su versión apilada
+\begin{align}
+& \mathbf{x}_{t} = \mathbf{B'Z}_{t}+\varepsilon_{t}, \qquad t=1,..,T \\ 
+& \varepsilon_{t}\sim IN_{p}(\mathbf{0,\Omega})
+\end{align}
+
+Donde: 
+\begin{itemize}
+\item $\mathbf{B'}=\left[\boldsymbol{\mu_{0}, \Pi_{1}, \Pi_{2},...,\Pi_{k}}\right]$
+\item $\mathbf{Z'}_{t} = \left[\mathbf{1,x'_{t-1}, x'_{t-2},...,x'_{t-k}}\right]$
+\item $\mathbf{X}^{0} = \left[\mathbf{x'_{0}, x'_{-1},...,x'_{-k+1}}\right]$ 
+\end{itemize}
+
+La función de verosimilitud será la siguiente: 
+
+\begin{equation}
+\log L(\boldsymbol{B,\Omega,X}) = -T\frac{p}{2}\log(2\pi)-T\frac{1}{2}\log|\mathbf{\Omega}|-\frac{1}{2}\sum_{t=1}^{T}(\mathbf{x_{t}-B'Z_{t}})'\boldsymbol{\Omega}^{-1}(\mathbf{x_{t}-B'Z_{t}})
+\end{equation}
+
+Si calculamos $\frac{\partial \log L}{\partial \mathbf{B}}$, tendremos
+\begin{equation*}
+\sum_{t=1}^{T}\mathbf{x_{t}Z'_{t}} = \mathbf{\tilde{B}'}\sum_{t=1}^{T}\mathbf{Z_{t}Z_{t}'}
+\end{equation*}
+
+Entonces, el estimador de máxima verosimilitud es 
+
+\begin{equation}
+\mathbf{\tilde{B}}' = \sum_{t=1}^{T}(\mathbf{x_{t}Z'_{t}})\left(\sum_{t=1}^{T}\mathbf{Z_{t}Z'_{t}}\right)^{-1} = \mathbf{M}_{xZ}\mathbf{M}_{ZZ}^{-1}
+\end{equation}
+
+Luego calculando $\frac{\partial \log L}{\partial \boldsymbol{\Omega}}=\mathbf{0}$
+
+\begin{equation}
+\boldsymbol{\hat{\Omega}} = T^{-1}\sum_{t=1}^{T}(\mathbf{x_{t}-\hat{B}'Z_{t}})(\mathbf{x_{t}-\hat{B}'Z_{t}})' = T^{-1}\sum_{t=1}^{T}\boldsymbol{\hat{\varepsilon}_{t}\hat{\varepsilon}'_{t}}
+\end{equation}
+
+El valor máximo de la función de Verosimilitud, será el siguiente: 
+
+\begin{equation}
+\log L _{\max} = -\frac{P}{2}T\log (2\pi)-\frac{1}{2}T\log|\boldsymbol{\hat{\Omega}}|-\frac{1}{2}\sum_{t=1}^{T}(\mathbf{x_{t}-\hat{B}'Z_{t}})'\boldsymbol{\hat{\Omega}}^{-1}(\mathbf{x_{t}-\hat{B}'Z_{t}}) 
+\end{equation}
+
+Mostraremos que $\log L_{\max} = -\frac{1}{2}T\log |\boldsymbol{\hat{\Omega}}|+K, \qquad K\in \mathbb{R}$
+
+\begin{align}
+(\boldsymbol{x_{t}-\hat{B}'Z_{t}})\boldsymbol{\hat{\Omega}}^{-1}(\mathbf{x_{t}-\hat{B}'Z_{t}}) 
+& = \boldsymbol{\hat{\varepsilon}'_{t}\boldsymbol{\hat{\Omega}}^{-1}\hat{\varepsilon}_{t}} \nonumber \\
+& = \sum_{ij}\hat{\varepsilon}_{t,i}(\boldsymbol{\hat{\Omega}}^{-1})_{ij}\hat{\varepsilon}_{t,j} \\
+& = \sum_{ij}(\boldsymbol{\hat{\Omega}}^{-1})_{ij}\hat{\varepsilon}_{t,i}\hat{\varepsilon}_{t,j} \nonumber \\ 
+& = \text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\boldsymbol{\hat{\varepsilon_{t}}\hat{\varepsilon}'_{t}}\}
+\end{align}
+
+Luego, se tiene que 
+
+\begin{align}
+\sum_{t=1}^{T}(\mathbf{x_{t}-\hat{B}'Z_{t}})\boldsymbol{\hat{\Omega}}^{-1}(\mathbf{x_{t}-\hat{B}'Z_{t}})' & = \sum_{t=1}^{T}\text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\boldsymbol{\hat{\varepsilon_{t}}\hat{\varepsilon}'_{t}}\} \\
+& = T \sum_{t=1}^{T}\text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\boldsymbol{\hat{\varepsilon_{t}}\hat{\varepsilon}'_{t}}/T\} \\ 
+& = T \text{traza}\{\boldsymbol{\hat{\Omega}}^{-1}\hat{\Omega}\} \\ 
+& = T \text{traza}\{\mathbf{I}_{p}\} = Tp
+\end{align}
+
+De donde se desprende que 
+
+\begin{equation}
+\log L_{\max} = -T \frac{1}{2} \log |\boldsymbol{\hat{\Omega}}|\underbrace{-T\frac{p}{2}-T\frac{p}{2}\log(2\pi)}_{+K}
+\end{equation}
+
+\textbf{NOTA PARA RECORDAR: si las variables del modelo están formuladas en logaritmo la desviación estándar de cada una de estas puede ser interpretada como un porcentaje de error }
+
+
+\subsubsection{Contraste de razón de verosimilitud}
+
+\begin{equation}
+  -2\log Q(\mathcal{H}_{k}/\mathcal{H}_{k+1}) =  T(\log|\boldsymbol{\hat{\Omega}}_{k}|-\log|\boldsymbol{\hat{\Omega}}_{k+1}|) \sim \chi^{2}_{p^{2}}
+\end{equation}
+
+
+Criterios de selección 
+
+\begin{align}
+\text{AIC} & = \log |\boldsymbol{\hat{\Omega}}|+(p^{2}k)\frac{2}{T} \\ 
+\text{SC} & = \log|\boldsymbol{\hat{\Omega}}|+(p^{2}k)\frac{\log T}{T} \\ 
+\text{Hannah-Quinn} & = \log|\boldsymbol{\hat{\Omega}}|+(p^{2}k)\frac{2\log \log T}{T}
+\end{align}
+
+Todos los criterios en común están basados en el máximo valor que alcanza la función de verosimilitud del modelo, más un factor que penaliza por el número de parámetros estimados. 
+
+\textbf{
+Al momento de la determinación del número de rezagos, volver a revisar tabla 4.5 de la página 92}
+
+\begin{equation}
+\text{Trace correlation} = 1-\text{traza}(\boldsymbol{\hat{\Omega}}[\text{Cov}(\mathbf{\Delta x_{t}})]^{-1})/p 
+\end{equation}
+
+
+\subsubsection{El contraste de Ljung-Box}
+
+\begin{equation}
+\text{Ljung-Box} = T(T+2)\sum_{h=1}^{T/4}(T-h)^{-1}\text{traza}(\boldsymbol{\hat{\Omega}'_{h}\hat{\Omega}^{-1}\hat{\Omega}'_{h}\hat{\Omega}^{-1}})
+\end{equation}
+
+Donde  $ \boldsymbol{\hat{\Omega}}_{h} = T^{-1}\sum_{t=1}^{T}\boldsymbol{\hat{\varepsilon}_{t}\hat{\varepsilon}_{t-h}'}$. El estadístico se considera distribuido aproximadamente según una $\chi^{2}$ con $p^{2}(T/4-k+1)-p^{2}$ grados de libertad. 
+
+También puede utilizarse un contraste propuesto por Godfrey(1988),  el cual consiste en regresar los residuos del modelo VAR estimado, $\boldsymbol{\hat{\varepsilon}_{t}}$, sobre $k$ variables rezagadas, $\mathbf{x_{t-1}, x_{t-2}, ...,x_{t-k}}$ y el $j$-ésimo residuo rezagado
+\begin{equation}
+\boldsymbol{\hat{\varepsilon}_{t}}=\mathbf{A_{1}x_{t-1}+A_{2}x_{t-2}+...+A_{k}x_{t-k}+A_{\varepsilon}}\boldsymbol{\hat{\varepsilon}}
+\end{equation}
+
+Donde los primeros $j$ valores están perdidos $\hat{\varepsilon}_{-j},...,\hat{\varepsilon}_{-1}$, los que son fijados a cero. El Estadístico de prueba, de tipo multiplicador de Lagrange es calculado de la siguiente forma 
+
+\begin{equation}
+LM(j) = -(T-p(k+1)-\frac{1}{2})\log \left(\frac{|\boldsymbol{\tilde{\Omega}}(j)|}{||\boldsymbol{\tilde{\Omega}}}\right)
+\end{equation}
+
+El estadístico se distribuye aproximadamente como una $\chi^{2}$ con $p^{2}$ grados de libertad. Porque 
+
+\subsubsection{Contrastes para Heteroscedasticidad Residual}
+
+El contraste ARCH $m$-ésimo es calculado como $(T+k-m)\times R^{2}$. Aquí $R^{2}$ se obtiene de la siguiente regresión auxiliar
+
+\begin{equation}
+\hat{\varepsilon}^{2}_{i,t} = \gamma_{0}+\sum_{j=1}^{m}\gamma_{j}\hat{\varepsilon}_{i,t-j}^{2}+error
+\end{equation}
+
+El estadístico se distribuye aproximadamente como una $\chi^{2}$ con $m$ grados de libertad. 
+
+\subsubsection{Contrastes de normalidad}
+
+Para construir un contraste adecuado para verificar la hipótesis de normalidad (multivariada) de los residuos del modelo, se utiliza lo siguiente
+
+\begin{align}
+\text{skewness}_{i} & = \sqrt{\hat{b}_{1i}} = T^{-1}\sum_{t=1}^{T}(\hat{\varepsilon}_{i}/\hat{\sigma}_{i})^{3}_{t} \\ 
+\text{kurtosis}_{i} & = \hat{b}_{2i} = T^{-1}\sum_{t=1}^{T}(\hat{\varepsilon}_{i}/\hat{\sigma}_{i})^{4}_{t} 
+\end{align}
+
+Bajo el supuesto de que los residuos se distribuyen normal, el skewness y la kurtosis de los residuos $\hat{\varepsilon}_{i}$ son asintóticamente normales con las siguientes medias y varianza
+
+\begin{equation}
+\sqrt{T}(\text{skewness}_{i}-0)\distas{a} \mathcal{N}(0,6)
+\end{equation}
+
+y 
+
+\begin{equation}
+\sqrt{T}(\text{kurtosis}_{i}-3)\distas{a}\mathcal{N}(0,24)
+\end{equation}
+
+Entonces, la varianza de skewness es más pequeña que la varianza de la kurtosis, lo cual significa que los contrastes de normalidad son más sensibles a desviaciones sobre el supuesto de skewness (a menudo como resultado de los outliers) que por el exceso de kurtosis (las colas pesadas o demasiados residuos cercanos a la media). Basado en lo anterior, se puede construir un contraste para normalidad univariada de la siguiente forma 
+
+
+
+
+\subsection{Modelo Vectorial de Corrección del Error (VECM)}
+Suponga que  cada componente de una serie de tiempo $K$-dimensional $y_{t}$ es $I(1)$. Entonces, la ecuación (VAR) no será una formulación adecuada de este modelo debido a que los términos $y_{t},y_{t-1},...,y_{t-p}$ son todos no estacionarios. De todas formas, sustituyendo 
+\begin{align}
+\bf{A}_{1} & = \bf{I}_{k}+\mathbf{\Gamma}_{1} \\ 
+\bf{A}_{i} & = \mathbf{\Gamma_{i}}-\mathbf{\Gamma_{i-1}} \qquad i=1,...,p-1 \\ 
+\bf{A}_{p} & = -\mathbf{\Gamma}_{p-1}
+\end{align}
+
+En la ecuación (2.8), reagrupando términos y utilizando que $\Delta \bf{y}_{i} = \bf{y}_{i}-\bf{y}_{i-1}\quad \forall i$, podemos reescribir esta ecuación como 
+\begin{equation}\label{vecm1}
+\Delta \bf{y}_{t}=\mathbf{\mu}+\mathbf{\Gamma}_{1}\Delta \bf{y}_{t-1}+\mathbf{\Gamma}_{2}\Delta \bf{y}_{t-2}+...+\mathbf{\Gamma}_{p-1}\Delta \bf{y}_{t-p+1}+\bf{u}_{t}
+\end{equation} 
+Naturalmente, ambas ecuaciones describen el mismo modelo, pero preferimos usar la ecuación \eqref{vecm1} cuando $\bf{y}_{t}$ es $I(1)$, debido a que cada término es estacionario en este caso. Entonces, cuando $\bf{y}_{t}$ es $I(1)$, podemos encontrar un modelo apropiado para $y_{t}$ diferenciando cada componente de $\bf{y}_{t}$ una vez, y llevando a cabo la regresión basada en la ecuación \eqref{vecm1}. De todas formas, entonces no podremos tomar en cuenta que podría haber dependencias entre algunos de los componentes de $\bf{y}_{t}$. Por ejemplo, dos de los componentes podrían tener una tendencia en común, o podría existir una combinación lineal de los componente de $y_{t}$ la cual fuera estacionaria. Este problema suele resolverse utilizando incluyendo un \textbf{término de corrección del error} $\mathbf{\Pi}\bf{y}_{t-1}$ en la ecuación \eqref{vecm1}, donde $\mathbf{\Pi}$ es una matriz $K\times K$ de cuyo rango $rank(\mathbf{\Pi})<K$, debido a que si $\mathbf{\Pi}$ tuviera rango completo, entonces $\mathbf{\Pi}$  es invertible, de manera que la variable no estacionaria $\bf{y}_{t-1}$ puede ser escrita como la suma de términos estacionarios, lo que es una contradicción. Entonces, $rank(\mathbf{\Pi})=r<K$ lo cual implica que existen $(K\times r)-matrices$ $\boldsymbol{\alpha}$ y $\boldsymbol{\beta}$ de rango $r$ tales que $\mathbf{\Pi}=\boldsymbol{\alpha}\boldsymbol{\beta}'$. Entonces, cada una de las $r$ filas de $\boldsymbol{\beta}'\bf{y_{t-1}}$ es una combinación lineal estacionaria de los componentes de $y_{t}$ y es llamada una \textbf{relación de cointegración}. El número $r$, el cual es igual al número de relación de cointegración es llamado el \textbf{rango de cointegración}. Como la matriz $\boldsymbol{\beta}$ contiene todos los coeficiente de las relaciones de cointegración, es llamada \textbf{la matriz de cointegración}. La matriz $\boldsymbol{\alpha}$, la cual es la matriz de coeficientes de los términos estacionarios $\boldsymbol{\beta}'\bf{y_{t-1}}$ en la ecuación \eqref{vecm2}, es llamada la matriz de carga. 
+
+\begin{defin}
+Un modelo \textbf{VECM} de orden $p$ se define como 
+\begin{equation}\label{vecm2}
+\Delta \bf{x}_{t}=\mathbf{\Gamma}_{1}\Delta \bf{x}_{t-1}+...+\mathbf{\Gamma}_{p-1}\Delta \bf{x}_{t-p+1}+\boldsymbol{\alpha\beta}'
+\bf{x}_{t-1}+\boldsymbol{\Phi}\mathbf{D}_{t}+\boldsymbol{\varepsilon}_{t} \quad t=1,...,T
+\end{equation}
+Donde $\bf{x}_{t}=\left[x_{1t},...,x_{Kt}\right]'$ es un vector aleatorio de $k\times 1$, $\mathbf{D}_{t}$ representa regresores deterministicos, $\boldsymbol{\alpha}$ y $\boldsymbol{\beta}$ son matrices $(K\times r)$ tales que $rank(\boldsymbol{\alpha})=rank(\boldsymbol{\beta})<K$, 
+\end{defin} 
+
+\subsection{Estimación de un modelo VECM}
+ 
+En esta sección se reproduce parcialmente lo expuesto por (Juselius, 2006). Considere un modelo $VAR(k)$ en su forma de corrección del error con $\boldsymbol{\Pi}=\boldsymbol{\alpha\beta'}$: 
+
+\begin{equation}
+\Delta \mathbf{x}_{t} = \boldsymbol{\Gamma}_{1}\Delta \mathbf{x}_{t-1}+... % 
+                        +\boldsymbol{\Gamma}_{k-1}\Delta \mathbf{x}_{t-k+1}+%
+                        \boldsymbol{\alpha\beta'}\mathbf{x}_{t-1}+\boldsymbol{\Phi}\mathbf{D}_{t}+%
+                        \boldsymbol{\varepsilon}_{t}
+\end{equation}
+Tal y como se definió previamente 
+
+Para escribir el modelo de manera más compacta se utiliza la siguiente notación
+
+\begin{align*}
+\mathbf{Z}_{0t} & = \Delta \mathbf{x}_{t} \\
+\mathbf{Z}_{1t} & =  \mathbf{x}_{t-1} \\
+\mathbf{Z}_{2t} & = [\Delta \mathbf{x}'_{t-1},\Delta \mathbf{x}'_{t-1},\Delta \mathbf{x}'_{t-2},...,%
+                     \Delta \mathbf{x}'_{t-k+1},\mathbf{D}'_{t}]
+\end{align*}
+
+De manera que el modelo VECM anteriormente descrito se puede escribir de manera más compacta 
+
+\begin{equation}
+\mathbf{Z}_{0t} = \boldsymbol{\alpha\beta'}\mathbf{Z}_{1t}+\boldsymbol{\Psi}\mathbf{Z}_{2t}+% 
+                    \boldsymbol{\varepsilon}_{t}
+\end{equation}
+
+Si se utiliza el teorema de Frisch-Waugh podemos expresar la ecuación anterior de forma aún más simplificada utilizando lo siguiente: 
+
+Primero, se utilizan las siguientes regresiones auxiliares
+\begin{align}
+\mathbf{Z}_{0t} & = \mathbf{\hat{B}}_{1}'\mathbf{Z}_{2t}+\mathbf{R}_{0t} \\
+\mathbf{Z}_{1t} & = \mathbf{\hat{B}}_{2}'\mathbf{Z}_{2t}+\mathbf{R}_{1t}
+\end{align}
+
+Utilizando los residuos de estas regresiones auxiliares puede escribirse el modelo concentrado de la siguiente forma: 
+
+\begin{equation}\label{modelo_concentrado}
+\mathbf{R}_{0t} = \boldsymbol{\alpha\beta}'\mathbf{R}_{1t}+\varepsilon_{t}, \qquad \varepsilon_{t}\sim \mathcal{N}_{p}(\boldsymbol{0,\Omega})
+\end{equation}
+
+Para estimar el modelo se utiliza un procedimiento de dos pasos: Primero, se asume que $\boldsymbol{\beta}$ es conocido y se obtiene un estimador de $\boldsymbol{\alpha}$ bajo el supuesto que $\boldsymbol{\beta}'\mathbf{R}_{1t}$ es una variable conocida. Entonces se inserta $\boldsymbol{\alpha}=\hat{\boldsymbol{\alpha}}(\boldsymbol{\beta})$ en la expresión de la función de verosimilitud, de forma que ésta esté en términos de $\boldsymbol{\beta}$, pero no de $\boldsymbol{\alpha}$. Hecho esto, pueden encontrarse los valores de $\hat{\boldsymbol{\beta}}$ que maximizan la función de verosimilitud. Luego, se puede proceder a estimar $\hat{\boldsymbol{\alpha}}=\boldsymbol{\alpha}(\hat{\boldsymbol{\beta}})$  
+
+El primer paso consiste en utilizar la expresión (\ref{modelo_concentrado}) sin el término de error y post-multiplicar ésta por $\mathbf{R}'_{1t}\boldsymbol{\beta}$
+
+\begin{equation}
+\mathbf{R}_{0t}\mathbf{R}_{1t}'\boldsymbol{\beta} = \boldsymbol{\alpha\beta}'\mathbf{R}_{1t}\mathbf{R}'_{1t}\boldsymbol{\beta}
+\end{equation}
+Sumando sobre $t$ y dividiendo por $T$, se tiene: 
+
+\begin{equation}
+\underbrace{T^{-1}\sum_{t}\mathbf{R}_{0t}\mathbf{R}'_{1t}}_{\mathbf{S}_{01}}\boldsymbol{\beta} = 
+\boldsymbol{\alpha\beta}'\underbrace{T^{-1}\sum_{t}\mathbf{R}_{1t}\mathbf{R}'_{1t}}_{\mathbf{S}_{11}}\boldsymbol{\beta}
+\end{equation}
+Un estimador de mínimos cuadrados ordinarios de esta expresión puede obtenerse \textit{despejando} la expresión anterior: 
+
+\begin{equation}\label{resumido}
+\hat{\boldsymbol{\alpha}}(\boldsymbol{\beta}) = \mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}
+\end{equation}
+
+El segundo paso consiste en consiste en utilizar el método de máxima verosimilitud asumiendo que el término de error sigue una distribución normal multivariada. Donde para maximizar la función es necesario operar sobre el determinante de la matriz de varianza-covarianza. Es decir: 
+
+\begin{equation}\label{reemplazo}
+\mathcal{L}^{-2/T}(\boldsymbol{\beta,\alpha})=|\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta,\alpha})|+\text{términos constantes}
+\end{equation}
+Donde: 
+
+\begin{align}\label{covarianza}
+\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta,\alpha}) & = T^{-1}\sum (\mathbf{R}_{0t}-\boldsymbol{\alpha\beta}'\mathbf{R}_{1t})(\mathbf{R}_{0t}-\boldsymbol{\alpha\beta}'\mathbf{R}_{1t})' \\ 
+& = T^{-1}(\sum \mathbf{R_{0t}R_{0t}}'-\sum \mathbf{R_{0t}R_{1t}}'\boldsymbol{\alpha\beta}'-\boldsymbol{\alpha\beta}'\sum \mathbf{R_{1t}R_{0t}}'+\boldsymbol{\alpha\beta}'\sum \mathbf{R_{1t}R_{1t}}'\boldsymbol{\alpha\beta}') \\ 
+& = \mathbf{S}_{00}-\mathbf{S}_{01}\boldsymbol{\alpha\beta}'-\boldsymbol{\alpha\beta}'\mathbf{S}_{10}+\boldsymbol{\alpha\beta}'\mathbf{S}_{11}\boldsymbol{\alpha\beta}'
+\end{align}
+
+Si se sustituye (\ref{resumido}) en (\ref{covarianza}), puede expresarse la matriz de covarianza como una función exclusiva de $\boldsymbol{\beta}$ 
+
+\begin{equation}\label{verosimilitud}
+\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})= \mathbf{S}_{00}-\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\boldsymbol{\beta}'\mathbf{S}_{10}
+\end{equation}
+
+
+Sustituyendo (\ref{reemplazo}) en (\ref{verosimilitud}), puede expresarse la matriz de covarianza sólo en términos de $\boldsymbol{\beta}$
+
+\begin{align}
+\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta}) & = \mathbf{S}_{00}-\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\boldsymbol{\beta}'\mathbf{S}_{10}-\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\boldsymbol{\beta}'\mathbf{S}_{10} \\ 
+& +\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\underbrace{\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}}_{\mathbf{I}}\mathbf{S}_{10}
+\end{align}
+
+De esta manera, 
+
+\begin{equation}
+\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta}) = 
+\mathbf{S}_{00}-\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'
+\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\boldsymbol{\beta}'\mathbf{S}_{10}
+\end{equation}
+
+Para encontrar el estimador de máxima verosimilitud de $\boldsymbol{\beta}$ que minimiza $|\hat{\boldsymbol{\Omega}}(\hat{\beta})|$ puede utilizarse el siguiente resultado: 
+
+\begin{equation}
+\left|\begin{array}{cc} \mathbf{A} & \mathbf{B} \\ \mathbf{B}' & \mathbf{C} \end{array}\right| = |\mathbf{A}|\cdot |\mathbf{A}-\mathbf{B}\mathbf{C}^{-1}\mathbf{B}'|
+\end{equation}
+
+Donde $\mathbf{A}$ y $\mathbf{C}$ son matrices cuadradas no singulares. Ahora se realiza la siguiente sustitución: 
+
+\begin{align}
+\mathbf{S}_{00} & = \mathbf{A} \\ 
+\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta} & = \mathbf{C} \\ 
+\mathbf{S}_{01}\boldsymbol{\beta} & = \mathbf{B}
+\end{align}
+
+
+De manera que la expresión anterior puede reescribirse como: 
+
+\begin{equation}
+|\mathbf{S}_{00}|\cdot |\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}-\boldsymbol{\beta}'\mathbf{S}_{10}\mathbf{S}_{00}^{-1}\mathbf{S}_{01}\boldsymbol{\beta}| = |\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}|\cdot 
+\underbrace{|\mathbf{S}_{00}-\mathbf{S}_{01}\boldsymbol{\beta}(\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta})^{-1}\boldsymbol{\beta}'\mathbf{S}_{10}|}_{|\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})|}
+\end{equation}
+
+De donde se deduce que: 
+
+\begin{align}
+|\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})| & = \frac{|\mathbf{S}_{00}|\cdot |\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}-\boldsymbol{\beta}'\mathbf{S}_{10}\mathbf{S}_{00}^{-1}\mathbf{S}_{01}\boldsymbol{\beta}|}{|\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}|} \\
+|\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})| & = |\mathbf{S}_{00}|\cdot\frac{ |\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}-\boldsymbol{\beta}'\mathbf{S}_{10}\mathbf{S}_{00}^{-1}\mathbf{S}_{01}\boldsymbol{\beta}|}{|\boldsymbol{\beta}'\mathbf{S}_{11}\boldsymbol{\beta}|}
+\end{align}
+
+El segundo término del lado derecho de la ecuación se conoce como \textit{cociente de Rayleigh}, por lo que los valores de la matriz $\boldsymbol{\beta}$, pueden encontrarse diagonalizando dicha forma cuadrática. 
+
+Los autovalores asociados pueden encontrarse como: 
+
+\begin{equation}
+|\rho\mathbf{S}_{11}-\mathbf{S}_{11}+\mathbf{S}_{10}\mathbf{S}_{00}^{-1}\mathbf{S}_{01}|=0
+\end{equation}
+
+O equivalentemente, 
+\begin{equation}
+|\underbrace{(1-\rho)}_{\lambda}\mathbf{S}_{11}-\mathbf{S}_{10}\mathbf{S}_{00}^{-1}\mathbf{S}_{01}|=0
+\end{equation}
+
+Luego el determinante de la matriz de covarianza puede expresarse como: 
+
+\begin{equation}\label{autovalores}
+|\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta})| = |\mathbf{S}_{00}|\prod_{i=1}^{p}(1-\lambda_{i})
+\end{equation}
+
+Luego, los autovectores asociados a cada autovalor $\mathbf{v_{1},...,v_{p}}$se corresponderán con los vectores columna de la matriz $\hat{\boldsymbol{\beta}}$, ordenados de manera que $\hat{\lambda}_{1}>...>\hat{\lambda}_{p}$.
+
+
+
+\subsection{El contraste de cointegración de Johansen}
+
+Utilizando las expresiones (\ref{reemplazo}) y (\ref{autovalores}), la función de logverosimilitud del modelo puede ser representada por: 
+
+\begin{equation}
+-2\log \mathcal{L}(\boldsymbol{\beta}) = T\log|\mathbf{S}_{00}|+T\sum_{i=1}^{p}\log(1-\lambda_{i})
+\end{equation}
+
+Cabe notar entonces que, como se señaló en la sección anterior, mientras mayor la magnitud de los autovalores, más \textit{estacionaria} será la relación de cointegración que representa. De esta manera, el contraste busca identificar qué autovalores - y por tanto vectores cointegrantes - llevan a relaciones estacionarias. De esta manera, el contraste de hipótesis puede realizarse de manera secuencial. 
+
+\begin{align}
+\mathcal{H}(p): rk(\boldsymbol{\Pi})=p && vs && \mathcal{H}(r): rk(\boldsymbol{\Pi})=r 
+\end{align}
+
+Esto quiere decir que para el primer caso, se contrasta la hipótesis de que no existen raíces unitarias comunes entre las diferentes variables endógenas del modelo y por tanto, puede estimarse un modelo VAR en niveles. Mientras que en los contrastes posteriores se pone a prueba la hipótesis sobre el número de relaciones de cointegración que pueden considerarse estacionarias. 
+
+Para estos efectos se puede construir un contraste de razón de verosimilitud (LR rest) de la siguiente forma: 
+
+\begin{align}
+-2 \log |\mathcal{Q}(\mathcal{H}_{r}/\mathcal{H}_{r}) & = T\log \left\{\frac{|\mathbf{S}_{00}|(1-\hat{\lambda}_{1})...(1-\hat{\lambda}_{r})}{|\mathbf{S}_{00}|(1-\hat{\lambda}_{1})...(1-\hat{\lambda}_{p})}\right\} \\ 
+\tau_{p-r} & = -T\log\left[(1-\hat{\lambda}_{r+1})...(1-\hat{\lambda}_{p})\right]
+\end{align}
+
+La magnitud de este estadístico proporcionará evidencia en torno a la validez o no de las hipótesis a contrastar de acuerdo a si sobrepasa o no algún valor crítico $C_{p-r*}$. Sin embargo, de manera similar a como ocurre con el contraste de raíz unitaria de Dickey-Fuller, la distribución de este estadístico no es estándar. Sin embargo Johansen et al. (1996) proveen los valores críticos del contraste bajo diferentes escenarios. 
+
+
+\subsection{Estabilidad del modelo VECM}
+
+NOTA PARA RECORDAR: UNA PRIMERA ESTIMACIÓN PARA EL VECTOR COINTEGRANTE ES LA ESTIMACIÓN en dos etapas de DE ENGLE GRANGER
+
+
+CITAR "FIVE ALTERNATIVE METHODS OF ESTIMATING LONG-RUN EQUILIBRIUM RELATIONSHIPS" PARA MOSTRAR QUE EL MODELO NO ES SENSIBLE A LAS DESVIACIIONES DEL SUPUESTO DE NORMALIDAD. (GONZALOJEC1994)
+
+\section{Modelo de vector de corrección del error por umbrales (TVECM)}
+\subsection{Estimación del modelo TVECM}
+
+En esta sección se reproduce lo expuesto en el artículo de Hansen \& Seo (2002) y Lo \& Zivot (2001). En esta sección puede reescribirse la formulación del modelo (\ref{vecm2}) apilando los diferentes elementos, de la siguiente forma: 
+
+\begin{equation}
+\Delta \mathbf{x}_{t} = \mathbf{A'X}_{t-1}(\boldsymbol{\beta})+\mathbf{u}_{t}
+\end{equation}
+Donde 
+
+\begin{equation}
+\mathbf{x_{t-1}}(\boldsymbol{\beta}) = \left(\begin{array}{c} w_{t-1}(\boldsymbol{\beta}) \\ %
+                                                            \Delta \mathbf{x_{t-1}} \\ %
+                                                            \Delta \mathbf{x_{t-1}} \\ %
+                                                            \vdots \\ % 
+                                                            \Delta \mathbf{x_{t-l}} \\ %
+                                                            \mathbf{D}_{t}
+                                                            \end{array}\right)
+\end{equation}
+
+Donde $w_{t}(\boldsymbol{\beta})=\boldsymbol{\beta}'\mathbf{x}_{t-1}$. La regresora $\mathbf{x_{t-1}}(\boldsymbol{\beta})$ tiene dimensión $k\times 1$ y $\mathbf{A}$ tiene dimensión $k\times p$ donde $k=pl+2$. El término de error $\boldsymbol{\varepsilon}_{t}$ se distribuye de la misma manera asumida anteriormente, es decir, tiene  covarianza finita, $\boldsymbol{\Omega} = \mathbb{E}(\boldsymbol{\varepsilon}_{t}\boldsymbol{\varepsilon}'_{t})$. 
+
+La notación $w_{t-1}(\boldsymbol{\beta})$ y $\mathbf{x}_{t-1}(\boldsymbol{\beta})$ indica que las variables son evaluadas en valores genéricos de $\boldsymbol{\beta}$. Cuando sean evaluadas en los verdaderos valores del vector cointegrante, se denota como $w_{t-1}$ y $\mathbf{x}_{t-1}$, respectivamente\footnote{Es importante notar que para este modelo, no se utiliza la versión concentrada, pues como se verá más adelante, los coeficientes que describen la dinámica de corto plazo del proceso también dependerán del régimen escogido}. 
+
+Como una extensión del modelo anterior, puede escribirse el modelo TVECM de la siguiente forma: 
+
+\begin{defin}
+\begin{equation}
+\Delta \mathbf{x}_{t} = \begin{cases} 
+\mathbf{A}_{1}'\mathbf{X}_{t-1}(\boldsymbol{\beta})+\boldsymbol{\varepsilon}_{t} & \text{si }w_{t-1}\boldsymbol{\beta}\leq \gamma \\ 
+\mathbf{A}_{2}'\mathbf{X}_{t-1}(\boldsymbol{\beta})+\boldsymbol{\varepsilon}_{t} & \text{si }w_{t-1}\boldsymbol{\beta}> \gamma
+\end{cases}
+\end{equation}
+
+Donde $\gamma$ es el parámetro que determina el umbral a partir del cual ocurre el cambio de estructura del modelo. 
+\end{defin}
+
+El modelo anterior puede representarse de manera más sucinta utilizando variables indicadoras: 
+
+\begin{equation}
+\Delta \mathbf{x}_{t} = \mathbf{A}_{1}'\mathbf{X}_{t-1}(\boldsymbol{\beta})d_{1t}(\boldsymbol{\beta},\gamma)+\mathbf{A}_{2}'\mathbf{X}_{t-1}(\boldsymbol{\beta})d_{2t}(\boldsymbol{\beta},\gamma)+\boldsymbol{\varepsilon}_{t}
+\end{equation}
+
+Donde 
+
+\begin{align}
+d_{1t} & = 1(w_{t-1}(\boldsymbol{\beta})\leq \gamma) \\
+d_{2t} & = 1(w_{t-1}(\boldsymbol{\beta})> \gamma) 
+\end{align}
+
+El efecto del umbral sólo tiene sentido si $0<\mathbb{P}(w_{t-1}\leq \gamma)<1$. Lo que se puede representar a través de la siguiente restricción: 
+\begin{equation}
+\pi_{0}\leq \mathbb{P}(w_{t-1}\leq \gamma)\leq 1-\pi_{0}
+\end{equation}
+Donde $\pi_{0}>0$ es un parámetro que restringe el espacio del parámetro $\gamma$, para las aplicaciones dicho parámetro suele fijarse en $\pi_{0}=0.05$. Luego el modelo puede estimarse por el método de máxima verosimilitud, siendo la función a maximizar la siguiente:
+
+\begin{equation}
+\mathcal{L}(\mathbf{A_{1},A_{2}},\boldsymbol{\Omega,\beta},\gamma) = -
+\frac{T}{2}\log |\hat{\boldsymbol{\Omega}}|-\frac{1}{2}\sum_{t=1}^{T}\varepsilon_{t}(\mathbf{A_{1},A_{2}},\boldsymbol{\Omega,\beta},\gamma)'\boldsymbol{\Omega}^{-1}\boldsymbol{\varepsilon}_{t}(\mathbf{A_{1},A_{2}},\boldsymbol{\Omega,\beta},\gamma)
+\end{equation}
+
+Para efectos prácticos, resulta útil resolver la ecuación anterior para los estimadores de la dinámica de corto plazo como funciones de los parámetros $(\boldsymbol{\beta},\gamma)$. De manera que las estimaciones OLS son las siguientes: 
+\begin{align}
+\hat{\mathbf{A}}_{1}(\boldsymbol{\beta},1) & = \left(\sum_{t=1}^{T}\mathbf{X}_{t-1}(\boldsymbol{\beta})\mathbf{X}_{t-1}(\boldsymbol{\beta})'d_{1t}(\boldsymbol{\beta},\gamma)\right)^{-1}\left(\sum_{t=1}^{T}\mathbf{X}_{t-1}(\boldsymbol{\beta})\Delta\mathbf{x}_{t-1}(\boldsymbol{\beta})'d_{1t}(\boldsymbol{\beta},\gamma)\right) \\
+\hat{\mathbf{A}}_{2}(\boldsymbol{\beta},1) & = \left(\sum_{t=1}^{T}\mathbf{X}_{t-1}(\boldsymbol{\beta})\mathbf{X}_{t-1}(\boldsymbol{\beta})'d_{2t}(\boldsymbol{\beta},\gamma)\right)^{-1}\left(\sum_{t=1}^{T}\mathbf{X}_{t-1}(\boldsymbol{\beta})\Delta\mathbf{x}_{t-1}(\boldsymbol{\beta})'d_{2t}(\boldsymbol{\beta},\gamma)\right) \\
+\hat{\boldsymbol{\varepsilon}}_{t}(\boldsymbol{\beta},\gamma) & =\boldsymbol{\varepsilon}_{t}(\hat{\mathbf{A}}_{1}(\boldsymbol{\beta},\gamma),\hat{\mathbf{A}}_{2}(\boldsymbol{\beta},\gamma),\boldsymbol{\beta},\gamma) \\ 
+\hat{\boldsymbol{\Omega}}(\boldsymbol{\beta},\gamma) & = \frac{1}{T}\sum_{t=1}^{T}\hat{\boldsymbol{\varepsilon}}_{t}(\boldsymbol{\beta},\gamma)\hat{\boldsymbol{\varepsilon}}_{t}(\boldsymbol{\beta},\gamma)'
+\end{align}
+
+Luego los estimadores de máxima verosimilitud son $\hat{\mathbf{A}}_{1}=\hat{\mathbf{A}}_{1}(\hat{\boldsymbol{\beta}},\hat{\gamma})$ y $\hat{\mathbf{A}}_{2}=\hat{\mathbf{A}}_{2}(\hat{\boldsymbol{\beta}},\hat{\gamma})$. Este procedimiento no da pie a una solución analítica para encontrar los parámetros $(\boldsymbol{\beta},\gamma)$, por lo que se suele utilizar una \textit{gridsearch}, que puede entenderse como una búsqueda exhaustiva de los parámetros a través de tanteo. Esto implica que la búsqueda sólo ha de realizarse sobre la base de un modelo con dos variables $k=2$, y teniendo en cuenta la normalización para la identificación del vector cointegrante, se tiene que sólo se pueden buscar dos parámetros: $\boldsymbol{\beta}=(1,\beta)$ y $\gamma$. De utilizarse más variables endógenas el proceso de búsqueda se vuelve demasiado costoso computacionalmente. 
+
+Aún así, para disminuir el tiempo de búsqueda se suelen exponer diferentes restricciones. Por ejemplo, se sugiere utilizar como punto de referencia para $\beta$ la estimación del modelo lineal y para el caso de $\gamma$ utilizar el soporte empírico de la relación de cointegración obtenida a través de la estimación del modelo \textbf{VECM}.
+
+El proceso de estimación puede resumirse en los siguientes pasos: 
+
+\begin{enumerate}
+\item Determinar los posibles valores de los parámetros estableciendo un intervalo de búsqueda dado por $[\gamma_{L},\gamma_{U}]$ y $[\beta_{L},\beta_{U}]$ basándose en la estimación lineal $\tilde{\beta}$ y el soporte de la relación de cointegración. 
+\item Para cada par $(\beta,\gamma)$ sobre el espacio de búsqueda, evaluar $\hat{\mathbf{A}}_{1}(\beta,\gamma),\hat{\mathbf{A}}_{2}(\beta,\gamma)$, y $\hat{\boldsymbol{\Omega}}(\beta,\gamma)$
+\item Encontrar los estimadores $(\hat{\beta},\hat{\gamma})$ como los valores de $(\beta,\gamma)$ sobre el espacio de búsqueda que lleva al valor más pequeño de la expresión $\log|\hat{\boldsymbol{\Omega}}(\beta,\gamma)|$
+\item Fijar $\hat{\boldsymbol{\Omega}} = \hat{\boldsymbol{\Omega}}(\hat{\beta},\hat{\gamma})$
+\end{enumerate}
+
+\subsection{El contraste de Hansen \& Seo (2002)}
+Sea $\mathcal{H}_{0}$ la clase de modelos lineales \textbf{VECM} y $\mathcal{H}_{1}$ la clase de modelos de umbrales de dos regímenes\footnote{Nótese que en esta sección se utiliza el modelo bivariado, razón por lo cual se deja de utilizar notación $\boldsymbol{\beta}$ que denota una matriz y se utiliza solamente $\beta$, que denota un solo parámetros, pues se asume además que el vector cointegrante ha sido normalizado}. Cabe notar que ambos modelos estan anidados, por lo que un modelo lineal será un modelo de dos regimenes en que se cumpla que $\mathbf{A}_{1}=\mathbf{A}_{2}$. El objeto de esta sección es entonces determinar como contrastar la evidencia estadística a favor de cointegración lineal o bien de cointegración por umbrales.  
+
+En primersa instancia se asume que los parámetros $(\beta,\gamma)$ son fijos y conocidos. El modelo bajo $\mathcal{H}_{0}$ es el siguiente: 
+
+\begin{equation}
+\Delta \mathbf{x}_{t} = \mathbf{A}'\mathbf{X}_{t-1}(\beta)+\boldsymbol{\varepsilon}_{t}
+\end{equation}
+y bajo $\mathcal{H}_{1}$
+
+\begin{equation}
+\Delta \mathbf{x}_{t} = \mathbf{A}_{1}'\mathbf{X}_{t-1}(\beta)d_{1t}(\beta,\gamma)+\mathbf{A}_{2}'\mathbf{X}_{t-1}(\beta)d_{2t}(\beta,\gamma)+\boldsymbol{\varepsilon}_{t}
+\end{equation}
+
+Al asumir ambos parámetros de interés conocidos, el modelo se vuelve lineal, por lo que el estimador de máxima verosimilitud coincide con el de mínimos cuadrados. Siguiendo este mismo razonamiento, se puede utilizar un contraste de tipo multiplicador de lagrange (LM) que sea robusto a problemas de heteroscedasticidad. Para estos fines se cambia ligeramenta la notación. Sean $\mathbf{X}_{1}(\beta,\gamma)$ y $\mathbf{X}_{2}(\beta,\gamma)$ matrices formadas por los vectores apilados de $\mathbf{X}_{t-1}(\beta)d_{1t}(\beta,\gamma)$ y $\mathbf{X}_{t-1}(\beta)d_{2t}(\beta,\gamma)$, respectivamente. Sean además $\boldsymbol{\xi}_{1}(\beta,\gamma)$ y $\boldsymbol{\xi}_{2}(\beta,\gamma)$ matrices de las filas apiladas $\tilde{\boldsymbol{\varepsilon}}_{t}\otimes \mathbf{X}_{t-1}(\beta)d_{1t}(\beta,\gamma)$ y $\tilde{\boldsymbol{\varepsilon}}_{t}\otimes \mathbf{X}_{t-1}(\beta)d_{2t}(\beta,\gamma)$, respectivamente. Con $\tilde{\boldsymbol{\varepsilon}}_{t}$ representando los residuos de un modelo \textbf{VECM} lineal. Luego se define el producto externo:
+
+\begin{align}
+\mathbf{M}_{1}(\beta,\gamma) & = \mathbf{I}_{p}\otimes \mathbf{X}_{1}(\beta,\gamma)'\mathbf{X}_{1}(\beta,\gamma) \\
+\mathbf{M}_{2}(\beta,\gamma) & = \mathbf{I}_{p}\otimes \mathbf{X}_{2}(\beta,\gamma)'\mathbf{X}_{2}(\beta,\gamma) 
+\end{align}
+
+y 
+
+\begin{align}
+\boldsymbol{\Xi}_{1}(\beta,\gamma) & = \xi_{1}(\beta,\gamma)'\xi_{1}(\beta,\gamma) \\ 
+\boldsymbol{\Xi}_{2}(\beta,\gamma) & = \xi_{2}(\beta,\gamma)'\xi_{2}(\beta,\gamma) \\ 
+\end{align}
+Acto seguido se puede definir las matrices $\hat{\mathbf{V}}_{1}(\beta,\gamma)$ y $\hat{\mathbf{V}}_{2}(\beta,\gamma)$, como estimadores de la varianza al \textit{textit} Eicker-White
+
+\begin{align}
+\hat{\mathbf{V}}_{1}(\beta,\gamma) & = \mathbf{M}_{1}(\beta,\gamma)^{-1}\Xi_{1}(\beta,\gamma)\mathbf{M}_{1}(\beta,\gamma)^{-1}\\ 
+\hat{\mathbf{V}}_{2}(\beta,\gamma) & = \mathbf{M}_{1}(\beta,\gamma)^{-1}\Xi_{1}(\beta,\gamma)\mathbf{M}_{1}(\beta,\gamma)^{-1}
+\end{align}
+
+Lo que lleva a un estimador LM resistente a problemas de heteroscedasticidad: 
+
+\begin{equation}
+LM(\beta,\gamma) = vec(\hat{\mathbf{A}}_{1}(\beta,\gamma)-\hat{\mathbf{A}}_{1}(\beta,\gamma))'(\hat{\mathbf{V}}_{1}(\beta,\gamma)+\hat{\mathbf{V}}_{2}(\beta,\gamma))^{-1}vec(\hat{\mathbf{A}}_{1}(\beta,\gamma)-\hat{\mathbf{A}}_{1}(\beta,\gamma))
+\end{equation}
+
+Si $\beta$ y $\gamma$ fueran conocidos, éste sería el estadístico. Pero, dado que no lo son, el estadístico debe ser evaluado bajo $\mathcal{H}_{0}$. El estimador de $\beta$ ha usarse será el proveniente del modelo lineal $\tilde{\beta}$, pero no existe un estimador de $\gamma$ bajo $\mathcal{H}_{0}$, por lo que, como señalan Hansen \& Seo (2012), se utiliza el criterio de unión intersección  que propone utilizar como estadístico
+
+\begin{equation}
+SupLM = \underset{\gamma_{L}\leq \gamma <\gamma_{U}}{sup}LM(\tilde{\beta},\gamma)
+\end{equation}
+
+Luego la distribución de este contraste tiene una distribución no estándar, para mayor detalle referirse a Hansen \& Seo (2002)
+
+\subsection{Función de impulso respuesta no lineal}
+
+Mencionar que para obtener los intervalos de confianza en este contexto se deben utilizar métodos de bootstraping y citar a Kreiss \& Lahiri (2012) y también a Koop, Pesaran \& Potter (1996)
+
+\section{Imputación de datos faltantes a través del filtro de Kalman}
+CITAR A Durbin y Koopman (2012)
+\subsection{El filtro de Kalman}
+\subsection{Formulación en espacio estado de un modelo ARIMA(p,d,q)}
+\subsection{imputación de valores faltantes}

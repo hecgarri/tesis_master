@@ -1,0 +1,183 @@
+\documentclass[12pt, twoside]{book}\usepackage[]{graphicx}\usepackage[]{color}
+
+\usepackage{alltt}\usepackage[]{graphicx}\usepackage[]{color}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{lscape} %Para seleccionar páginas horizontales 
+\usepackage[cc]{titlepic} 
+\usepackage[hidelinks]{hyperref}  %Para links ocultos
+\usepackage{url} %Para direcciones web
+\usepackage[makeroom]{cancel}
+\pagestyle{fancy}
+\usepackage{multicol} % muchas columnas
+\usepackage{booktabs} % midrule, bottomrule
+\usepackage{titlesec}
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt} 
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+\usepackage{blindtext}
+\usepackage[capposition=top]{floatrow} % Para notitas después de los gráficos
+\usepackage{listings} % Para escribir texto plano 
+\let\bold\boldsymbol
+\let\bf\mathbf
+
+
+\parindent=0pt % Para el uso de sangrías
+\parskip=\medskipamount
+
+\fancyhf{}
+ \setcounter{page}{1}
+%\rfoot{Página \thepage \hspace{1pt} de \pageref{LastPage}}
+\setcounter{section}{0}
+
+\usepackage[caption=false]{subfig}
+\usepackage{blindtext}  %Texo sin sentido
+\usepackage{amsmath} \newenvironment{smatrix}{\left(\begin{smallmatrix}}{\end{smallmatrix}\right)} %SMALL
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\DeclareMathOperator{\sgn}{sgn} %Para formalizar la función signo 
+\usepackage{enumerate}
+\usepackage{dsfont} %Para usar una indicadora
+\numberwithin{equation}{section}
+\usepackage{xcolor}
+\usepackage[backend=bibtex]{biblatex}
+\bibliography{biblio.bib}
+\usepackage{booktabs,caption}
+\usepackage[flushleft]{threeparttable}
+
+
+\makeatletter
+\newcommand{\distas}[1]{\mathbin{\overset{#1}{\kern\z@\sim}}}%
+\newsavebox{\mybox}\newsavebox{\mysim}
+\newcommand{\distras}[1]{%
+  \savebox{\mybox}{\hbox{\kern3pt$\scriptstyle#1$\kern3pt}}%
+  \savebox{\mysim}{\hbox{$\sim$}}%
+  \mathbin{\overset{#1}{\kern\z@\resizebox{\wd\mybox}{\ht\mysim}{$\sim$}}}%
+}
+\makeatother
+\makeatletter
+\g@addto@macro\normalsize{%
+  \setlength\abovedisplayskip{10pt}
+  \setlength\belowdisplayskip{10pt}
+  \setlength\abovedisplayshortskip{10pt}
+  \setlength\belowdisplayshortskip{10pt}
+}
+\makeatother
+\usepackage{mdframed} %Para usar recuadros
+
+    \usepackage{framed}
+
+    \colorlet{shadecolor}{blue!15}
+
+    \newtheorem{theorem}{Observación}
+    \newenvironment{theo}
+      {\begin{shaded}\begin{theorem}}
+      {\end{theorem}\end{shaded}}
+      \numberwithin{theorem}{section}
+
+\colorlet{shadecolor}{red!15}
+
+    \newtheorem{teorema}{Proposición}
+    \newenvironment{teo}
+      {\begin{shaded}\begin{teorema}}
+      {\end{teorema}\end{shaded}}
+      \numberwithin{teorema}{section}
+
+\colorlet{shadecolor}{gray!15}
+    \newtheorem{defi}{Definición}
+    \newenvironment{defin}
+      {\begin{shaded}\begin{defi}}
+      {\end{defi}\end{shaded}}
+      \numberwithin{defi}{section}
+%\newtheorem{rexample}{Código R}[subsection]
+\newtheorem{prop}{Proposición}
+%\newtheorem{defi}{Definición}
+\numberwithin{prop}{section}
+\numberwithin{defi}{section}
+\theoremstyle{plain}
+\setlength{\textfloatsep}{10pt}
+\usepackage{multicol}
+\usepackage{float}
+
+\usepackage[affil-it]{authblk}
+\usepackage{setspace}
+\usepackage{listings}
+
+\usepackage{geometry}
+\geometry{a4paper, left=3cm, right=3cm, top=3cm, bottom=3cm}
+\newcommand*\rfrac[2]{{}^{#1}\!/_{#2}}
+\title{Análisis de datos: Transmisión de precios}
+\author{H\'ector Garrido Henr\'iquez\thanks{Ingeniero Comercial. Contacto: \texttt{hectorgarridohenriquez@gmail.com}} \\ 
+Profesor: Sergio Contreras Espinoza}
+
+\affil{Mag\'ister en Matem\'atica Menci\'on Estad\'istica \\ Universidad del B\'io-B\'io}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+\allowdisplaybreaks
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+%\SweaveOpts{concordance=TRUE}
+\begin{titlepage}
+\begin{center}
+\includegraphics[scale=0.07]{./figure/logo.png}\\
+\textsc{\Large Universidad del Bío-Bío \\[0.5cm] Facultad de Ciencias}\\[1cm] % University name
+\textsc{\Large}\\[0.3cm] % Thesis type
+
+\noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}} 
+{\huge Transmisi\'on Asim\'etrica de Precios en el sector de la palta en Chile:\\[0.3cm] Evidencia desde un modelo TVECM}\\[0.4cm] % Thesis title
+\noindent\makebox[\linewidth]{\rule{\textwidth}{1pt}} 
+
+\textsc{\Large}\\[0.5cm] % Thesis type
+
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft} \large
+\emph{Autor:}\\
+Héctor Garrido Henríquez % Author name - remove the \href bracket to remove the link
+\end{flushleft}
+\end{minipage}
+\begin{minipage}{0.45\textwidth}
+\begin{flushleft} \large
+\emph{Profesor(es) Guía(s):} \\
+Dr. Sergio Contreras Espinoza \\ Dra. Monia Ben Kaabia 
+\end{flushleft}
+\end{minipage}\\[2cm]
+ 
+\large \textit{Tesis para optar al grado de Magíster en Matemática con mención en Estadística}\\[0.3cm] % University requirement text
+\textit{}\\[0.4cm]
+\ Departamento de Estadística \\
+[0.4cm]\ Departamento de Matemática
+\\[1cm] % Research group name and department name
+ 
+{\large \today}\\[2cm] % Date
+%\includegraphics{Logo} % University/department logo - uncomment to place it
+ 
+%\vfill
+\end{center}
+
+\end{titlepage}
+\newpage
+
+
+
+\tableofcontents
+
+\listoffigures
+\listoftables
+\onehalfspacing
+
+\include{aknowledgment_chapter}
+\include{abstract_chapter}
+\include{intro_chapter}
+\include{theoretical_chapter}
+\include{market_chapter}
+\include{stat_chapter}
+\include{univariate_chapter}
+\include{results_chapter}
+\include{bioblio_chapter}
+
+\end{document}\grid

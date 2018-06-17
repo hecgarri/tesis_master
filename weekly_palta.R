@@ -1,3 +1,16 @@
+##  weelky_palta.R
+##  
+##  Héctor Garrido Henríquez
+##  Analista Cuantitativo. Observatorio Laboral Ñuble
+##  Docente. Facultad de Ciencias Empresariales
+##  Universidad del Bío-Bío
+##  Avenida Andrés Bello 720, Casilla 447, Chillán
+##  Teléfono: +56-942353973
+##  http://www.observatoriolaboralnuble.cl
+##
+##  Este programa se utiliza para dar un formato adecuado a los datos extraídos
+##  desde ODEPA para el análisis en las secciones posteriores de este documento.
+
 rm(list=ls())
 setwd("~/GoogleDrivePersonal/Master/Tesis/datos/semanales/palta")
 getwd()

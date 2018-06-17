@@ -1,0 +1,534 @@
+\chapter{Análisis del orden de integración de las series}
+
+\section{Imputación de valores perdidos}
+
+
+Dada la frecuencia relativamente alta de los datos, se tiene un número importante de observaciones faltantes. Para solucionar este problema se estima un modelo ARIMA(p,d,q) en su formulación de espacio estado a través del comando \texttt{auto.arima} del paquete \texttt{forecast} de Hyndman \& Khandakar (2007).Cabe destacar que el análisis aquí desarrollado utiliza el logaritmod e las series originales con el fin de estabilizar la varianza de éstas.
+
+
+
+
+A continuación se presentan los resultados de la estimación para ambos modelos: 
+
+
+
+En la tabla \ref{tab:Kalman} se pueden observar los resultados de la estimación para ambas series. 
+\begin{center}
+\begin{table}[!htbp]
+\caption{Modelos ARIMA para las series univariadas\label{tab:Kalman}}
+\centering
+\begin{threeparttable}
+\begin{tabular}{@{}lllll@{}}
+\toprule \\
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Serie mayoristas$^{a}$} &
+\multicolumn{2}{c}{Serie supermercados$^{a}$} \\
+\cmidrule(l){2-3} \cmidrule(l){4-5} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Coeficientes} &
+ \multicolumn{1}{c}{Error estándar} &
+\multicolumn{1}{l}{Coeficientes}&
+\multicolumn{1}{l}{Error estándar}
+\\
+\midrule
+$\mu       $ &        &          & 0.0015   &  0.0022 \\
+$\phi_{1}  $ & 0.1733 &  0.0448  &          &          \\
+$\theta_{1}$ &        &          &          &           \\
+AIC          & \multicolumn{2}{c}{-992.72}  & \multicolumn{2}{c}{-1519.81} \\
+BIC          & \multicolumn{2}{c}{-1519.81} & \multicolumn{2}{c}{-1511.41} \\
+\bottomrule 
+\end{tabular}
+\begin{tablenotes}
+\small 
+\item $^{a}$: modelo ARIMA(1,1,0) : $\Delta x_{t}=\phi_{1}x_{t-1}+\varepsilon_{t}$. 
+\item $^{b}$: modelo ARIMA(0,1,0) : $\Delta x_{t}=\mu+\varepsilon_{t}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\end{center}
+
+De aquí se desprende que ambas series son $I(1)$, aunque se ahondará en este asunto en la sección posterior. 
+
+Posteriormente, se procede a estimar los valores perdidos de ambas series a través del Filtro de Kalman utilizando el comando \texttt{KalmanRun} del paquete \texttt{base}. Los 
+
+
+\section{Análisis del orden de integración de las series}
+\subsection{Análisis gráfico}
+
+Para analizar el orden de integración de las series es de utilidad usar herramientas gráficas que entreguen cierta orientación sobre el comportamiento de las series antes de realizar un análisis formal a través de contrastes de hipótesis. 
+
+
+\subsubsection{Análisis de las series en nivel}
+
+En el caso del logaritmo de los precios mayoristas de la palta, puede apreciarse una media no constante, aunque lo mismo no es directamente apreciable  para la varianza. Por otro lado, su correlograma muestra autocorrelaciones significativas más allá de 52 períodos de rezago, lo que permite afirmar que el proceso posiblemente pueda contener raíces unitarias y que por tanto, no es estacionario (Véase figura \ref{fig5.1}).
+
+Para el caso de la serie del logaritmo del precio de la palta en supermercados, se puede observar un comportamiento bastante similar. Es decir, una media que no es constante debido a una tendencia, cuya naturaleza se determina más adelante; y una memoria prolongada al observar el correlograma correspondiente (Véase figura \ref{fig5.2}).  
+
+
+
+\subsubsection{Análisis de las series en diferencias}
+
+A continuación se procede a diferenciar las series, pues sobre la base de lo expuesto en la sección anterior, existe la sospecha de la presencia de raíces unitaria en ambas, cuestión que será determinada más adelante.
+
+Al analizar las figuras \ref{fig5.3} y \ref{fig5.4} se observan algunos rezagos significativos en el correlograma, lo que puede servir de orientación para determinar el orden de integración de las series. A pesar de lo anterior, se observa de todas maneras que el comportamiento de la varianza no es estable a lo largo del tiempo en ambos casos.  
+
+
+
+
+
+
+
+\subsection{Contrastes de raíz unitaria}
+
+\subsubsection{Análisis de las series en nivel}
+
+Para determinar de manera formal la presencia de raíces unitarias en las series analizadas se aplica una serie de contrastes comúnmente utilizados en la literatura. 
+
+
+
+En primer lugar, se utiliza el contraste de Dickey-Fuller aumentado bajo el supuesto de que el proceso subyacente tiene drift y tendencia y bajo el supuesto de que sólo tiene drift. 
+
+\begin{center}
+\begin{table}[!htpb]
+\caption{Contraste de Dickey-Fuller aumentado (con drift)\label{tab:dickey1}}
+\centering
+\begin{threeparttable}
+\begin{tabular}{@{}llllll@{}}
+\toprule \\
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estimaciones} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{2} $  & -2.5725 &  -1.6393  & -2.57 & -2.87 & -3.44 \\
+$\phi_{1} $  & 3.4095  &  1.6354   & 3.79 & 4.61 &  6.47\\
+\bottomrule \\
+\end{tabular}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\end{center}
+
+El cuadro \ref{tab:dickey1} muestra que la evidencia estadística provista por la realización de la serie es apenas suficiente para rechazar la hipótesis $\mathcal{H}_{0}: \rho = 1$ a un nivel de significancia de 10 \%. Por otro lado, la hipótesis $\mathcal{H}_{0}: (\alpha,\rho) = (0,1) $ no puede ser rechazada.
+
+Con respecto a la serie de precios de supermercados la evidencia va en la misma dirección. 
+
+De acuerdo a lo anterior, la serie no contendría una raíz unitaria. De todas formas, es necesario formular otras representaciones del proceso, como bien podría ser incluir una tendencia determinista (a continuación) o utilizar otros contrastes. 
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Dickey-Fuller aumentado (con tendencia)\label{tab:dickey2}}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estimaciones} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & -3.4073 &  -2.1143  &  -3.13 & -3.42  &  -3.98 \\
+$\phi_{2} $  & 3.9655  &  1.6848   &  4.05 &  4.71 &  6.15 \\
+$\phi_{3} $  & 5.8467  &  2.2351   &  5.36 &  6.30 &  8.34 \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+El cuadro \ref{tab:dickey2} muestra que para el caso de la serie de precios mayoristas, la hipótesis $\mathcal{H}_{0}: \rho=1$ se rechaza a un nivel de significancia de $10\%$. Mientras que la hipótesis $\mathcal{H}_{0}: (\alpha, \beta, \rho)=(0,0,1)$  no muestra evidencia estadística suficiente para ser rechaza a los niveles de significancia propuestos. Por último, la hipótesis $\mathcal{H}_{0}: (\alpha, \beta,\rho)=(\alpha,0,1)$ puede ser rechazada sólo a un 10\% de significancia. 
+
+Para el caso de la serie de precios de supermercado, la hipótesis $\mathcal{H}_{0}: \rho=1$ no puede ser rechazada a ninguno de los niveles de significancia propuestos. Mientras que el contraste tampoco provee información suficiente para rechazar $\mathcal{H}_{0}: (\alpha, \beta, \rho)=(0,0,1)$. Por último, la hipótesis $\mathcal{H}_{0}: (\alpha, \beta,\rho)=(\alpha,0,1)$ puede ser rechaza sólo a un 10\% de significancia. 
+
+El resultado de este contraste es más bien contradictorio, pues no permite concluir que ambas series contengan una raíz unitaria, bajo los diferentes escenarios que sus hipótesis configuran. Queda la posibilidad entonces de que las series tengan un comportamiento estacionario en tendencia, situación que será abordada con el contraste KPSS. 
+
+Los resultados del cuadro \ref{fig5.3}  muestran que para ambas series se rechaza la hipótesis de estacionariedad de la serie a nivel de significancia del 1\%. Razón por la cual se descarta la hipótesis de estacionariedad en tendencia. 
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste KPSS (con tendencia determinista) \label{fig5.3}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & 0.2405 &  0.3223 & 0.119 & 0.146 & 0.216 \\
+\bottomrule
+\end{tabular}
+\label{tab-6}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\item $^{b}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Por otro lado, los resultados del cuadro \ref{fig5.4} indican que la hipótesis de estacionariedad en niveles se rechaza fuertemente en ambos casos. 
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste KPSS (sin tendencia determinista) \label{fig5.4}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & 3.5537 &  3.8913 & 0.347 & 0.463 & 0.739 \\
+\bottomrule
+\end{tabular}
+\label{tab-7}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\item $^{b}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+El contraste de Phillips Perron indica que no se puede rechazar la hipótesis de raíz unitaria para ambas series. 
+
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{Mayorista} &
+\multicolumn{1}{l}{Supermercado} & 
+90\% & 95\% & 99\% 
+\\
+\cmidrule(l){2-2} \cmidrule(l){3-3} \cmidrule(l){4-6} \\
+$Z(t_{\hat{\alpha}})$ &-22.1367 & -11.958 & -3.13 & -3.42 & -3.98 \\ 
+$Z(t_{\hat{\mu}})$    &  1.5224 & 1.0702  &  4.04 & 4.71  & 6.15  \\ 
+$Z(t_{\hat{\beta}})$  &  2.2482 & 1.6792  &  5.63 & 6.30  & 8.34 \\
+\bottomrule
+\end{tabular}
+\label{tab-4}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+El cuadro \ref{tab:pperron1} muestra que el contraste rechaza la hipótesis de raíz unitaria, aunque no permite identificar con claridad la estructura de los términos deterministas. 
+
+
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \label{tab:pperron2}}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{Mayorista} & 
+\multicolumn{1}{l}{Supermercado} & 
+90\% & 95\% & 99\% \\ 
+\\
+\cmidrule(l){2-2} \cmidrule(l){3-3} \cmidrule(l){4-6} \\
+$Z(t_{\hat{\alpha}})$ & -13.3185 & -6.8276 &  -2.57 & -2.87 & -3.44 \\
+$Z(t_{\hat{\mu}})$ & 2.5034 & 1.8389 & 3.79 & 4.61 & 6.47 \\
+\bottomrule
+\end{tabular}
+\label{tab-5}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hipótesis de raíz unitaria, aunque por cierto, no se puede afirmar con exactitud el comportamiento de los términos deterministas. 
+
+
+Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer lugar un modelo con constante y tendencia deteminista. El cuadro \ref{fig5.5} muestra que para el caso de los mayoristas no se puede rechazar la hipótesis nula de raíz unitaria para ninguno de los niveles de significancia prescritos, mientras que para el caso de la serie supermercado dicha hipótesis se rechaza al menos al 5\%.  
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\label{fig5.5}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+  & 3.8715 &  10.0306 & 6.89 & 5.62 & 3.96 \\
+\bottomrule
+\end{tabular}
+\label{tab-8}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+El cuadro \ref{fig5.6}
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+  & 3.0049 &  12.0408 & 4.48 & 3.26 & 1.99 \\
+\bottomrule
+\end{tabular}
+\label{tab-9}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+
+\subsubsection{Análisis de las series en diferencias}
+
+Una vez establecida la presencia de raíces unitarias en las series, se procederá a aplicar los contrastes nuevamente para las series en diferencias
+
+
+\begin{center}
+\begin{table}[!htpb]
+\caption{Contraste de Dickey-Fuller aumentado (sin drift y tendencia)\label{tab:dickey1}}
+\centering
+\begin{threeparttable}
+\begin{tabular}{@{}llllll@{}}
+\toprule \\
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estimaciones} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  &  -14.0093 &  -14.3253  & -1.62 & -1.95 & -2.58 \\
+\bottomrule \\
+\end{tabular}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+\end{center}
+
+
+
+Por otro lado, los resultados del cuadro \ref{fig5.4} indican que la hipótesis de estacionariedad en niveles se rechaza fuertemente en ambos casos. 
+
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste KPSS (sin tendencia determinista) \label{tab5.4}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{$\mathcal{H}_0$} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+$\tau_{3} $  & 0.0236 &  0.0433 & 0.347 & 0.463 & 0.739 \\
+\bottomrule
+\end{tabular}
+\label{tab-7}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\item $^{b}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+El contraste KPSS muestra claramente como, ahora que la serie ha sido diferenciada, no se puede rechazar la hipótesis nula de estacionariedad. 
+
+El contraste de Phillips Perron indica que no se puede rechazar la hipótesis de raíz unitaria para ambas series. 
+
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista)\label{tab:pperron1}}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{Mayorista} &
+\multicolumn{1}{l}{Supermercado} & 
+90\% & 95\% & 99\% 
+\\
+\cmidrule(l){2-2} \cmidrule(l){3-3} \cmidrule(l){4-6} \\
+$Z(t_{\hat{\alpha}})$ &-411.6423 & -571.565 & -3.13 & -3.42 & -3.98 \\ 
+$Z(t_{\hat{\mu}})$    &  0.3197 & 0.7824  &  4.04 & 4.71  & 6.15  \\ 
+\bottomrule
+\end{tabular}
+\label{tab-4}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+El cuadro \ref{tab:pperron1} muestra que el contraste rechaza la hipótesis de raíz unitaria, y que como es de esperar, la serie no contiene término constante. 
+
+
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste Phillips \& Perron$^{a}$ (con tendencia determinista) \label{tab:pperron2}}
+\begin{tabular}{@{}llllll@{}}
+\toprule
+\multicolumn{1}{c}{} &
+\multicolumn{1}{l}{Mayorista} & 
+\multicolumn{1}{l}{Supermercado} & 
+90\% & 95\% & 99\% \\ 
+\\
+\cmidrule(l){2-2} \cmidrule(l){3-3} \cmidrule(l){4-6} \\
+$Z(t_{\hat{\alpha}})$ & -13.3185 & -6.8276 &  -2.57 & -2.87 & -3.44 \\
+$Z(t_{\hat{\mu}})$ & 2.5034 & 1.8389 & 3.79 & 4.61 & 6.47 \\
+\bottomrule
+\end{tabular}
+\label{tab-5}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con cinco rezagos de acuerdo a la siguiente regla $\root 4 \of {4 \times (n/100)}$. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Al observar el cuadro \ref{tab:pperron2} queda de manifiesto el rechazo de la hipótesis de raíz unitaria, aunque por cierto, no se puede afirmar con exactitud el comportamiento de los términos deterministas. 
+
+
+Hecho lo anterior, se procede a aplicar el contraste ERS, utilizando en primer lugar un modelo con constante y tendencia deteminista. El cuadro \ref{fig5.5} muestra que para el caso de los mayoristas no se puede rechazar la hipótesis nula de raíz unitaria para ninguno de los niveles de significancia prescritos, mientras que para el caso de la serie supermercado dicha hipótesis se rechaza al menos al 5\%.  
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con tendencia determinista)\label{fig5.5}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+  & 3.8715 &  10.0306 & 6.89 & 5.62 & 3.96 \\
+\bottomrule
+\end{tabular}
+\label{tab-8}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+El cuadro \ref{fig5.6}
+
+\begin{table}[!htpb]
+\centering
+\begin{threeparttable}
+\caption{Contraste de Elliot, Rothenberg \& Stock (con constante)\label{fig5.6}}
+\begin{tabular}{@{}lrllll@{}}
+\toprule
+\multicolumn{1}{l}{} & \multicolumn{2}{c}{Estadístico} &
+\multicolumn{3}{c}{Valores críticos} \\
+\cmidrule(l){2-3} \cmidrule(l){4-6} \\
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{Mayorista$^{a}$} &
+ \multicolumn{1}{c}{Supermercado$^{b}$} &
+\multicolumn{1}{l}{90\%}&
+\multicolumn{1}{l}{95\%}&
+\multicolumn{1}{l}{99\%}
+\\
+\midrule
+  & 3.0049 &  12.0408 & 4.48 & 3.26 & 1.99 \\
+\bottomrule
+\end{tabular}
+\label{tab-9}
+\begin{tablenotes}
+\small 
+\item $^{a}$: Con un rezago, de acuerdo a criterio BIC. 
+\item $^{b}$: Con un rezago, de acuerdo a criterio BIC. 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
+
+A partir del análisis recién expuesto, se puede concluir que ambas series al ser diferenciadas tienen un comportamiento estacionario. De forma tal que ambas series son I(1).
+
+De esta forma, se procederá a determinar si la tendencia estocástica es compartida a través de un análisis de cointegración. 
